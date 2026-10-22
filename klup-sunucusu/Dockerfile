@@ -27,7 +27,8 @@ ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=3100 \
     HOST=0.0.0.0 \
-    STORAGE_DIR=/app/storage
+    STORAGE_DIR=/app/storage \
+    ACADEMY_DIR=/app/content/academy
 COPY --from=build --chown=root:root /app/package.json ./package.json
 COPY --from=build --chown=root:root /app/node_modules ./node_modules
 COPY --from=build --chown=root:root /app/.next ./.next
@@ -35,6 +36,8 @@ COPY --from=build --chown=root:root /app/dist ./dist
 COPY --from=build --chown=root:root /app/prisma ./prisma
 COPY --from=build --chown=root:root /app/public ./public
 COPY --from=build --chown=root:root /app/next.config.ts ./next.config.ts
+# Akademi içeriği (Markdown + görseller): başlangıçta veritabanına aktarılır, salt okunur
+COPY --from=build --chown=root:root /app/content/academy ./content/academy
 COPY --chown=root:root docker/entrypoint.sh /usr/local/bin/club-entrypoint
 RUN chmod 0755 /usr/local/bin/club-entrypoint && chown -R node:node /app/.next/cache
 

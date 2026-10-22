@@ -62,7 +62,7 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
     return (
       <div className="auth-wrap">
         <div className="card auth-card"><div className="card-b stack" style={{ textAlign: "center", alignItems: "center" }}>
-          <Radio size={32} color="var(--lime)" aria-hidden />
+          <Radio size={32} color="var(--gold)" aria-hidden />
           <h1 className="page-title">Ders sona erdi</h1>
           <p className="muted">Katıldığın için teşekkürler! Katılımın kaydedildi.</p>
           <Link className="btn btn-primary" href="/dashboard">Ana sayfaya dön</Link>
@@ -101,10 +101,10 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
             <div className="stage skeleton" aria-busy="true" aria-label="Ders yükleniyor" />
           )}
           {state?.paused && following && (
-            <div className="stage-overlay"><div className="stack-sm" style={{ alignItems: "center" }}><Coffee size={34} color="var(--lime)" aria-hidden /><h2>Kısa bir ara</h2><p className="muted">Eğitmen dersi duraklattı. Ekran kendiliğinden devam edecek.</p></div></div>
+            <div className="stage-overlay"><div className="stack-sm" style={{ alignItems: "center" }}><Coffee size={34} color="var(--gold)" aria-hidden /><h2>Kısa bir ara</h2><p className="muted">Eğitmen dersi duraklattı. Ekran kendiliğinden devam edecek.</p></div></div>
           )}
           {live.status === "reconnecting" && (
-            <div className="stage-overlay" style={{ background: "rgba(10,12,9,.55)" }}><div className="stack-sm" style={{ alignItems: "center" }}><span className="spinner" aria-hidden /><span>Bağlantı koptu, yeniden bağlanılıyor…</span></div></div>
+            <div className="stage-overlay" style={{ background: "rgba(12,9,8,.6)" }}><div className="stack-sm" style={{ alignItems: "center" }}><span className="spinner" aria-hidden /><span>Bağlantı koptu, yeniden bağlanılıyor…</span></div></div>
           )}
         </div>
       </main>

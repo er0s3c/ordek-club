@@ -27,6 +27,7 @@ export const tr = {
     account: "Hesabım",
     live: "Canlı ders",
     teach: "Eğitmen paneli",
+    academy: "Akademi",
     admin: "Yönetim",
     dashboard: "Genel bakış",
     members: "Üyeler",

@@ -1,0 +1,444 @@
+# ============================================================================
+#  GÖLGE AĞ AİLESİ — modül kötü adamları (tek kaynak)
+#  Bu dosyadan üretilir: KARAKTERLER.md (karakter kitabı) ve GORSELLER.md'deki
+#  promptlara eklenen karakter tarifleri.  →  npm run academy:gorseller
+#
+#  Kurallar: karakterler özgündür; gerçek kişi, stüdyo, sanatçı veya ticari oyun
+#  karakteri referansı kullanılmaz. Her karakter bir modülün TEHDİDİNİ temsil eder;
+#  öğrenci dersleri bitirerek onu alt eder.
+# ============================================================================
+
+aile:
+  ad: Gölge Ağ Ailesi
+  ozet: >-
+    Kurgusal bir siber suç ailesi. Her üyesi bir saldırı türünün ustasıdır ve Akademi'nin bir modülünde
+    karşına çıkar. Modülü bitiren öğrenci o üyenin hilelerini çözmüş ve onu "dosyalayıp" etkisiz bırakmış olur.
+    Ailenin görünen başı Don Gölge'dir; ama ipleri, yüzünü kimsenin görmediği Baron Eren tutar.
+  grup_kurali:
+    - Don Gölge kompozisyonun tam merkezinde; tüm karakterler aynı yatay zemine basar.
+    - Don'un hemen arkasında, yarı gölgede Baron Eren durur; bir eli Don'un omzunda (asıl patron odur). Yanında Tek Tırnak Jasmine.
+    - Don'un sağında Fidyeci Ferhat (iri silüet koruyucu duvar), solunda Maskeli Mine.
+    - Kanatlarda boy sırasına göre diğerleri; kısa Dinleyici Nuri ve oturan Süper Kullanıcı Sadri kanatlara yerleşir.
+    - Herkesin üzerine aynı açıdan tek, yumuşak bir ışık kaynağı düşer; Baron'un yüzü ışığın kenarında kalır.
+  tarif: >-
+    the members of a fictional shadowy noir family posing together as a group lineup on one shared ground line:
+    the gray-haired family patriarch with a cigar in the center, and right behind him, half in shadow, a calm tall mastermind
+    in a black three-piece suit with a black hoodie under the jacket resting one hand on the boss's shoulder,
+    beside him an elegant woman in an emerald trouser suit with a jasmine flower in her ponytail holding a giant fountain pen,
+    a huge bald bodyguard with chains on one side,
+    an elegant woman in a burgundy trench coat holding masks on the other, flanked by a slick con artist with two glowing phones,
+    a portly lawyer with a briefcase, a gaunt locksmith with a giant keyring, a bald old boss seated on a throne of server racks,
+    a small wiry listener in a cable-lined trench coat with headphones, a burly baker in an apron over a pinstripe suit,
+    a tall puppeteer controlling tiny robots with glowing strings, and an old vault mechanic with a stethoscope
+
+karakterler:
+  - id: tevfik
+    ad: Tatlı Dil Tevfik
+    unvan: Dolandırıcı
+    modul: M01
+    tehdit: Sahte burs mesajları, sosyal mühendislik, phishing
+    ozet: Herkese tam beklediği anda tam istediği mesajı gönderen tatlı dilli dolandırıcı. "Bursun onaylandı!" onun imzasıdır.
+    fiziksel: 40'larında, ince ve uzun bacaklı, hafif öne eğik "satıcı" duruşu; 5 kafa boyu.
+    yuz: Yağlı yandan ayrılmış siyah saç, ince kalem bıyık, tek altın dişli geniş sahte gülümseme, yarı kısık hesapçı gözler.
+    poz: 3/4 cephe; iki kolu gövdeden açık, her elinde yeşil parlayan bir akıllı telefon uzatıyor — net silüet.
+    kiyafet: Bordo çizgili yelek, kolları sıvalı krem gömlek, gevşetilmiş hardal kravat; yelek cebinden taşan parlayan sahte mesaj kartları.
+    imza: Altın diş ve iki telefon.
+    palet: { yelek: "#6E1E1E", gomlek: "#E6DDD3", kravat: "#B8892E", ten: "#D89E7A", ten_golge: "#9E6347" }
+    tarif: >-
+      Tatli Dil Tevfik, a slick con artist in his 40s with oily side-parted black hair, a pencil mustache, a wide fake charming grin
+      showing one gold tooth and half-lidded scheming eyes, lean build with long legs and a slightly forward salesman posture,
+      wearing a burgundy pinstripe vest over a cream shirt with rolled-up sleeves and a loosened mustard tie, glowing fake message
+      cards sticking out of his vest pocket, both arms held away from his body each holding a smartphone glowing green
+
+  - id: kemal
+    ad: Avukat "Boşluk" Kemal
+    unvan: Çarpık Avukat
+    modul: M02
+    tehdit: İzinsiz "test", kapsam dışına çıkmak, "sadece baktım" bahaneleri
+    ozet: Her yasada bir boşluk bulduğuna inanan avukat. Müvekkillerine "izin mi? Sonra hallederiz" diye öğüt verir.
+    fiziksel: 50'lerinde, tombul gövde, kısa kalın bacaklar; 4.5 kafa boyu.
+    yuz: Yuvarlak tel gözlük, geriye taranmış seyrek saç, gıdı, kurnaz yan gülümseme, kalkık tek kaş.
+    poz: Bir elinde dev evrak çantası, diğer elinde yere kadar açılan uzun bir sözleşme rulosu, gövdeden açık tutuyor.
+    kiyafet: Üç parça kahverengi takım, köstekli cep saati, papyon; sözleşmenin altında parlayan minicik dipnot çizgileri.
+    imza: Yere kadar uzanan sözleşme rulosu.
+    palet: { takim: "#5A4A42", golge: "#3B302B", papyon: "#6E1E1E", gozluk: "#C9953B", ten: "#DDA585" }
+    tarif: >-
+      Avukat Bosluk Kemal, a crooked portly lawyer in his 50s with round wire-rimmed glasses, thinning slicked-back hair,
+      a double chin and one sly raised eyebrow with a cunning sideways smile, short stocky legs, wearing a three-piece brown suit
+      with a pocket-watch chain and a burgundy bow tie, one hand gripping an oversized leather briefcase and the other holding
+      a very long contract scroll unrolling to the floor, its tiny fine print glowing faintly (abstract lines only)
+
+  - id: riza
+    ad: Anahtarcı Rıza
+    unvan: Çilingir
+    modul: M03
+    tehdit: Yönetici yetkisi ele geçirme, başlangıca saklanma (kalıcılık), sahte dosya uzantıları
+    ozet: '"Bir kapı açılmadıysa, anahtarı yanlış seçmişsindir." Her sistemde ana anahtarın peşinde, bulunca da asla gitmeyen çilingir.'
+    fiziksel: 40'larında, çok uzun ve sırık gibi ince, omuzları düşük; 5.5 kafa boyu.
+    yuz: Kasket altında çökük yanaklar, üç günlük sakal, tek gözü kısık sinsi bakış, uzun kemikli burun.
+    poz: Hafif kamburlu yan dönük duruş; bir eliyle parlayan altın ana anahtarı havaya kaldırmış, diğeri kalçadaki dev anahtarlığı tutuyor.
+    kiyafet: Uzun gri trençkot, kasket, parmaksız eldivenler, belinde yüzlerce anahtarlı halka ve maymuncuk seti.
+    imza: Parlayan altın ana anahtar.
+    palet: { trenckot: "#4A4743", kasket: "#2B2623", anahtar: "#C9953B", eldiven: "#3B302B", ten: "#CFA083" }
+    tarif: >-
+      Anahtarci Riza, a gaunt very tall locksmith in his 40s with sunken cheeks, three-day stubble, a long bony nose
+      and one squinting sly eye under a flat cap, slightly hunched sideways stance, wearing a long gray trench coat and fingerless
+      gloves, an enormous ring with hundreds of keys and lockpicks hanging from his hip, one arm raised high away from his body
+      holding a single glowing golden master key
+
+  - id: sadri
+    ad: Süper Kullanıcı Sadri
+    unvan: Root Babası
+    modul: M04
+    tehdit: 'sudo yetkisini kötüye kullanmak, chmod 777, okunmadan çalıştırılan komutlar'
+    ozet: Sunucuların tahtında oturan yaşlı baba. Herkese "bu komutu bir çalıştır, gerisini dert etme" der.
+    fiziksel: 60'larında, iri ve ağır, tahtta oturuyor; ayakta 4.5 kafa boyu.
+    yuz: Kel kafa, gür beyaz pala bıyık, sağ gözünde yeşil parlayan monokl, ağır göz kapakları, buyurgan ifade.
+    poz: Sunucu kabinlerinden yapılmış tahtta yayılarak oturur; bir elinde yeşil terminal tableti uzatmış, diğer elinin parmakları yüzüklü.
+    kiyafet: Siyah balıkçı yaka üzerine bordo kadife smokin ceket, kalın altın yüzükler; tahtta yanıp sönen yeşil ışıklar.
+    imza: Yeşil parlayan monokl ve sunucu tahtı.
+    palet: { ceket: "#5A1C22", balikci: "#1B1A1A", monokl: "#5FD3A7", yuzuk: "#C9953B", ten: "#D29A79" }
+    tarif: >-
+      Super Kullanici Sadri, a heavyset bald old system boss in his 60s with a bushy white handlebar mustache, heavy eyelids,
+      a commanding expression and a glowing green monocle over his right eye, wearing a black turtleneck under a burgundy velvet
+      smoking jacket and thick gold rings, sprawled on a throne built from server racks with blinking green lights,
+      one arm extended away from his body holding out a glowing green terminal tablet
+
+  - id: nuri
+    ad: Dinleyici Nuri
+    unvan: Dinleyici
+    modul: M05
+    tehdit: Ortak Wi-Fi'de trafik dinleme, ARP/DNS sahteciliği, ortadaki adam
+    ozet: Kafe Wi-Fi'sinin en sessiz müşterisi. Kimse ona dikkat etmez; o ise herkesin paketini dinler.
+    fiziksel: 30'larında, çok kısa ve sırım gibi, gergin; 4.5 kafa boyu.
+    yuz: Kocaman yastıklı kulaklık, fal taşı gibi açık sinirli gözler, sivri burun, ince bıyık.
+    poz: Bacaklar açık, sinsi çömelmiş duruş; bir koluyla parabolik dinleme çanağını gövdeden uzağa tutuyor, diğer elini kulaklığa bastırmış.
+    kiyafet: Üstüne büyük gelen bej trençkot — içi kablolar, küçük telsizler ve antenlerle dolu; antenli fötr şapka.
+    imza: Kablo dolu trençkot astarı ve parabolik çanak.
+    palet: { trenckot: "#A08B6B", astar: "#2E3A36", kablo: "#5FD3A7", sapka: "#3B302B", ten: "#D9A07F" }
+    tarif: >-
+      Dinleyici Nuri, a very short wiry nervous listener in his 30s with huge padded headphones, wide twitchy eyes,
+      a pointed nose and a thin mustache, crouching with legs apart, wearing an oversized beige trench coat held open to reveal
+      a lining stuffed with tangled glowing green cables, tiny radios and antennas, a fedora with a small antenna,
+      one arm extended away from his body holding a parabolic listening dish, the other hand pressed to his headphones
+
+  - id: celal
+    ad: Çerezci Celal
+    unvan: Oturum Hırsızı
+    modul: M06
+    tehdit: Oturum çerezi çalma, yetki kontrolü eksik API'ler (IDOR), sahte alan adları
+    ozet: '"Fırıncı" lakaplı oturum hırsızı. Çaldığı her çerezle başkası olarak sisteme girer; tarifini kimseye vermez.'
+    fiziksel: 40'larında, iri göbekli, geniş omuzlu, neşeli ama tehlikeli; 5 kafa boyu.
+    yuz: Kalın siyah bıyık, kırmızı yanaklar, yamuk şef şapkası altında göz kırpan bakış, sırıtış.
+    poz: Bir elinde parlayan çerezlerle dolu tepsiyi gövdeden uzak tutuyor, diğer elinde merdane omzuna dayalı.
+    kiyafet: Koyu çizgili takımın üstüne beyaz fırıncı önlüğü, yamuk şef şapkası, unlu parmaklar; çerezlerin üstünde anahtar deseni.
+    imza: Parlayan anahtar desenli çerez tepsisi.
+    palet: { takim: "#2C2623", onluk: "#E6DDD3", cerez: "#C9953B", yanak: "#C0584A", ten: "#DBA07C" }
+    tarif: >-
+      Cerezci Celal, a burly big-bellied cheerful but sly baker in his 40s with a thick black mustache,
+      rosy cheeks and a winking grin under a tilted chef hat, wearing a white baker apron over a dark pinstripe suit,
+      flour-dusted fingers, one arm held away from his body balancing a tray of glowing cookies each stamped with a small
+      key pattern, the other hand resting a rolling pin on his shoulder like a club
+
+  - id: orhan
+    ad: Kuklacı Orhan
+    unvan: Bot Ustası
+    modul: M07
+    tehdit: Botnet'ler, kötü niyetli script'ler, koda gömülü anahtarlar, eval/komut enjeksiyonu
+    ozet: Binlerce küçük botu iplerle yöneten kuklacı. Kodunda açık bırakılan her satırı kendi ipine bağlar.
+    fiziksel: 50'lerinde, uzun ve ince, uzun parmaklı, teatral; 5.5 kafa boyu.
+    yuz: Geriye taranmış gümüş saç, sivri keçi sakalı, ince kaşlar, teatral sinsi gülümseme.
+    poz: Kollar iki yana açık, uzun parmaklarından yeşil parlayan kukla ipleri aşağıdaki küçük robot sürüsüne iniyor.
+    kiyafet: Siyah kapüşonlu üst üzerine uzun frak, kırmızı astar; manşetlerde küçük devre kartı düğmeler.
+    imza: Yeşil parlayan kukla ipleri ve robot sürüsü.
+    palet: { frak: "#1E1B1A", astar: "#8F1D24", ip: "#5FD3A7", sac: "#B9B4AE", ten: "#D6A182" }
+    tarif: >-
+      Kuklaci Orhan, a tall thin theatrical puppeteer in his 50s with slicked-back silver hair, a pointed goatee, thin eyebrows
+      and a sly showman grin, wearing a black hoodie under a long tailcoat with a red lining and circuit-board cufflinks,
+      both arms spread wide away from his body, glowing green marionette strings descending from his long fingers
+      to a swarm of tiny boxy robots below
+
+  - id: kadir
+    ad: Kasa Kıran Kadir
+    unvan: Kasa Hırsızı
+    modul: M08
+    tehdit: Parola kırma, zayıf hash'ler, tuzsuz parolalar, sızmış parola listeleri
+    ozet: Eski usul kasa hırsızı, yeni usul parola kırıcı. Gökkuşağı renkli defterinde milyonlarca hazır şifre özeti taşır.
+    fiziksel: 60'larında, kısa ve kompakt kaslı; 4.5 kafa boyu.
+    yuz: Siyah örgü bere, alnında saatçi büyüteci, kalın gri kaşlar, odaklanmış kısık gözler, kırçıl sakal.
+    poz: Dizleri kırık, öne eğilmiş; stetoskopu parlayan bir kasaya dayamış, diğer elinde gökkuşağı renkli defteri gövdeden ayrı tutuyor.
+    kiyafet: Çizgili hırsız kazağı, askılar, koyu kumaş pantolon; arka cebinde renkli defter.
+    imza: Stetoskop ve gökkuşağı defteri.
+    palet: { kazak: "#3B302B", cizgi: "#D8CBB8", bere: "#1B1A1A", defter: "#C9953B", ten: "#D0957A" }
+    tarif: >-
+      Kasa Kiran Kadir, a short compact muscular old vault mechanic in his 60s with a black knit beanie, a jeweler's loupe pushed up
+      on his forehead, thick gray eyebrows, focused squinting eyes and a grizzled beard, wearing a striped knit sweater
+      with suspenders, crouched forward with knees bent, carefully listening with a stethoscope to the dial of a glowing antique safe like a master watchmaker,
+      the other arm held away from his body holding a rainbow-colored notebook
+
+  - id: mine
+    ad: Maskeli Mine
+    unvan: Bilgi Tüccarı
+    modul: M09
+    tehdit: Kişisel bilgi toplama (doxxing), sahte profiller, sahte ilanlar
+    ozet: Herkesin hakkında bir dosyası olan bilgi tüccarı. Her ilan için yeni bir yüz, her hedef için yeni bir maske takar.
+    fiziksel: 30'larında, uzun boylu ve zarif, dik duruşlu; 5.5 kafa boyu. Cinselleştirilmemiş, soğuk ve kontrollü.
+    yuz: Keskin kesim koyu küt saç, çıkık elmacık kemikleri, buz gibi hesapçı bakış, ince ölçülü gülümseme.
+    poz: 3/4 cephe; bir elinde yelpaze gibi açılmış birkaç porselen maske (her biri farklı kurgusal yüz), diğer eli dürbünü tutuyor.
+    kiyafet: Yakası kalkık bordo trençkot, siyah deri eldivenler, boynunda dürbün; cebinden fotoğraf köşeleri taşıyor.
+    imza: Yelpaze gibi açılmış maskeler.
+    palet: { trenckot: "#4A252B", golge: "#2E161A", eldiven: "#1B1A1A", maske: "#E6DDD3", ten: "#DFAA8B" }
+    tarif: >-
+      Maskeli Mine, a tall elegant information broker woman in her 30s, non-sexualized and composed, with a sharp dark bob haircut,
+      high cheekbones, an ice-cold calculating gaze and a thin measured smile, wearing a burgundy trench coat with the collar
+      turned up and black leather gloves, binoculars around her neck, in a 3/4 pose holding a fan of several porcelain masks
+      with different fictional faces away from her body
+
+  - id: ferhat
+    ad: Fidyeci Ferhat
+    unvan: Fidye Patronu
+    modul: M10
+    tehdit: Fidye yazılımı, zararlı yazılım, saldırı zinciri (kill chain), DDoS
+    ozet: Ailenin kas gücü ve en korkulan tahsildarı. Dosyaları zincire vurur, anahtarı en yüksek fiyatı verene satar.
+    fiziksel: 40'larında, ailenin en iri adamı; devasa ters üçgen gövde, kalın boyun; 5 kafa boyu.
+    yuz: Kazınmış kafa, kaşının üstünden geçen yara izi, köşeli çene, çatık kaşlar, soğuk tehditkâr bakış.
+    poz: Bacaklar omuz genişliğinde, yıkılmaz duvar duruşu; bir elinde içinden zincirli dosya simgeleri taşan evrak çantası, diğer eli yumruk.
+    kiyafet: Koyu gömlek üstüne siyah deri palto, omuzlarına asılı asma kilitli ağır zincirler.
+    imza: Asma kilitli zincirler.
+    palet: { palto: "#1F1C1A", gomlek: "#33362F", zincir: "#8A8F94", kilit: "#C9953B", ten: "#D99B78", yara: "#9E4F42" }
+    tarif: >-
+      Fidyeci Ferhat, a massive broad-shouldered bodyguard in his 40s with a huge inverted-triangle torso,
+      a thick neck, a shaved head, a scar across one eyebrow, a square jaw and a cold intimidating scowl, wearing a black
+      leather coat over a dark shirt with heavy chains and padlocks draped over his shoulders, wide immovable stance,
+      one arm held away from his body gripping a briefcase spilling glowing chained file icons, the other hand clenched into a fist
+
+  - id: don
+    ad: Don Gölge
+    unvan: Ailenin Başı
+    modul: M11
+    tehdit: Final — tüm tekniklerin birleştiği mini CTF
+    ozet: Gölge Ağ Ailesi'nin başı. Çok az konuşur; tek kaşını kaldırması yeter. Mini CTF'te karşına çıkan son dosya.
+    fiziksel: 50'lerinin sonunda, dik ve uzun bacaklı, ince belli zarif ama ağırbaşlı silüet; 5.5 kafa boyu.
+    yuz: Şakakları gümüşlenmiş geriye taranmış koyu saç, ince bıyık, kemerli burun, yarı kısık sakin delici gözler, otoriter biçimde kalkık tek kaş.
+    poz: Hafif açılı cepheden, rahat ama güç yayan merkez duruşu; bir eli cebinde, diğer elinde dumanı tüten puro gövdeden ayrık.
+    kiyafet: Kruvaze koyu antrasit çizgili takım, beyaz gömlek, koyu bordo kravat, cep mendili, rugan ayakkabı; arkasında soluk yeşil kod yağmuru.
+    imza: Kalkık tek kaş ve puro.
+    palet: { takim: "#2C2623", golge: "#1B2220", kravat: "#6E1E1E", gomlek: "#E6DDD3", ten: "#D89E7A", ten_golge: "#9E6347" }
+    tarif: >-
+      Don Golge, the head of the family, an elegant family patriarch in his late 50s with slick dark hair graying at the temples,
+      a thin mustache, an aquiline nose, calm piercing half-closed eyes and one eyebrow raised authoritatively, tall upright
+      silhouette with long legs and a slim waist, wearing a double-breasted dark charcoal pinstripe suit, white shirt,
+      deep burgundy tie, pocket square and polished shoes, one hand in his pocket and the other held slightly away from his body
+      holding a smoking cigar, faint glowing green code drifting in the darkness behind him
+
+  # ── Modül dışı karakterler: ailenin tepesi ve Sezon 2'nin kapısı ──
+  - id: jasmine
+    ad: Tek Tırnak Jasmine
+    unvan: Veritabanı Kraliçesi
+    modul: Yol A
+    tehdit: SQL enjeksiyonu, veritabanı sızıntıları, girdiyi doğrulamayan formlar
+    ozet: Tek bir tırnak işaretiyle veritabanlarının bütün çekmecelerini açan kadın. Baron'un güvendiği tek kişi; yüzünü gören az, adını anan daha az.
+    fiziksel: 30'larının sonunda, uzun boylu, dimdik ve sakin; 5.5 kafa boyu.
+    yuz: Yüksek atkuyruğu toplanmış uzun dalgalı koyu saç, saçında beyaz bir yasemin çiçeği, yeşil çizgiler yansıtan kedi gözü gözlük, tehlikeli yarım gülümseme.
+    poz: 3/4 cephe; bir elinde gövdeden uzak tuttuğu dev antika dolma kalem, diğer eli kendiliğinden açılan kart katalog dolabının üstünde.
+    kiyafet: Zümrüt yeşili, iyi kesilmiş pantolonlu takım; yüksek yakalı krem bluz; kesme işareti biçiminde parlayan küçük yeşil küpe. Cinselleştirilmez.
+    imza: Yasemin çiçeği ve kalemin ucundan damlayan parlayan yeşil damla.
+    palet: { takim: "#1F5A45", bluz: "#E6DDD3", sac: "#1E1614", cicek: "#F3EEDF", isik: "#5FD3A7", ten: "#C98E6C" }
+    tarif: >-
+      Tek Tirnak Jasmine, the queen of databases, an elegant composed woman in her late 30s with long dark wavy hair tied in a
+      high ponytail fastened with a white jasmine flower, sharp cat-eye glasses reflecting faint green glowing lines, a calm
+      dangerous half-smile, tall upright posture, wearing a modest tailored emerald-green trouser suit with a high-collared cream
+      blouse and a small glowing green apostrophe-shaped earring, one arm held away from her body holding an oversized antique
+      fountain pen whose nib drips a single glowing green droplet, her other hand resting on a tall vintage wooden card-catalogue
+      cabinet whose many small drawers slide open by themselves
+
+  - id: eren
+    ad: Baron Eren
+    unvan: Ailenin En Büyüğü
+    modul: Baron
+    tehdit: Hepsi — gelmiş geçmiş en iyi hacker; Gölge Ağ'ın kurucusu ve görünmez beyni
+    ozet: Don Gölge dahil herkesin borçlu olduğu, yüzünü kimsenin görmediği adam. Yirmi yıl önce kapüşonlu bir gençti; bir gece doğru kapı yerine açık kapıyı seçti.
+    fiziksel: 40'larının başında, uzun ve ince, kusursuz dik duruş; 5.5 kafa boyu.
+    yuz: Geriye taranmış siyah saçta önden tek bir gümüş tutam, kısa düzgün siyah sakal, sakin keskin koyu gözler, her şeyi önceden bilmiş gibi hafif gülümseme.
+    poz: Hafif açılı cepheden, kıpırtısız; bir elinde gövdeden uzak tuttuğu açık altın cep saati, diğer eli arkada.
+    kiyafet: Siyah üç parça takım, koyu mürdüm ipek yelek; ceketin altında siyah kapüşonlu — kapüşon omuzlarında (geçmişinin imzası); küçük anahtar biçimli altın mühür yüzük.
+    imza: Takımın altındaki kapüşon ve kadranı yeşil terminal olan cep saati.
+    palet: { takim: "#141213", yelek: "#3B1E33", kapuson: "#232022", altin: "#C9953B", isik: "#5FD3A7", ten: "#D3A07F" }
+    tarif: >-
+      Baron Eren, the legendary mastermind and greatest hacker of all time, a tall lean man in his early 40s with slicked-back
+      black hair marked by a single silver streak at the front, a neatly trimmed short black beard, calm sharp dark eyes and a
+      faint knowing smile, perfectly still upright posture, wearing a black three-piece suit with a deep plum silk vest and a
+      black hoodie worn underneath the suit jacket with the hood resting on his shoulders, a small gold signet ring shaped like a key,
+      one arm held away from his body holding an open antique gold pocket watch whose face is a tiny glowing green terminal screen,
+      faint glowing green light particles drifting around him
+
+  - id: eren-genc
+    ad: Kapüşon (genç Eren)
+    unvan: Baron'un geçmişi
+    modul: Geçmiş
+    tehdit: Yirmi yıl önceki ilk büyük sızma — hikâyenin başladığı gece
+    ozet: Yirmi yıl önce bir üniversitenin bodrum laboratuvarında yaşayan dâhi bir genç. Kendine Kapüşon diyordu; Selim ve Jasmine en yakın iki arkadaşıydı.
+    fiziksel: 20 yaşında, zayıf ve ince uzun; omuzlar hafif çökük; 5 kafa boyu.
+    yuz: Başa geçirilmiş kapüşonun altından görünen tek gümüş saç tutamı, laptop ışığıyla yarı aydınlanmış yüz, keskin koyu gözler, meydan okuyan sırıtış.
+    poz: Bodrum zemininde bağdaş kurmuş, laptop dizlerinde; bir eli klavyede, diğeri gövdeden açık havada parmak şıklatıyor.
+    kiyafet: Bol kömür grisi kapüşonlu, eskimiş kot, parmaksız eldiven; boynunda zincire takılı küçük altın anahtar (ileride yüzüğü olacak).
+    imza: Kapüşon altından görünen gümüş tutam ve boynundaki altın anahtar.
+    palet: { kapuson: "#3A3836", kot: "#3D4A5A", eldiven: "#1E1C1B", anahtar: "#C9953B", isik: "#5FD3A7", ten: "#D3A07F" }
+    tarif: >-
+      young Eren twenty years ago, a slim 20-year-old prodigy hacker with the hood of an oversized charcoal hoodie pulled up,
+      a single silver streak of hair visible under the hood, his face half-lit by green laptop glow, sharp dark eyes and a defiant
+      grin, worn jeans, fingerless gloves and a small gold key hanging on a chain around his neck, sitting cross-legged on a
+      basement floor among tangled cables and empty cans with a battered laptop covered in stickers of simple abstract shapes,
+      one hand on the keyboard and the other raised away from his body snapping his fingers
+
+  - id: tarik
+    ad: Tünelci Tarık
+    unvan: Ağın Hayaleti
+    modul: Yol B
+    tehdit: Ağda yatay hareket, segmentasyon boşlukları, sahte erişim noktaları, tünelleme, zayıf sunucu yapılandırması
+    ozet: Dördüncü Kapüşonlu. Ağı o kurardı; o gece Eren'in açtığı kapının suçu ona kaldı ve on yıl yattı. Şimdi duvarların arasından geçen bir hayalet.
+    fiziksel: 40'larının ortasında, uzun, kuru ve sırım gibi; hafif kambur tünelci duruşu; 5 kafa boyu.
+    yuz: Yanları kazınmış kısa koyu saç, kirli sakal, çökük yanaklar, yorgun ama keskin gözler, nadiren gülümseyen ince dudaklar.
+    poz: Yarım çömelmiş, bir dizi yerde; bir elinde gövdeden uzak tuttuğu parlayan fiber optik kablo kangalı, diğer elinde kablo pensesi.
+    kiyafet: Soluk kapüşonlunun üstüne eskimiş koyu haki uzun parka, başında yeşil ışıklı madenci feneri, elinin üstünde küçük anahtar dövmesi (koğuş hatırası).
+    imza: Yeşil madenci feneri ve parlayan fiber kangalı.
+    palet: { parka: "#3E4231", kapuson: "#4A4744", fener: "#5FD3A7", kablo: "#8FF0C8", ten: "#C99A78", dovme: "#2F4A5A" }
+    tarif: >-
+      Tunelci Tarik, a lean wiry ghost of the network in his mid 40s with short dark hair shaved at the sides, stubble,
+      hollow cheeks and tired but sharp eyes, a slightly hunched tunneler's posture, wearing a worn long dark khaki parka over
+      a faded hoodie, a miner's headlamp glowing green on his forehead and a small key tattoo on the back of one hand,
+      half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable,
+      the other hand gripping a pair of cable pliers
+
+# ============================================================================
+#  HİKÂYE — "Gölge Ağ", Sezon 1 (M01–M11). Öğrenci, kod adı TİLKİ olan bir Kalkan analistidir.
+#  Kural: öğrenci asla saldırmaz; izinle savunur, delil toplar, yetkililere teslim eder.
+# ============================================================================
+hikaye:
+  ad: "Gölge Ağ — Sezon 1"
+  sayfa: 00-program/09-golge-ag.md
+  baglar:
+    eren: Gölge Ağ'ın kurucusu. Selim Hoca'nın yirmi yıl önceki en yakın arkadaşı. Don dahil herkes ona borçlu.
+    eren-genc: Kapüşonlular üçlüsünün lideri — Eren, Selim ve Jasmine.
+    jasmine: Kapüşonlular'ın üçüncüsü; o gece Eren'in yanında kaldı. Baron'un sağ eli, Kuklacı Orhan'ın ustası.
+    don: Liman'ın eski kaçakçılık ailesinin reisi. Ailesini dijitale Baron'un parasıyla taşıdı; kendini patron sanıyor.
+    ferhat: Don'un sağ kolu. Sadakati Baron'a değil, Don'a.
+    mine: Don'un kızı. Babasının tahtına göz dikmiş; Baron'u kimsenin görmemesini fırsat sayıyor.
+    tevfik: Don'un yeğeni. Ailenin en çok konuşan ağzı — ve ipin ilk ucu.
+    kemal: Ailenin avukatı; herkesin sırrını bilir. Gizlice Mine'ye çalışır.
+    riza: Kadir'le aynı koğuşta yatmış eski çilingir. Kapıları o açar.
+    kadir: Rıza'nın koğuş arkadaşı. Kasaları — artık parolaları — o açar.
+    sadri: Ailenin en yaşlısı. Yirmi yıl önce genç Eren'e ilk terminalini o açtı.
+    nuri: Celal'in kuzeni. Fırının Wi-Fi'ını dinleyen kulak.
+    celal: Kampüs yanındaki fırın-kafenin sahibi; ailenin buluşma noktası onun arka odası.
+    orhan: Jasmine'in çırağı. Bot ordusunu onun verdiği kodla kurdu.
+    tarik: Dördüncü Kapüşonlu. O gecenin suçu ona kaldı; Rıza ve Kadir'le aynı koğuşta yattı. Baron'a çalışıyor ama ona borçlu değil, kin besliyor.
+  bolumler:
+    tevfik:
+      baslik: Bursun Onaylandı
+      giris: >-
+        Kayıt haftası. Kampüste yüzlerce telefona aynı mesaj düşüyor: "Bursun onaylandı! 24 saat içinde onayla."
+        Selim Hoca mesajın imzasını tanıyor: Tatlı Dil Tevfik, Gölge Ağ'ın en çok konuşan ağzı. İlk görevin, yemini tanımak.
+      kapanis: >-
+        Tevfik'in tuzağı boşa çıktı, sahte site kapandı. Ama telefonundaki son arama bir avukat bürosuna gidiyor:
+        "Kemal Bey, bir çocuk izimize düştü."
+    kemal:
+      baslik: Yetki Belgesi
+      giris: >-
+        Avukat "Boşluk" Kemal'in planı basit: seni kışkırtıp izinsiz bir sisteme sokmak. Bir kez kuralı çiğnersen
+        topladığın bütün deliller çöpe gider, suçlu sen olursun. Bu bölümde silahın kod değil, izin.
+      kapanis: >-
+        Tuzağa düşmedin; dosyandaki her delil imzalı ve izinli. Kemal masasındaki eski fotoğrafı çeviriyor:
+        aynı koğuştan iki adam — bir çilingir ve bir kasa hırsızı.
+    riza:
+      baslik: Ana Anahtar
+      giris: >-
+        Kulübün laboratuvar bilgisayarları geceleri kendi kendine açılıyor. Biri yönetici yetkisini kapmış ve başlangıca
+        saklanmış. Anahtarcı Rıza'nın imzası: hiçbir şeyi kırmaz, hep birinin unuttuğu anahtarı kullanır.
+      kapanis: >-
+        Arka kapı kapandı; makineler güncel ve kilitli. Rıza'nın düşürdüğü anahtarlıkta bir etiket var:
+        "Sadri Usta'ya — sunucu odası."
+    sadri:
+      baslik: Kök
+      giris: >-
+        Şehrin eski veri merkezinde, kimsenin dokunmadığı bir sunucuda yaşlı bir adam oturuyor. Süper Kullanıcı Sadri
+        her şeyi sudo ile yapar, her dosyaya 777 verir. Söylenene göre yirmi yıl önce kapüşonlu bir gence ilk terminalini o açtı.
+      kapanis: >-
+        Sadri'nin tahtı devrildi. Loglarda unuttuğu tek satır kaldı: yirmi yıllık bir kullanıcı adı, "eren".
+        Selim Hoca o satırı görünce uzun süre konuşmuyor.
+    nuri:
+      baslik: Fırındaki Kulak
+      giris: >-
+        Kampüsün yanındaki fırın-kafede herkes bedava Wi-Fi'a bağlanıyor. Köşedeki kulaklıklı küçük adamı kimse fark etmiyor.
+        Dinleyici Nuri trafiği dinliyor, adresleri taklit ediyor, araya giriyor.
+      kapanis: >-
+        Nuri'nin cihazı söküldü; trafik artık şifreli. Ama dinlediği son paket fırının kendi sunucusuna gidiyordu.
+        Fırının sahibi kuzeni: Çerezci Celal.
+    celal:
+      baslik: Taze Çerezler
+      giris: >-
+        Celal'in fırınından çıkan şey kurabiye değil, oturum. Bir çerez ve başkasının hesabıyla içeridesin.
+        Celal'in arkasında ise kimsenin görmediği biri var: veritabanlarına fısıldayan bir kadın.
+      kapanis: >-
+        Çerez tezgâhı kapandı; oturumlar güvende. Fırının arka odasında bir kablo yığını duruyor —
+        iplerin hepsi tek bir kuklacıya uzanıyor.
+    orhan:
+      baslik: İpler
+      giris: >-
+        Kampüs ağında binlerce küçük cihaz aynı anda aynı kapıyı yokluyor: Kuklacı Orhan'ın botları.
+        Orhan kodu ustasından öğrendi; adı hiç anılmayan, tek bir tırnakla kapı açan birinden.
+      kapanis: >-
+        Loglardan bot ordusunu buldun; ipler kesildi. Orhan'ın sunucusunda çalınmış parola özetleri duruyor.
+        Onları kırmaya çalışan adamın adı loglarda: Kasa Kıran Kadir.
+    kadir:
+      baslik: Kasa
+      giris: >-
+        Kasa Kıran Kadir otuz yıl çelik kasa açtı; şimdi parola açıyor. Elinde milyonlarca sızmış parola ve sonsuz sabır var.
+        Ama tuzlu bir özetin karşısında en usta eller bile titrer.
+      kapanis: >-
+        Kadir'in açamadığı tek kasa güçlü, tuzlu parolalardı. Teslim olmadan önce tek bir isim veriyor:
+        "Ben sadece açarım. Kime açtığımı Mine Hanım bilir."
+    mine:
+      baslik: Maskeler
+      giris: >-
+        Don'un kızı Mine babasının tahtına göz dikmiş. Herkes hakkında her şeyi bilir, çünkü herkes her şeyi paylaşır.
+        Elinde yüz maske var: sahte şirketler, sahte ilanlar, sahte profiller.
+      kapanis: >-
+        Sahte şirket açık kaynak bilgileriyle çöktü. Mine kaçarken bir dosya düşürüyor:
+        babasının sağ kolu Ferhat'ın şehre kurduğu fidye ağının haritası.
+    ferhat:
+      baslik: Fidye
+      giris: >-
+        Şehrin hastanesi sabaha karşı kilitlendi; bütün ekranlarda tek bir asma kilit. Fidyeci Ferhat'ın zinciri yedi halkalı:
+        keşiften sızmaya, sızmadan şifrelemeye. Senin işin tek bir halkayı kırmak.
+      kapanis: >-
+        Zincir üçüncü halkada kırıldı; yedekler kurtarıldı. Ferhat sorguda tek cümle kuruyor:
+        "Don'u yakalarsınız. Ama Baron'u asla."
+    don:
+      baslik: Son Masa
+      giris: >-
+        Ailenin bütün dosyaları masanda. Don Gölge son bir oyun hazırladı: sekiz kilitli kapı, her birinde bir üyesinin hilesi.
+        Öğrendiğin her şey tek gecede sınanacak.
+      kapanis: >-
+        Don Gölge'nin dosyası kapandı. Tam o anda ekranında bir mesaj beliriyor, imza tek harf:
+        "İyi oyundu Tilki. Selim'e selamımı söyle. — B." Selim Hoca çekmecesinden yirmi yıllık bir fotoğraf çıkarıyor:
+        üç kapüşonlu genç. "Eren..." diyor. Sezon 2 uzmanlık yollarında başlıyor.
+    # ── Sezon 2: her uzmanlık yolu bir bölüm ──
+    jasmine:
+      baslik: Çekmeceler
+      giris: >-
+        Don'un dosyası kapandı ama Kampüs Portalı'nda gece yarısı tuhaf sorgular dönüyor. Notlar, burslar, kimlik fotoğrafları:
+        hepsi bir veritabanının çekmecelerinde. Selim Hoca imzalı bir test izniyle seni portalın laboratuvar kopyasına gönderiyor:
+        Jasmine'den önce her çekmeceyi bul ve kilitle.
+      kapanis: >-
+        Son çekmece kilitlendi; raporun okulun güvenlik ekibinin masasında. Laboratuvarın kapı kolunda bir yasemin çiçeği ve
+        katlanmış bir not var: "Kapüşonlular hep üç kişi miydi sanıyorsun, Tilki? Selim'e dördüncüyü sor."
+    tarik:
+      baslik: Tüneller
+      giris: >-
+        Selim Hoca sonunda anlatıyor: "Dördüncü Kapüşonlu Tarık'tı. Ağı o kurardı. O gece Eren'in açtığı kapının suçu ona kaldı;
+        on yıl yattı." Şimdi kampüs ağında bir hayalet dolaşıyor: bölgeler arasında tünel kazıyor, güvenlik duvarının arkasında
+        beliriyor. Kampüs ağının laboratuvar kopyası senin; Tarık'tan önce her tüneli bul ve kapat.
+      kapanis: >-
+        Son tünel kapandı; ağ bölgelerine ayrıldı, sunucular sertleştirildi. Sunucu dolabının içinde fenerinin yeşil ışığıyla
+        yazılmış bir not buluyorsun: "Eren beni o gece yaktı. Ona çalışıyorum, ama onun adamı değilim. Bir gün aynı tarafta olacağız, Tilki."

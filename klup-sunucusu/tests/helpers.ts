@@ -10,7 +10,7 @@ export const ORIGIN = "http://club.test";
 export async function resetDb() {
   if (!process.env.DATABASE_URL?.includes("_test")) throw new Error("resetDb yalnızca _test veritabanında çalışır");
   await db.$executeRawUnsafe(
-    `TRUNCATE "LiveSessionEvent", "SessionParticipant", "LiveSession", "Slide", "PresentationVersion", "Presentation", "AuditLog", "Session", "User", "Invitation", "ClubSettings" RESTART IDENTITY CASCADE`,
+    `TRUNCATE "QuizAttempt", "LessonProgress", "Lesson", "Track", "LiveSessionEvent", "SessionParticipant", "LiveSession", "Slide", "PresentationVersion", "Presentation", "AuditLog", "Session", "User", "Invitation", "ClubSettings" RESTART IDENTITY CASCADE`,
   );
   invalidateSettings();
   resetAll();

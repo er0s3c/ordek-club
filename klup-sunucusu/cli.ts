@@ -2,6 +2,7 @@
 import "./src/server/load-env";
 import { db } from "@/server/db";
 import { rotateSetupToken } from "@/server/setup";
+import { importAcademy } from "@/server/academy/importer";
 
 const commands: Record<string, { help: string; run: (args: string[]) => Promise<void> }> = {
   "setup-token": {
@@ -16,6 +17,19 @@ const commands: Record<string, { help: string; run: (args: string[]) => Promise<
     async run() {
       const r = await db.session.deleteMany({});
       console.log(`${r.count} oturum sonlandırıldı.`);
+    },
+  },
+  "academy-import": {
+    help: "content/academy içeriğini (dersler, quizler, kötü adamlar) veritabanına aktarır. İlerleme korunur.",
+    async run(args) {
+      const s = await importAcademy(args[0] ? { dir: args[0] } : {});
+      if (!s.applied) {
+        console.error(`İçe aktarma YAPILMADI — ${s.problems.length} sorun:`);
+        for (const p of s.problems) console.error(`  - ${p}`);
+        process.exitCode = 1;
+        return;
+      }
+      console.log(`${s.tracks} yol · ${s.lessons} ders → ${s.created} yeni, ${s.updated} güncellenen, ${s.unchanged} aynı, ${s.archived} arşivlenen.`);
     },
   },
   status: {

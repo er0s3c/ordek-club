@@ -35,7 +35,7 @@ export default async function AdminHome() {
         <div className="card stat"><div className="label">Açık oturum</div><div className="value">{stats.openSessions}</div><div className="hint">devre dışı üye: {stats.members.disabled}</div></div>
         <Link href="/admin/system" className="card stat" style={{ color: "inherit", textDecoration: "none" }}>
           <div className="label">Sistem</div>
-          <div className="value" style={{ fontSize: 20, marginTop: 10, color: db.ok ? "var(--lime)" : "var(--red)" }}>{db.ok ? "● Sağlıklı" : "● Sorunlu"}</div>
+          <div className="value" style={{ fontSize: 20, marginTop: 10, color: db.ok ? "var(--term)" : "var(--red)" }}>{db.ok ? "● Sağlıklı" : "● Sorunlu"}</div>
           <div className="hint">veritabanı {db.latencyMs} ms</div>
         </Link>
       </div>

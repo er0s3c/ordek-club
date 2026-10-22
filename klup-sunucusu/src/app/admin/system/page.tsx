@@ -7,7 +7,7 @@ import { formatBytes, formatDateTime } from "@/components/ui/format";
 
 export const metadata: Metadata = { title: "Sistem durumu" };
 
-const Dot = ({ ok }: { ok: boolean }) => <span style={{ color: ok ? "var(--lime)" : "var(--red)" }}>●</span>;
+const Dot = ({ ok }: { ok: boolean }) => <span style={{ color: ok ? "var(--term)" : "var(--red)" }}>●</span>;
 
 export default async function SystemPage() {
   await requirePageSession(ADMIN_ROLES);

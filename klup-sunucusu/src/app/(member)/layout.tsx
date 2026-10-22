@@ -13,6 +13,7 @@ export default async function MemberLayout({ children }: { children: React.React
     {
       items: [
         { href: "/dashboard", label: m.nav.home, icon: "Home" },
+        { href: "/academy", label: m.nav.academy, icon: "GraduationCap" },
         { href: "/live", label: m.nav.live, icon: "Radio" },
         ...(isStaff(user.role) ? [{ href: "/teach", label: m.nav.teach, icon: "Presentation" as const }] : []),
         { href: "/account", label: m.nav.account, icon: "UserRound" },

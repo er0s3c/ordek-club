@@ -1,0 +1,66 @@
+---
+id: m03-05
+tur: ders
+baslik: Sanal makine, yedek ve disk şifreleme
+sure: 7
+hedefler:
+  - Güvenli deney ortamı olarak sanal makineyi tanımak
+  - 3-2-1 yedekleme kuralını uygulamak
+  - Disk şifrelemenin neyi koruduğunu açıklamak
+gorseller:
+  - id: m03-05-a
+    tur: ai
+    karakter: riza
+    alt: "Anahtarcı Rıza bir kar küresi gibi cam fanusun içinde mahsur kalmış, camı yumrukluyor"
+    prompt: "A laptop on a desk with three small glass snow-globe domes floating above its screen, each containing a tiny separate computer. Inside one dome, a miniature version of the villain is trapped, pounding on the glass and shouting, while the glass contains him completely."
+  - id: m03-05-b
+    tur: ekran
+    alt: VirtualBox'ta bir sanal makinenin anlık görüntü (snapshot) listesi
+    nasil: "VirtualBox'ta bir laboratuvar sanal makinesi seçin → sağ üstteki menüden 'Snapshots' (Anlık Görüntüler) görünümü. En az iki snapshot olsun (ör. 'temiz-kurulum' ve 'ders-oncesi'). 'Take' (Al) ve 'Restore' (Geri yükle) düğmelerini kehribar (#C9953B) çerçeveyle işaretleyin. VM adında kişisel bilgi olmasın."
+---
+
+# Sanal makine, yedek ve disk şifreleme
+
+> Bir şeyleri bozarak öğreneceksin. Bunu **kendi bilgisayarını bozmadan** yapmanın yolu: sanal makine.
+
+![Anahtarcı Rıza bir kar küresi gibi cam fanusun içinde mahsur kalmış, camı yumrukluyor](../../gorseller/m03-05-a.webp)
+
+## Sanal makine (VM)
+
+Bilgisayarının içinde çalışan, ondan **yalıtılmış** ikinci bir bilgisayar. VirtualBox veya VMware ile kurulur.
+
+En güzel özelliği **anlık görüntü** (snapshot): VM'in o anki hâlini kaydedersin,
+ne olursa olsun tek tıkla geri dönersin.
+
+![VirtualBox anlık görüntüleri](../../gorseller/m03-05-b.webp)
+
+Laboratuvarda zararlı yazılım, açıklı uygulama veya riskli komut **hep VM'de** denenir.
+
+## Yedekleme: 3-2-1 kuralı
+
+- **3** kopya (asıl + 2 yedek)
+- **2** farklı ortamda (ör. harici disk + bulut)
+- **1** tanesi başka bir yerde, bilgisayara bağlı değil
+
+Fidye yazılımı (ransomware) bağlı diskleri de şifreleyebilir; o yüzden "bağlı değil" kısmı önemlidir.
+Yedeği bir kez **geri yüklemeyi denemediysen**, yedeğin olduğundan emin değilsin.
+
+## Disk şifreleme
+
+Laptopun çalınırsa hırsız diski söküp başka bilgisayara takabilir. Disk şifreliyse dosyalar okunamaz.
+
+- Windows: **BitLocker** veya **Cihaz şifreleme**
+- macOS: **FileVault** · Linux: kurulumda **LUKS**
+
+⚠️ Kurtarma anahtarını güvenli bir yere kaydet; kaybedersen dosyalarını sen de açamazsın.
+
+## 🧪 Dene (3 dk)
+
+Ayarlar → Gizlilik ve güvenlik → **Cihaz şifreleme** (veya BitLocker) açık mı?
+En son ne zaman yedek aldın? Cevabı bir cümleyle yaz.
+
+## ✅ Akılda kalsın
+
+- Riskli her şey VM'de, snapshot alınarak denenir.
+- 3-2-1: üç kopya, iki ortam, biri bağlantısız.
+- Disk şifreleme çalınan cihazdaki veriyi korur; kurtarma anahtarını sakla.

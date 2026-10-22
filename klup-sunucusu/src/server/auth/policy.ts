@@ -77,3 +77,8 @@ export const canViewPresentation = (a: Actor, p: PresentationRef) =>
 // Canlı oturumu yönetme: oturumu başlatan eğitmen ya da OWNER/ADMIN.
 export const canHostSession = (a: Actor, s: { hostId: string | null }) =>
   a.status === "ACTIVE" && (isAdmin(a.role) || (isStaff(a.role) && s.hostId === a.id));
+
+// ── Faz 3: akademi ───────────────────────────────────────────────────────────
+// Dersleri her aktif üye okur; içerik içe aktarma ve akademi istatistikleri yalnız OWNER/ADMIN.
+export const canUseAcademy = (a: Actor) => a.status === "ACTIVE";
+export const canManageAcademy = (a: Actor) => canAccessAdmin(a);

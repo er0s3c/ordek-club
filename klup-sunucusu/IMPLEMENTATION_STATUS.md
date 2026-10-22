@@ -1,10 +1,10 @@
 # Ördek Club — Uygulama Durumu
 
-> Son güncelleme: 2026-10-22 · Branch: `feature/club-realtime` (Faz 1 + 2) · Sorumlu: Opus 5.5
+> Son güncelleme: 2026-10-22 · Branch: `feature/academy-content` (Faz 3) · Sorumlu: Opus 5.5
 
 ## Özet
 
-**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı.** Faz 3–6 başlamadı (aşağıda açıkça listelendi).
+**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. Faz 4–6 başlamadı.
 
 ## ✅ Çalışan özellikler (Faz 1)
 
@@ -57,6 +57,38 @@ soru/el/duyuru için ayrı hız sınırları · kullanıcı başına en fazla 3 
 yeniden doğrulama (çıkış/devre dışı/rol değişimi soketi kapatır) · **eğitmen notları öğrenciye hiçbir yoldan gönderilmez**
 (API, RSC yükü, projeksiyon) · katılımcı adları yalnız eğitmene, öğrencilere yalnız sayı · başkasının taslak sunumu 404 ·
 sunum içeriği yalnız düz metin + kayıtlı animasyon kimliği (çalıştırılabilir içerik yok) · CSP connect-src yalnız aynı host.
+
+## 📚 Akademi içeriği (Faz 3 hazırlığı) — branch: feature/academy-content
+
+| İçerik | Durum |
+|---|---|
+| İçerik rehberi, yazım ve görsel stili ([content/academy/README.md](content/academy/README.md)) | ✅ |
+| Akademi hakkında: 8 sayfa | ✅ |
+| Kısım I — M01–M11: 55 ders, 12 uygulama, 10 quiz | ✅ |
+| Kısım II — 7 uzmanlık yolunun tanıtım sayfası | ✅ |
+| Kısım II — 84 uzmanlık dersinin tam sayfaları | ⏳ |
+| Sentetik laboratuvar dosyası (`content/academy/lab/auth.log`) | ✅ |
+| Noir mafya + hacker tasarımı (Club arayüzü, canlı ders slaytları, AI görsel stili) | ✅ |
+| Gölge Ağ Ailesi: 11 modül kötü adamı + Baron Eren (genç hâli dahil) + Tek Tırnak Jasmine ([karakterler.yaml](content/academy/karakterler.yaml) → [KARAKTERLER.md](content/academy/KARAKTERLER.md)) | ✅ |
+| Hikâye "Gölge Ağ — Sezon 1": [hikâye sayfası](content/academy/00-program/09-golge-ag.md), her modülde bölüm girişi + DOSYA KAPANDI kutusu | ✅ |
+| Yol A (Web güvenliği): 12 ders + Sezon 2 "Çekmeceler" (Tek Tırnak Jasmine), sentetik `lab/access.log` | ✅ |
+| Yol B (Ağ ve sistem güvenliği): 12 ders + Sezon 2 "Tüneller" (Tünelci Tarık, dördüncü Kapüşonlu) | ✅ |
+| Görseller: 153 adet (16 karakter portresi, 122 Midjourney sahnesi — her bölümde bir tane, 15 ekran görüntüsü) — [GORSELLER.md](content/academy/GORSELLER.md) | ⏳ kullanıcıdan bekleniyor |
+| İçerik doğrulayıcı `npm run academy:check` / liste üretici `npm run academy:gorseller` | ✅ |
+| Platformda gösterim (Markdown içe aktarıcı, ders/quiz sayfaları) | ✅ Faz 3 (aşağıda) |
+
+## ✅ Faz 3 — Club Academy
+
+| Özellik | Kanıt |
+|---|---|
+| Veri modeli: Track, Lesson, LessonProgress, QuizAttempt (migration `phase3_academy`) | `prisma migrate dev` + test DB |
+| İçe aktarıcı: `content/academy` → DB; tek transaction, hatalı içerik hiç uygulanmaz, kaldırılan ders arşivlenir (ilerleme korunur) | `npm run cli academy-import`, admin düğmesi, konteyner açılışında otomatik; 3 entegrasyon testi |
+| Yol yapısı tek dosyada: [content/academy/akademi.yaml](content/academy/akademi.yaml) | 19 yol · 118 ders içe aktarıldı |
+| Güvenli Markdown çizici: ham HTML basılmaz (yalnız `<details>`), yalnız izinli bağlantılar, `::animasyon[id]` canlı ders animasyonlarıyla oynatılır | Tarayıcıda M01 dersleri |
+| Quiz: sorular istemciye cevapsız gider, puanlama sunucuda, deneme kaydı, geçince ders tamamlanır, hız sınırı | Birim + entegrasyon testleri |
+| Hikâye: 🕴️ DOSYA kutusu portreyle; 🔒 DOSYA KAPANDI ve sıradaki ipucu bölüm tamamlanınca açılır | Tarayıcıda M01 quiz geçilerek |
+| Sayfalar: /academy (kaldığın yer + sezonlar), /academy/[yol], /academy/lesson/[ders], panelde akademi kartı, /admin/academy (içe aktarma + katılım) | Masaüstü + 375 px mobilde taşma yok |
+| Ders görselleri yalnız üyelere, katı ad kalıbıyla (`/api/academy/images/<ad>`); olmayan görsele yer tutucu | Yol geçişi testleri |
 
 ## 🧪 Çalıştırılan testler (2026-10-22)
 
@@ -118,5 +150,7 @@ süresi dolmuş/boşta oturum, kaba kuvvet 429, `role: "OWNER"` enjeksiyonu, SVG
 
 ## Sonraki adımlar
 
-1. Faz 1 + 2 değişikliklerini incele ve commit'le (şu an hiçbiri commit'lenmedi).
-2. Faz 3: Club Academy — öğrenme yolları, dersler (sunum oynatıcısı bireysel modda yeniden kullanılır), quizler, öğrenci dashboard.
+1. Noir tasarım + akademi içeriği + Faz 3 değişikliklerini incele ve commit'le (`feature/academy-content`, henüz commit'lenmedi; ham `images/` klasörü commit dışında kalmalı).
+2. Görseller (Midjourney sahneleri, ekran görüntüleri) geldikçe `content/academy/gorseller/` altına WebP olarak eklenecek.
+3. Kalan uzmanlık yolları (C–G) ve yol sonu quizleri.
+4. Faz 4: XP, seviyeler, rozetler, liderlik tablosu (akademi ilerlemesi XP kaynağı olacak).

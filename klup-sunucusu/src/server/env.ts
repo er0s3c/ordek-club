@@ -8,9 +8,11 @@ const schema = z.object({
   APP_SECRET: z.string().min(32, "APP_SECRET en az 32 karakter olmalı"),
   STORAGE_DIR: z.string().default("./storage"),
   TRUST_PROXY: z.enum(["0", "1"]).default("0"),
+  // Akademi içeriğinin (Markdown) kaynağı; imajda /app/content/academy
+  ACADEMY_DIR: z.string().default("./content/academy"),
 });
 
-export type Env = z.infer<typeof schema> & { storageDir: string; secureCookies: boolean; trustProxy: boolean };
+export type Env = z.infer<typeof schema> & { storageDir: string; academyDir: string; secureCookies: boolean; trustProxy: boolean };
 
 let cached: Env | null = null;
 
@@ -29,6 +31,7 @@ export function env(): Env {
   cached = {
     ...e,
     storageDir: path.resolve(e.STORAGE_DIR),
+    academyDir: path.resolve(e.ACADEMY_DIR),
     secureCookies: e.APP_URL.startsWith("https://"),
     trustProxy: e.TRUST_PROXY === "1",
   };

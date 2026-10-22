@@ -72,6 +72,8 @@ model User {
   hostedSessions     LiveSession[]         @relation("LiveHost")
   participations     SessionParticipant[]
   liveEvents         LiveSessionEvent[]    @relation("LiveEventAuthor")
+  lessonProgress     LessonProgress[]
+  quizAttempts       QuizAttempt[]
 
   @@index([status, role])
   @@index([createdAt])
@@ -276,4 +278,102 @@ model LiveSessionEvent {
   createdAt  DateTime      @default(now())
 
   @@index([sessionId, type, createdAt])
+}
+
+// ============================================================================
+//  Faz 3 — Club Academy
+//  İçeriğin kaynağı content/academy/ (Markdown). İçe aktarıcı bu tabloları doldurur;
+//  ilerleme ve quiz denemeleri öğrenciye aittir ve içerik yeniden aktarılınca korunur.
+// ============================================================================
+
+enum TrackKind {
+  PROGRAM // akademi hakkında
+  CORE // Kısım I — temel modüller (Sezon 1)
+  SPECIALIZATION // Kısım II — uzmanlık yolları (Sezon 2)
+}
+
+enum LessonKind {
+  INFO
+  LESSON
+  PRACTICE
+  QUIZ
+}
+
+model Track {
+  id         String    @id @default(cuid())
+  key        String    @unique // akademi.yaml → anahtar (ör. "m01", "yol-a")
+  code       String // görünen kısa kod (ör. "M01", "Yol A")
+  kind       TrackKind
+  title      String
+  summary    String    @default("")
+  position   Int
+  // Kötü adam ve bölüm bilgisi (karakterler.yaml'dan): { id, ad, unvan, tehdit, ozet, bolum, giris }
+  villain    Json?
+  archivedAt DateTime? // içerikten kaldırılan yol (ilerleme korunur)
+  updatedAt  DateTime  @updatedAt
+  lessons    Lesson[]
+
+  @@index([kind, position])
+}
+
+model Lesson {
+  id          String           @id @default(cuid())
+  slug        String           @unique // sayfa kimliği (ör. "m01-04") — içerik boyunca sabit
+  trackId     String
+  track       Track            @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  position    Int
+  kind        LessonKind
+  title       String
+  minutes     Int              @default(5)
+  goals       String[]
+  // Markdown gövdesi: iç bağlantılar /academy/..., görseller /api/academy/images/... olarak yeniden yazılmış hâli
+  body        String
+  // Quiz soruları DOĞRU CEVAPLARLA birlikte burada durur; istemciye asla olduğu gibi gönderilmez.
+  quiz        Json?
+  passPercent Int?
+  sourcePath  String // content/academy içindeki göreli yol
+  contentHash String
+  archivedAt  DateTime?
+  updatedAt   DateTime         @updatedAt
+  progress    LessonProgress[]
+  attempts    QuizAttempt[]
+
+  @@index([trackId, position])
+  @@index([trackId, archivedAt])
+}
+
+enum ProgressStatus {
+  STARTED
+  COMPLETED
+}
+
+model LessonProgress {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  lesson      Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  status      ProgressStatus @default(STARTED)
+  startedAt   DateTime       @default(now())
+  lastViewAt  DateTime       @default(now())
+  completedAt DateTime?
+
+  @@unique([userId, lessonId])
+  @@index([lessonId, status])
+}
+
+model QuizAttempt {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  answers   Json // öğrencinin seçimleri (soru sırasıyla)
+  correct   Int
+  total     Int
+  score     Int // yüzde
+  passed    Boolean
+  createdAt DateTime @default(now())
+
+  @@index([userId, lessonId, createdAt])
 }
