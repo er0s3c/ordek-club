@@ -1,0 +1,89 @@
+// Sunum (deste) JSON biçimi — istemci ve sunucu ortak. İçerik her zaman düz metindir;
+// HTML/Markdown yorumlanmaz, animasyonlar yalnızca kayıtlı kimlikle seçilir (çalıştırılabilir içerik yok).
+import { z } from "zod";
+import { ANIMATION_IDS, getAnimation } from "@/animations/registry";
+import { animationStepCount } from "@/animations/types";
+
+export const DECK_SCHEMA_VERSION = 1;
+
+const text = (max: number) =>
+  z
+    .string()
+    .max(max, `En fazla ${max} karakter.`)
+    .transform((s) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f‪-‮⁦-⁩]/g, ""));
+
+export const blockSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("heading"), text: text(160), level: z.union([z.literal(1), z.literal(2)]).default(2) }),
+  z.object({ type: z.literal("text"), text: text(2000) }),
+  z.object({
+    type: z.literal("bullets"),
+    items: z.array(text(300)).min(1).max(12),
+    // true → her adımda bir madde açılır
+    reveal: z.boolean().default(false),
+  }),
+  z.object({
+    type: z.literal("code"),
+    language: z.string().max(20).regex(/^[a-z0-9+#-]*$/).default(""),
+    code: text(4000),
+    // adım başına vurgulanacak satırlar (1 tabanlı); boşsa vurgu yok
+    highlightSteps: z.array(z.array(z.number().int().min(1).max(200)).max(50)).max(20).default([]),
+  }),
+  z.object({
+    type: z.literal("terminal"),
+    lines: z
+      .array(z.object({ cmd: text(300).optional(), out: text(1000).optional() }))
+      .min(1)
+      .max(20),
+    // true → her adımda bir satır çalışır
+    reveal: z.boolean().default(true),
+  }),
+  z.object({
+    type: z.literal("callout"),
+    tone: z.enum(["info", "warn", "success", "danger"]).default("info"),
+    text: text(600),
+  }),
+  z.object({ type: z.literal("animation"), animation: z.enum(ANIMATION_IDS) }),
+]);
+export type Block = z.output<typeof blockSchema>;
+
+export const slideSchema = z.object({
+  title: text(160).pipe(z.string().min(1, "Slayt başlığı gerekli.")),
+  layout: z.enum(["default", "title", "section"]).default("default"),
+  blocks: z.array(blockSchema).max(12, "Bir slaytta en fazla 12 blok olabilir.").default([]),
+  notes: text(5000).default(""),
+});
+export type SlideInput = z.output<typeof slideSchema>;
+
+export const deckSchema = z.object({
+  schema: z.literal(DECK_SCHEMA_VERSION).default(DECK_SCHEMA_VERSION),
+  title: text(160).pipe(z.string().min(2, "Sunum başlığı gerekli.")),
+  description: text(1000).default(""),
+  slides: z.array(slideSchema).min(1, "En az bir slayt gerekli.").max(200, "En fazla 200 slayt."),
+});
+export type Deck = z.output<typeof deckSchema>;
+
+// Bir bloğun kaç adımı var (adım 0 dahil). Slaytın adım sayısı = blokların en büyüğü.
+export function blockSteps(b: Block): number {
+  switch (b.type) {
+    case "bullets":
+      return b.reveal ? b.items.length : 1;
+    case "terminal":
+      return b.reveal ? b.lines.length : 1;
+    case "code":
+      return Math.max(1, b.highlightSteps.length + 1);
+    case "animation": {
+      const a = getAnimation(b.animation);
+      return a ? animationStepCount(a) : 1;
+    }
+    default:
+      return 1;
+  }
+}
+
+export function slideSteps(blocks: Block[]): number {
+  return Math.max(1, ...blocks.map(blockSteps));
+}
+
+// İstemciye giden slayt biçimi (DB satırından). notes yalnızca sunucu yetkili kişiye eklendiğinde dolu.
+export type ClientSlide = { id: string; position: number; title: string; layout: SlideInput["layout"]; blocks: Block[]; steps: number; notes?: string };
+export type ClientDeck = { title: string; description: string; slides: ClientSlide[] };

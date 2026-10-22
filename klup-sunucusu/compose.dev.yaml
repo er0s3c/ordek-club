@@ -1,0 +1,23 @@
+# Yalnızca YEREL GELİŞTİRME: PostgreSQL'i 127.0.0.1:5433'te açar (npm run dev bu DB'yi kullanır).
+#   docker compose -f compose.dev.yaml up -d
+name: ordek-club-dev
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: club
+      POSTGRES_PASSWORD: change-me-local-dev-only
+      POSTGRES_DB: ordek_club
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - club_dev_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U club -d ordek_club"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  club_dev_pg:

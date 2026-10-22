@@ -1,0 +1,93 @@
+# ============================================================================
+#  Ördek Club — üretim yığını
+#    ./install.sh                         # ilk kurulum (.env üretir, başlatır)
+#    docker compose up -d                 # HTTP, :3100
+#    docker compose --profile https up -d # + Caddy ile otomatik HTTPS (DOMAIN gerekli)
+#
+#  Güvenlik: Club konteynerleri docker.sock'a ERİŞMEZ, lab ağlarına bağlanmaz,
+#  root olmayan kullanıcıyla ve salt-okunur kök dosya sistemiyle çalışır.
+# ============================================================================
+name: ordek-club
+
+x-hardening: &hardening
+  security_opt:
+    - no-new-privileges:true
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "5" }
+
+services:
+  db:
+    <<: *hardening
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-club}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD tanımlı değil — ./install.sh çalıştırın}
+      POSTGRES_DB: ${POSTGRES_DB:-ordek_club}
+    volumes:
+      - club_pg:/var/lib/postgresql/data
+    networks: [club_net]
+    # Port dışarı YAYINLANMAZ: yalnızca uygulama konteyneri erişir.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    deploy:
+      resources:
+        limits: { memory: 1g }
+
+  app:
+    <<: *hardening
+    build: .
+    image: ordek-club:latest
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-club}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-ordek_club}?schema=public&connection_limit=10
+      APP_URL: ${APP_URL:-http://localhost:3100}
+      APP_SECRET: ${APP_SECRET:?APP_SECRET tanımlı değil — ./install.sh çalıştırın}
+      TRUST_PROXY: ${TRUST_PROXY:-0}
+      STORAGE_DIR: /app/storage
+      PORT: 3100
+    ports:
+      - "${APP_BIND:-0.0.0.0}:${APP_PORT:-3100}:3100"
+    volumes:
+      - club_storage:/app/storage
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+      - /app/.next/cache:uid=1000,gid=1000,size=128m
+    cap_drop: [ALL]
+    networks: [club_net]
+    deploy:
+      resources:
+        limits: { memory: 1536m }
+
+  caddy:
+    <<: *hardening
+    profiles: ["https"]
+    image: caddy:2-alpine
+    depends_on: [app]
+    environment:
+      DOMAIN: ${DOMAIN:-}  # install.sh --domain ile doldurulur; boşsa Caddy başlamaz
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [club_net]
+
+networks:
+  club_net:
+    name: ordek_club_net
+
+volumes:
+  club_pg:
+  club_storage:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,13 @@
+# Otomatik HTTPS (Let's Encrypt). DOMAIN .env'den gelir ve DNS'te bu sunucuyu göstermelidir.
+{$DOMAIN} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+	# Gövde sınırı: yükleme uç noktaları uygulamada ayrıca sınırlanır.
+	request_body {
+		max_size 600MB
+	}
+	reverse_proxy app:3100
+}

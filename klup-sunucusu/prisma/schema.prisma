@@ -1,0 +1,279 @@
+// ============================================================================
+//  Ördek Club — veritabanı şeması
+//  Faz 1: kimlik, üyelik, davet, kulüp ayarları, audit log.
+//  Sonraki fazların modelleri (Presentation, LiveSession, Lesson, XPTransaction…)
+//  kendi migration'larıyla eklenecek; uygulanmış migration'lar düzenlenmez.
+// ============================================================================
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  INSTRUCTOR
+  STUDENT
+}
+
+// Üyelik durumu. PENDING: başvuru onay bekliyor. REJECTED: başvuru reddedildi.
+// DISABLED: admin tarafından devre dışı bırakılmış aktif hesap.
+enum MemberStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+  DISABLED
+}
+
+enum RegistrationPolicy {
+  OPEN // herkes kayıt olur, otomatik aktif
+  APPROVAL // herkes başvurur, admin onaylar (davet kodu autoApprove ise atlanır)
+  INVITE_ONLY // yalnızca geçerli davet koduyla
+  CLOSED // yeni kayıt yok
+}
+
+model User {
+  id                String       @id @default(cuid())
+  username          String       @unique // küçük harf, normalize edilmiş
+  email             String       @unique // küçük harf, normalize edilmiş
+  displayName       String
+  passwordHash      String
+  role              Role         @default(STUDENT)
+  status            MemberStatus @default(PENDING)
+  // Başvuru bilgileri (veri minimizasyonu: yalnızca kulübün ihtiyaç duyduğu alanlar)
+  studentNumber     String?
+  department        String?
+  applicationNote   String?
+  reviewNote        String?
+  reviewedAt        DateTime?
+  reviewedById      String?
+  reviewedBy        User?        @relation("UserReviews", fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewed          User[]       @relation("UserReviews")
+  invitationId      String?
+  invitation        Invitation?  @relation("InvitationUses", fields: [invitationId], references: [id], onDelete: SetNull)
+  // Kulübe katılım (onay) zamanı — genel liderlik tablosu bu tarihten sayar.
+  joinedAt          DateTime?
+  lastLoginAt       DateTime?
+  passwordChangedAt DateTime     @default(now())
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  sessions           Session[]
+  invitationsCreated Invitation[]          @relation("InvitationCreator")
+  auditLogs          AuditLog[]
+  presentations      Presentation[]        @relation("PresentationOwner")
+  versionsAuthored   PresentationVersion[] @relation("VersionAuthor")
+  hostedSessions     LiveSession[]         @relation("LiveHost")
+  participations     SessionParticipant[]
+  liveEvents         LiveSessionEvent[]    @relation("LiveEventAuthor")
+
+  @@index([status, role])
+  @@index([createdAt])
+}
+
+// Opak oturum token'ı: çerezde ham değer, burada yalnızca SHA-256 hash'i.
+model Session {
+  id         String   @id @default(cuid())
+  tokenHash  String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+  expiresAt  DateTime
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Invitation {
+  id          String    @id @default(cuid())
+  label       String
+  // Kod yalnızca oluşturulurken bir kez gösterilir; burada SHA-256 hash'i ve tanıma öneki tutulur.
+  codeHash    String    @unique
+  codePrefix  String
+  role        Role      @default(STUDENT)
+  autoApprove Boolean   @default(false)
+  maxUses     Int?
+  useCount    Int       @default(0)
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  createdById String?
+  createdBy   User?     @relation("InvitationCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+  users       User[]    @relation("InvitationUses")
+
+  @@index([createdAt])
+}
+
+// Tekil satır (id = 1). Kurulum tamamlanana kadar setupCompletedAt null'dır.
+model ClubSettings {
+  id                 Int                @id @default(1)
+  clubName           String             @default("Ördek Club")
+  description        String             @default("")
+  universityName     String             @default("")
+  appUrl             String             @default("")
+  logoFile           String? // storage/branding altındaki dosya adı
+  logoMime           String?
+  logoUpdatedAt      DateTime?
+  theme              String             @default("dark")
+  locale             String             @default("tr")
+  timezone           String             @default("Europe/Istanbul")
+  registrationPolicy RegistrationPolicy @default(APPROVAL)
+  maxUploadMb        Int                @default(25)
+  sessionMaxAgeDays  Int                @default(14)
+  sessionIdleHours   Int                @default(72)
+  // Güvenli bootstrap: tek seferlik kurulum anahtarının hash'i (kurulumdan sonra silinir).
+  setupTokenHash     String?
+  setupTokenExpires  DateTime?
+  setupCompletedAt   DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action     String // ör. "member.approve", "settings.update", "auth.login.failed"
+  targetType String?
+  targetId   String?
+  meta       Json?
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actorId])
+  @@index([action])
+}
+
+// ============================================================================
+//  Faz 2 — Sunumlar ve canlı sınıf
+// ============================================================================
+
+enum PresentationStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Presentation {
+  id               String                @id @default(cuid())
+  title            String
+  description      String                @default("")
+  status           PresentationStatus    @default(DRAFT)
+  ownerId          String?
+  owner            User?                 @relation("PresentationOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  // En güncel sürüm (canlı oturumlar başlatıldıkları sürüme bağlı kalır).
+  currentVersionId String?               @unique
+  currentVersion   PresentationVersion?  @relation("CurrentVersion", fields: [currentVersionId], references: [id], onDelete: SetNull)
+  templateKey      String? // hazır şablondan oluşturulduysa
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  versions         PresentationVersion[] @relation("PresentationVersions")
+  liveSessions     LiveSession[]
+
+  @@index([status, updatedAt])
+  @@index([ownerId])
+}
+
+// Değişmez anlık görüntü: içerik değişince yeni sürüm oluşur.
+model PresentationVersion {
+  id             String        @id @default(cuid())
+  presentationId String
+  presentation   Presentation  @relation("PresentationVersions", fields: [presentationId], references: [id], onDelete: Cascade)
+  number         Int
+  // Deste düzeyi alanlar (tema, şema sürümü). Slaytlar Slide satırlarındadır.
+  meta           Json
+  createdById    String?
+  createdBy      User?         @relation("VersionAuthor", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt      DateTime      @default(now())
+  slides         Slide[]
+  currentOf      Presentation? @relation("CurrentVersion")
+  liveSessions   LiveSession[]
+
+  @@unique([presentationId, number])
+}
+
+model Slide {
+  id        String              @id @default(cuid())
+  versionId String
+  version   PresentationVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  position  Int
+  title     String
+  // Blok listesi (src/lib/deck-schema.ts ile doğrulanır)
+  blocks    Json
+  // Eğitmen notları: öğrencilere ASLA gönderilmez
+  notes     String              @default("")
+  steps     Int                 @default(1)
+
+  @@unique([versionId, position])
+}
+
+enum LiveSessionStatus {
+  ACTIVE
+  ENDED
+}
+
+model LiveSession {
+  id             String               @id @default(cuid())
+  code           String               @unique
+  title          String
+  presentationId String?
+  presentation   Presentation?        @relation(fields: [presentationId], references: [id], onDelete: SetNull)
+  versionId      String
+  version        PresentationVersion  @relation(fields: [versionId], references: [id], onDelete: Restrict)
+  hostId         String?
+  host           User?                @relation("LiveHost", fields: [hostId], references: [id], onDelete: SetNull)
+  status         LiveSessionStatus    @default(ACTIVE)
+  // Sunucuda tutulan senkron durum + sürüm numarası (her değişiklikte +1)
+  state          Json
+  stateVersion   Int                  @default(0)
+  startedAt      DateTime             @default(now())
+  endedAt        DateTime?
+  participants   SessionParticipant[]
+  events         LiveSessionEvent[]
+
+  @@index([status, startedAt])
+}
+
+model SessionParticipant {
+  id           String      @id @default(cuid())
+  sessionId    String
+  session      LiveSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstJoinAt  DateTime    @default(now())
+  lastSeenAt   DateTime    @default(now())
+  connectedMs  Int         @default(0)
+  connectCount Int         @default(0)
+  handRaisedAt DateTime?
+
+  @@unique([sessionId, userId])
+}
+
+enum LiveEventType {
+  QUESTION
+  ANNOUNCEMENT
+  HAND
+}
+
+model LiveSessionEvent {
+  id         String        @id @default(cuid())
+  sessionId  String
+  session    LiveSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?         @relation("LiveEventAuthor", fields: [userId], references: [id], onDelete: SetNull)
+  type       LiveEventType
+  text       String        @default("")
+  resolvedAt DateTime?
+  createdAt  DateTime      @default(now())
+
+  @@index([sessionId, type, createdAt])
+}
