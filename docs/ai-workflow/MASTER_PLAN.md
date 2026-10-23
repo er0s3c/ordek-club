@@ -50,7 +50,7 @@ tarayıcı ──HTTPS──> caddy (opsiyonel, otomatik TLS)
 | 1 | Kurulum, Compose, Postgres, auth, roller, kurulum sihirbazı, admin iskeleti, üyelik | ✅ Tamamlandı |
 | 2 | Sunum veri modeli, oynatıcı, animasyon motoru, canlı oturum, WS senkronizasyonu, eğitmen paneli | ✅ Tamamlandı (canlı quiz/anket Faz 5'e bırakıldı) |
 | 3 | Club Academy: öğrenme yolları, dersler, quiz, öğrenci dashboard, ilerleme | ✅ Çalışıyor (içerik içe aktarıcı, ders/quiz sayfaları, ilerleme) |
-| 4 | XP transaction, seviyeler, rozetler, aylık/genel liderlik | Bekliyor |
+| 4 | XP transaction, seviyeler, rozetler, aylık/genel liderlik | ✅ Çalışıyor (XP motoru, rozetler, aylık+genel liderlik, yönetici düzeltmeleri) |
 | 5 | Görev atama/teslim, dosya paylaşımı, canlı quiz/anket, duyurular, VMware molası | Bekliyor |
 | 6 | Club Studio editörü, şablonlar, analitik, sertleştirme, E2E, dokümantasyon | Bekliyor |
 

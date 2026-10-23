@@ -17,7 +17,18 @@ const LABELS: Record<string, string> = {
   "settings.update": "Kulüp ayarları güncellendi",
   "settings.logo.update": "Logo güncellendi",
   "settings.logo.remove": "Logo kaldırıldı",
+  "academy.import": "Akademi içeriği içe aktarıldı",
+  "xp.rule.update": "XP kuralı değiştirildi",
+  "xp.levels.update": "Seviye eşikleri değiştirildi",
+  "xp.adjust": "XP elle düzeltildi",
+  "xp.reverse": "XP işlemi geri alındı",
+  "badge.create": "Rozet oluşturuldu",
+  "badge.enable": "Rozet açıldı",
+  "badge.disable": "Rozet kapatıldı",
+  "badge.award": "Rozet elle verildi",
+  "badge.revoke": "Rozet geri alındı",
+  "leaderboard.archive": "Aylık liderlik arşivlendi",
 };
 
 export const actionLabel = (code: string) => LABELS[code] ?? code;
-export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup"];
+export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard"];

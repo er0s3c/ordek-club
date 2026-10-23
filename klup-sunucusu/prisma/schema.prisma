@@ -74,6 +74,11 @@ model User {
   liveEvents         LiveSessionEvent[]    @relation("LiveEventAuthor")
   lessonProgress     LessonProgress[]
   quizAttempts       QuizAttempt[]
+  xpTransactions     XpTransaction[]       @relation("XpOwner")
+  xpAuthored         XpTransaction[]       @relation("XpAuthor")
+  badges             UserBadge[]           @relation("BadgeOwner")
+  activityDays       ActivityDay[]         @relation("ActivityOwner")
+  leaderboardEntries LeaderboardEntry[]    @relation("LeaderboardUser")
 
   @@index([status, role])
   @@index([createdAt])
@@ -376,4 +381,118 @@ model QuizAttempt {
   createdAt DateTime @default(now())
 
   @@index([userId, lessonId, createdAt])
+}
+
+// ============================================================================
+//  Faz 4 — XP, seviyeler, rozetler, liderlik tabloları
+//  XP yalnızca sunucuda, kayıt defteri (ledger) olarak tutulur: her kazanım/geri alma ayrı satırdır,
+//  toplam her zaman SUM(amount)'tır. idempotencyKey aynı ödülün iki kez verilmesini veritabanı düzeyinde engeller.
+//  Kulüp XP'si Ördek Lab XP sisteminden tamamen ayrıdır.
+// ============================================================================
+
+enum XpSource {
+  LESSON
+  QUIZ
+  TRACK
+  LIVE
+  TASK
+  MANUAL
+  REVERSAL
+}
+
+// Ödül kuralları (miktarlar yönetim panelinden değiştirilebilir).
+model XpRewardRule {
+  key         String   @id // ör. "lesson.complete", "quiz.pass", "track.complete"
+  label       String
+  amount      Int
+  enabled     Boolean  @default(true)
+  updatedAt   DateTime @updatedAt
+  updatedById String?
+}
+
+model XpTransaction {
+  id             String         @id @default(cuid())
+  userId         String
+  user           User           @relation("XpOwner", fields: [userId], references: [id], onDelete: Cascade)
+  amount         Int // geri alma ve düzeltmelerde negatif olabilir
+  source         XpSource
+  ruleKey        String?
+  // Aynı ödül ikinci kez yazılamaz (ör. "quiz.pass:<kullanıcı>:<ders>")
+  idempotencyKey String         @unique
+  reason         String         @default("")
+  refType        String?
+  refId          String?
+  createdById    String?
+  createdBy      User?          @relation("XpAuthor", fields: [createdById], references: [id], onDelete: SetNull)
+  // Geri alınan işlem; bir işlem en fazla bir kez geri alınabilir
+  reversalOfId   String?        @unique
+  reversalOf     XpTransaction? @relation("XpReversal", fields: [reversalOfId], references: [id], onDelete: SetNull)
+  reversedBy     XpTransaction? @relation("XpReversal")
+  createdAt      DateTime       @default(now())
+
+  @@index([userId, createdAt])
+  @@index([createdAt])
+}
+
+model Level {
+  number Int    @id
+  minXp  Int    @unique
+  title  String
+}
+
+model Badge {
+  id          String      @id @default(cuid())
+  key         String      @unique
+  name        String
+  description String      @default("")
+  icon        String      @default("award") // izinli simge listesinden
+  // Otomatik kazanım kuralı: { type: "lessons"|"quizzes"|"streak"|"track"|"track_kind"|"xp"|"monthly_rank"|"overall_rank"|"manual", ... }
+  rule        Json
+  active      Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  awards      UserBadge[]
+}
+
+model UserBadge {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation("BadgeOwner", fields: [userId], references: [id], onDelete: Cascade)
+  badgeId     String
+  badge       Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  reason      String   @default("")
+  awardedById String?
+  awardedAt   DateTime @default(now())
+
+  @@unique([userId, badgeId])
+  @@index([badgeId])
+}
+
+// Öğrenme serileri için: kulübün saat dilimine göre öğrenme yapılan günler.
+model ActivityDay {
+  userId String
+  user   User   @relation("ActivityOwner", fields: [userId], references: [id], onDelete: Cascade)
+  day    String // YYYY-MM-DD (kulüp saat dilimi)
+
+  @@id([userId, day])
+}
+
+// Ay kapanınca sıralama arşivlenir; geçmiş aylar buradan okunur.
+model LeaderboardPeriod {
+  period     String             @id // YYYY-MM
+  timezone   String
+  archivedAt DateTime           @default(now())
+  entries    LeaderboardEntry[]
+}
+
+model LeaderboardEntry {
+  id     String            @id @default(cuid())
+  period String
+  board  LeaderboardPeriod @relation(fields: [period], references: [period], onDelete: Cascade)
+  userId String
+  user   User              @relation("LeaderboardUser", fields: [userId], references: [id], onDelete: Cascade)
+  rank   Int
+  xp     Int
+
+  @@unique([period, userId])
+  @@index([period, rank])
 }

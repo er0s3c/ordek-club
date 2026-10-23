@@ -3,6 +3,9 @@ import "./src/server/load-env";
 import { db } from "@/server/db";
 import { rotateSetupToken } from "@/server/setup";
 import { importAcademy } from "@/server/academy/importer";
+import { ensureArchived } from "@/server/xp/leaderboard";
+import { backfillXp } from "@/server/xp/engine";
+import { evaluateBadges } from "@/server/xp/badges";
 
 const commands: Record<string, { help: string; run: (args: string[]) => Promise<void> }> = {
   "setup-token": {
@@ -30,6 +33,22 @@ const commands: Record<string, { help: string; run: (args: string[]) => Promise<
         return;
       }
       console.log(`${s.tracks} yol · ${s.lessons} ders → ${s.created} yeni, ${s.updated} güncellenen, ${s.unchanged} aynı, ${s.archived} arşivlenen.`);
+    },
+  },
+  "xp-backfill": {
+    help: "XP sistemi açılmadan önce tamamlanan ders ve quizlere XP verir. Tekrar çalıştırmak güvenlidir.",
+    async run() {
+      const r = await backfillXp();
+      const badges = [];
+      for (const u of await db.user.findMany({ where: { status: "ACTIVE" }, select: { id: true } })) badges.push(...(await evaluateBadges(u.id)));
+      console.log(`${r.users} üyeye toplam ${r.xp} XP verildi; ${badges.length} yeni rozet.`);
+    },
+  },
+  "leaderboard-archive": {
+    help: "Biten ayların liderlik tablolarını arşivler ve ay şampiyonu rozetlerini verir (normalde kendiliğinden yapılır).",
+    async run() {
+      const done = await ensureArchived();
+      console.log(done.length ? `Arşivlenen aylar: ${done.join(", ")}` : "Arşivlenecek yeni ay yok.");
     },
   },
   status: {

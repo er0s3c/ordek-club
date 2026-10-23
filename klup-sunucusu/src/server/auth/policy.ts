@@ -82,3 +82,7 @@ export const canHostSession = (a: Actor, s: { hostId: string | null }) =>
 // Dersleri her aktif üye okur; içerik içe aktarma ve akademi istatistikleri yalnız OWNER/ADMIN.
 export const canUseAcademy = (a: Actor) => a.status === "ACTIVE";
 export const canManageAcademy = (a: Actor) => canAccessAdmin(a);
+
+// ── Faz 4: XP ve rozetler ───────────────────────────────────────────────────
+// Kural, seviye, puan düzeltme ve rozet yönetimi yalnız OWNER/ADMIN. XP yalnız sunucu kurallarıyla verilir.
+export const canManageGamification = (a: Actor) => canAccessAdmin(a);

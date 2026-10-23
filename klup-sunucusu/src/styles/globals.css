@@ -193,7 +193,7 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .alert-info { border-color: rgba(123, 176, 207, 0.5); background: rgba(123, 176, 207, 0.07); color: #cfe3ef; }
 
 /* ── tablo = defter ───────────────────────────────────────────────────── */
-.table-wrap { overflow-x: auto; }
+.table-wrap { overflow-x: auto; position: relative; } /* .sr-only gibi mutlak konumlu öğeler kaydırma kutusundan taşmasın */
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th { text-align: left; font-weight: 400; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-family: var(--font-type); padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
 .table td { padding: 11px 14px; border-bottom: 1px dashed var(--line-soft); vertical-align: middle; }
@@ -226,7 +226,7 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .sidebar-foot { margin-top: auto; border-top: 1px dashed var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
 .user-chip { display: flex; align-items: center; gap: 10px; padding: 6px 8px; }
 .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--accent-bg); border: 1px solid var(--gold-deep); display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--gold); flex-shrink: 0; }
-.main { padding: 32px 40px 64px; max-width: 1240px; width: 100%; }
+.main { padding: 32px 40px 64px; max-width: 1240px; width: 100%; min-width: 0; } /* geniş tablolar sayfayı değil kendi kutusunu kaydırsın */
 .topbar { display: none; }
 
 @media (max-width: 860px) {

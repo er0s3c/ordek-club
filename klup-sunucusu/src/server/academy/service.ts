@@ -6,6 +6,8 @@ import { badRequest, forbidden, notFound, tooMany } from "@/server/errors";
 import { canManageAcademy, canUseAcademy, type Actor } from "@/server/auth/policy";
 import { hit } from "@/server/rate-limit";
 import type { QuizQuestion, Villain } from "./content";
+import { onLessonCompleted, onQuizAttempt, XP_TX } from "@/server/xp/engine";
+import { evaluateBadges } from "@/server/xp/badges";
 
 export type PublicQuestion = { kind: "choice"; text: string; options: string[] } | { kind: "truefalse"; text: string };
 export type QuizAnswer = number | boolean | null;
@@ -136,17 +138,24 @@ export async function openLesson(actor: Actor, slug: string) {
   };
 }
 
+// Bir ders açıldıktan en az bu kadar sonra tamamlanabilir (XP için "aç-kapat" suistimaline karşı).
+export const MIN_READ_MS = 15_000;
+
 export async function completeLesson(actor: Actor, slug: string) {
   requireMember(actor);
   const l = await findLesson(slug);
   if (l.kind === "QUIZ") throw badRequest("Quiz, geçme notuna ulaşınca kendiliğinden tamamlanır.", "QUIZ_COMPLETE");
   const now = new Date();
-  await db.lessonProgress.upsert({
-    where: { userId_lessonId: { userId: actor.id, lessonId: l.id } },
-    create: { userId: actor.id, lessonId: l.id, status: "COMPLETED", completedAt: now },
-    update: { status: "COMPLETED", completedAt: now, lastViewAt: now },
-  });
-  return { status: "COMPLETED" as const };
+  const xp = await db.$transaction(async (tx) => {
+    const p = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId: actor.id, lessonId: l.id } } });
+    if (!p) throw badRequest("Önce dersi aç.", "NOT_OPENED");
+    if (p.status === "COMPLETED") return 0;
+    if (now.getTime() - p.startedAt.getTime() < MIN_READ_MS) throw badRequest("Sayfayı okumak için biraz daha zaman ayır.", "TOO_FAST");
+    await tx.lessonProgress.update({ where: { id: p.id }, data: { status: "COMPLETED", completedAt: now, lastViewAt: now } });
+    return onLessonCompleted(tx, actor.id, l);
+  }, XP_TX);
+  const badges = await evaluateBadges(actor.id);
+  return { status: "COMPLETED" as const, xp, badges };
 }
 
 export async function submitQuiz(actor: Actor, slug: string, answers: QuizAnswer[]) {
@@ -157,16 +166,19 @@ export async function submitQuiz(actor: Actor, slug: string, answers: QuizAnswer
   if (l.kind !== "QUIZ" || !l.quiz) throw badRequest("Bu sayfa bir quiz değil.", "NOT_QUIZ");
   const g = gradeQuiz(l.quiz as unknown as QuizQuestion[], answers, l.passPercent ?? 70);
   const now = new Date();
-  await db.$transaction(async (tx) => {
+  const xp = await db.$transaction(async (tx) => {
     await tx.quizAttempt.create({ data: { userId: actor.id, lessonId: l.id, answers, correct: g.correct, total: g.total, score: g.score, passed: g.passed } });
+    const prev = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId: actor.id, lessonId: l.id } }, select: { status: true } });
     await tx.lessonProgress.upsert({
       where: { userId_lessonId: { userId: actor.id, lessonId: l.id } },
       create: { userId: actor.id, lessonId: l.id, ...(g.passed ? { status: "COMPLETED", completedAt: now } : {}) },
-      // Geçilmiş bir quiz sonradan düşük puanla "tamamlanmamış"a dönmez.
-      update: { lastViewAt: now, ...(g.passed ? { status: "COMPLETED", completedAt: now } : {}) },
+      // Geçilmiş bir quiz sonradan düşük puanla "tamamlanmamış"a dönmez; tamamlanma tarihi de ilk geçişte kalır.
+      update: { lastViewAt: now, ...(g.passed && prev?.status !== "COMPLETED" ? { status: "COMPLETED", completedAt: now } : {}) },
     });
-  });
-  return g;
+    return onQuizAttempt(tx, actor.id, l, g.passed);
+  }, XP_TX);
+  const badges = g.passed ? await evaluateBadges(actor.id) : [];
+  return { ...g, xp, badges };
 }
 
 // Panel için: kaldığın yer. Önce yarım kalan en son ders; yoksa müfredat sırasında tamamlanmamış ilk ders.

@@ -7,6 +7,8 @@ import { randomCode } from "@/server/codes";
 import { initialLiveState } from "@/lib/live-protocol";
 import { loadClientDeck } from "@/server/presentations";
 import { hub } from "@/server/live/hub";
+import { onLiveSessionEnded } from "@/server/xp/engine";
+import { evaluateBadges } from "@/server/xp/badges";
 
 export const SESSION_CODE_LENGTH = 6; // 31^6 ≈ 887 milyon; katılım ayrıca giriş + aktif üyelik ister
 export const normalizeCode = (c: string) => c.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
@@ -75,6 +77,12 @@ export async function endSession(actor: Actor, id: string, ip: string) {
     const r = await tx.liveSession.updateMany({ where: { id: s.id, status: "ACTIVE" }, data: { status: "ENDED", endedAt: new Date() } });
     if (r.count) await audit({ actorId: actor.id, action: "live.end", targetType: "LiveSession", targetId: s.id, ip }, tx);
   });
+  // Katılım XP'si (en az 10 dk bağlı kalanlara, oturum başına bir kez). Ödül hatası dersi bitirmeyi engellemez.
+  try {
+    for (const userId of await onLiveSessionEnded(s.id)) await evaluateBadges(userId);
+  } catch (err) {
+    console.error("[club] canlı ders XP'si verilemedi", s.id, err);
+  }
 }
 
 export async function getSummary(actor: Actor, id: string) {

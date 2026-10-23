@@ -33,6 +33,12 @@ const complete = (cookie: string, slug: string, origin?: string | null) =>
 const quiz = (cookie: string, slug: string, answers: unknown[]) => quizPOST(req(`/api/academy/lessons/${slug}/quiz`, { cookie, body: { answers } }), params({ slug }));
 const progressOf = (userId: string, slug: string) => db.lessonProgress.findFirst({ where: { userId, lesson: { slug } } });
 
+// Dersi açar ve okuma süresini doldurmuş sayar (tamamlama en az MIN_READ_MS sonra kabul edilir).
+async function ready(u: { user: { id: string } }, slug: string) {
+  await openLesson({ id: u.user.id, role: "STUDENT", status: "ACTIVE" }, slug);
+  await db.lessonProgress.updateMany({ where: { userId: u.user.id, lesson: { slug } }, data: { startedAt: new Date(Date.now() - 60_000) } });
+}
+
 describe("akademi: içe aktarma", () => {
   beforeEach(async () => {
     await resetDb();
@@ -47,6 +53,7 @@ describe("akademi: içe aktarma", () => {
     expect((await importAcademy({ dir })).unchanged).toBe(3);
 
     const stu = await makeUser();
+    await ready(stu, "t1-02");
     expect((await complete(stu.cookie, "t1-02")).status).toBe(200);
 
     const removed = await importAcademy({ dir: fixture({ withSecond: false }) });
@@ -89,6 +96,8 @@ describe("akademi: öğrenci ilerlemesi ve quiz", () => {
     const l = await openLesson(actor, "t1-01");
     expect(l.status).toBe("STARTED");
     expect(l.next?.slug).toBe("t1-02");
+    expect(await readBody(await complete(stu.cookie, "t1-01"))).toMatchObject({ error: { code: "TOO_FAST" } });
+    await ready(stu, "t1-01");
     expect((await complete(stu.cookie, "t1-01")).status).toBe(200);
     expect((await openLesson(actor, "t1-01")).status).toBe("COMPLETED");
   });
@@ -119,12 +128,14 @@ describe("akademi: öğrenci ilerlemesi ve quiz", () => {
     expect((await complete(stu.cookie, "t1-03")).status).toBe(400);
     expect((await quiz(stu.cookie, "t1-01", [0, true])).status).toBe(400);
     expect((await complete(stu.cookie, "yok-99")).status).toBe(404);
+    expect(await readBody(await complete(stu.cookie, "t1-02"))).toMatchObject({ error: { code: "NOT_OPENED" } });
     expect((await complete(stu.cookie, "../../x")).status).toBe(400);
   });
 
   it("ilerleme kişiseldir: bir öğrencinin tamamladığı ders diğerinde görünmez", async () => {
     const a = await makeUser();
     const b = await makeUser();
+    await ready(a, "t1-01");
     await complete(a.cookie, "t1-01");
     expect((await openLesson({ id: b.user.id, role: "STUDENT", status: "ACTIVE" }, "t1-01")).status).toBe("STARTED");
   });

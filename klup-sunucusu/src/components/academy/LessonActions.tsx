@@ -8,7 +8,13 @@ import { api } from "@/lib/api-client";
 
 type Question = { kind: "choice"; text: string; options: string[] } | { kind: "truefalse"; text: string };
 type Answer = number | boolean | null;
-type Result = { results: { correct: boolean; explanation: string }[]; correct: number; total: number; score: number; passed: boolean };
+type Result = { results: { correct: boolean; explanation: string }[]; correct: number; total: number; score: number; passed: boolean; xp: number; badges: string[] };
+type Reward = { xp: number; badges: string[] };
+
+// Ödül bildirimi: kazanılan XP ve yeni rozetler (miktar sunucudan gelir).
+function rewardText(r: Reward) {
+  return [r.xp > 0 ? `+${r.xp} XP` : "", ...r.badges.map((b) => `🏅 Yeni rozet: ${b}`)].filter(Boolean).join(" · ");
+}
 
 export function CompleteButton({ slug, done }: { slug: string; done: boolean }) {
   const router = useRouter();
@@ -21,8 +27,9 @@ export function CompleteButton({ slug, done }: { slug: string; done: boolean }) 
   async function complete() {
     setBusy(true);
     try {
-      await api(`/api/academy/lessons/${slug}/complete`, { method: "POST" });
-      toast("ok", "Ders tamamlandı.");
+      const r = await api<Reward>(`/api/academy/lessons/${slug}/complete`, { method: "POST" });
+      const extra = rewardText(r);
+      toast("ok", `Ders tamamlandı.${extra ? ` ${extra}` : ""}`);
       router.refresh();
     } catch (e) {
       toast("error", (e as Error).message);
@@ -77,6 +84,7 @@ export function QuizForm({ slug, questions, passPercent }: { slug: string; quest
           <div>
             <strong>%{result.score}</strong> · {result.correct}/{result.total} doğru ·{" "}
             {result.passed ? "Geçtin, dosya kapandı." : `Geçme notu %${passPercent}. Açıklamaları oku, tekrar dene.`}
+            {rewardText(result) && <div className="xp-gain">{rewardText(result)}</div>}
           </div>
         </div>
       )}

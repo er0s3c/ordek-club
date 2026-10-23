@@ -9,6 +9,8 @@ import { getSettings } from "@/server/settings";
 import { getMessages } from "@/i18n";
 import { formatDateTime } from "@/components/ui/format";
 import { actionLabel } from "@/components/admin/audit-labels";
+import { db as prisma } from "@/server/db";
+import { monthRange, periodOf } from "@/server/xp/time";
 
 export const metadata: Metadata = { title: "Yönetim" };
 
@@ -16,7 +18,12 @@ export default async function AdminHome() {
   await requirePageSession(ADMIN_ROLES); // layout'a ek olarak: veri okuyan her sayfa kendini korur
   const s = await getSettings();
   const m = getMessages(s.locale);
-  const [stats, db] = await Promise.all([adminDashboardStats(s.timezone), checkDatabase()]);
+  const range = monthRange(periodOf(new Date(), s.timezone), s.timezone);
+  const [stats, db, monthXp] = await Promise.all([
+    adminDashboardStats(s.timezone),
+    checkDatabase(),
+    prisma.xpTransaction.aggregate({ where: { createdAt: { gte: range.start, lt: range.end } }, _sum: { amount: true } }),
+  ]);
 
   return (
     <div className="stack fade-up">
@@ -32,6 +39,7 @@ export default async function AdminHome() {
           <div className="label">Bekleyen başvuru</div><div className="value">{stats.members.pending}</div><div className="hint">incelemek için tıkla</div>
         </Link>
         <div className="card stat"><div className="label">Eğitmen</div><div className="value">{stats.roles.INSTRUCTOR ?? 0}</div><div className="hint">yönetici: {(stats.roles.ADMIN ?? 0) + (stats.roles.OWNER ?? 0)}</div></div>
+        <Link href="/admin/xp" className="card stat" style={{ color: "inherit", textDecoration: "none" }}><div className="label">Bu ay XP</div><div className="value">{(monthXp._sum.amount ?? 0).toLocaleString("tr-TR")}</div><div className="hint">kulüp genelinde</div></Link>
         <div className="card stat"><div className="label">Açık oturum</div><div className="value">{stats.openSessions}</div><div className="hint">devre dışı üye: {stats.members.disabled}</div></div>
         <Link href="/admin/system" className="card stat" style={{ color: "inherit", textDecoration: "none" }}>
           <div className="label">Sistem</div>

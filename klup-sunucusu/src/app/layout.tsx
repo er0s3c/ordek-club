@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import "@/styles/presentation.css";
 import "@/styles/academy.css";
+import "@/styles/gamification.css";
 import { Providers } from "@/components/providers";
 import { getMessages } from "@/i18n";
 import { getSettings } from "@/server/settings";

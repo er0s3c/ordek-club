@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, GraduationCap, Radio, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, Flame, GraduationCap, Radio, ShieldCheck, Trophy, Users } from "lucide-react";
 import { listActiveSessions } from "@/server/live/service";
 import { requirePageSession } from "@/server/auth/page-guard";
 import { isAdmin } from "@/server/auth/policy";
@@ -10,6 +10,8 @@ import { getMessages } from "@/i18n";
 import { formatDate, formatDateTime } from "@/components/ui/format";
 import { continueTarget, progressSummary } from "@/server/academy/service";
 import { ProgressBar } from "@/components/academy/Progress";
+import { xpSummary } from "@/server/xp/profile";
+import { LevelBar } from "@/components/xp/LevelBar";
 
 export const metadata: Metadata = { title: "Ana sayfa" };
 
@@ -22,7 +24,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   const pending = isAdmin(user.role) ? await db.user.count({ where: { status: "PENDING" } }) : 0;
   const live = await listActiveSessions();
   const actor = { id: user.id, role: user.role, status: user.status };
-  const [next, academy] = await Promise.all([continueTarget(actor), progressSummary(actor)]);
+  const [next, academy, xp] = await Promise.all([continueTarget(actor), progressSummary(actor), xpSummary(user.id, user.role)]);
   const firstName = user.displayName.split(" ")[0];
 
   return (
@@ -67,6 +69,21 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         </section>
       )}
 
+      <section className="card" aria-labelledby="xp-h">
+        <div className="card-h">
+          <h2 id="xp-h"><Trophy size={16} color="var(--gold)" aria-hidden /> Kalkan dosyan</h2>
+          <Link className="small" href={`/u/${user.username}`}>Profilim →</Link>
+        </div>
+        <div className="card-b xp-card">
+          <div style={{ flex: 2, minWidth: 220 }}><LevelBar level={xp.level} total={xp.total} /></div>
+          <dl className="kv xp-kv">
+            <dt>Bu ay</dt><dd><strong>{xp.month.toLocaleString("tr-TR")} XP</strong>{xp.monthlyRank ? <span className="tiny faint"> · #{xp.monthlyRank}</span> : null}</dd>
+            <dt>Genel sıra</dt><dd>{xp.overallRank ? <Link href="/leaderboard?tab=all">#{xp.overallRank}</Link> : <span className="faint">{xp.ranked ? "henüz yok" : "sıralama dışı"}</span>}</dd>
+            <dt><Flame size={13} aria-hidden /> Seri</dt><dd>{xp.streak.current} gün</dd>
+          </dl>
+        </div>
+      </section>
+
       <div className="grid-2">
         <section className="card" aria-labelledby="membership-h">
           <div className="card-h"><h2 id="membership-h">Üyelik</h2><span className="badge badge-lime">{m.roles[user.role]}</span></div>
@@ -99,7 +116,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             <div className="card-b">
               <p className="muted" style={{ margin: 0 }}>
                 Canlı dersler başladığında burada ve <Link href="/live">Canlı ders</Link> sayfasında görünür; eğitmenin
-                verdiği 6 haneli kodla da katılabilirsin. Kendi hızında ilerlemek için <Link href="/academy">Akademi</Link>{"'"}ye göz at; görevler ve liderlik tablosu sonraki sürümlerde eklenecek.
+                verdiği 6 haneli kodla da katılabilirsin. Kendi hızında ilerlemek için <Link href="/academy">Akademi</Link>{"'"}ye göz at; kazandığın XP ile <Link href="/leaderboard">liderlik tablosunda</Link> yerini al. Görevler sonraki sürümde eklenecek.
               </p>
             </div>
           </section>
