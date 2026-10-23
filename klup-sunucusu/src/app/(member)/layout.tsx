@@ -14,29 +14,44 @@ export default async function MemberLayout({ children }: { children: React.React
   const staff = isStaff(user.role);
   const actor = { id: user.id, role: user.role, status: user.status };
   const [unread, openTasks] = await Promise.all([unreadCount(user.id), staff ? pendingReviewCount(actor) : openTaskCount(actor)]);
+  // TryHackMe tarzı üst menü: sık kullanılanlar doğrudan, sınıf ve eğitmen araçları açılır menüde.
   const groups: NavGroup[] = [
     {
       items: [
         { href: "/dashboard", label: m.nav.home, icon: "Home" },
         { href: "/academy", label: m.nav.academy, icon: "GraduationCap" },
-        { href: staff ? "/teach/tasks" : "/tasks", label: m.nav.tasks, icon: "ClipboardList", count: openTasks },
         { href: "/live", label: m.nav.live, icon: "Radio" },
+      ],
+    },
+    {
+      label: m.nav.classroom,
+      items: [
+        { href: staff ? "/teach/tasks" : "/tasks", label: m.nav.tasks, icon: "ClipboardList", count: openTasks },
         { href: "/groups", label: m.nav.groups, icon: "School" },
         { href: "/files", label: m.nav.files, icon: "FolderOpen" },
         { href: "/announcements", label: m.nav.announcements, icon: "Megaphone" },
-        { href: "/notifications", label: m.nav.notifications, icon: "Bell", count: unread },
-        { href: "/leaderboard", label: m.nav.leaderboard, icon: "Trophy" },
-        { href: `/u/${user.username}`, label: m.nav.profile, icon: "Medal" },
-        ...(staff ? [{ href: "/teach", label: m.nav.teach, icon: "Presentation" as const, exact: true }, { href: "/teach/analytics", label: m.nav.analytics, icon: "BarChart3" as const }] : []),
-        { href: "/account", label: m.nav.account, icon: "UserRound" },
       ],
     },
+    { items: [{ href: "/leaderboard", label: m.nav.leaderboard, icon: "Trophy" }] },
   ];
-  if (isAdmin(user.role)) groups.push({ label: m.nav.admin, items: [{ href: "/admin", label: m.nav.admin, icon: "Shield" }] });
+  if (staff)
+    groups.push({
+      label: m.nav.instructor,
+      items: [
+        { href: "/teach", label: m.nav.teach, icon: "Presentation", exact: true },
+        { href: "/teach/analytics", label: m.nav.analytics, icon: "BarChart3" },
+      ],
+    });
+  if (isAdmin(user.role)) groups.push({ items: [{ href: "/admin", label: m.nav.admin, icon: "Shield" }] });
   return (
     <AppShell
       user={user}
       groups={groups}
+      bell={{ href: "/notifications", count: unread }}
+      userMenu={[
+        { href: `/u/${user.username}`, label: m.nav.profile, icon: "Medal" },
+        { href: "/account", label: m.nav.account, icon: "UserRound" },
+      ]}
       brand={
         <>
           <BrandMark settings={s} />

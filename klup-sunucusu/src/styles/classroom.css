@@ -2,25 +2,25 @@
    Sınıf yönetimi: görevler, dosyalar, duyurular, bildirimler.
    ============================================================================ */
 .prose-plain { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
-.text-warn { color: var(--amber); }
-.table tr.is-open td { background: rgba(201, 149, 59, 0.07); }
-.table tr.is-open td:first-child { box-shadow: inset 3px 0 0 var(--gold); }
+.text-warn { color: var(--ciu-error); }
+.table tr.is-open td { background: var(--accent-bg); }
+.table tr.is-open td:first-child { box-shadow: inset 4px 0 0 var(--accent); }
 
 .ann { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-bottom: 1px dashed var(--line-soft); }
 .ann:last-child { border-bottom: 0; }
-.ann.is-pinned { background: linear-gradient(90deg, rgba(201, 149, 59, 0.08), transparent 60%); box-shadow: inset 3px 0 0 var(--gold); }
-.ann h3 { font-family: var(--font-display); font-size: 18px; margin: 0; overflow-wrap: anywhere; }
+.ann.is-pinned { background: var(--ciu-cream); box-shadow: inset 4px 0 0 var(--accent); }
+.ann h3 { font-size: 22px; font-weight: 700; text-transform: uppercase; font-family: var(--font-display); letter-spacing: var(--tracking-display); line-height: 1.12; margin: 0; overflow-wrap: anywhere; display: inline-flex; gap: 8px; align-items: center; }
 
 .notif { display: flex; gap: 12px; align-items: flex-start; padding: 12px 18px; border-bottom: 1px dashed var(--line-soft); }
 .notif:last-child { border-bottom: 0; }
-.notif.is-unread { background: rgba(143, 29, 36, 0.1); box-shadow: inset 3px 0 0 var(--accent-bright); }
-.notif-icon { flex-shrink: 0; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); color: var(--gold); }
+.notif.is-unread { background: var(--ciu-cream); box-shadow: inset 4px 0 0 var(--accent); }
+.notif-icon { flex-shrink: 0; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); color: var(--accent); }
 .notif-body { flex: 1; min-width: 0; }
 .notif-body strong { overflow-wrap: anywhere; }
 
 .meter { height: 8px; border-radius: 4px; background: var(--bg-3); overflow: hidden; }
-.meter > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
-.meter.is-high > span { background: linear-gradient(90deg, #8f1d24, var(--accent-bright)); }
+.meter > span { display: block; height: 100%; background: var(--ciu-gradient-galaxy); }
+.meter.is-high > span { background: var(--ciu-error); }
 
 .group-list { list-style: none; margin: 0; padding: 0; }
 .group-list li { padding: 12px 18px; border-bottom: 1px dashed var(--line-soft); display: flex; flex-direction: column; gap: 4px; }
@@ -30,13 +30,14 @@
 .quiz-q { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .quiz-q legend { padding: 0 6px; }
 .quiz-review { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
-.quiz-review .is-ok strong { color: var(--term); }
-.quiz-review .is-bad strong { color: #f08d79; }
+.quiz-review .is-ok strong { color: var(--ciu-success); }
+.quiz-review .is-bad strong { color: var(--ciu-error); }
 
 /* analitik */
 .an-bar { flex: 1; height: 8px; border-radius: 4px; background: var(--bg-3); overflow: hidden; min-width: 40px; }
-.an-bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
+.an-bar > span { display: block; height: 100%; background: var(--accent); }
 .an-cols { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; align-items: end; height: 180px; }
 .an-col { display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; min-width: 0; }
 .an-colbar { flex: 1; width: 70%; display: flex; align-items: flex-end; background: var(--bg-inset); border-radius: 3px; overflow: hidden; }
-.an-colbar > span { display: block; width: 100%; background: linear-gradient(0deg, var(--accent), var(--gold)); min-height: 2px; }
+.an-colbar > span { display: block; width: 100%; background: var(--ciu-gradient-galaxy); min-height: 2px; }
+.an-cols .an-col:last-child .an-colbar > span { background: var(--ciu-green); } /* bu hafta */ /* bu hafta */

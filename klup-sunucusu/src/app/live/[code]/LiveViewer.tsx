@@ -66,13 +66,23 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
   }, [state, local, deck]);
 
   if (live.status === "ended") {
+    // Canlıdan bireysel moda köprü (07 Adım 5): destedeki görevler "kendi hızında tekrar et" bağlantısı olur.
+    const missions = deck.slides.flatMap((sl) => sl.blocks.flatMap((b) => (b.type === "mission" ? [b] : [])));
     return (
       <div className="auth-wrap">
         <div className="card auth-card"><div className="card-b stack" style={{ textAlign: "center", alignItems: "center" }}>
           <Radio size={32} color="var(--gold)" aria-hidden />
           <h1 className="page-title">Ders sona erdi</h1>
           <p className="muted">Katıldığın için teşekkürler! Katılımın kaydedildi.</p>
-          <Link className="btn btn-primary" href="/dashboard">Ana sayfaya dön</Link>
+          {missions.length > 0 && (
+            <div className="stack" style={{ gap: 8, width: "100%" }}>
+              <div className="eyebrow">Kendi hızında tekrar et</div>
+              {missions.map((b) => (
+                <Link key={`${b.lesson}/${b.mission}`} className="btn btn-primary" href={`/academy/lesson/${b.lesson}#gorev-${b.mission}`}>{b.title || "Mini görev"} →</Link>
+              ))}
+            </div>
+          )}
+          <Link className={missions.length ? "btn" : "btn btn-primary"} href="/dashboard">Ana sayfaya dön</Link>
         </div></div>
       </div>
     );
@@ -111,7 +121,7 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
             <div className="stage-overlay"><div className="stack-sm" style={{ alignItems: "center" }}><Coffee size={34} color="var(--gold)" aria-hidden /><h2>Kısa bir ara</h2><p className="muted">Eğitmen dersi duraklattı. Ekran kendiliğinden devam edecek.</p></div></div>
           )}
           {live.status === "reconnecting" && (
-            <div className="stage-overlay" style={{ background: "rgba(12,9,8,.6)" }}><div className="stack-sm" style={{ alignItems: "center" }}><span className="spinner" aria-hidden /><span>Bağlantı koptu, yeniden bağlanılıyor…</span></div></div>
+            <div className="stage-overlay" style={{ background: "rgba(8,8,8,.7)" }}><div className="stack-sm" style={{ alignItems: "center" }}><span className="spinner" aria-hidden /><span>Bağlantı koptu, yeniden bağlanılıyor…</span></div></div>
           )}
         </div>
       </main>

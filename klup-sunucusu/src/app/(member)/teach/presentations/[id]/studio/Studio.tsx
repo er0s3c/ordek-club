@@ -9,7 +9,7 @@ import { api } from "@/lib/api-client";
 import { SlideView } from "@/components/presentation/SlideView";
 import { slideSteps, type Block, type ClientSlide, type Deck } from "@/lib/deck-schema";
 import { formatDateTime } from "@/components/ui/format";
-import { BLOCK_LABEL, BlockEditor, newBlock, type AnimOpt } from "./BlockEditor";
+import { BLOCK_LABEL, BlockEditor, newBlock, type AnimOpt, type MissionOpt } from "./BlockEditor";
 
 type Slide = Deck["slides"][number];
 type Version = { id: string; number: number; createdAt: string; author: string; slides: number };
@@ -28,7 +28,7 @@ function where(path: string) {
   return `Slayt ${Number(m[1]) + 1}${m[2] !== undefined ? ` · blok ${Number(m[2]) + 1}` : ""}`;
 }
 
-export function Studio({ id, initial, savedAt, hasDraft, version, versions, anims, timezone }: {
+export function Studio({ id, initial, savedAt, hasDraft, version, versions, anims, missions = [], timezone }: {
   id: string;
   initial: Deck;
   savedAt: string | null;
@@ -36,6 +36,7 @@ export function Studio({ id, initial, savedAt, hasDraft, version, versions, anim
   version: number;
   versions: Version[];
   anims: AnimOpt[];
+  missions?: MissionOpt[];
   timezone: string;
 }) {
   const toast = useToast();
@@ -240,7 +241,7 @@ export function Studio({ id, initial, savedAt, hasDraft, version, versions, anim
                   <button className="btn btn-sm btn-ghost" aria-label={`Blok ${i + 1} aşağı`} disabled={i === slide.blocks.length - 1} onClick={() => moveBlock(i, 1)}><ArrowDown size={13} aria-hidden /></button>
                   <button className="btn btn-sm btn-ghost" aria-label={`Blok ${i + 1} sil`} onClick={() => setBlocks(slide.blocks.filter((_, j) => j !== i))}><Trash2 size={13} aria-hidden /></button>
                 </div>
-                <BlockEditor block={b} anims={anims} idp={`b${sel}-${i}`} onChange={(nb) => setBlocks(slide.blocks.map((x, j) => (j === i ? nb : x)))} />
+                <BlockEditor block={b} anims={anims} missions={missions} idp={`b${sel}-${i}`} onChange={(nb) => setBlocks(slide.blocks.map((x, j) => (j === i ? nb : x)))} />
               </div>
             ))}
 
@@ -248,7 +249,7 @@ export function Studio({ id, initial, savedAt, hasDraft, version, versions, anim
               <div className="studio-add" role="group" aria-label="Blok ekle">
                 <span className="small faint">Blok ekle:</span>
                 {(Object.keys(BLOCK_LABEL) as Block["type"][]).map((t) => (
-                  <button key={t} type="button" className="btn btn-sm btn-ghost" onClick={() => setBlocks([...slide.blocks, newBlock(t, anims)])}>+ {BLOCK_LABEL[t]}</button>
+                  <button key={t} type="button" className="btn btn-sm btn-ghost" onClick={() => setBlocks([...slide.blocks, newBlock(t, anims, missions)])}>+ {BLOCK_LABEL[t]}</button>
                 ))}
               </div>
             )}

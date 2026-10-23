@@ -1,23 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Info, AlertTriangle, CheckCircle2, ShieldAlert, FlaskConical, Paperclip } from "lucide-react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { Info, AlertTriangle, CheckCircle2, ShieldAlert, FlaskConical, Paperclip, ShieldCheck } from "lucide-react";
 import { getAnimation } from "@/animations/registry";
 import { blockSteps, type Block, type ClientSlide } from "@/lib/deck-schema";
 import { FlowAnimationView } from "./FlowAnimationView";
+import { Terminal } from "@/components/ui/Terminal";
+import type { TermLine } from "@/components/ui/terminal-parse";
 import { CodeAnimationView } from "./CodeAnimationView";
 
-export function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const on = () => setReduced(mq.matches);
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return reduced;
-}
+export { useReducedMotion };
 
 const CALLOUT_ICON = { info: Info, warn: AlertTriangle, success: CheckCircle2, danger: ShieldAlert };
 
@@ -57,19 +49,14 @@ function BlockView({ block, step, speed, reducedMotion, stepKey }: { block: Bloc
     }
     case "terminal": {
       const visible = block.reveal ? block.lines.slice(0, s + 1) : block.lines;
-      return (
-        <div className="blk-term" role="figure" aria-label="Terminal">
-          <div className="blk-term-bar" aria-hidden><span /><span /><span /></div>
-          <pre>
-            {visible.map((l, i) => (
-              <div key={i} className={i === visible.length - 1 && block.reveal ? "term-line is-new" : "term-line"}>
-                {l.cmd !== undefined && <div><span className="term-prompt">$ </span>{l.cmd}</div>}
-                {l.out && <div className="term-out">{l.out}</div>}
-              </div>
-            ))}
-          </pre>
-        </div>
-      );
+      const lines: TermLine[] = visible.flatMap((l, i) => {
+        const isNew = block.reveal && i === visible.length - 1;
+        return [
+          ...(l.cmd !== undefined ? [{ kind: "cmd" as const, text: l.cmd, symbol: "$", isNew }] : []),
+          ...(l.out ? l.out.split("\n").map((text) => ({ kind: "out" as const, text, isNew })) : []),
+        ];
+      });
+      return <Terminal className="ciu-terminal--slide" lines={lines} />;
     }
     case "callout": {
       const Icon = CALLOUT_ICON[block.tone];
@@ -96,6 +83,20 @@ function BlockView({ block, step, speed, reducedMotion, stepKey }: { block: Bloc
           <img src={`/api/files/${encodeURIComponent(block.fileId)}?inline=1`} alt={block.alt} loading="lazy" />
           {block.caption && <figcaption>{block.caption}</figcaption>}
         </figure>
+      );
+    case "mission":
+      // Görev köprüsü: görev her öğrencinin kendi cihazında akademide çözülür (canlı akış görevle değişmez).
+      // Önizleme ve projeksiyonda yalnız bilgi kartıdır; bağlantı yalnız açar, deneme kaydı üretmez.
+      return (
+        <section className="blk-practical blk-mission" aria-label="Mini görev">
+          <div className="blk-practical-head">
+            <ShieldCheck size={20} aria-hidden />
+            <span className="blk-practical-tag">Mini görev · kendi cihazında · ≈3 dk</span>
+          </div>
+          <h3 className="blk-h2">{block.title || "Mini görev"}</h3>
+          <div className="blk-text">Telefonundan ya da bilgisayarından aç: Akademi → görev. XP görevi çözünce verilir.</div>
+          <a className="btn btn-primary blk-mission-cta" href={`/academy/lesson/${block.lesson}#gorev-${block.mission}`} target="_blank" rel="noopener">Görevi aç →</a>
+        </section>
       );
     case "practical":
       // Yalnız öğrenciye açık kısım; `host` (VM, snapshot, beklenen sonuç) eğitmen konsolunda ayrı gösterilir.

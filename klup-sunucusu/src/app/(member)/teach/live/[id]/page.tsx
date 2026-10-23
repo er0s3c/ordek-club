@@ -28,7 +28,7 @@ export default async function HostConsolePage({ params }: { params: Promise<{ id
   const base = settings.appUrl || `${h.get("x-forwarded-proto") ?? "http"}://${h.get("host")}`;
   const joinUrl = `${base}/live/${s.code}`;
   // QR sunucuda üretilir (data: URL); istemciye harici kaynak yüklenmez.
-  const qr = await QRCode.toDataURL(joinUrl, { margin: 1, width: 264, color: { dark: "#14110f", light: "#e9dfd0" } });
+  const qr = await QRCode.toDataURL(joinUrl, { margin: 1, width: 264, color: { dark: "#2e2e2e", light: "#ffffff" } });
 
   return <HostConsole sessionId={s.id} code={s.code} joinUrl={joinUrl} qr={qr} deck={info.deck} />;
 }

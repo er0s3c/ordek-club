@@ -6,6 +6,7 @@ export const DEFAULT_RULES = [
   { key: "lesson.complete", label: "Ders veya uygulama tamamlama", amount: 40 },
   { key: "info.read", label: "Bilgi sayfası okuma", amount: 10 },
   { key: "quiz.pass", label: "Quiz geçme (her quiz için bir kez)", amount: 30 },
+  { key: "mission.complete", label: "Mini görev çözme (her görev için bir kez)", amount: 60 },
   { key: "track.complete", label: "Öğrenme yolu tamamlama", amount: 200 },
   { key: "live.attend", label: "Canlı derse katılım (en az 10 dakika)", amount: 25 },
   { key: "task.daily", label: "Günlük görev", amount: 20 },

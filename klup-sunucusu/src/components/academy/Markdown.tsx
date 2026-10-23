@@ -3,11 +3,16 @@
 // İzinli ham HTML yalnızca <details><summary>; diğer HTML düz metin olarak gösterilir.
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ImageOff, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import { marked, type Token, type Tokens } from "marked";
 import { LessonAnimation } from "./LessonAnimation";
+import { Terminal } from "@/components/ui/Terminal";
+import { parseShell, SHELL_LANGS } from "@/components/ui/terminal-parse";
+import { MissionCard, type MissionData } from "./MissionCard";
 
-type Ctx = { images: ReadonlySet<string>; skipTitle: boolean; revealEnding: boolean };
+// Gövdedeki görev yerleştirme ayracı (::gorev[id]); tanım ders front-matter'ında (gorevler:).
+export type MissionCtx = { slug: string; items: MissionData[]; next: { href: string; title: string } | null; trackHref: string; readOnly?: boolean };
+type Ctx = { images: ReadonlySet<string>; skipTitle: boolean; revealEnding: boolean; missions?: MissionCtx };
 
 const ENTITIES: Record<string, string> = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&nbsp;": " " };
 const decode = (s: string) => s.replace(/&(amp|lt|gt|quot|#39|nbsp);/g, (m) => ENTITIES[m] ?? m);
@@ -32,17 +37,16 @@ function safeHref(href: string): { kind: "internal" | "external" | "anchor"; hre
   return null; // göreli/bilinmeyen şema (javascript: vb.) → bağlantı yok
 }
 
+const imageName = (href: string) => href.match(/^\/api\/academy\/images\/([a-z0-9-]+\.(?:webp|png|jpe?g))$/)?.[1];
+const imageReady = (href: string, ctx: Ctx) => {
+  const name = imageName(href);
+  return !!name && ctx.images.has(name);
+};
+
+// Akademi görselleri aşamalı ekleniyor. Dosyası olmayan görsel hiç çizilmez: "hazırlanıyor" kutusu güven kaybettiriyordu
+// (docs/design-council/03 P0 #11).
 function Img({ href, alt, ctx, portrait }: { href: string; alt: string; ctx: Ctx; portrait?: boolean }) {
-  const name = href.match(/^\/api\/academy\/images\/([a-z0-9-]+\.(?:webp|png|jpe?g))$/)?.[1];
-  if (!name) return <span className="md-img-missing">{alt}</span>;
-  // Akademi görselleri aşamalı ekleniyor; dosyası olmayan görsel için yer tutucu gösterilir.
-  if (!ctx.images.has(name))
-    return (
-      <span className={`md-img-missing${portrait ? " is-portrait" : ""}`} role="img" aria-label={alt}>
-        <ImageOff size={20} aria-hidden />
-        <span>Görsel hazırlanıyor</span>
-      </span>
-    );
+  if (!imageReady(href, ctx)) return null;
   // eslint-disable-next-line @next/next/no-img-element -- görseller kendi API'mizden, optimizasyon kapalı
   return <img className={portrait ? "md-portrait" : "md-img"} src={href} alt={alt} loading="lazy" decoding="async" />;
 }
@@ -86,6 +90,7 @@ function Inline({ tokens, ctx }: { tokens: Token[] | undefined; ctx: Ctx }): Rea
 }
 
 const ANIM = /^::animasyon\[([a-z0-9-]+)\]$/;
+const MISSION = /^::gorev\[([a-z0-9-]{1,40})\]$/;
 
 function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
   const out: ReactNode[] = [];
@@ -106,7 +111,17 @@ function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
       case "paragraph": {
         const anim = t.text.trim().match(ANIM);
         if (anim) { out.push(<LessonAnimation key={key} id={anim[1]!} />); break; }
+        const gm = t.text.trim().match(MISSION);
+        if (gm) {
+          const m = ctx.missions?.items.find((x) => x.id === gm[1]);
+          // Tanımsız görev dersi kilitlemez; yalnızca yer tutucu (07 I5)
+          out.push(m && ctx.missions
+            ? <MissionCard key={key} slug={ctx.missions.slug} mission={m} next={ctx.missions.next} trackHref={ctx.missions.trackHref} readOnly={ctx.missions.readOnly} />
+            : <p key={key} className="mission-missing">Bu görev hazırlanıyor.</p>);
+          break;
+        }
         const only = t.tokens?.length === 1 && t.tokens[0]!.type === "image";
+        if (only && !imageReady((t.tokens![0] as Tokens.Image).href, ctx)) break;
         out.push(only ? <figure key={key} className="md-figure"><Inline tokens={t.tokens} ctx={ctx} /></figure> : <p key={key}><Inline tokens={t.tokens} ctx={ctx} /></p>);
         break;
       }
@@ -151,7 +166,10 @@ function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
         break;
       }
       case "code":
-        out.push(<pre key={key} className="md-code" data-lang={t.lang || undefined}><code>{t.text}</code></pre>);
+        // Kabuk blokları terminal bileşeniyle (§5.14); diğer diller koyu kod kutusunda.
+        if (SHELL_LANGS.has((t.lang || "").toLowerCase()))
+          out.push(<Terminal key={key} lines={parseShell(t.text, (t.lang || "").toLowerCase())} title={/^(powershell|ps1)$/i.test(t.lang || "") ? "PowerShell" : "Terminal"} />);
+        else out.push(<pre key={key} className="md-code" data-lang={t.lang || undefined}><code>{t.text}</code></pre>);
         break;
       case "hr":
         out.push(<hr key={key} className="divider" />);
@@ -193,7 +211,7 @@ function ListItem({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
   );
 }
 
-export function Markdown({ source, images, revealEnding = true }: { source: string; images: ReadonlySet<string>; revealEnding?: boolean }) {
+export function Markdown({ source, images, revealEnding = true, missions }: { source: string; images: ReadonlySet<string>; revealEnding?: boolean; missions?: MissionCtx }) {
   const tokens = marked.lexer(source, { gfm: true });
-  return <div className="md"><Blocks tokens={tokens} ctx={{ images, skipTitle: true, revealEnding }} /></div>;
+  return <div className="md"><Blocks tokens={tokens} ctx={{ images, skipTitle: true, revealEnding, missions }} /></div>;
 }

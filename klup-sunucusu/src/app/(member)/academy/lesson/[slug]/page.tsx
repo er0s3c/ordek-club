@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Clock, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Target } from "lucide-react";
 import { requirePageSession } from "@/server/auth/page-guard";
 import { HttpError } from "@/server/errors";
 import { openLesson } from "@/server/academy/service";
 import { availableImages } from "@/server/academy/images";
 import { Markdown } from "@/components/academy/Markdown";
-import { CompleteButton, QuizForm } from "@/components/academy/LessonActions";
+import { CompleteButton, MissionLock, QuizForm } from "@/components/academy/LessonActions";
+import { LabThemeToggle } from "@/components/academy/LabThemeToggle";
 import { KIND_BADGE, KIND_LABEL } from "@/components/academy/labels";
 
 export const metadata: Metadata = { title: "Ders" };
@@ -23,40 +24,68 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
   if (!l) notFound();
   const done = l.status === "COMPLETED";
 
-  return (
-    <article className="lesson fade-up">
-      <nav className="row lesson-crumbs small" aria-label="Konum">
-        <Link href="/academy">Akademi</Link>
-        <span aria-hidden>/</span>
-        <Link href={`/academy/${l.track.key}`}>{l.track.code}</Link>
-      </nav>
+  const hasMission = l.missions.length > 0;
+  const pct = l.count ? Math.round((l.trackDone / l.count) * 100) : 0;
 
-      <header className="page-head lesson-head">
-        <div className="eyebrow">{l.track.code} · {l.index + 1}/{l.count}</div>
-        <h1 className="page-title">{l.title}</h1>
-        <div className="row" style={{ gap: 10, flexWrap: "wrap" }}>
-          <span className={KIND_BADGE[l.kind]}>{KIND_LABEL[l.kind]}</span>
-          <span className="tiny faint"><Clock size={13} aria-hidden /> {l.minutes} dk</span>
-          {done && <span className="stamp stamp-ok">Tamamlandı</span>}
-        </div>
-        {l.goals.length > 0 && (
-          <div className="lesson-goals">
-            <div className="eyebrow"><Target size={13} aria-hidden /> Bu sayfada</div>
-            <ul>{l.goals.map((g, i) => <li key={i}>{g}</li>)}</ul>
+  return (
+    <article className="lesson lab-room fade-up">
+      <div className="lab-top">
+        <nav className="lab-crumbs" aria-label="Konum">
+          <Link href="/academy">Akademi</Link>
+          <span aria-hidden>›</span>
+          <Link href={`/academy/${l.track.key}`}>{l.track.code}</Link>
+          <span aria-hidden>›</span>
+          <span aria-current="page">Ders {l.index + 1}</span>
+        </nav>
+        <LabThemeToggle />
+      </div>
+
+      <header className="lab-head">
+        <div className="lab-icon" aria-hidden>{l.track.code}</div>
+        <div>
+          <h1 className="lab-title">{l.title}</h1>
+          <div className="lab-meta">
+            <span className={KIND_BADGE[l.kind]}>{KIND_LABEL[l.kind]}</span>
+            <span className="lab-meta-item"><Clock size={14} aria-hidden /> {l.minutes} dk</span>
+            <span className="lab-meta-item">{l.track.title}</span>
+            {done && <span className="lab-done"><CheckCircle2 size={14} aria-hidden /> Tamamlandı</span>}
           </div>
-        )}
+        </div>
       </header>
 
-      <Markdown source={l.body} images={availableImages()} revealEnding={done} />
+      <div className={`lab-progress${pct >= 100 ? " is-full" : ""}`}>
+        <div className="lab-progress-rail" role="progressbar" aria-label={`${l.track.code} ilerlemesi`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}>
+          <div className="lab-progress-fill" style={{ width: `${pct}%` }} />
+        </div>
+        <span className="lab-progress-label">{l.trackDone}/{l.count} ders · %{pct}</span>
+      </div>
+
+      {l.goals.length > 0 && (
+        <section className={`lab-goals${done ? " is-done" : ""}`} aria-label="Bu sayfada">
+          <div className="lab-goals-title"><Target size={14} aria-hidden /> Bu sayfada</div>
+          <ul>{l.goals.map((g, i) => <li key={i}>{g}</li>)}</ul>
+        </section>
+      )}
+
+      <div className="lab-prose">
+        <Markdown
+          source={l.body}
+          images={availableImages()}
+          revealEnding={done}
+          missions={hasMission ? { slug: l.slug, items: l.missions, next: l.next ? { href: `/academy/lesson/${l.next.slug}`, title: l.next.title } : null, trackHref: `/academy/${l.track.key}` } : undefined}
+        />
+      </div>
 
       <section className="lesson-actions" aria-label="Ders sonu">
         {l.kind === "QUIZ" && l.questions ? (
-          <>
-            {l.lastAttempt && (
-              <p className="small faint">Son denemen: %{l.lastAttempt.score} · {l.lastAttempt.passed ? "geçti" : "geçmedi"} · geçme notu %{l.passPercent}</p>
-            )}
-            <QuizForm slug={l.slug} questions={l.questions} passPercent={l.passPercent ?? 70} />
-          </>
+          <QuizForm
+            slug={l.slug}
+            questions={l.questions}
+            passPercent={l.passPercent ?? 70}
+            note={l.lastAttempt ? `Son denemen: %${l.lastAttempt.score} · ${l.lastAttempt.passed ? "geçti" : "geçmedi"} · geçme notu %${l.passPercent}` : undefined}
+          />
+        ) : hasMission ? (
+          <MissionLock done={done} left={l.missions.filter((m) => !m.solved).length} target={(l.missions.find((m) => !m.solved) ?? l.missions[0]!).id} />
         ) : (
           <CompleteButton slug={l.slug} done={done} />
         )}

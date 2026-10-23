@@ -7,6 +7,7 @@ import path from "node:path";
 import YAML from "yaml";
 import { z } from "zod";
 import type { LessonKind, TrackKind } from "@prisma/client";
+import { missionProblems, missionSchema, type Mission } from "./missions";
 
 export type QuizQuestion =
   | { kind: "choice"; text: string; options: string[]; answer: number; explanation: string }
@@ -23,6 +24,7 @@ export type ParsedLesson = {
   goals: string[];
   body: string;
   quiz: QuizQuestion[] | null;
+  missions: Mission[] | null;
   passPercent: number | null;
   sourcePath: string;
   contentHash: string;
@@ -70,7 +72,11 @@ const metaSchema = z.object({
   hedefler: z.array(z.coerce.string()).default([]),
   gecme: z.number().int().min(1).max(100).optional(),
   sorular: z.array(questionSchema).optional(),
+  gorevler: z.array(missionSchema).max(3).optional(),
 });
+
+// Gövdedeki görev yerleştirme ayracı: ::gorev[id]
+export const MISSION_DIRECTIVE = /^::gorev\[([a-z0-9-]{1,40})\]$/;
 
 function splitFrontMatter(raw: string): { meta: unknown; body: string } {
   const m = raw.replace(/\r\n/g, "\n").match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -186,6 +192,20 @@ export function loadAcademy(dir: string): { tracks: ParsedTrack[]; problems: str
           if (q.kind === "choice" && q.answer >= q.options.length) problems.push(`${rel}: soru ${qi + 1} doğru cevap indeksi geçersiz`);
         });
       }
+      let missions: Mission[] | null = null;
+      if (d.gorevler?.length) {
+        if (d.tur === "quiz" || d.tur === "bilgi") problems.push(`${rel}: görev yalnızca ders/uygulama sayfasında olabilir`);
+        missions = d.gorevler;
+        const ids = new Set<string>();
+        for (const g of missions) {
+          if (ids.has(g.id)) problems.push(`${rel}: görev id tekrar ediyor (${g.id})`);
+          ids.add(g.id);
+          problems.push(...missionProblems(g).map((x) => `${rel}: ${x}`));
+        }
+      }
+      const refs = body.split("\n").map((line) => line.trim().match(MISSION_DIRECTIVE)?.[1]).filter((x): x is string => !!x);
+      for (const id of refs) if (!missions?.some((g) => g.id === id)) problems.push(`${rel}: ::gorev[${id}] tanımlı değil`);
+      for (const g of missions ?? []) if (!refs.includes(g.id)) problems.push(`${rel}: ${g.id} görevi gövdede ::gorev[${g.id}] ile yerleştirilmemiş`);
       const track = tracks[r.track]!;
       const finalBody = rewriteLinks(body, path.dirname(r.file), slugByFile, trackByDir, imagesDir, path.resolve(dir)).trim();
       track.lessons.push({
@@ -197,6 +217,7 @@ export function loadAcademy(dir: string): { tracks: ParsedTrack[]; problems: str
         goals: d.hedefler,
         body: finalBody,
         quiz,
+        missions,
         passPercent: d.tur === "quiz" ? (d.gecme ?? 70) : null,
         sourcePath: rel,
         // Ham dosya + yeniden yazılmış gövde: başka bir sayfa taşınınca bağlantıları değişen ders de güncellenir.

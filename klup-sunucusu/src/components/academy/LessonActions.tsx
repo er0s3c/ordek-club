@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { CheckCircle2, CircleX, RotateCcw, Send, Stamp } from "lucide-react";
+import { Check, CheckCircle2, CircleX, RotateCcw, Send, Stamp } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
 
@@ -22,7 +22,7 @@ export function CompleteButton({ slug, done }: { slug: string; done: boolean }) 
   const [busy, setBusy] = useState(false);
   if (done)
     return (
-      <span className="stamp stamp-ok"><CheckCircle2 size={16} aria-hidden /> Tamamlandı</span>
+      <span className="lab-done"><CheckCircle2 size={16} aria-hidden /> Tamamlandı</span>
     );
   async function complete() {
     setBusy(true);
@@ -44,7 +44,19 @@ export function CompleteButton({ slug, done }: { slug: string; done: boolean }) 
   );
 }
 
-export function QuizForm({ slug, questions, passPercent }: { slug: string; questions: Question[]; passPercent: number }) {
+// Görevli derste "Okudum, tamamla" yok: ders görev çözülünce kendiliğinden tamamlanır. Kilidin nedeni yazılır
+// (sessiz kilit yok — 04 §6.6); bağlantı göreve kaydırır.
+export function MissionLock({ done, left, target }: { done: boolean; left: number; target: string }) {
+  if (done) return <span className="lab-done"><CheckCircle2 size={16} aria-hidden /> Tamamlandı</span>;
+  return (
+    <div className="lab-lock">
+      <span className="btn" aria-disabled="true"><Stamp size={16} aria-hidden /> Dersi bitir</span>
+      <a href={`#gorev-${target}`}>{left > 1 ? `${left} görev kaldı` : "1 görev kaldı"} — görevi çöz, ders kendiliğinden tamamlanır ↑</a>
+    </div>
+  );
+}
+
+export function QuizForm({ slug, questions, passPercent, note }: { slug: string; questions: Question[]; passPercent: number; note?: string }) {
   const router = useRouter();
   const toast = useToast();
   const [answers, setAnswers] = useState<Answer[]>(() => questions.map(() => null));
@@ -77,17 +89,22 @@ export function QuizForm({ slug, questions, passPercent }: { slug: string; quest
   const set = (i: number, v: Answer) => !result && setAnswers((a) => a.map((x, j) => (j === i ? v : x)));
 
   return (
-    <form className="quiz stack" onSubmit={submit} noValidate>
-      {result && (
-        <div id="quiz-result" className={`alert ${result.passed ? "alert-ok" : "alert-error"}`} role="status">
-          {result.passed ? <CheckCircle2 size={18} aria-hidden /> : <CircleX size={18} aria-hidden />}
-          <div>
-            <strong>%{result.score}</strong> · {result.correct}/{result.total} doğru ·{" "}
-            {result.passed ? "Geçtin, dosya kapandı." : `Geçme notu %${passPercent}. Açıklamaları oku, tekrar dene.`}
-            {rewardText(result) && <div className="xp-gain">{rewardText(result)}</div>}
+    <form className="quiz lab-qa" onSubmit={submit} noValidate aria-labelledby="qa-title">
+      <h2 id="qa-title" className="lab-qa-title">Soruları cevaplayın</h2>
+      {note && <p className="lab-qa-note">{note}</p>}
+      {/* Sonuç bölgesi her zaman DOM'da: ekran okuyucu yeni sonucu duyurur */}
+      <div id="quiz-result" aria-live="polite">
+        {result && (
+          <div className={`lab-qa-result ${result.passed ? "is-ok" : "is-bad"}`}>
+            {result.passed ? <CheckCircle2 size={18} aria-hidden /> : <CircleX size={18} aria-hidden />}
+            <div>
+              <strong>%{result.score}</strong> · {result.correct}/{result.total} doğru ·{" "}
+              {result.passed ? "Geçtin, dosya kapandı." : `Geçme notu %${passPercent}. Açıklamaları oku, tekrar dene.`}
+              {rewardText(result) && <div className="xp-gain">{rewardText(result)}</div>}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
       {questions.map((q, i) => {
         const r = result?.results[i];
         const options: { label: string; value: Answer }[] =
@@ -103,6 +120,11 @@ export function QuizForm({ slug, questions, passPercent }: { slug: string; quest
                 </label>
               ))}
             </div>
+            {r && (
+              <div className={`lab-qa-verdict ${r.correct ? "is-ok" : "is-bad"}`}>
+                {r.correct ? <><Check size={15} aria-hidden /> Doğru cevap</> : <><CircleX size={15} aria-hidden /> Tekrar dene</>}
+              </div>
+            )}
             {r && (
               <p className="quiz-expl small">
                 {r.correct ? <CheckCircle2 size={15} aria-hidden /> : <CircleX size={15} aria-hidden />} {r.explanation}

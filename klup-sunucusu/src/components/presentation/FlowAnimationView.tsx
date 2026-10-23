@@ -14,16 +14,17 @@ const ICONS: Record<IconKey, LucideIcon> = {
 };
 
 const TONE: Record<StepTone, string> = {
-  request: "var(--blue)",
-  reply: "var(--term)",
+  request: "var(--anim-request)",
+  reply: "var(--anim-reply)",
   attack: "var(--red)",
-  secure: "var(--gold)",
-  info: "var(--amber)",
+  secure: "var(--anim-secure)",
+  info: "var(--anim-info)",
 };
 
-const ACTOR_RING = { neutral: "var(--line)", infra: "#4b5d66", good: "#3f7a63", bad: "#8a2f26" } as const;
-const ZONE = { trusted: "rgba(95,211,167,.05)", dmz: "rgba(217,164,65,.07)", untrusted: "rgba(216,85,61,.06)" } as const;
-const ZONE_LINE = { trusted: "rgba(95,211,167,.35)", dmz: "rgba(217,164,65,.42)", untrusted: "rgba(216,85,61,.38)" } as const;
+const ACTOR_RING = { neutral: "var(--color-iron)", infra: "var(--color-iron)", good: "var(--color-ash)", bad: "var(--color-arterial-red)" } as const;
+// Bölgeler ton farkıyla; güvenilmeyen bölge tek kırmızı ince çizgiyle.
+const ZONE = { trusted: "rgba(252,252,252,.035)", dmz: "rgba(252,252,252,.015)", untrusted: "transparent" } as const;
+const ZONE_LINE = { trusted: "rgba(252,252,252,.3)", dmz: "rgba(252,252,252,.18)", untrusted: "rgba(254,30,52,.55)" } as const;
 
 const R = 30; // aktör yarıçapı
 

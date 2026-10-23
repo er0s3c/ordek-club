@@ -176,6 +176,21 @@ export function loadAll() {
     }
     if (!/^# .+/m.test(body)) err("sayfada '# Başlık' yok");
 
+    // Görev düzeni (docs/design-council/05 §6): ::gorev[id] ↔ front-matter gorevler. Görev sayfasında maket görselin
+    // kendisidir; portre yalnız kapanış kartında gösterilir, bu yüzden gövdede ondan önce görsel/DOSYA bloğu olmaz.
+    const missions = Array.isArray(meta.gorevler) ? meta.gorevler : [];
+    const missionRefs = [...body.matchAll(/^::gorev\[([a-z0-9-]+)\]\s*$/gm)].map((m) => m[1]);
+    const isMission = missions.length > 0;
+    for (const id of missionRefs) if (!missions.some((g) => g?.id === id)) err(`::gorev[${id}] tanımlı değil`);
+    for (const g of missions) {
+      if (!missionRefs.includes(g?.id)) err(`${g?.id}: görev gövdede ::gorev[${g?.id}] ile yerleştirilmemiş`);
+      if ((g?.adimlar?.length ?? 0) > 3) err(`${g?.id}: en fazla 3 karar adımı`);
+      if ((g?.kapanis?.kurallar?.length ?? 0) !== 3) err(`${g?.id}: kapanış tam 3 kural içermeli`);
+      if (/https?:\/\/|www\./i.test(JSON.stringify(g))) err(`${g?.id}: görevde gerçek bağlantı olamaz`);
+    }
+    if (isMission && /!\[|^> 🕴|^> 🔒/m.test(body.slice(0, body.search(/^::gorev\[/m))))
+      err("görev sayfasında ilk etkileşimden önce görsel veya DOSYA bloğu olamaz");
+
     // Görseller: bildirilen ↔ sayfada kullanılan
     const declared = new Map();
     for (const g of meta.gorseller ?? []) {
@@ -210,7 +225,7 @@ export function loadAll() {
     }
     for (const id of declared.keys()) if (!used.has(id)) err(`bildirilen görsel sayfada kullanılmıyor: ${id}`);
     // Temel modüllerde ve uzmanlık yollarında her bölümün kendi kötü adam sahnesi olur
-    if (/^0[12]-/.test(rel) && ![...declared.values()].some((g) => g.tur === "ai" && g.karakter))
+    if (/^0[12]-/.test(rel) && !isMission && ![...declared.values()].some((g) => g.tur === "ai" && g.karakter))
       err("bu bölüm için kötü adam sahnesi yok (tur: ai + karakter)");
 
     // Animasyonlar
@@ -230,10 +245,11 @@ export function loadAll() {
       if (page.words > LIMITS.maxWords) err(`çok uzun: ${page.words} kelime (en fazla ${LIMITS.maxWords})`);
       else if (page.words > LIMITS.warnWords) warn(`uzun: ${page.words} kelime (hedef ≤ ${LIMITS.warnWords})`);
       if (!(meta.hedefler?.length > 0)) err("hedefler eksik");
-      if ((meta.gorseller?.length ?? 0) + animUsed.length === 0) err("sayfada hiç görsel/animasyon yok");
+      // Görev sayfasında görsel = posta maketi; 3 maddelik özet kapanış kartındaki kurallardır.
+      if (!isMission && (meta.gorseller?.length ?? 0) + animUsed.length === 0) err("sayfada hiç görsel/animasyon yok");
       const sum = body.match(/## ✅ Akılda kalsın\n+((?:- .+\n?)+)/);
-      if (!sum) err("'## ✅ Akılda kalsın' bölümü yok");
-      else if (sum[1].trim().split("\n").length !== 3) err("'Akılda kalsın' tam 3 madde olmalı");
+      if (!sum && !isMission) err("'## ✅ Akılda kalsın' bölümü yok");
+      else if (sum && sum[1].trim().split("\n").length !== 3) err("'Akılda kalsın' tam 3 madde olmalı");
     }
     if (meta.tur === "ders" && !/## 🧪 Dene/.test(body)) err("'## 🧪 Dene' bölümü yok");
     if (meta.tur === "bilgi" && page.words > LIMITS.maxWords) warn(`uzun: ${page.words} kelime`);

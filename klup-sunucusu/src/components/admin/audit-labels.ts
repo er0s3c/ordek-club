@@ -47,6 +47,13 @@ const LABELS: Record<string, string> = {
   "submission.rejected": "Teslim reddedildi",
   "announcement.create": "Duyuru yayınlandı",
   "announcement.delete": "Duyuru silindi",
+  "presentation.create.template": "Şablondan sunum oluşturuldu",
+  "presentation.import": "Sunum içe aktarıldı",
+  "presentation.content": "Sunuma yeni sürüm yüklendi",
+  "presentation.status": "Sunum durumu değişti",
+  "presentation.archive": "Sunum arşivlendi",
+  "live.start": "Canlı ders başladı",
+  "live.end": "Canlı ders bitti",
   "presentation.publish": "Sunum yeni sürümle yayınlandı (Studio)",
   "group.create": "Sınıf/etkinlik oluşturuldu",
   "group.update": "Sınıf/etkinlik düzenlendi",
@@ -55,4 +62,4 @@ const LABELS: Record<string, string> = {
 };
 
 export const actionLabel = (code: string) => LABELS[code] ?? code;
-export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard", "file", "assignment", "submission", "announcement", "group"];
+export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard", "file", "assignment", "submission", "announcement", "group", "presentation", "live"];

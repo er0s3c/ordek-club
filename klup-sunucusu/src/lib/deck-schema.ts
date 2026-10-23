@@ -50,6 +50,15 @@ export const blockSchema = z.discriminatedUnion("type", [
     alt: text(200).pipe(z.string().min(1, "Görsel için kısa bir açıklama (alt metin) yaz.")),
     caption: text(300).default(""),
   }),
+  // Mini görev köprüsü (docs/design-council/07 Adım 5): eğitmen görev slaytına geçer, öğrenci görevi KENDİ cihazında
+  // akademide çözer; XP aynı uç noktadan gelir. Canlı hub/protokol görev için değişmez. Sunucu kaydederken ders ve
+  // görevin varlığını doğrular (görsel bloğu gibi).
+  z.object({
+    type: z.literal("mission"),
+    lesson: z.string().regex(/^[a-z0-9-]{1,40}$/, "Geçersiz ders."),
+    mission: z.string().regex(/^[a-z0-9-]{1,40}$/, "Geçersiz görev."),
+    title: text(160).default(""),
+  }),
   // VMware uygulama molası: öğrenci talimatları + teslim; `host` alanı yalnız eğitmene gider.
   // Sistem VMware'i başlatmaz/yönetmez; uygulamayı eğitmen kendi ortamında yürütür.
   z.object({

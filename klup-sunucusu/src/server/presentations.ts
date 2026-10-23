@@ -31,8 +31,21 @@ async function checkMedia(deck: Deck, tx: Tx | typeof db = db) {
   if (ok !== ids.length) throw badRequest("Sunumdaki görsellerden biri bulunamadı ya da görsel değil. Görseli Studio'dan yeniden yükle.", "BAD_MEDIA");
 }
 
+// Görev blokları yalnız akademide var olan (arşivlenmemiş) bir dersin tanımlı görevine başvurabilir.
+async function checkMissions(deck: Deck, tx: Tx | typeof db = db) {
+  const refs = deck.slides.flatMap((sl) => sl.blocks.flatMap((b) => (b.type === "mission" ? [b] : [])));
+  if (!refs.length) return;
+  const lessons = await tx.lesson.findMany({ where: { slug: { in: [...new Set(refs.map((r) => r.lesson))] }, archivedAt: null }, select: { slug: true, missions: true } });
+  for (const r of refs) {
+    const l = lessons.find((x) => x.slug === r.lesson);
+    const ids = Array.isArray(l?.missions) ? (l.missions as { id?: string }[]).map((m) => m.id) : [];
+    if (!ids.includes(r.mission)) throw badRequest("Sunumdaki görevlerden biri akademide bulunamadı. Görevi Studio'dan yeniden seç.", "BAD_MISSION");
+  }
+}
+
 async function writeVersion(tx: Tx, presentationId: string, deck: Deck, authorId: string) {
   await checkMedia(deck, tx);
+  await checkMissions(deck, tx);
   const last = await tx.presentationVersion.findFirst({ where: { presentationId }, orderBy: { number: "desc" }, select: { number: true } });
   const version = await tx.presentationVersion.create({
     data: {

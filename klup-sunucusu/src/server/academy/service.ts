@@ -1,12 +1,14 @@
 // Akademi okuma ve ilerleme işlemleri. Arşivlenmiş yol/ders öğrenciye görünmez.
 // Quiz doğru cevapları hiçbir zaman istemciye gönderilmez; puanlama sunucuda yapılır.
-import type { LessonKind, ProgressStatus, TrackKind } from "@prisma/client";
+import { Prisma, type LessonKind, type ProgressStatus, type TrackKind } from "@prisma/client";
 import { db } from "@/server/db";
 import { badRequest, forbidden, notFound, tooMany } from "@/server/errors";
 import { canManageAcademy, canUseAcademy, type Actor } from "@/server/auth/policy";
 import { hit } from "@/server/rate-limit";
 import type { QuizQuestion, Villain } from "./content";
-import { onLessonCompleted, onQuizAttempt, XP_TX } from "@/server/xp/engine";
+import { gradeMission, gradeStep, missionClosing, publicMission, solutionOf, type Mission, type StepAnswer } from "./missions";
+import { availableImages, portraitUrl } from "./images";
+import { onLessonCompleted, onMissionCompleted, onQuizAttempt, XP_TX } from "@/server/xp/engine";
 import { evaluateBadges } from "@/server/xp/badges";
 
 export type PublicQuestion = { kind: "choice"; text: string; options: string[] } | { kind: "truefalse"; text: string };
@@ -115,6 +117,9 @@ export async function openLesson(actor: Actor, slug: string) {
     select: { slug: true, title: true },
   });
   const i = siblings.findIndex((s) => s.slug === l.slug);
+  const missions = (l.missions as unknown as Mission[] | null) ?? [];
+  const solved = missions.length ? await solvedMissions(actor.id, l.id) : new Set<string>();
+  const trackDone = await db.lessonProgress.count({ where: { userId: actor.id, status: "COMPLETED", lesson: { trackId: l.trackId, archivedAt: null } } });
   const lastAttempt =
     l.kind === "QUIZ"
       ? await db.quizAttempt.findFirst({ where: { userId: actor.id, lessonId: l.id }, orderBy: { createdAt: "desc" }, select: { score: true, passed: true, createdAt: true } })
@@ -128,9 +133,12 @@ export async function openLesson(actor: Actor, slug: string) {
     body: l.body,
     passPercent: l.passPercent,
     questions: l.quiz ? publicQuestions(l.quiz as unknown as QuizQuestion[]) : null,
+    // Çözülen görevin kapanışı (özet + sonraki merak) yalnızca çözümden sonra gönderilir.
+    missions: missions.map((m) => ({ ...publicMission(m), solved: solved.has(m.id), closing: solved.has(m.id) ? closingOf(m, l.track.villain) : null })),
     track: { key: l.track.key, code: l.track.code, title: l.track.title, villain: villainOf(l.track.villain) },
     index: i,
     count: siblings.length,
+    trackDone,
     prev: siblings[i - 1] ?? null,
     next: siblings[i + 1] ?? null,
     status: progress.status,
@@ -145,6 +153,8 @@ export async function completeLesson(actor: Actor, slug: string) {
   requireMember(actor);
   const l = await findLesson(slug);
   if (l.kind === "QUIZ") throw badRequest("Quiz, geçme notuna ulaşınca kendiliğinden tamamlanır.", "QUIZ_COMPLETE");
+  // Görevli derste "bekle-tıkla" yolu yok: ders, görev(ler) sunucuda doğrulanınca kendiliğinden tamamlanır.
+  if (l.missions) throw badRequest("Önce görevi çöz; ders kendiliğinden tamamlanır.", "MISSION_PENDING");
   const now = new Date();
   const xp = await db.$transaction(async (tx) => {
     const p = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId: actor.id, lessonId: l.id } } });
@@ -181,17 +191,111 @@ export async function submitQuiz(actor: Actor, slug: string, answers: QuizAnswer
   return { ...g, xp, badges };
 }
 
+// ── Mini görevler ────────────────────────────────────────────────────────────
+// Durum sunucuda: her adım kontrolü ve tamamlama MissionAttempt satırıdır (ilerlemenin tek kaynağı, XP'nin değil).
+
+// Kapanış kartı: ifşa + kurallar + bölümün kötü adam portresi (dosyası hazırsa; yoksa kart görselsiz çizilir).
+const closingOf = (m: Mission, villain: unknown) => {
+  const v = villainOf(villain);
+  return { ...missionClosing(m), portrait: v ? portraitUrl(v.id, availableImages()) : null, villain: v?.ad ?? null };
+};
+
+async function solvedMissions(userId: string, lessonId: string) {
+  const rows = await db.missionAttempt.findMany({ where: { userId, lessonId, step: null, correct: true }, select: { missionId: true }, distinct: ["missionId"] });
+  return new Set(rows.map((r) => r.missionId));
+}
+
+async function findMission(slug: string, missionId: string) {
+  const l = await findLesson(slug);
+  const m = ((l.missions as unknown as Mission[] | null) ?? []).find((x) => x.id === missionId);
+  if (!m) throw notFound("Görev bulunamadı.");
+  return { l, m };
+}
+
+// Adım kontrolü: doğru/yanlış ve o seçeneğe özgü geri bildirim. Durumsuz puanlama, hız sınırlı; deneme kaydedilir.
+// Aynı adımda 2. yanlıştan sonra çözümlü örnek açılır (learning-scientist, şart 2).
+export async function checkMissionStep(actor: Actor, slug: string, missionId: string, step: number, answer: StepAnswer, hintsUsed: number) {
+  requireMember(actor);
+  const r = hit(`mission:${actor.id}`, 60, 10 * 60_000);
+  if (!r.ok) throw tooMany(r.retryAfterSec);
+  const { l, m } = await findMission(slug, missionId);
+  const s = m.adimlar[step];
+  if (!s) throw badRequest("Geçersiz adım.", "BAD_STEP");
+  const g = gradeStep(s, answer);
+  await db.missionAttempt.create({ data: { userId: actor.id, lessonId: l.id, missionId, step, choice: answer ?? [], correct: g.correct, hintsUsed } });
+  let solution: string | null = null;
+  if (!g.correct) {
+    const wrong = await db.missionAttempt.count({ where: { userId: actor.id, lessonId: l.id, missionId, step, correct: false } });
+    if (wrong >= 2) solution = solutionOf(s);
+  }
+  return { ...g, solution };
+}
+
+// Görevi tamamla: istemcinin "doğru" demesine güvenilmez, bütün cevaplar işlem içinde yeniden puanlanır.
+// XP ders kimliği + görev id'siyle idempotent; kural kapalıysa XP 0 olur ama ders yine tamamlanır.
+export async function completeMission(actor: Actor, slug: string, missionId: string, answers: StepAnswer[], hintsUsed: number) {
+  requireMember(actor);
+  const r = hit(`mission:${actor.id}`, 60, 10 * 60_000);
+  if (!r.ok) throw tooMany(r.retryAfterSec);
+  const { l, m } = await findMission(slug, missionId);
+  if (answers.length !== m.adimlar.length) throw badRequest("Her adım için bir cevap gönderilmeli.", "ANSWER_COUNT");
+  if (!gradeMission(m, answers)) throw badRequest("Görev henüz çözülmedi.", "MISSION_PENDING");
+  const all = (l.missions as unknown as Mission[]).map((x) => x.id);
+  const now = new Date();
+  const out = await db.$transaction(async (tx) => {
+    const already = await tx.missionAttempt.count({ where: { userId: actor.id, lessonId: l.id, missionId, step: null, correct: true } });
+    const firstTry = (await tx.missionAttempt.count({ where: { userId: actor.id, lessonId: l.id, missionId, correct: false } })) === 0;
+    await tx.missionAttempt.create({ data: { userId: actor.id, lessonId: l.id, missionId, step: null, choice: answers.map((a) => a ?? []), correct: true, hintsUsed } });
+    const solvedRows = await tx.missionAttempt.findMany({ where: { userId: actor.id, lessonId: l.id, step: null, correct: true }, select: { missionId: true }, distinct: ["missionId"] });
+    const lessonDone = all.every((id) => solvedRows.some((x) => x.missionId === id));
+    const prev = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId: actor.id, lessonId: l.id } }, select: { status: true } });
+    await tx.lessonProgress.upsert({
+      where: { userId_lessonId: { userId: actor.id, lessonId: l.id } },
+      create: { userId: actor.id, lessonId: l.id, ...(lessonDone ? { status: "COMPLETED", completedAt: now } : {}) },
+      update: { lastViewAt: now, ...(lessonDone && prev?.status !== "COMPLETED" ? { status: "COMPLETED", completedAt: now } : {}) },
+    });
+    const xp = await onMissionCompleted(tx, actor.id, l, missionId, lessonDone && prev?.status !== "COMPLETED");
+    return { xp, alreadySolved: already > 0, firstTry, lessonDone };
+  }, XP_TX);
+  const badges = out.xp > 0 ? await evaluateBadges(actor.id) : [];
+  return { ...out, badges, closing: closingOf(m, l.track.villain) };
+}
+
+// Studio için: sunuma eklenebilecek mini görevler (yalnız kodlar ve başlıklar; cevap anahtarı yok).
+export async function missionOptions() {
+  const rows = await db.lesson.findMany({
+    where: { archivedAt: null, track: { archivedAt: null }, NOT: { missions: { equals: Prisma.DbNull } } },
+    orderBy: [{ track: { position: "asc" } }, { position: "asc" }],
+    select: { slug: true, missions: true, track: { select: { code: true } } },
+  });
+  return rows.flatMap((l) => ((l.missions as unknown as Mission[] | null) ?? []).map((m) => ({ lesson: l.slug, mission: m.id, title: `${l.track.code} · ${m.baslik}` })));
+}
+
+// İlk görev (07 Adım 1): yeni öğrenci broşüre değil, 3 dakikalık görevle başlar. Slug kodda sabit (P2: akademi.yaml'a taşı);
+// ders yoksa ya da arşivlendiyse null döner ve panel continueTarget'a düşer.
+export const FIRST_MISSION_SLUG = "m01-05";
+
+export async function firstMission(actor: Actor) {
+  requireMember(actor);
+  const l = await db.lesson.findFirst({
+    where: { slug: FIRST_MISSION_SLUG, archivedAt: null, track: { archivedAt: null } },
+    select: { slug: true, title: true, minutes: true, missions: true },
+  });
+  return l?.missions ? { slug: l.slug, title: l.title, minutes: l.minutes } : null;
+}
+
 // Panel için: kaldığın yer. Önce yarım kalan en son ders; yoksa müfredat sırasında tamamlanmamış ilk ders.
+// PROGRAM yolu (akademi tanıtımı) "devam et" hedefi olmaz: yeni öğrenci broşüre değil ilk derse gitmeli.
 export async function continueTarget(actor: Actor) {
   requireMember(actor);
   const open = await db.lessonProgress.findFirst({
-    where: { userId: actor.id, status: "STARTED", lesson: { archivedAt: null, track: { archivedAt: null } } },
+    where: { userId: actor.id, status: "STARTED", lesson: { archivedAt: null, track: { archivedAt: null, kind: { not: "PROGRAM" } } } },
     orderBy: { lastViewAt: "desc" },
     select: { lesson: { select: { slug: true, title: true, track: { select: { code: true } } } } },
   });
   if (open) return { ...open.lesson, resume: true };
   const next = await db.lesson.findFirst({
-    where: { archivedAt: null, track: { archivedAt: null }, progress: { none: { userId: actor.id, status: "COMPLETED" } } },
+    where: { archivedAt: null, track: { archivedAt: null, kind: { not: "PROGRAM" } }, progress: { none: { userId: actor.id, status: "COMPLETED" } } },
     orderBy: [{ track: { position: "asc" } }, { position: "asc" }],
     select: { slug: true, title: true, track: { select: { code: true } } },
   });

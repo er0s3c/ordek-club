@@ -197,7 +197,7 @@ function Review({ sub, task, busy, run, onDone }: { sub: Sub; task: Task; busy: 
     }, decision === "APPROVE" ? "Teslim onaylandı; XP verildi." : decision === "RETURN" ? "Düzeltme istendi." : "Teslim reddedildi.");
 
   return (
-    <section className="card" aria-labelledby="rev-h" style={{ borderColor: "var(--gold-deep)" }}>
+    <section className="card" aria-labelledby="rev-h" style={{ borderColor: "var(--ink)" }}>
       <div className="card-h"><h2 id="rev-h">{sub.team ? `Takım ${sub.team}` : sub.user.displayName} · teslim</h2><span className={SUBMISSION_STATUS[sub.status]!.cls}>{SUBMISSION_STATUS[sub.status]!.label}</span></div>
       <div className="card-b grid-2" style={{ alignItems: "start" }}>
         <div className="stack-sm">

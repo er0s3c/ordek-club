@@ -53,6 +53,7 @@ export async function importAcademy(opts: { dir?: string; actorId?: string | nul
             goals: l.goals,
             body: l.body,
             quiz: l.quiz ? (l.quiz as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+            missions: l.missions ? (l.missions as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
             passPercent: l.passPercent,
             sourcePath: l.sourcePath,
             contentHash: l.contentHash,

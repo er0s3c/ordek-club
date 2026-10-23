@@ -161,6 +161,39 @@ sunum içeriği yalnız düz metin + kayıtlı animasyon kimliği (çalıştır�
 - CodeQL ve gitleaks işleri GitHub'da henüz çalıştırılmadı (PR açılınca çalışır); E2E yerelde çalıştı.
 - Geliştirme bağımlılıklarında (vitest, braces) `npm audit` uyarıları var; üretim bağımlılıklarında açık yok (`npm audit --omit=dev`: 0).
 
+## 🎨 Tasarım: CIU tabanlı tema + üst başlık (2026-10-23)
+
+- Kullanıcının verdiği ciu.edu.tr tabanlı tasarım sistemi uygulandı (üniversitenin logosu/adı kullanılmaz; kulübün kendi markası kalır).
+- Renk: derin mor marka (#5C1FE2), neon yeşil yalnız eylem (#17FF74, üzerinde koyu metin), krem yüzeyler (#FFFCF2),
+  mürekkep metin (#2E2E2E); mor→macenta galaxy degradesi vurgulu bölümlerde (ana sayfa karşılama bandı, ilerleme, sekmeler).
+- Tipografi: Lexend Tera 700 BÜYÜK HARF başlıklar (-0.12em), Readex Pro gövde (0.02em); fontsource ile kendi sunucumuzdan.
+- Bileşenler: hap butonlar (birincil yeşil, ikincil mor çerçeve), 20px gölgesiz kartlar, 16px inputlar (odakta mor çerçeve),
+  52px etiketler, krem açılır menüler (dropdown gölgesi).
+- **Kenar çubuğu yerine TryHackMe tarzı üst başlık**: mor degrade şerit · Ana sayfa / Akademi / Canlı ders · *Sınıf* ve
+  *Eğitmen* açılır menüleri · Liderlik · Yönetim · bildirim zili · kullanıcı menüsü. 1180 px altında hamburger panel.
+- Slayt sahnesi ve canlı ders ekranı **koyu kapsamda** kalır (projeksiyon okunurluğu); orada vurgu yeşil.
+- Doğrulama: 196/196 test, E2E 1/1, 375 px'de taşma yok (denetim çizelgesindeki uzun kod düzeltildi).
+
+## 🧭 Tasarım konseyi ve dikey dilim (2026-10-23)
+
+- **Kimlik:** UKÜ Siber Güvenlik Kulübü (CIU Cyber Security Club) logosu `public/brand/`, favicon `src/app/icon.png`.
+- **16 ajanlı tasarım konseyi** (`docs/design-council/`, kaynak: kullanıcının verdiği zip). Ajanlar `.claude/agents/<ad>.md`
+  tanımlarıyla, salt okuma yetkisiyle, ayrı alt ajanlar olarak çalıştırıldı (35 çağrı: Tur 1 ×16, öğrenci eleştirisi ×4,
+  tartışma ×5, yargıç ×3, belge yazıcı ×7). Öğrenci tepkileri **simülasyondur**; gerçek kullanıcı verisi yok, sonuç uydurulmadı.
+  Matris: C 7.43 · A 6.77 · B 5.98 → **koşullu melez** (kabuk A, ders gövdesi C, etkileşim motoru B).
+- **Terminal bloğu** (§5.14): `Terminal.tsx` + `terminal-parse.ts`; Markdown kabuk blokları ve slayt terminali bunu kullanır.
+- **Lab odası** (§5A): ders sayfası breadcrumb, 96px ikon, yol ilerleme rayı, `.lab-prose`, `.lab-qa` quiz (doğru kilit, yanlış
+  sallanma, `aria-live`). Varsayılan açık oda; koyu oda kullanıcı tercihi.
+- **Dikey dilim** (07 §3): (1) `continueTarget` PROGRAM yolunu atlar; hiç ders bitirmemiş öğrenciye panelde tek "İlk görev" kartı.
+  (2) Eksik görsel yer tutucusu öğrenciye gösterilmez; görevli derste kilit nedeni yazılır. (3) **Mini görev "Şüpheli Mesaj:
+  Sahte Kampüs Bursu"** (`m01-05`, `gorevler:` + `::gorev[id]`, `MissionCard`, `MissionAttempt`, check/complete API; cevap
+  anahtarı istemciye gitmez; bağlantı/parola alanı yok). (4) `mission.complete` = 60 XP, görev başına bir kez; ipucu XP'yi
+  düşürmez; 2 yanlıştan sonra çözümlü örnek. (5) Sunumlara `mission` bloğu (Studio'dan seçilir, kayıtta doğrulanır); canlı
+  ders bitişinde "Kendi hızında tekrar et" köprüsü. Canlı hub/protokol değişmedi.
+- Kararlar ve kalan işler: `docs/design-council/07-implementation-and-tests.md` §10.1 ve "Uygulama ve test sonuçları".
+- Doğrulama: typecheck + lint hatasız, `academy:check` hatasız, **217/217** vitest (yeni: görev birim 10, görev entegrasyon 6,
+  terminal 5), E2E 1/1 (yeni adım 4b: ilk görev uçtan uca), tarayıcıda görev akışı + koyu oda + 375 px taşma yok.
+
 ## 🧪 Çalıştırılan testler (2026-10-23, Faz 6)
 
 | Komut | Sonuç |

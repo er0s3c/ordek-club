@@ -51,7 +51,7 @@ export default async function AdminXpPage() {
       </div>
 
       {flagged.length > 0 && (
-        <section className="card" aria-labelledby="sus-h" style={{ borderColor: "rgba(217,164,65,.55)" }}>
+        <section className="card card-featured" data-tag="Dikkat" aria-labelledby="sus-h">
           <div className="card-h"><h2 id="sus-h"><AlertTriangle size={16} color="var(--amber)" aria-hidden /> Şüpheli etkinlik</h2></div>
           <div className="card-b">
             <ul className="list-tight">

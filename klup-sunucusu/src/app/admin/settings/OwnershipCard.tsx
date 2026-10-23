@@ -35,7 +35,7 @@ export function OwnershipCard() {
   }
 
   return (
-    <section className="card" aria-labelledby="own-h" style={{ borderColor: "var(--accent-deep)" }}>
+    <section className="card card-featured" aria-labelledby="own-h">
       <div className="card-h"><h2 id="own-h"><Crown size={15} aria-hidden /> Sahiplik devri</h2></div>
       <form className="card-b stack-sm" onSubmit={submit}>
         <p className="small muted" style={{ margin: 0 }}>Sahiplik yalnız aktif bir yöneticiye devredilebilir. Önce Üyeler sayfasından hedef kişiyi yönetici yap.</p>

@@ -8,7 +8,7 @@ import { db } from "@/server/db";
 import { getSettings } from "@/server/settings";
 import { getMessages } from "@/i18n";
 import { formatDate, formatDateTime } from "@/components/ui/format";
-import { continueTarget, progressSummary } from "@/server/academy/service";
+import { continueTarget, firstMission, progressSummary } from "@/server/academy/service";
 import { ProgressBar } from "@/components/academy/Progress";
 import { xpSummary } from "@/server/xp/profile";
 import { LevelBar } from "@/components/xp/LevelBar";
@@ -35,17 +35,51 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   const todo = tasks.filter((a) => a.status === "PUBLISHED" && (!a.mine || a.mine.status === "RETURNED")).slice(0, 4);
   const firstName = user.displayName.split(" ")[0];
 
+  // İlk kullanım (04 §6.1): hiç ders bitirmemiş öğrenciye tek kart, tek yeşil düğme. Lig, sıra, seri, XP toplamı yok;
+  // kulüp haberleri katlı şeritte. Personel her zaman tam paneli görür.
+  const first = !staff && academy.completed === 0 ? await firstMission(actor) : null;
+  if (first) {
+    const news = live.length + todo.length + anns.length;
+    return (
+      <div className="stack fade-up first-run">
+        {denied && <div className="alert alert-warn" role="alert">Bu sayfaya erişim yetkin yok.</div>}
+        <div className="first-head">
+          <div className="eyebrow">{s.clubName}</div>
+          <h1 className="page-title">Merhaba, <em>{firstName}</em></h1>
+          <p className="page-sub">Burada kimse &quot;bunu bilmen gerekirdi&quot; demez.</p>
+        </div>
+        <section className="card first-card" aria-labelledby="first-h">
+          <div className="first-tag">İlk görev · ≈{first.minutes} dk · +XP</div>
+          <h2 id="first-h" className="first-title">Şüpheli mesaj</h2>
+          <p className="first-text">Bir mesaj geldi. Gerçek mi? Sen karar ver.</p>
+          <Link className="btn btn-primary first-cta" href={`/academy/lesson/${first.slug}`}>Mesajı aç <ArrowRight size={16} aria-hidden /></Link>
+        </section>
+        <Link className="first-how" href="/academy">Akademi nasıl işler?</Link>
+        {news > 0 && (
+          <details className="first-news" open={live.length > 0}>
+            <summary>Kulüpte bu hafta ({news})</summary>
+            <ul className="list-tight">
+              {live.map((x) => <li key={x.id}><Radio size={14} aria-hidden /> <span style={{ flex: 1 }}><strong>Canlı:</strong> {x.title}</span><Link className="btn btn-sm" href={`/live/${x.code}`}>Katıl</Link></li>)}
+              {todo.map((a) => <li key={a.id}><ClipboardList size={14} aria-hidden /> <span style={{ flex: 1, minWidth: 0 }}><Link href={`/tasks/${a.id}`}>{a.title}</Link></span></li>)}
+              {anns.map((a) => <li key={a.id}><Megaphone size={14} aria-hidden /> <span style={{ flex: 1, minWidth: 0, overflowWrap: "anywhere" }}><Link href="/announcements">{a.title}</Link></span></li>)}
+            </ul>
+          </details>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="stack fade-up">
       {denied && <div className="alert alert-warn" role="alert">Bu sayfaya erişim yetkin yok.</div>}
-      <div className="page-head">
+      <div className="page-head hero-galaxy">
         <div className="eyebrow">{s.clubName}</div>
-        <h1 className="page-title">Merhaba, {firstName} 👋</h1>
+        <h1 className="page-title">Merhaba, <em>{firstName}</em><span className="dot-red" aria-hidden style={{ marginLeft: 8, verticalAlign: "0.1em" }} /></h1>
         {s.description && <p className="page-sub">{s.description}</p>}
       </div>
 
       {live.length > 0 && (
-        <section className="card" aria-labelledby="live-h" style={{ borderColor: "var(--accent-deep)" }}>
+        <section className="card card-featured" data-tag="Canlı" aria-labelledby="live-h">
           <div className="card-h"><h2 id="live-h"><Radio size={16} color="var(--term)" aria-hidden /> Şu an canlı</h2></div>
           <div className="card-b">
             <ul className="list-tight">

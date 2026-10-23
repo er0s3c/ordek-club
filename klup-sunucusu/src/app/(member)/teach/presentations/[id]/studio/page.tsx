@@ -8,6 +8,7 @@ import { HttpError } from "@/server/errors";
 import { getSettings } from "@/server/settings";
 import { ANIMATIONS } from "@/animations/registry";
 import { DECK_SCHEMA_VERSION, type Deck } from "@/lib/deck-schema";
+import { missionOptions } from "@/server/academy/service";
 import { Studio } from "./Studio";
 
 export const metadata: Metadata = { title: "Club Studio" };
@@ -20,7 +21,7 @@ export default async function StudioPage({ params }: { params: Promise<{ id: str
     if (e instanceof HttpError && e.status === 403) redirect(`/teach/presentations/${id}`);
     throw e;
   });
-  const s = await getSettings();
+  const [s, missions] = await Promise.all([getSettings(), missionOptions()]);
   // Taslak kısmen geçersiz olabilir (düzenleme sürerken); editör eksik alanları varsayılanla tamamlar.
   const raw = (st.deck ?? {}) as Partial<Deck>;
   const deck: Deck = {
@@ -42,6 +43,7 @@ export default async function StudioPage({ params }: { params: Promise<{ id: str
         version={st.version}
         versions={st.versions.map((v) => ({ id: v.id, number: v.number, createdAt: v.createdAt.toISOString(), author: v.createdBy?.displayName ?? "—", slides: v._count.slides }))}
         anims={ANIMATIONS.map((a) => ({ id: a.id, title: a.title }))}
+        missions={missions}
         timezone={s.timezone}
       />
     </div>

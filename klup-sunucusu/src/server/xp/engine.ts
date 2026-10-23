@@ -87,18 +87,29 @@ export async function onQuizAttempt(tx: Tx, userId: string, lesson: { id: string
   );
 }
 
+// Mini görev: ödül tıklamaya değil sunucuda doğrulanmış çözüme bağlı. Anahtar görev başına sabit (tekrar çözüm ek XP vermez);
+// ilk deneme ya da ipucu kullanımı miktarı değiştirmez. Görevli derste ayrıca "lesson.complete" verilmez.
+export async function onMissionCompleted(tx: Tx, userId: string, lesson: { id: string; trackId: string; title: string }, missionId: string, lessonDone: boolean) {
+  const gained =
+    (await award(tx, { userId, ruleKey: "mission.complete", key: `mission:${userId}:${lesson.id}:${missionId}`, source: "LESSON", refType: "Mission", refId: lesson.id, reason: lesson.title })) +
+    (lessonDone ? await maybeTrack(tx, userId, lesson.trackId) : 0);
+  await recordActivity(tx, userId);
+  return gained;
+}
+
 // XP sistemi açılmadan önce yapılmış tamamlama ve quiz geçişlerini ödüllendirir. Anahtarlar canlı akıştakilerle
 // aynı olduğu için tekrar çalıştırmak güvenlidir (zaten verilmiş ödül yeniden yazılmaz).
 export async function backfillXp(): Promise<{ users: number; xp: number }> {
   await ensureGamificationDefaults();
   const done = await db.lessonProgress.findMany({
     where: { status: "COMPLETED", user: { status: "ACTIVE" }, lesson: { archivedAt: null } },
-    select: { userId: true, lesson: { select: { id: true, trackId: true, kind: true, title: true } } },
+    select: { userId: true, lesson: { select: { id: true, trackId: true, kind: true, title: true, missions: true } } },
   });
   const users = new Set<string>();
   let xp = 0;
   for (const p of done) {
     const gained = await db.$transaction(async (tx) => {
+      if (p.lesson.missions) return 0; // görev ödülü görev çözümünde verilir
       if (p.lesson.kind !== "QUIZ") return onLessonCompleted(tx, p.userId, p.lesson);
       const passed = await tx.quizAttempt.count({ where: { userId: p.userId, lessonId: p.lesson.id, passed: true } });
       return passed ? onQuizAttempt(tx, p.userId, p.lesson, true) : 0;

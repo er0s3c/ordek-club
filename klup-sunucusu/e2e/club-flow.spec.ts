@@ -66,6 +66,34 @@ test("kurulumdan onaylı göreve 13 adım", async ({ browser }) => {
     await expect(s.getByRole("heading", { name: /Merhaba, Ali/ })).toBeVisible();
   });
 
+  await test.step("4b. İlk görev (design-council E1): tek kart → yanlış → ipucu → doğru → +XP, kapanış", async () => {
+    await o.goto("/admin/academy");
+    await o.getByRole("button", { name: /İçeriği şimdi içe aktar/ }).click();
+    await toast(o, /ders: \d+ yeni/);
+    await s.goto("/dashboard");
+    // İlk kullanım: tek yeşil düğme, lig/sıra/XP kartı yok
+    await expect(s.locator(".first-card")).toBeVisible();
+    await expect(s.getByText("Kalkan dosyan")).toHaveCount(0);
+    await s.getByRole("link", { name: /Mesajı aç/ }).click();
+    await s.waitForURL("**/academy/lesson/m01-05");
+    const m = s.locator(".mission");
+    await expect(m.locator("a[href]")).toHaveCount(0); // maket: bağlantı yok
+    await expect(m.locator("input")).toHaveCount(0); // maket: parola dahil hiçbir alan yok
+    await m.getByRole("button", { name: "Bağlantıya dokun" }).click();
+    await expect(m.getByRole("group", { name: "Simülasyon giriş ekranı" })).toBeVisible();
+    await m.getByRole("button", { name: "Bir ipucu ver" }).click();
+    await m.getByRole("button", { name: "Göndereni incele" }).click();
+    await m.getByRole("button", { name: /Devam/ }).click();
+    await m.getByRole("button", { name: /Gönderene dokun/ }).click();
+    await expect(m.locator(".mail-addr mark").first()).toBeVisible();
+    await m.getByRole("button", { name: "Hayır", exact: true }).click();
+    await m.getByRole("button", { name: /Devam/ }).click();
+    await m.getByRole("button", { name: "Gönderen adresi okulunkiyle aynı değil" }).click();
+    await m.getByRole("button", { name: "Dosyayı kapat" }).click();
+    await expect(s.getByText("DOSYA KAPANDI")).toBeVisible();
+    await expect(s.getByText(/\+60 XP/)).toBeVisible();
+  });
+
   let presentationUrl = "";
   await test.step("5. Eğitmen şablondan sunum oluşturur", async () => {
     await o.goto("/teach");
@@ -148,7 +176,7 @@ test("kurulumdan onaylı göreve 13 adım", async ({ browser }) => {
     await expect(s.getByText(/E2E: auth.log incelemesi: onaylandı \(\+120 XP\)/)).toBeVisible();
     await s.goto("/leaderboard");
     await expect(s.getByRole("cell", { name: new RegExp(STUDENT.name) }).first()).toBeVisible();
-    await expect(s.getByText("130", { exact: true }).first()).toBeVisible(); // 120 görev + 10 canlı quiz
+    await expect(s.getByText("190", { exact: true }).first()).toBeVisible(); // 60 ilk görev + 120 görev + 10 canlı quiz
   });
 
   await oc.close();

@@ -76,6 +76,7 @@ model User {
   liveEvents          LiveSessionEvent[]     @relation("LiveEventAuthor")
   lessonProgress      LessonProgress[]
   quizAttempts        QuizAttempt[]
+  missionAttempts     MissionAttempt[]
   xpTransactions      XpTransaction[]        @relation("XpOwner")
   xpAuthored          XpTransaction[]        @relation("XpAuthor")
   badges              UserBadge[]            @relation("BadgeOwner")
@@ -346,26 +347,29 @@ model Track {
 }
 
 model Lesson {
-  id          String           @id @default(cuid())
-  slug        String           @unique // sayfa kimliği (ör. "m01-04") — içerik boyunca sabit
-  trackId     String
-  track       Track            @relation(fields: [trackId], references: [id], onDelete: Cascade)
-  position    Int
-  kind        LessonKind
-  title       String
-  minutes     Int              @default(5)
-  goals       String[]
+  id              String           @id @default(cuid())
+  slug            String           @unique // sayfa kimliği (ör. "m01-04") — içerik boyunca sabit
+  trackId         String
+  track           Track            @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  position        Int
+  kind            LessonKind
+  title           String
+  minutes         Int              @default(5)
+  goals           String[]
   // Markdown gövdesi: iç bağlantılar /academy/..., görseller /api/academy/images/... olarak yeniden yazılmış hâli
-  body        String
+  body            String
   // Quiz soruları DOĞRU CEVAPLARLA birlikte burada durur; istemciye asla olduğu gibi gönderilmez.
-  quiz        Json?
-  passPercent Int?
-  sourcePath  String // content/academy içindeki göreli yol
-  contentHash String
-  archivedAt  DateTime?
-  updatedAt   DateTime         @updatedAt
-  progress    LessonProgress[]
-  attempts    QuizAttempt[]
+  quiz            Json?
+  // Mini görevler (front-matter `gorevler:`) DOĞRU CEVAP ve geri bildirimleriyle; istemciye publicMissions ile süzülerek gider.
+  missions        Json?
+  passPercent     Int?
+  sourcePath      String // content/academy içindeki göreli yol
+  contentHash     String
+  archivedAt      DateTime?
+  updatedAt       DateTime         @updatedAt
+  progress        LessonProgress[]
+  attempts        QuizAttempt[]
+  missionAttempts MissionAttempt[]
 
   @@index([trackId, position])
   @@index([trackId, archivedAt])
@@ -405,6 +409,24 @@ model QuizAttempt {
   createdAt DateTime @default(now())
 
   @@index([userId, lessonId, createdAt])
+}
+
+// Mini görev denemeleri: ilerlemenin tek kaynağı. step dolu = adım kontrolü, step boş = görevin tamamlanması.
+// firstTry ayrı alan değil; görevdeki ilk yanlış satırdan türetilir. hintsUsed yalnızca öğrenme gözlemi içindir (XP'yi etkilemez).
+model MissionAttempt {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  missionId String
+  step      Int?
+  choice    Json
+  correct   Boolean
+  hintsUsed Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([userId, lessonId, missionId])
 }
 
 // ============================================================================

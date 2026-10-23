@@ -1,0 +1,183 @@
+/* ============================================================================
+   Lab / eğitim odası (docs/TASARIM-SISTEMI.md §5A) — akademi ders sayfası.
+   Varsayılan AÇIK oda (§5A "açık tema"; konsey kararı: ders gövdesi C dili, krem — docs/design-council/04 §1.2).
+   Koyu oda kullanıcının tercihiyle açılır: .lab-room[data-theme="dark"]. Terminal bloğu her temada koyu kalır.
+   ============================================================================ */
+.lab-room {
+  --lab-bg: #ffffff;
+  --lab-surface: var(--ciu-cream);
+  --lab-surface-2: #f4effd;
+  --lab-border: rgba(46, 46, 46, 0.16);
+  --lab-text: var(--ciu-ink);
+  --lab-text-muted: #474747;
+  --lab-text-subtle: #6b6b6b;
+  --lab-code-bg: #ece6fb;
+  --lab-progress: var(--ciu-gradient-galaxy);
+  --lab-danger: var(--ciu-error);
+  --lab-warn: #8a5a00;
+  --lab-ok: var(--ciu-success); /* doğru durum çizgisi/metni: açık zeminde koyu yeşil (neon yeşil metin olmaz) */
+  --lab-accent-ink: var(--ciu-purple); /* vurgu metni: başlık etiketi, liste işareti, bağlantı */
+  --lab-action: var(--ciu-green); /* yalnız eylem dolgusu; üzerinde koyu metin */
+  --lab-focus: 0 0 0 4px rgba(92, 31, 226, 0.35);
+  color: var(--lab-text);
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Koyu oda (§5A belirteçleri) */
+.lab-room[data-theme="dark"] {
+  --lab-bg: #15112b;
+  --lab-surface: #1e1840;
+  --lab-surface-2: #272052;
+  --lab-border: #3a3170;
+  --lab-text: #f5f3fb;
+  --lab-text-muted: #bdb6d6;
+  --lab-text-subtle: #8e86ad;
+  --lab-code-bg: #3a3170;
+  --lab-danger: #ff5b6b;
+  --lab-warn: #ffb020;
+  --lab-ok: var(--ciu-green);
+  --lab-accent-ink: var(--ciu-green);
+  /* sayfadaki ortak bileşenler (badge, btn, tablo) için rol değişkenleri */
+  --bg-0: var(--lab-bg);
+  --bg-1: var(--lab-surface);
+  --bg-2: var(--lab-surface-2);
+  --bg-3: var(--lab-border);
+  --bg-inset: var(--lab-bg);
+  --surface: var(--lab-surface);
+  --line: var(--lab-border);
+  --line-soft: rgba(189, 182, 214, 0.14);
+  --line-strong: var(--lab-text-subtle);
+  --ink: var(--lab-text);
+  --ink-dim: var(--lab-text-muted);
+  --ink-faint: var(--lab-text-subtle);
+  --accent: var(--ciu-green);
+  --accent-bg: rgba(23, 255, 116, 0.1);
+  --gold: var(--ciu-green);
+  --gold-bright: var(--ciu-green);
+  --gold-deep: var(--lab-border);
+  --term: var(--ciu-green);
+  --red: var(--lab-danger);
+  --color-arterial-red: var(--ciu-green);
+  color-scheme: dark;
+}
+body:has(.lab-room[data-theme="dark"]) { background: #15112b; }
+.lab-room a:not(.btn) { color: var(--lab-accent-ink); }
+
+/* Breadcrumb: Yol › Modül › Oda + tema anahtarı */
+.lab-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.lab-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--lab-text-subtle); }
+.lab-crumbs a:not(.btn) { color: var(--lab-text-muted); text-decoration: none; }
+.lab-crumbs a:not(.btn):hover { color: var(--lab-accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+.lab-crumbs [aria-current] { color: var(--lab-text); overflow-wrap: anywhere; }
+.lab-theme { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border-radius: 30px; border: 1px solid var(--lab-border); background: var(--lab-surface); color: var(--lab-text-muted); font-size: 13px; cursor: pointer; }
+.lab-theme:hover { color: var(--lab-text); border-color: var(--lab-text-subtle); }
+.lab-theme:focus-visible { box-shadow: var(--lab-focus); }
+
+/* Başlık: 96px ikon kutusu + başlık + meta */
+.lab-head { display: grid; grid-template-columns: 96px 1fr; gap: 24px; align-items: center; }
+.lab-icon { width: 96px; height: 96px; border-radius: 20px; background: var(--lab-progress); display: grid; place-items: center; color: #fff; font: 700 18px/1.1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-align: center; padding: 8px; overflow: hidden; }
+.lab-title { font: 700 28px/40px var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); margin: 0; color: var(--lab-text); overflow-wrap: anywhere; }
+.lab-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; font-size: 14px; color: var(--lab-text-muted); }
+.lab-meta-item { display: inline-flex; align-items: center; gap: 6px; }
+.lab-room[data-theme="dark"] .badge { background: var(--lab-surface-2); border-color: var(--lab-border); color: var(--lab-text); }
+.lab-done { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 30px; background: var(--lab-action); color: var(--ciu-ink); font-size: 13px; font-weight: 500; }
+
+/* İlerleme: 12px ray, galaxy dolgu (%100'de eylem yeşili), etiket sağda */
+.lab-progress { display: flex; align-items: center; gap: 14px; }
+.lab-progress-rail { flex: 1; height: 12px; border-radius: 30px; background: var(--lab-surface-2); overflow: hidden; }
+.lab-progress-fill { height: 100%; border-radius: 30px; background: var(--lab-progress); transition: width 300ms var(--ease); }
+.lab-progress.is-full .lab-progress-fill { background: var(--lab-action); }
+.lab-progress-label { font-size: 14px; color: var(--lab-text-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Hedefler ("Bitince yapabileceğin"): solda 4px durum şeridi */
+.lab-goals { padding: 16px 20px; border-radius: 16px; background: var(--lab-surface); border: 1px solid var(--lab-border); border-left: 4px solid var(--lab-border); }
+.lab-goals.is-done { border-left-color: var(--lab-ok); }
+.lab-goals-title { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--lab-text); }
+.lab-goals ul { margin: 8px 0 0; padding-left: 22px; color: var(--lab-text-muted); font-size: 15px; }
+.lab-goals li::marker { color: var(--lab-accent-ink); }
+
+/* İçerik tipografisi (.lab-prose): Readex Pro, ≤75ch; ders gövdesinde Lexend Tera / büyük harf yok
+   (TASARIM-SISTEMI.md "ders gövdesi istisnası") */
+.lab-prose { padding: 32px; border-radius: 16px; background: var(--lab-surface); border: 1px solid var(--lab-border); }
+.lab-prose:has(> .md > .mission:only-child) { padding: 0; border: 0; background: none; }
+.lab-prose .md { font: 400 16px/26px var(--font-sans); color: var(--lab-text-muted); max-width: 75ch; letter-spacing: 0.01em; }
+.lab-prose .md strong { color: var(--lab-text); }
+.lab-prose .md h2 { font: 500 24px/1.3 var(--font-sans); text-transform: none; letter-spacing: 0; color: var(--lab-text); border-bottom-color: var(--lab-border); margin-top: 36px; }
+.lab-prose .md h3 { font: 500 20px/1.3 var(--font-sans); text-transform: none; letter-spacing: 0; color: var(--lab-text); }
+.lab-prose .md h4 { font: 500 17px/1.3 var(--font-sans); text-transform: none; letter-spacing: 0; color: var(--lab-text); }
+.lab-prose .md > :first-child { margin-top: 0; }
+.lab-prose .md a { color: var(--lab-accent-ink); }
+.lab-prose .md-list li::marker { color: var(--lab-accent-ink); }
+.lab-prose .md-codespan { background: var(--lab-code-bg); border: 0; color: var(--lab-text); }
+.lab-prose .md-quote { background: var(--lab-surface-2); border-left: 4px solid var(--ciu-purple); border-radius: 0 10px 10px 0; color: var(--lab-text-muted); }
+.lab-prose .md-quote strong { color: var(--lab-text); }
+.lab-prose .md-table-wrap { border-color: var(--lab-border); }
+.lab-prose .md-table th { color: var(--lab-text); background: var(--lab-surface-2); }
+.lab-prose .md-table tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--lab-surface-2) 55%, transparent); }
+.lab-prose .md-details { background: var(--lab-surface-2); border-color: var(--lab-border); border-radius: 10px; }
+.lab-prose .md-details > summary { color: var(--lab-text); }
+.lab-prose .md-img { border-color: var(--lab-border); }
+/* Not / dosya kutuları: 4px sol şerit, 10px köşe */
+.lab-prose .dossier { background: var(--lab-surface-2); border: 0; border-left: 4px solid var(--ciu-purple); border-radius: 10px; color: var(--lab-text-muted); }
+.lab-prose .dossier::after { background: var(--ciu-purple); border-radius: 0 10px 0 10px; }
+.lab-prose .dossier-closed { border-left-color: var(--lab-ok); background: color-mix(in srgb, var(--lab-ok) 8%, transparent); }
+.lab-prose .dossier-closed::after { background: var(--lab-ok); color: #fff; }
+.lab-room[data-theme="dark"] .lab-prose .dossier-closed::after { color: var(--ciu-ink); }
+.lab-prose .dossier-locked { background: var(--lab-bg); border-color: var(--lab-border); color: var(--lab-text-subtle); border-radius: 10px; }
+.lab-prose .lesson-anim-note { background: var(--lab-surface-2); border-left-color: var(--ciu-purple); }
+
+/* Kompakt butonlar: 40px, 0 18px; lab varyantı yüzey zemin + border */
+.lab-room .btn { min-height: 40px; height: auto; padding: 0 18px; font-size: 14px; }
+.lab-room .btn:not(.btn-primary):not(.btn-danger) { background: var(--lab-surface); border: 1px solid var(--lab-border); color: var(--lab-text); }
+.lab-room .btn:not(.btn-primary):not(.btn-danger):hover { background: var(--lab-surface-2); border-color: var(--lab-text-subtle); color: var(--lab-text); }
+.lab-room .btn-primary { background: var(--lab-action); border-color: var(--lab-action); color: var(--ciu-ink); }
+.lab-room .btn:focus-visible { box-shadow: var(--lab-focus); }
+
+.lab-room .lesson-actions { border-top: 0; padding: 0; }
+.lab-room .lesson-nav { padding-top: 8px; }
+
+/* "Dersi bitir" kilidi: nedeni yazılır (04 §6.6) */
+.lab-lock { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 14px; color: var(--lab-text-muted); }
+.lab-lock .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+
+/* Soru-cevap (.lab-qa) */
+.lab-qa { padding: 32px; border-radius: 16px; background: var(--lab-surface); border: 1px solid var(--lab-border); display: flex; flex-direction: column; gap: 18px; }
+.lab-qa-title { margin: 0; font: 500 14px/1.4 var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--lab-accent-ink); }
+.lab-qa-note { margin: 0; font-size: 14px; color: var(--lab-text-subtle); }
+.lab-qa .quiz-q { padding: 18px 20px; border-radius: 16px; background: var(--lab-bg); border: 1px solid var(--lab-border); }
+/* legend fieldset çerçevesinin üstüne oturmasın: float ile kutunun içine alınır */
+.lab-qa .quiz-legend { color: var(--lab-text); float: left; width: 100%; }
+.lab-qa .quiz-legend + * { clear: both; }
+.lab-qa .quiz-no { color: var(--lab-accent-ink); font-family: var(--font-term); }
+.lab-qa .quiz-opt { min-height: 44px; border-radius: 16px; background: var(--lab-surface); border-color: var(--lab-border); color: var(--lab-text); }
+.lab-qa .quiz-opt:hover { border-color: var(--lab-text-subtle); }
+.lab-qa .quiz-opt:focus-within { border-color: var(--ciu-purple); box-shadow: var(--lab-focus); }
+.lab-qa .quiz-opt.is-picked { border-color: var(--ciu-purple); background: color-mix(in srgb, var(--ciu-purple) 14%, transparent); }
+.lab-qa .quiz-opt input { accent-color: var(--ciu-purple); }
+.lab-qa .quiz-q.is-correct { border-color: var(--lab-ok); }
+.lab-qa .quiz-q.is-wrong { border-color: var(--lab-danger); animation: labShake 300ms var(--ease); }
+.lab-qa-verdict { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 14px; font-weight: 500; }
+.lab-qa-verdict.is-ok { color: var(--lab-ok); }
+.lab-qa-verdict.is-bad { color: var(--lab-danger); }
+.lab-qa .quiz-expl { color: var(--lab-text-muted); }
+.lab-qa .quiz-q.is-correct .quiz-expl svg { color: var(--lab-ok); }
+.lab-qa .quiz-q.is-wrong .quiz-expl svg { color: var(--lab-danger); }
+.lab-qa-result { padding: 14px 18px; border-radius: 16px; border: 1px solid var(--lab-border); background: var(--lab-bg); display: flex; gap: 10px; align-items: flex-start; color: var(--lab-text); }
+.lab-qa-result.is-ok { border-color: var(--lab-ok); }
+.lab-qa-result.is-ok > svg { color: var(--lab-ok); }
+.lab-qa-result.is-bad { border-color: var(--lab-danger); }
+.lab-qa-result.is-bad > svg { color: var(--lab-danger); }
+.lab-qa .xp-gain { color: var(--lab-ok); }
+@keyframes labShake { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-3px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-qa .quiz-q.is-wrong { animation: none; }
+  .lab-progress-fill { transition: none; }
+}
+@media (max-width: 640px) {
+  .lab-head { grid-template-columns: 64px 1fr; gap: 14px; }
+  .lab-icon { width: 64px; height: 64px; border-radius: 16px; font-size: 12px; padding: 4px; }
+  .lab-title { font-size: 21px; line-height: 30px; }
+  .lab-prose, .lab-qa { padding: 18px 16px; }
+}

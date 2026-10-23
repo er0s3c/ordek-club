@@ -7,6 +7,7 @@ import { api } from "@/lib/api-client";
 import type { Block } from "@/lib/deck-schema";
 
 export type AnimOpt = { id: string; title: string };
+export type MissionOpt = { lesson: string; mission: string; title: string };
 
 export const BLOCK_LABEL: Record<Block["type"], string> = {
   heading: "Başlık",
@@ -18,9 +19,10 @@ export const BLOCK_LABEL: Record<Block["type"], string> = {
   animation: "Animasyon",
   image: "Görsel",
   practical: "VMware uygulama molası",
+  mission: "Mini görev",
 };
 
-export function newBlock(type: Block["type"], anims: AnimOpt[]): Block {
+export function newBlock(type: Block["type"], anims: AnimOpt[], missions: MissionOpt[] = []): Block {
   switch (type) {
     case "heading":
       return { type, text: "", level: 2 };
@@ -40,6 +42,8 @@ export function newBlock(type: Block["type"], anims: AnimOpt[]): Block {
       return { type, fileId: "", alt: "", caption: "" };
     case "practical":
       return { type, title: "", description: "", files: [], steps: [], durationMin: 30, host: { prepNotes: "", vms: [], snapshot: "", expected: "" } };
+    case "mission":
+      return { type, lesson: missions[0]?.lesson ?? "", mission: missions[0]?.mission ?? "", title: missions[0]?.title ?? "" };
   }
 }
 
@@ -54,7 +58,7 @@ const parseHl = (s: string) =>
     .filter((a) => a.length);
 const fmtHl = (h: number[][]) => h.map((a) => a.join(",")).join(" ; ");
 
-export function BlockEditor({ block, onChange, anims, idp }: { block: Block; onChange: (b: Block) => void; anims: AnimOpt[]; idp: string }) {
+export function BlockEditor({ block, onChange, anims, missions = [], idp }: { block: Block; onChange: (b: Block) => void; anims: AnimOpt[]; missions?: MissionOpt[]; idp: string }) {
   const f = (name: string) => `${idp}-${name}`;
   switch (block.type) {
     case "heading":
@@ -120,6 +124,17 @@ export function BlockEditor({ block, onChange, anims, idp }: { block: Block; onC
       );
     case "image":
       return <ImageField block={block} onChange={onChange} />;
+    case "mission":
+      return (
+        <div className="studio-fields">
+          <select className="input select" aria-label="Görev" value={`${block.lesson}/${block.mission}`}
+            onChange={(e) => { const o = missions.find((m) => `${m.lesson}/${m.mission}` === e.target.value); if (o) onChange({ ...block, lesson: o.lesson, mission: o.mission, title: o.title }); }}>
+            {!missions.some((m) => m.lesson === block.lesson && m.mission === block.mission) && <option value={`${block.lesson}/${block.mission}`}>— görev seç —</option>}
+            {missions.map((m) => <option key={`${m.lesson}/${m.mission}`} value={`${m.lesson}/${m.mission}`}>{m.title}</option>)}
+          </select>
+          <span className="hint">Slaytta görev kartı görünür; öğrenciler görevi kendi cihazında akademide çözer, XP orada verilir.</span>
+        </div>
+      );
     case "practical":
       return (
         <div className="studio-fields">
