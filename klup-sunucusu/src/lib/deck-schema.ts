@@ -43,7 +43,27 @@ export const blockSchema = z.discriminatedUnion("type", [
     text: text(600),
   }),
   z.object({ type: z.literal("animation"), animation: z.enum(ANIMATION_IDS) }),
+  // VMware uygulama molası: öğrenci talimatları + teslim; `host` alanı yalnız eğitmene gider.
+  // Sistem VMware'i başlatmaz/yönetmez; uygulamayı eğitmen kendi ortamında yürütür.
+  z.object({
+    type: z.literal("practical"),
+    title: text(160).pipe(z.string().min(1, "Uygulama başlığı gerekli.")),
+    description: text(2000).default(""),
+    files: z.array(text(120)).max(10).default([]),
+    steps: z.array(text(300)).max(20).default([]),
+    durationMin: z.number().int().min(1).max(240).default(30),
+    host: z
+      .object({
+        prepNotes: text(3000).default(""),
+        vms: z.array(text(160)).max(10).default([]),
+        snapshot: text(300).default(""),
+        expected: text(3000).default(""),
+      })
+      .default({}),
+  }),
 ]);
+
+export const EMPTY_PRACTICAL_HOST = { prepNotes: "", vms: [] as string[], snapshot: "", expected: "" };
 export type Block = z.output<typeof blockSchema>;
 
 export const slideSchema = z.object({

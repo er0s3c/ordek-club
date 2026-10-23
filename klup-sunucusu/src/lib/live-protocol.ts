@@ -12,10 +12,12 @@ export type LiveState = {
   speed: (typeof SPEEDS)[number];
   freeNav: boolean; // öğrenciler kendi başına gezinebilir (bireysel inceleme)
   stepAt: number; // son adım değişikliğinin sunucu zamanı (ms) — animasyon senkronu için
+  // VMware uygulama molaları: slayt indeksi → bağlı görev ve teslim süresi (eğitmen o slayta geçince oluşur)
+  practicals: Record<string, { assignmentId: string; dueAt: number }>;
 };
 
 export const initialLiveState = (): LiveState => ({
-  slide: 0, step: 0, paused: false, autoplay: false, speed: 1, freeNav: false, stepAt: Date.now(),
+  slide: 0, step: 0, paused: false, autoplay: false, speed: 1, freeNav: false, stepAt: Date.now(), practicals: {},
 });
 
 const control = z.discriminatedUnion("action", [
@@ -44,6 +46,19 @@ export const clientMessageSchema = z.discriminatedUnion("t", [
   z.object({ t: z.literal("announce"), text: clean(300) }),
   z.object({ t: z.literal("resolve"), id: z.string().min(1).max(40) }),
   z.object({ t: z.literal("lowerHand"), userId: z.string().min(1).max(40) }),
+  // Canlı quiz / anket (açma, kapatma, sonucu açıklama yalnız eğitmende; cevap öğrencide)
+  z.object({
+    t: z.literal("poll.open"),
+    kind: z.enum(["QUIZ", "POLL"]),
+    question: clean(300),
+    options: z.array(clean(120)).min(2).max(6),
+    correctIndex: z.number().int().min(0).max(5).optional(),
+    anonymous: z.boolean().default(false),
+    timeLimitSec: z.number().int().min(10).max(600).default(60),
+  }),
+  z.object({ t: z.literal("poll.close") }),
+  z.object({ t: z.literal("poll.reveal") }),
+  z.object({ t: z.literal("poll.answer"), pollId: z.string().min(1).max(40), choice: z.number().int().min(0).max(5) }),
 ]);
 export type ClientMessage = z.infer<typeof clientMessageSchema>;
 
@@ -56,16 +71,34 @@ export type ParticipantView = {
   handRaised: boolean;
   connectedMs: number;
 };
+// Öğrenciye giden quiz görünümü: doğru cevap ve dağılım yalnız sonuç açıklanınca eklenir.
+export type PollView = {
+  id: string;
+  kind: "QUIZ" | "POLL";
+  question: string;
+  options: string[];
+  anonymous: boolean;
+  timeLimitSec: number;
+  status: "OPEN" | "CLOSED" | "REVEALED";
+  closesAt: number;
+  total: number;
+  mine: number | null;
+  results: number[] | null;
+  correctIndex: number | null;
+};
+export type PollStats = { pollId: string; counts: number[]; total: number; answers: { displayName: string; choice: number }[] | null };
 export type QuestionView = { id: string; userId: string | null; displayName: string; text: string; at: number; resolved: boolean };
 
 export type ServerMessage =
-  | { t: "welcome"; you: { userId: string; isHost: boolean }; session: { id: string; code: string; title: string; slideCount: number } }
+  | { t: "welcome"; you: { userId: string; isHost: boolean }; session: { id: string; code: string; title: string; slideCount: number }; serverNow: number }
   | { t: "state"; v: number; state: LiveState; serverTime: number }
   | { t: "presence"; online: number; participants?: ParticipantView[] } // tam liste yalnızca eğitmene
   | { t: "questions"; items: QuestionView[] } // yalnızca eğitmene
   | { t: "announcement"; text: string; at: number }
   | { t: "you"; handRaised: boolean }
-  | { t: "ack"; what: "question" | "hand" }
+  | { t: "ack"; what: "question" | "hand" | "poll" }
+  | { t: "poll"; poll: PollView | null }
+  | { t: "poll.stats"; stats: PollStats } // yalnızca eğitmene
   | { t: "ended" }
   | { t: "error"; code: string; message: string }
   | { t: "pong"; serverTime: number };

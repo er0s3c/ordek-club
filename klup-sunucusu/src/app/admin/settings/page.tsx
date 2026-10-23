@@ -31,6 +31,8 @@ export default async function SettingsPage() {
           locale: s.locale as "tr" | "en",
           registrationPolicy: s.registrationPolicy,
           maxUploadMb: s.maxUploadMb,
+          storageQuotaMb: s.storageQuotaMb,
+          userQuotaMb: s.userQuotaMb,
           sessionMaxAgeDays: s.sessionMaxAgeDays,
           sessionIdleHours: s.sessionIdleHours,
         }}

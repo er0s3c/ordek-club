@@ -130,6 +130,39 @@
 .seg button { border: 0; background: transparent; padding: 6px 10px; font-size: 12.5px; cursor: pointer; color: var(--ink-dim); }
 .seg button[aria-pressed="true"] { background: var(--accent-bg); color: #fff1e6; }
 
+/* ── uygulama molası bloğu ── */
+.blk-practical { display: flex; flex-direction: column; gap: 1.1cqw; padding: 1.6cqw 1.8cqw; border: 1px solid rgba(95, 211, 167, 0.3); border-left: 0.45cqw solid var(--term); border-radius: 0.6cqw; background: linear-gradient(90deg, rgba(95, 211, 167, 0.07), rgba(8, 10, 9, 0.6)); }
+.blk-practical-head { display: flex; align-items: center; gap: 0.8cqw; color: var(--term); }
+.blk-practical-head svg { width: 2cqw; height: 2cqw; }
+.blk-practical-tag { font-family: var(--font-type); font-size: 1.35cqw; letter-spacing: 0.12em; text-transform: uppercase; }
+.blk-practical-steps { margin: 0; padding-left: 2.6cqw; display: flex; flex-direction: column; gap: 0.6cqw; font-size: 1.7cqw; }
+.blk-practical-steps li::marker { color: var(--term); font-family: var(--font-mono); }
+.blk-practical-files { display: flex; align-items: center; gap: 0.6cqw; font-family: var(--font-mono); font-size: 1.3cqw; color: var(--ink-dim); }
+.blk-practical-files svg { width: 1.4cqw; height: 1.4cqw; }
+
+/* ── canlı quiz / anket ── */
+.live-dock { display: grid; gap: 12px; padding: 0 18px 14px; width: 100%; max-width: 980px; margin: 0 auto; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.poll-card { border: 1px solid var(--gold-deep); border-radius: var(--radius); background: linear-gradient(180deg, rgba(42, 30, 18, 0.9), rgba(16, 13, 11, 0.95)); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--elev-2); animation: fadeUp 0.25s var(--ease); min-width: 0; }
+.poll-card .eyebrow { display: inline-flex; align-items: center; gap: 6px; }
+.poll-q { font-family: var(--font-display); font-size: 19px; margin: 0; overflow-wrap: anywhere; }
+.poll-opts { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.poll-opt { display: flex; align-items: center; gap: 10px; text-align: left; padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg-1); color: var(--ink); cursor: pointer; font-size: 14.5px; min-height: 44px; overflow-wrap: anywhere; }
+.poll-opt:hover:not(:disabled) { border-color: var(--gold); }
+.poll-opt[aria-pressed="true"] { border-color: var(--accent-bright); background: var(--accent-bg); }
+.poll-opt:disabled { cursor: default; opacity: 0.75; }
+.poll-opt[aria-pressed="true"]:disabled { opacity: 1; }
+.poll-letter { display: inline-grid; place-items: center; width: 24px; height: 24px; flex-shrink: 0; border-radius: 3px; border: 1px solid var(--gold-deep); font-family: var(--font-type); font-size: 12px; color: var(--gold); }
+.poll-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.poll-bar-label { display: flex; align-items: center; gap: 8px; font-size: 13.5px; overflow-wrap: anywhere; }
+.poll-bar { height: 8px; border-radius: 4px; background: var(--bg-3); overflow: hidden; margin-top: 4px; }
+.poll-bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); transition: width 0.4s var(--ease); }
+.poll-bars .is-correct .poll-bar > span { background: linear-gradient(90deg, #2d8a67, var(--term)); }
+.poll-bars .is-correct .poll-bar-label { color: var(--term); }
+.poll-bars .is-wrong { opacity: 0.7; }
+.poll-live { padding-bottom: 10px; border-bottom: 1px dashed var(--line-soft); }
+.text-ok { color: var(--term); }
+.practical-card .card-h h2 { display: inline-flex; align-items: center; gap: 6px; }
+
 /* ── modül kötü adamı dosyası (Akademi) ── */
 .villain-file { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: linear-gradient(90deg, rgba(58, 20, 24, 0.55), rgba(15, 12, 11, 0.6)); }
 .villain-file img { width: 120px; height: 120px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold-deep); filter: sepia(0.15); }

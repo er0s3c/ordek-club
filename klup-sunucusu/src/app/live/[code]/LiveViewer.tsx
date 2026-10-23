@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Hand, Maximize2, Megaphone, MessageSquareText, Radio, Users, X, Coffee } from "lucide-react";
+import { ChevronLeft, ChevronRight, Hand, Maximize2, Megaphone, MessageSquareText, Radio, Users, X, Coffee, FlaskConical } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { SlideView } from "@/components/presentation/SlideView";
 import { nextPos, prevPos, type Position } from "@/components/presentation/DeckPlayer";
 import { useLiveSession } from "@/hooks/useLiveSession";
+import { StudentPoll } from "@/components/live/Poll";
+import { StudentPractical } from "@/components/live/Practical";
 import type { ClientDeck } from "@/lib/deck-schema";
 
 const STATUS_TEXT = { connecting: "Bağlanıyor…", open: "Canlı", reconnecting: "Yeniden bağlanıyor…", ended: "Ders bitti", error: "Bağlantı hatası" };
@@ -44,6 +46,11 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
   const following = local === null;
   const pos: Position | null = following ? (state ? { slide: state.slide, step: state.step } : null) : local;
   const slide = pos ? deck.slides[Math.min(pos.slide, deck.slides.length - 1)] : undefined;
+  // Uygulama molası: canlı slayttaki practical bloğu ve sunucunun ona bağladığı görev.
+  const liveSlide = state ? deck.slides[state.slide] : undefined;
+  const practical = liveSlide?.blocks.find((b) => b.type === "practical");
+  const practicalInfo = state ? state.practicals?.[String(state.slide)] : undefined;
+  const lastPractical = state ? Object.values(state.practicals ?? {}).sort((a, b) => b.dueAt - a.dueAt)[0] : undefined;
 
   useEffect(() => {
     if (!state?.freeNav) return;
@@ -109,6 +116,15 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
         </div>
       </main>
 
+      {(live.poll || (practical?.type === "practical" && practicalInfo && !live.isHost)) && (
+        <div className="live-dock">
+          {live.poll && <StudentPoll poll={live.poll} skew={live.clockSkew} send={live.send} readOnly={live.isHost} />}
+          {practical?.type === "practical" && practicalInfo && !live.isHost && (
+            <StudentPractical key={practicalInfo.assignmentId} assignmentId={practicalInfo.assignmentId} dueAt={practicalInfo.dueAt} block={practical} skew={live.clockSkew} />
+          )}
+        </div>
+      )}
+
       <footer className="live-bottom">
         {state?.freeNav && (
           <>
@@ -125,6 +141,9 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
         <button className="btn btn-sm" onClick={() => dialog.current?.showModal()} disabled={live.status !== "open"}>
           <MessageSquareText size={15} aria-hidden /> Soru sor
         </button>
+        {!live.isHost && lastPractical && !practicalInfo && (
+          <Link className="btn btn-sm" href={`/tasks/${lastPractical.assignmentId}`} target="_blank" rel="noopener"><FlaskConical size={15} aria-hidden /> Uygulama teslimi</Link>
+        )}
         <button className="btn btn-sm btn-ghost" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Tam ekran"><Maximize2 size={15} aria-hidden /></button>
       </footer>
 

@@ -1,10 +1,10 @@
 # Ördek Club — Uygulama Durumu
 
-> Son güncelleme: 2026-10-22 · Branch: `feature/club-gamification` (Faz 4) · Sorumlu: Opus 5.5
+> Son güncelleme: 2026-10-23 · Branch: `feature/club-classroom` (Faz 5) · Sorumlu: Opus 5.5
 
 ## Özet
 
-**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. **Faz 4 (XP, seviyeler, rozetler, liderlik) çalışır durumda.** Faz 5–6 başlamadı.
+**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. **Faz 4 (XP, seviyeler, rozetler, liderlik) çalışır durumda.** **Faz 5 (görevler, dosyalar, canlı quiz/anket, duyurular, VMware uygulama molası) çalışır durumda.** Faz 6 başlamadı.
 
 ## ✅ Çalışan özellikler (Faz 1)
 
@@ -106,6 +106,40 @@ sunum içeriği yalnız düz metin + kayıtlı animasyon kimliği (çalıştır�
 | Sayfalar: /leaderboard (bu ay · genel · geçmiş aylar, podyum, Top 10/50/tümü, kendi sıran), /u/[kullanıcı] profil (XP geçmişi yalnız kişiye ve yöneticiye), panelde XP kartı, /admin/xp, /admin/badges | Masaüstü + 375 px, taşma yok |
 | CLI: `xp-backfill` (Faz 4 öncesi ilerlemeye XP; tekrar çalıştırmak güvenli), `leaderboard-archive` | Yerelde çalıştırıldı |
 
+## ✅ Faz 5 — Sınıf yönetimi
+
+| Özellik | Kanıt |
+|---|---|
+| Görev (`Assignment`): 8 tür (metin, kısa cevap, dosya, PCAP, log, OSINT, kod inceleme, VMware), zorluk, başlangıç/son teslim, geç teslim izni, yeniden teslim, rubrik (toplam = en yüksek puan), XP kuralı veya özel XP (0–500) | migration `phase5_classroom`; şema testleri |
+| Hedef: tüm öğrenciler ya da seçili öğrenciler (`AssignmentTarget`); hedef dışı öğrenciye görev, teslim ve ekler 404 | IDOR testleri |
+| Teslim: metin + en fazla 5 dosya; geç teslim işaretlenir ya da reddedilir; düzeltme istenince yeniden teslim (deneme sayısı); onaylanan/reddedilen teslim kilitli | Entegrasyon testleri |
+| Değerlendirme: yalnız görevi oluşturan eğitmen ya da yönetici; rubrik puanı ölçüt sınırında; onay / düzeltme iste (geri bildirim zorunlu) / reddet; **XP yalnız onayda, onayla aynı transaction'da, görev başına bir kez**; toplu onay | XP-bir-kez, başka eğitmen 403, öğrenci 403 testleri |
+| Dosyalar (`FileAsset` + `FileGrant`): kapsam kulüp / seçili üyeler / görev eki / teslim; içerik baytlarından tür tespiti (PE/ELF/Mach-O, HTML, SVG reddedilir; uzantı-içerik uyumu); rastgele depolama anahtarı, `wx` yazımı; kulüp ve öğrenci başına kota | Birim testleri + kılık değiştirmiş .exe testi (diskte iz yok) |
+| İndirme: her istekte yetki; yetkisize 404; `attachment`, `nosniff`, `CSP: sandbox`, CORP same-origin | Başlık testleri, curl |
+| Canlı quiz (puanlı, isimli) ve anket (isteğe bağlı anonim): çoktan seçmeli / doğru-yanlış, 10 sn–10 dk süre, sunucu tarafı süre ve otomatik kapanış, kişi başına tek cevap (DB birincil anahtarı), eğitmene canlı dağılım, öğrenciye dağılım ve doğru cevap yalnız açıklanınca; doğru cevaba `live.quiz` XP (soru başına bir kez); anonimde eğitmen de kimin ne seçtiğini görmez; yeniden bağlanınca durum geri gelir | 9 hub testi + tarayıcı + betikli WS öğrenci |
+| Duyurular: herkese / yalnız personele, sabitleme, bitiş tarihi; uygulama içi bildirim | Testler |
+| Bildirimler: görev yayınlandı, yeni teslim, değerlendirme sonucu, duyuru; menüde okunmamış sayısı; kişi yalnız kendi bildirimini okundu yapar | Testler |
+| VMware uygulama molası slaytı (`practical` blok): öğrenciye açıklama, dosyalar, adımlar, süre ve teslim formu; eğitmene hazırlık notları, VM'ler, snapshot, beklenen sonuç, teslim durumu (5 sn'de bir), değerlendirme bağlantısı. Eğitmen notları öğrenci destesinden sunucuda çıkarılır. Slayta ilk geçişte bağlı görev bir kez oluşur. **Sistem VMware'i başlatmaz/yönetmez**; WebRTC gerekmiyor | Testler + tarayıcı |
+| Sayfalar: /tasks, /tasks/[id], /teach/tasks (+ yeni, düzenle, değerlendirme), /files, /announcements, /notifications; panelde görev ve duyuru kartları; yönetim → sistem durumunda dosya kotası; ayarlarda kulüp/öğrenci kotası | Masaüstü + 375 px, taşma yok |
+
+### Faz 5'te bilinçli olarak eksik kalanlar
+- **Sınıf/şube ve etkinlik kapsamları** (görev ve dosyayı bir sınıfa/etkinliğe atamak): veri modelinde sınıf/etkinlik yok; şimdilik "tüm öğrenciler" ya da kullanıcı adı listesi.
+- **Grup görevleri** (ortak teslim): her teslim kişiseldir.
+- **Çoktan seçmeli / eşleştirme görev türü** (otomatik puanlanan ödev): canlı quiz ve akademi quizleri var; ödev tarafında yok.
+- **E-posta bildirimleri**: yalnız uygulama içi (SMTP Faz 6).
+- **Görsel (resim) slayt bloğu**: dosya deposu hazır; blok ve editör desteği Faz 6.
+- **Dosya içeriği taraması** (antivirüs): yalnız tür doğrulaması yapılır; ZIP içleri açılmaz. Dosyalar indirme olarak sunulur, uygulama kökeninde çalışmaz.
+- **WebRTC ekran paylaşımı**: gerekmiyor; mimari engel yok.
+
+## 🧪 Çalıştırılan testler (2026-10-23, Faz 5)
+
+| Komut | Sonuç |
+|---|---|
+| `npm run typecheck` · `npm run lint` | ✅ hatasız |
+| `npm test` | ✅ **166/166** (18 dosya; yeni: dosya doğrulama, sınıf yönetimi, canlı quiz/uygulama molası) |
+| `npm run build` | ✅ |
+| Tarayıcı (dev): görev oluştur → yayınla → öğrenci teslimi (API) → rubrikle onay (+120 XP bildirimi) → indirme başlıkları; canlı quiz (betikli WS öğrenci cevapladı, açıklamadan önce doğru cevabı görmedi) → uygulama molası slaytı → bağlı görev; 375 px taşma kontrolü | ✅ |
+
 ## 🧪 Çalıştırılan testler (2026-10-22)
 
 | Komut | Sonuç |
@@ -130,12 +164,12 @@ süresi dolmuş/boşta oturum, kaba kuvvet 429, `role: "OWNER"` enjeksiyonu, SVG
 |---|---|
 | 3 | LearningPath/Module/Lesson, 10 başlangıç yolu, quiz türleri, öğrenci dashboard içeriği, ilerleme |
 | 4 | XPTransaction (idempotency), XP kuralları (admin düzenlenebilir), seviyeler, rozetler, aylık/genel liderlik |
-| 5 | Görev atama/teslim/rubrik, dosya paylaşımı (FileAsset/FilePermission, kota — `maxUploadMb` ayarı hazır), **canlı quiz ve canlı anket** (WS altyapısı hazır), seçili öğrenci/gruba görev gönderme, bildirimler, VMware uygulama molası slaytı, görsel blokları (dosya deposuna bağlı) |
+| 5 | ✅ yapıldı (bkz. Faz 5). Kalanlar: sınıf/etkinlik kapsamı, grup görevi, otomatik puanlı ödev türü, görsel blok |
 | 6 | Club Studio blok editörü (şimdilik JSON dışa aktar → düzenle → içe aktar), analitik, Playwright ile 13 adımlı E2E, ek sertleştirme |
 
 ### Faz 2 içindeki bilinen sınırlamalar
 - Görsel blok editörü yok (Faz 6). İçerik düzenleme: JSON dışa aktar → düzenle → “İçeriği değiştir”. Biçim: [docs/SUNUM-FORMATI.md](docs/SUNUM-FORMATI.md).
-- Görsel (resim) bloğu yok: güvenli dosya deposu Faz 5'te gelince eklenecek.
+- Görsel (resim) bloğu yok: güvenli dosya deposu Faz 5'te geldi; blok Faz 6'da.
 - Canlı oturum durumu tek süreçte; yatay ölçeklemede Redis pub/sub gerekir (8 GB tek VPS hedefi için gereksiz).
 - Sunucu ani çökerse son ≤30 sn'lik katılım süresi kaybolabilir (düzgün kapanışta kayıp yok).
 - WebRTC ekran paylaşımı yok (mimari engel yok; temel sistem için gerekmiyor).
@@ -170,4 +204,5 @@ süresi dolmuş/boşta oturum, kaba kuvvet 429, `role: "OWNER"` enjeksiyonu, SVG
 2. Görseller (Midjourney sahneleri, ekran görüntüleri) geldikçe `content/academy/gorseller/` altına WebP olarak eklenecek.
 3. Kalan uzmanlık yolları (C–G) ve yol sonu quizleri.
 4. Yükseltmede bir kez: `node dist/cli.js xp-backfill` (Faz 4 öncesi tamamlanan ders ve quizlere XP).
-5. Faz 5: görev atama/teslim (günlük, haftalık, eğitmen onaylı görev XP kuralları hazır), dosya paylaşımı, canlı quiz/anket, duyurular.
+5. Faz 5'i incele ve commit'le (`feature/club-classroom`, henüz commit'lenmedi). Yükseltmede migration `phase5_classroom` uygulanır; ek komut gerekmez.
+6. Faz 6: Club Studio editörü, görsel blok, e-posta, analitik, E2E.

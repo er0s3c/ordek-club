@@ -8,9 +8,10 @@ export const DEFAULT_RULES = [
   { key: "quiz.pass", label: "Quiz geçme (her quiz için bir kez)", amount: 30 },
   { key: "track.complete", label: "Öğrenme yolu tamamlama", amount: 200 },
   { key: "live.attend", label: "Canlı derse katılım (en az 10 dakika)", amount: 25 },
-  { key: "task.daily", label: "Günlük görev (Faz 5)", amount: 20 },
-  { key: "task.weekly", label: "Haftalık görev (Faz 5)", amount: 75 },
-  { key: "task.approved", label: "Eğitmen onaylı uygulama (Faz 5)", amount: 120 },
+  { key: "task.daily", label: "Günlük görev", amount: 20 },
+  { key: "task.weekly", label: "Haftalık görev", amount: 75 },
+  { key: "task.approved", label: "Eğitmen onaylı uygulama", amount: 120 },
+  { key: "live.quiz", label: "Canlı quizde doğru cevap", amount: 10 },
 ] as const;
 
 export type RuleKey = (typeof DEFAULT_RULES)[number]["key"];

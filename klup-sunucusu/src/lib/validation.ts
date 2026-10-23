@@ -110,6 +110,8 @@ export const settingsUpdateSchema = clubInfoSchema
   .extend({
     locale: z.enum(["tr", "en"]),
     maxUploadMb: z.number().int().min(1).max(500),
+    storageQuotaMb: z.number().int().min(100).max(1_000_000),
+    userQuotaMb: z.number().int().min(1).max(100_000),
     sessionMaxAgeDays: z.number().int().min(1).max(90),
     sessionIdleHours: z.number().int().min(1).max(24 * 30),
   })

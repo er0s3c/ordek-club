@@ -1,0 +1,23 @@
+/* ============================================================================
+   Sınıf yönetimi: görevler, dosyalar, duyurular, bildirimler.
+   ============================================================================ */
+.prose-plain { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+.text-warn { color: var(--amber); }
+.table tr.is-open td { background: rgba(201, 149, 59, 0.07); }
+.table tr.is-open td:first-child { box-shadow: inset 3px 0 0 var(--gold); }
+
+.ann { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-bottom: 1px dashed var(--line-soft); }
+.ann:last-child { border-bottom: 0; }
+.ann.is-pinned { background: linear-gradient(90deg, rgba(201, 149, 59, 0.08), transparent 60%); box-shadow: inset 3px 0 0 var(--gold); }
+.ann h3 { font-family: var(--font-display); font-size: 18px; margin: 0; overflow-wrap: anywhere; }
+
+.notif { display: flex; gap: 12px; align-items: flex-start; padding: 12px 18px; border-bottom: 1px dashed var(--line-soft); }
+.notif:last-child { border-bottom: 0; }
+.notif.is-unread { background: rgba(143, 29, 36, 0.1); box-shadow: inset 3px 0 0 var(--accent-bright); }
+.notif-icon { flex-shrink: 0; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); color: var(--gold); }
+.notif-body { flex: 1; min-width: 0; }
+.notif-body strong { overflow-wrap: anywhere; }
+
+.meter { height: 8px; border-radius: 4px; background: var(--bg-3); overflow: hidden; }
+.meter > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
+.meter.is-high > span { background: linear-gradient(90deg, #8f1d24, var(--accent-bright)); }

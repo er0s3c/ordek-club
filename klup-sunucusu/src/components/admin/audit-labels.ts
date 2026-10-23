@@ -28,7 +28,21 @@ const LABELS: Record<string, string> = {
   "badge.award": "Rozet elle verildi",
   "badge.revoke": "Rozet geri alındı",
   "leaderboard.archive": "Aylık liderlik arşivlendi",
+  "file.upload": "Dosya yüklendi",
+  "file.delete": "Dosya silindi",
+  "assignment.create": "Görev oluşturuldu",
+  "assignment.update": "Görev düzenlendi",
+  "assignment.published": "Görev yayınlandı",
+  "assignment.closed": "Görev teslime kapatıldı",
+  "assignment.draft": "Görev taslağa alındı",
+  "assignment.delete": "Görev silindi",
+  "submission.submit": "Görev teslim edildi",
+  "submission.approved": "Teslim onaylandı",
+  "submission.returned": "Teslim için düzeltme istendi",
+  "submission.rejected": "Teslim reddedildi",
+  "announcement.create": "Duyuru yayınlandı",
+  "announcement.delete": "Duyuru silindi",
 };
 
 export const actionLabel = (code: string) => LABELS[code] ?? code;
-export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard"];
+export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard", "file", "assignment", "submission", "announcement"];

@@ -15,8 +15,11 @@ import { canHostSession } from "@/server/auth/policy";
 import { validateSessionToken } from "@/server/auth/session";
 import {
   WS_CLOSE, clientMessageSchema, initialLiveState,
-  type ClientMessage, type ControlAction, type LiveState, type ParticipantView, type QuestionView, type ServerMessage,
+  type ClientMessage, type ControlAction, type LiveState, type ParticipantView, type PollStats, type PollView, type QuestionView, type ServerMessage,
 } from "@/lib/live-protocol";
+import type { Block } from "@/lib/deck-schema";
+import { ensurePracticalAssignment, type PracticalBlock } from "@/server/classroom/practical";
+import { award, recordActivity, XP_TX } from "@/server/xp/engine";
 
 export interface Conn {
   send(data: string): void;
@@ -38,6 +41,21 @@ type Client = {
 
 type Participant = { displayName: string; username: string; role: Role; conns: number; handRaised: boolean; connectedMs: number; since: number | null };
 
+type PollRuntime = {
+  id: string;
+  kind: "QUIZ" | "POLL";
+  question: string;
+  options: string[];
+  correctIndex: number | null;
+  anonymous: boolean;
+  timeLimitSec: number;
+  status: "OPEN" | "CLOSED" | "REVEALED";
+  closesAt: number;
+  answers: Map<string, number>;
+};
+
+type PracticalInfo = { slideId: string; block: PracticalBlock };
+
 type Room = {
   id: string;
   code: string;
@@ -51,6 +69,9 @@ type Room = {
   questions: QuestionView[];
   persistTimer: NodeJS.Timeout | null;
   autoplayTimer: NodeJS.Timeout | null;
+  poll: PollRuntime | null;
+  pollTimer: NodeJS.Timeout | null;
+  practicals: (PracticalInfo | null)[]; // slayt indeksine göre uygulama molası bloğu
 };
 
 export const LIMITS = {
@@ -61,6 +82,7 @@ export const LIMITS = {
   questionsPerMin: 4,
   handPerMin: 12,
   announcePerMin: 10,
+  pollsPerMin: 10,
   autoplayBaseMs: 4000,
   persistDebounceMs: 250,
   revalidateMs: 30_000,
@@ -90,7 +112,8 @@ export class LiveHub {
       const s = await db.liveSession.findUnique({
         where: { id: sessionId },
         include: {
-          version: { select: { slides: { select: { steps: true }, orderBy: { position: "asc" } } } },
+          version: { select: { slides: { select: { id: true, steps: true, blocks: true }, orderBy: { position: "asc" } } } },
+          polls: { orderBy: { openedAt: "desc" }, take: 1, include: { answers: { select: { userId: true, choice: true } } } },
           participants: { include: { user: { select: { displayName: true, username: true, role: true } } } },
           events: { where: { type: "QUESTION" }, orderBy: { createdAt: "asc" }, include: { user: { select: { displayName: true } } } },
         },
@@ -114,7 +137,30 @@ export class LiveHub {
         questions: s.events.map((e) => ({ id: e.id, userId: e.userId, displayName: e.user?.displayName ?? "—", text: e.text, at: e.createdAt.getTime(), resolved: e.resolvedAt !== null })),
         persistTimer: null,
         autoplayTimer: null,
+        poll: null,
+        pollTimer: null,
+        practicals: s.version.slides.map((x) => {
+          const items = ((x.blocks as unknown as { items?: Block[] }).items ?? []) as Block[];
+          const b = items.find((i): i is PracticalBlock => i.type === "practical");
+          return b ? { slideId: x.id, block: b } : null;
+        }),
       };
+      const last = s.polls[0];
+      if (last) {
+        room.poll = {
+          id: last.id,
+          kind: last.kind,
+          question: last.question,
+          options: last.options as string[],
+          correctIndex: last.correctIndex,
+          anonymous: last.anonymous,
+          timeLimitSec: last.timeLimitSec,
+          status: last.status,
+          closesAt: last.closesAt.getTime(),
+          answers: new Map(last.answers.map((a) => [a.userId, a.choice])),
+        };
+        this.schedulePollClose(room);
+      }
       // Sunucu yeniden başladıysa otomatik oynatma kaldığı yerden devam etmez (eğitmen yeniden başlatır).
       room.state.autoplay = false;
       this.rooms.set(sessionId, room);
@@ -157,10 +203,12 @@ export class LiveHub {
       update: { connectCount: { increment: 1 }, lastSeenAt: new Date() },
     });
 
-    this.send(client, { t: "welcome", you: { userId: user.id, isHost: client.isHost }, session: { id: room.id, code: room.code, title: room.title, slideCount: room.slideSteps.length } });
+    this.send(client, { t: "welcome", you: { userId: user.id, isHost: client.isHost }, session: { id: room.id, code: room.code, title: room.title, slideCount: room.slideSteps.length }, serverNow: Date.now() });
     this.send(client, { t: "state", v: room.v, state: room.state, serverTime: Date.now() });
     if (client.isHost) this.send(client, { t: "questions", items: room.questions });
     else this.send(client, { t: "you", handRaised: p.handRaised });
+    this.send(client, { t: "poll", poll: this.pollView(room, client.user.id, client.isHost) });
+    if (client.isHost && room.poll) this.send(client, { t: "poll.stats", stats: this.pollStats(room) });
     this.broadcastPresence(room);
     return client;
   }
@@ -231,6 +279,19 @@ export class LiveHub {
         if (!client.isHost) return this.reject(client, "FORBIDDEN", "Duyuruyu yalnızca eğitmen gönderebilir.");
         if (!hit(`live:ann:${room.id}`, LIMITS.announcePerMin, 60_000).ok) return this.reject(client, "RATE_LIMITED", "Biraz bekle.");
         return this.announce(room, client, msg.text);
+      case "poll.open":
+        if (!client.isHost) return this.reject(client, "FORBIDDEN", "Quizi yalnızca eğitmen başlatabilir.");
+        if (!hit(`live:poll:${room.id}`, LIMITS.pollsPerMin, 60_000).ok) return this.reject(client, "RATE_LIMITED", "Biraz bekle.");
+        return this.openPoll(room, client, msg);
+      case "poll.close":
+        if (!client.isHost) return this.reject(client, "FORBIDDEN", "Yetkin yok.");
+        return this.closePoll(room);
+      case "poll.reveal":
+        if (!client.isHost) return this.reject(client, "FORBIDDEN", "Yetkin yok.");
+        return this.revealPoll(room);
+      case "poll.answer":
+        if (client.isHost) return this.reject(client, "FORBIDDEN", "Eğitmen cevap veremez.");
+        return this.answerPoll(room, client, msg.pollId, msg.choice);
     }
   }
 
@@ -272,7 +333,9 @@ export class LiveHub {
         break;
     }
     if (stepChanged) s.stepAt = Date.now();
+    const slideChanged = s.slide !== room.state.slide;
     this.commit(room, s);
+    if (slideChanged || c.action === "goto") void this.ensurePractical(room);
   }
 
   // Durumu uygula: sürüm +1, yayınla, kalıcılaştır, otomatik oynatmayı yeniden planla.
@@ -353,6 +416,153 @@ export class LiveHub {
     this.broadcast(room, { t: "announcement", text, at: Date.now() });
   }
 
+  // ── canlı quiz / anket ────────────────────────────────────────────────────
+  // Sunucu otoritesi: süre sunucuda tutulur, cevap kişi başına bir kez (DB'de birincil anahtar),
+  // doğru cevap ve dağılım öğrenciye yalnız eğitmen açıkladığında gider.
+
+  private pollView(room: Room, userId: string, isHost = false): PollView | null {
+    const p = room.poll;
+    if (!p) return null;
+    const revealed = p.status === "REVEALED";
+    return {
+      id: p.id,
+      kind: p.kind,
+      question: p.question,
+      options: p.options,
+      anonymous: p.anonymous,
+      timeLimitSec: p.timeLimitSec,
+      status: p.status,
+      closesAt: p.closesAt,
+      total: p.answers.size,
+      mine: p.answers.get(userId) ?? null,
+      results: revealed ? this.pollCounts(p) : null,
+      // Eğitmen doğru cevabı baştan görür; öğrenci yalnız açıklanınca.
+      correctIndex: (revealed || isHost) && p.kind === "QUIZ" ? p.correctIndex : null,
+    };
+  }
+
+  private pollCounts(p: PollRuntime) {
+    const counts = p.options.map(() => 0);
+    for (const c of p.answers.values()) if (c < counts.length) counts[c]! += 1;
+    return counts;
+  }
+
+  private pollStats(room: Room): PollStats {
+    const p = room.poll!;
+    return {
+      pollId: p.id,
+      counts: this.pollCounts(p),
+      total: p.answers.size,
+      // Anonim ankette eğitmen de kimin ne seçtiğini görmez.
+      answers: p.anonymous ? null : [...p.answers.entries()].map(([uid, choice]) => ({ displayName: room.participants.get(uid)?.displayName ?? "—", choice })),
+    };
+  }
+
+  private broadcastPoll(room: Room) {
+    for (const c of room.clients) this.send(c, { t: "poll", poll: this.pollView(room, c.user.id, c.isHost) });
+    if (room.poll) this.toHosts(room, { t: "poll.stats", stats: this.pollStats(room) });
+  }
+
+  private schedulePollClose(room: Room) {
+    if (room.pollTimer) clearTimeout(room.pollTimer);
+    room.pollTimer = null;
+    const p = room.poll;
+    if (!p || p.status !== "OPEN") return;
+    room.pollTimer = setTimeout(() => void this.closePoll(room), Math.max(0, p.closesAt - Date.now()));
+    room.pollTimer.unref?.();
+  }
+
+  private async openPoll(room: Room, client: Client, msg: Extract<ClientMessage, { t: "poll.open" }>) {
+    if (msg.kind === "QUIZ" && (msg.correctIndex === undefined || msg.correctIndex >= msg.options.length))
+      return this.reject(client, "BAD_POLL", "Quiz için doğru seçeneği işaretle.");
+    if (room.poll?.status === "OPEN") await this.closePoll(room);
+    const closesAt = new Date(Date.now() + msg.timeLimitSec * 1000);
+    const row = await db.livePoll.create({
+      data: {
+        sessionId: room.id,
+        kind: msg.kind,
+        question: msg.question,
+        options: msg.options,
+        correctIndex: msg.kind === "QUIZ" ? msg.correctIndex! : null,
+        anonymous: msg.kind === "POLL" && msg.anonymous,
+        timeLimitSec: msg.timeLimitSec,
+        closesAt,
+      },
+    });
+    room.poll = {
+      id: row.id,
+      kind: row.kind,
+      question: row.question,
+      options: msg.options,
+      correctIndex: row.correctIndex,
+      anonymous: row.anonymous,
+      timeLimitSec: row.timeLimitSec,
+      status: "OPEN",
+      closesAt: closesAt.getTime(),
+      answers: new Map(),
+    };
+    this.schedulePollClose(room);
+    this.broadcastPoll(room);
+  }
+
+  private async closePoll(room: Room) {
+    const p = room.poll;
+    if (!p || p.status !== "OPEN") return;
+    p.status = "CLOSED";
+    if (room.pollTimer) clearTimeout(room.pollTimer);
+    room.pollTimer = null;
+    await db.livePoll.updateMany({ where: { id: p.id, status: "OPEN" }, data: { status: "CLOSED" } }).catch(() => {});
+    this.broadcastPoll(room);
+  }
+
+  // Sonucu açıklar; quizde doğru cevaplayanlara (soru başına bir kez) XP verilir.
+  private async revealPoll(room: Room) {
+    const p = room.poll;
+    if (!p || p.status === "REVEALED") return;
+    if (p.status === "OPEN") await this.closePoll(room);
+    p.status = "REVEALED";
+    await db.livePoll.update({ where: { id: p.id }, data: { status: "REVEALED" } }).catch(() => {});
+    this.broadcastPoll(room);
+    if (p.kind !== "QUIZ" || p.correctIndex === null) return;
+    for (const [userId, choice] of p.answers) {
+      if (choice !== p.correctIndex) continue;
+      await db
+        .$transaction(async (tx) => {
+          await award(tx, { userId, ruleKey: "live.quiz", key: `livequiz:${userId}:${p.id}`, source: "LIVE", refType: "LivePoll", refId: p.id, reason: p.question.slice(0, 120) });
+          await recordActivity(tx, userId);
+        }, XP_TX)
+        .catch((err) => console.error("[live] quiz XP'si verilemedi", err));
+    }
+  }
+
+  private async answerPoll(room: Room, client: Client, pollId: string, choice: number) {
+    const p = room.poll;
+    if (!p || p.id !== pollId || p.status !== "OPEN" || Date.now() > p.closesAt) return this.reject(client, "POLL_CLOSED", "Bu soru cevaba kapandı.");
+    if (choice >= p.options.length) return this.reject(client, "BAD_CHOICE", "Geçersiz seçenek.");
+    if (p.answers.has(client.user.id)) return this.reject(client, "ALREADY_ANSWERED", "Bu soruyu zaten cevapladın.");
+    // Aynı kullanıcının birden çok cihazından eşzamanlı cevap: veritabanı birincil anahtarı tek kaydı garanti eder.
+    const r = await db.livePollAnswer.createMany({ data: [{ pollId, userId: client.user.id, choice }], skipDuplicates: true });
+    if (!r.count) return this.reject(client, "ALREADY_ANSWERED", "Bu soruyu zaten cevapladın.");
+    p.answers.set(client.user.id, choice);
+    this.send(client, { t: "ack", what: "poll" });
+    // Öğrencilere yalnız kendi cevabı ve toplam sayı gider (dağılım açıklanana kadar gizli); eğitmene dağılım.
+    this.broadcastPoll(room);
+  }
+
+  // ── uygulama molası ───────────────────────────────────────────────────────
+  private async ensurePractical(room: Room) {
+    const slide = room.state.slide;
+    const info = room.practicals[slide];
+    if (!info || room.state.practicals?.[String(slide)]) return;
+    try {
+      const r = await ensurePracticalAssignment(room.id, info.slideId, info.block, room.hostId);
+      if (room.state.practicals?.[String(slide)]) return;
+      this.commit(room, { ...room.state, practicals: { ...(room.state.practicals ?? {}), [String(slide)]: r } });
+    } catch (err) {
+      console.error("[live] uygulama molası görevi oluşturulamadı", err);
+    }
+  }
+
   // ── oturumu bitirme ───────────────────────────────────────────────────────
 
   /** Oturumu kapatır: herkese bildirir, bağlantıları kapatır, katılım sürelerini yazar. */
@@ -361,6 +571,8 @@ export class LiveHub {
     if (!room) return;
     if (room.autoplayTimer) clearTimeout(room.autoplayTimer);
     if (room.persistTimer) clearTimeout(room.persistTimer);
+    if (room.pollTimer) clearTimeout(room.pollTimer);
+    if (room.poll?.status === "OPEN") await db.livePoll.updateMany({ where: { id: room.poll.id, status: "OPEN" }, data: { status: "CLOSED" } }).catch(() => {});
     await this.persist(room);
     this.broadcast(room, { t: "ended" });
     for (const c of [...room.clients]) {
@@ -475,6 +687,7 @@ export class LiveHub {
     for (const r of this.rooms.values()) {
       if (r.autoplayTimer) clearTimeout(r.autoplayTimer);
       if (r.persistTimer) clearTimeout(r.persistTimer);
+      if (r.pollTimer) clearTimeout(r.pollTimer);
     }
     this.rooms.clear();
     if (this.revalidateTimer) clearInterval(this.revalidateTimer);

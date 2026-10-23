@@ -102,10 +102,10 @@ node scripts/smoke.mjs http://localhost:3100            # canlı sunucuya HTTP s
 | C4-01 | XPTransaction (idempotency anahtarı, unique), XPRewardRule, Level eşikleri | feature/club-gamification | DONE |
 | C4-02 | Badge/UserBadge + otomatik rozet kuralları | feature/club-gamification | DONE |
 | C4-03 | Aylık (TZ ayarlı, arşivli) + genel liderlik; admin düzeltme + şüpheli kayıtlar | feature/club-gamification | DONE |
-| C5-01 | Assignment/Target/Submission + rubrik + onay sonrası XP | feature/club-classroom | TODO |
-| C5-02 | FileAsset/FilePermission: güvenli yükleme/indirme, kota | feature/club-classroom | TODO |
-| C5-03 | Canlı quiz/anket, duyurular, Notification | feature/club-classroom | TODO |
-| C5-04 | VMware uygulama molası slaytı (öğrenci/eğitmen görünümü, teslim) | feature/club-classroom | TODO |
+| C5-01 | Assignment/Target/Submission + rubrik + onay sonrası XP | feature/club-classroom | DONE (commit bekliyor) |
+| C5-02 | FileAsset/FilePermission: güvenli yükleme/indirme, kota | feature/club-classroom | DONE (commit bekliyor) |
+| C5-03 | Canlı quiz/anket, duyurular, Notification | feature/club-classroom | DONE (commit bekliyor) |
+| C5-04 | VMware uygulama molası slaytı (öğrenci/eğitmen görünümü, teslim) | feature/club-classroom | DONE (commit bekliyor) |
 | C6-01 | Club Studio blok editörü (otomatik kayıt, sürüm, içe/dışa aktarma, şablonlar) | feature/club-studio | TODO |
 | C6-02 | Analitik ekranları | feature/club-studio | TODO |
 | C6-03 | Uçtan uca 13 adımlı akış testi (Playwright) | feature/club-studio | TODO |

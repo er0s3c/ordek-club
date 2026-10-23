@@ -5,13 +5,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import {
   Home, UserRound, Shield, LayoutDashboard, Users, Ticket, Settings, ScrollText, Activity, LogOut, Menu, X, ArrowLeft, Radio, Presentation, GraduationCap, Trophy, Medal, Gauge,
+  ClipboardList, FolderOpen, Megaphone, Bell, HardDrive,
 } from "lucide-react";
 import type { Role } from "@prisma/client";
 import { useMessages, useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
 import { initials } from "@/components/ui/format";
 
-const ICONS = { Home, UserRound, Shield, LayoutDashboard, Users, Ticket, Settings, ScrollText, Activity, ArrowLeft, Radio, Presentation, GraduationCap, Trophy, Medal, Gauge };
+const ICONS = { Home, UserRound, Shield, LayoutDashboard, Users, Ticket, Settings, ScrollText, Activity, ArrowLeft, Radio, Presentation, GraduationCap, Trophy, Medal, Gauge, ClipboardList, FolderOpen, Megaphone, Bell, HardDrive };
 export type NavIcon = keyof typeof ICONS;
 export type NavItem = { href: string; label: string; icon: NavIcon; count?: number; exact?: boolean };
 export type NavGroup = { label?: string; items: NavItem[] };

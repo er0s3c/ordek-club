@@ -97,6 +97,32 @@ const networkFundamentals: DeckIn = {
     { title: "Kurumsal topoloji", blocks: [{ type: "animation", animation: "network-topology" }], notes: "DMZ neden var?" },
     { title: "VPN", blocks: [{ type: "animation", animation: "vpn-tunnel" }], notes: "" },
     {
+      title: "Uygulama molası: üçlü el sıkışmayı yakala",
+      blocks: [
+        {
+          type: "practical",
+          title: "TCP el sıkışmasını Wireshark'ta bul",
+          description: "Laboratuvar VM'inde bir HTTP isteği başlatıp trafiği yakalayın ve el sıkışmanın üç paketini işaretleyin.",
+          files: ["lab-ag-temelleri.ova (eğitmenden)"],
+          steps: [
+            "Lab VM'ini 'temiz' snapshot'ından başlatın.",
+            "Wireshark'ta eth0 arayüzünde yakalamayı başlatın.",
+            "Terminalde: curl http://lab-web.local",
+            "Filtre: tcp.flags.syn == 1 — SYN ve SYN-ACK paketlerini bulun.",
+            "Üç paketin sıra numaralarını (seq/ack) teslim metnine yazın; ekran görüntüsü ekleyin.",
+          ],
+          durationMin: 15,
+          host: {
+            prepNotes: "Ders öncesi OVA'yı paylaşın; lab-web.local yalnız iç ağda (host-only) çözülmeli.",
+            vms: ["lab-istemci (Ubuntu, 2 GB)", "lab-web (nginx, host-only)"],
+            snapshot: "temiz",
+            expected: "SYN (seq=x), SYN-ACK (seq=y, ack=x+1), ACK (ack=y+1). Göreli sıra numaraları açıksa x=0, y=0 görünür.",
+          },
+        },
+      ],
+      notes: "Bu slayta geçince öğrencilere teslim formu açılır; süre sayacı başlar.",
+    },
+    {
       title: "Komut satırında",
       blocks: [
         {

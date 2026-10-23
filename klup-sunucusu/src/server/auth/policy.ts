@@ -86,3 +86,10 @@ export const canManageAcademy = (a: Actor) => canAccessAdmin(a);
 // ── Faz 4: XP ve rozetler ───────────────────────────────────────────────────
 // Kural, seviye, puan düzeltme ve rozet yönetimi yalnız OWNER/ADMIN. XP yalnız sunucu kurallarıyla verilir.
 export const canManageGamification = (a: Actor) => canAccessAdmin(a);
+
+// ── Faz 5: sınıf yönetimi ───────────────────────────────────────────────────
+// Görev, dosya ve duyuru oluşturma: aktif eğitmen/yönetici. Bir görevi düzenleme ve teslimlerini
+// değerlendirme: görevi oluşturan eğitmen ya da OWNER/ADMIN.
+export const canManageClassroom = (a: Actor) => canUseTeaching(a);
+export const canEditAssignment = (a: Actor, asg: { createdById: string | null }) =>
+  canUseTeaching(a) && (isAdmin(a.role) || asg.createdById === a.id);

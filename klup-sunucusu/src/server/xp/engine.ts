@@ -22,18 +22,24 @@ export type AwardInput = {
   refType?: string;
   refId?: string;
   reason?: string;
+  // Görevde personelin belirlediği özel miktar (kural açık olmalı; üst sınır sunucuda).
+  amount?: number;
 };
+
+export const MAX_CUSTOM_XP = 500;
 
 // Kural kapalıysa ya da ödül daha önce verildiyse 0 döner.
 export async function award(tx: Tx, input: AwardInput): Promise<number> {
   await ensureGamificationDefaults();
   const rule = await tx.xpRewardRule.findUnique({ where: { key: input.ruleKey } });
-  if (!rule || !rule.enabled || rule.amount <= 0) return 0;
+  if (!rule || !rule.enabled) return 0;
+  const amount = input.amount !== undefined ? Math.min(Math.max(0, Math.trunc(input.amount)), MAX_CUSTOM_XP) : rule.amount;
+  if (amount <= 0) return 0;
   const r = await tx.xpTransaction.createMany({
     data: [
       {
         userId: input.userId,
-        amount: rule.amount,
+        amount,
         source: input.source,
         ruleKey: rule.key,
         idempotencyKey: input.key,
@@ -44,7 +50,7 @@ export async function award(tx: Tx, input: AwardInput): Promise<number> {
     ],
     skipDuplicates: true,
   });
-  return r.count ? rule.amount : 0;
+  return r.count ? amount : 0;
 }
 
 // Öğrenme serisi için bugünü işaretler (kulüp saat dilimi).

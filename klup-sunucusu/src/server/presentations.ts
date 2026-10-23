@@ -4,7 +4,7 @@ import { db } from "@/server/db";
 import { audit } from "@/server/audit";
 import { badRequest, forbidden, notFound } from "@/server/errors";
 import { canEditPresentation, canUseTeaching, canViewPresentation, isAdmin, type Actor } from "@/server/auth/policy";
-import { DECK_SCHEMA_VERSION, deckSchema, slideSteps, type Block, type ClientDeck, type Deck } from "@/lib/deck-schema";
+import { DECK_SCHEMA_VERSION, EMPTY_PRACTICAL_HOST, deckSchema, slideSteps, type Block, type ClientDeck, type Deck } from "@/lib/deck-schema";
 import { TEMPLATES } from "@/templates";
 
 type Tx = Prisma.TransactionClient;
@@ -107,7 +107,8 @@ export async function loadClientDeck(versionId: string, includeNotes: boolean): 
         position: s.position,
         title: s.title,
         layout: b.layout ?? "default",
-        blocks: b.items ?? [],
+        // Uygulama molasının eğitmen notları (VM, snapshot, beklenen sonuç) öğrenciye gönderilmez.
+        blocks: includeNotes ? (b.items ?? []) : (b.items ?? []).map((x) => (x.type === "practical" ? { ...x, host: EMPTY_PRACTICAL_HOST } : x)),
         steps: s.steps,
         ...(includeNotes ? { notes: s.notes } : {}),
       };

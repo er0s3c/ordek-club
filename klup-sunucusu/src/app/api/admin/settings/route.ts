@@ -21,6 +21,8 @@ function adminView(s: ClubSettings) {
     timezone: s.timezone,
     registrationPolicy: s.registrationPolicy,
     maxUploadMb: s.maxUploadMb,
+    storageQuotaMb: s.storageQuotaMb,
+    userQuotaMb: s.userQuotaMb,
     sessionMaxAgeDays: s.sessionMaxAgeDays,
     sessionIdleHours: s.sessionIdleHours,
     setupCompletedAt: s.setupCompletedAt,

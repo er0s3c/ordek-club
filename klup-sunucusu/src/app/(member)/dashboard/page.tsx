@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Flame, GraduationCap, Radio, ShieldCheck, Trophy, Users } from "lucide-react";
+import { ArrowRight, ClipboardList, Flame, GraduationCap, Megaphone, Pin, Radio, ShieldCheck, Trophy, Users } from "lucide-react";
 import { listActiveSessions } from "@/server/live/service";
 import { requirePageSession } from "@/server/auth/page-guard";
 import { isAdmin } from "@/server/auth/policy";
@@ -12,6 +12,9 @@ import { continueTarget, progressSummary } from "@/server/academy/service";
 import { ProgressBar } from "@/components/academy/Progress";
 import { xpSummary } from "@/server/xp/profile";
 import { LevelBar } from "@/components/xp/LevelBar";
+import { isStaff } from "@/server/auth/policy";
+import { listAssignmentsForStudent, pendingReviewCount } from "@/server/classroom/assignments";
+import { listAnnouncements } from "@/server/classroom/announcements";
 
 export const metadata: Metadata = { title: "Ana sayfa" };
 
@@ -24,7 +27,12 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   const pending = isAdmin(user.role) ? await db.user.count({ where: { status: "PENDING" } }) : 0;
   const live = await listActiveSessions();
   const actor = { id: user.id, role: user.role, status: user.status };
-  const [next, academy, xp] = await Promise.all([continueTarget(actor), progressSummary(actor), xpSummary(user.id, user.role)]);
+  const staff = isStaff(user.role);
+  const [next, academy, xp, anns, tasks, toReview] = await Promise.all([
+    continueTarget(actor), progressSummary(actor), xpSummary(user.id, user.role), listAnnouncements(actor, 3),
+    staff ? Promise.resolve([]) : listAssignmentsForStudent(actor), staff ? pendingReviewCount(actor) : Promise.resolve(0),
+  ]);
+  const todo = tasks.filter((a) => a.status === "PUBLISHED" && (!a.mine || a.mine.status === "RETURNED")).slice(0, 4);
   const firstName = user.displayName.split(" ")[0];
 
   return (
@@ -52,6 +60,42 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           </div>
         </section>
       )}
+
+      <div className="grid-2">
+        <section className="card" aria-labelledby="tasks-h">
+          <div className="card-h"><h2 id="tasks-h"><ClipboardList size={16} color="var(--gold)" aria-hidden /> Görevler</h2><Link className="small" href={staff ? "/teach/tasks" : "/tasks"}>Tümü →</Link></div>
+          <div className="card-b">
+            {staff ? (
+              <p className="muted" style={{ margin: 0 }}>{toReview ? <><strong style={{ color: "var(--amber)" }}>{toReview}</strong> teslim değerlendirme bekliyor.</> : "Değerlendirme bekleyen teslim yok."}</p>
+            ) : todo.length ? (
+              <ul className="list-tight">
+                {todo.map((a) => (
+                  <li key={a.id}>
+                    <span style={{ flex: 1, minWidth: 0 }}><Link href={`/tasks/${a.id}`}>{a.title}</Link>{a.mine?.status === "RETURNED" && <span className="badge badge-red" style={{ marginLeft: 6 }}>düzeltme</span>}</span>
+                    <span className="tiny faint">{a.dueAt ? formatDateTime(a.dueAt, s.timezone) : "süresiz"}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="muted" style={{ margin: 0 }}>Bekleyen görevin yok.</p>}
+          </div>
+        </section>
+        <section className="card" aria-labelledby="ann-h">
+          <div className="card-h"><h2 id="ann-h"><Megaphone size={16} color="var(--gold)" aria-hidden /> Duyurular</h2><Link className="small" href="/announcements">Tümü →</Link></div>
+          <div className="card-b">
+            {anns.length ? (
+              <ul className="list-tight">
+                {anns.map((a) => (
+                  <li key={a.id}>
+                    {a.pinned && <Pin size={13} color="var(--gold)" aria-label="sabitlenmiş" />}
+                    <span style={{ flex: 1, minWidth: 0, overflowWrap: "anywhere" }}><Link href="/announcements">{a.title}</Link></span>
+                    <span className="tiny faint">{formatDate(a.createdAt, s.timezone)}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="muted" style={{ margin: 0 }}>Henüz duyuru yok.</p>}
+          </div>
+        </section>
+      </div>
 
       {academy.total > 0 && (
         <section className="card" aria-labelledby="academy-h">
@@ -116,7 +160,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             <div className="card-b">
               <p className="muted" style={{ margin: 0 }}>
                 Canlı dersler başladığında burada ve <Link href="/live">Canlı ders</Link> sayfasında görünür; eğitmenin
-                verdiği 6 haneli kodla da katılabilirsin. Kendi hızında ilerlemek için <Link href="/academy">Akademi</Link>{"'"}ye göz at; kazandığın XP ile <Link href="/leaderboard">liderlik tablosunda</Link> yerini al. Görevler sonraki sürümde eklenecek.
+                verdiği 6 haneli kodla da katılabilirsin. Kendi hızında ilerlemek için <Link href="/academy">Akademi</Link>{"'"}ye göz at; kazandığın XP ile <Link href="/leaderboard">liderlik tablosunda</Link> yerini al. Eğitmenlerin verdiği görevler <Link href="/tasks">Görevler</Link> sayfasında.
               </p>
             </div>
           </section>

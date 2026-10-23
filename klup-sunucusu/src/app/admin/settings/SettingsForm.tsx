@@ -9,7 +9,7 @@ import { ApiError, api } from "@/lib/api-client";
 
 type Values = {
   clubName: string; universityName: string; description: string; appUrl: string; timezone: string; locale: "tr" | "en";
-  registrationPolicy: RegistrationPolicy; maxUploadMb: number; sessionMaxAgeDays: number; sessionIdleHours: number;
+  registrationPolicy: RegistrationPolicy; maxUploadMb: number; storageQuotaMb: number; userQuotaMb: number; sessionMaxAgeDays: number; sessionIdleHours: number;
 };
 
 const POLICIES: RegistrationPolicy[] = ["APPROVAL", "INVITE_ONLY", "OPEN", "CLOSED"];
@@ -93,7 +93,9 @@ export function SettingsForm({ initial }: { initial: Values }) {
         <div className="card-b form-grid">
           <Field label="Oturum ömrü (gün)" type="number" min={1} max={90} value={v.sessionMaxAgeDays} onChange={num("sessionMaxAgeDays")} error={fields.sessionMaxAgeDays} hint="Bu süreden sonra yeniden giriş gerekir." />
           <Field label="Hareketsizlik sınırı (saat)" type="number" min={1} max={720} value={v.sessionIdleHours} onChange={num("sessionIdleHours")} error={fields.sessionIdleHours} hint="Bu süre boyunca kullanılmayan oturum kapanır." />
-          <Field label="Dosya yükleme sınırı (MB)" type="number" min={1} max={500} value={v.maxUploadMb} onChange={num("maxUploadMb")} error={fields.maxUploadMb} hint="Dosya paylaşımı (Faz 5) bu sınırı kullanacak." />
+          <Field label="Dosya yükleme sınırı (MB)" type="number" min={1} max={500} value={v.maxUploadMb} onChange={num("maxUploadMb")} error={fields.maxUploadMb} hint="Tek dosya için üst sınır (paylaşım ve görev teslimi)." />
+          <Field label="Kulüp depolama kotası (MB)" type="number" min={100} max={1000000} value={v.storageQuotaMb} onChange={num("storageQuotaMb")} error={fields.storageQuotaMb} hint="Tüm yüklenen dosyaların toplamı." />
+          <Field label="Öğrenci başına kota (MB)" type="number" min={1} max={100000} value={v.userQuotaMb} onChange={num("userQuotaMb")} error={fields.userQuotaMb} hint="Öğrencinin teslim dosyalarının toplamı." />
         </div>
       </section>
 

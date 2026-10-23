@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Info, AlertTriangle, CheckCircle2, ShieldAlert } from "lucide-react";
+import { Info, AlertTriangle, CheckCircle2, ShieldAlert, FlaskConical, Paperclip } from "lucide-react";
 import { getAnimation } from "@/animations/registry";
 import { blockSteps, type Block, type ClientSlide } from "@/lib/deck-schema";
 import { FlowAnimationView } from "./FlowAnimationView";
@@ -87,6 +87,28 @@ function BlockView({ block, step, speed, reducedMotion, stepKey }: { block: Bloc
         ? <FlowAnimationView def={def} step={s} speed={speed} reducedMotion={reducedMotion} stepKey={stepKey} />
         : <CodeAnimationView def={def} step={s} />;
     }
+    case "practical":
+      // Yalnız öğrenciye açık kısım; `host` (VM, snapshot, beklenen sonuç) eğitmen konsolunda ayrı gösterilir.
+      return (
+        <section className="blk-practical" aria-label="Uygulama molası">
+          <div className="blk-practical-head">
+            <FlaskConical size={20} aria-hidden />
+            <span className="blk-practical-tag">Uygulama molası · {block.durationMin} dk</span>
+          </div>
+          <h3 className="blk-h2">{block.title}</h3>
+          {block.description && <div className="blk-text">{block.description}</div>}
+          {block.steps.length > 0 && (
+            <ol className="blk-practical-steps">
+              {block.steps.map((st, i) => <li key={i}>{st}</li>)}
+            </ol>
+          )}
+          {block.files.length > 0 && (
+            <div className="blk-practical-files">
+              <Paperclip size={14} aria-hidden /> {block.files.join(" · ")}
+            </div>
+          )}
+        </section>
+      );
   }
 }
 
