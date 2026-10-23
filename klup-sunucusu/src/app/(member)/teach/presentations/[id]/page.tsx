@@ -30,11 +30,11 @@ export default async function PresentationPage({ params }: { params: Promise<{ i
           {p.deck.description && <p className="page-sub">{p.deck.description}</p>}
         </div>
       </div>
-      <PresentationActions id={p.id} status={p.status} canEdit={p.canEdit} />
+      <PresentationActions id={p.id} status={p.status} canEdit={p.canEdit} isTemplate={p.isTemplate} hasDraft={p.hasDraft} />
       <DeckPlayer deck={p.deck} showNotes />
       <p className="tiny faint">
-        İçeriği düzenlemek için: JSON olarak dışa aktar → düzenle → “İçeriği değiştir” ile yeni sürüm yükle.
-        Blok tabanlı görsel editör (Club Studio) sonraki fazda gelecek. Devam eden canlı dersler başlatıldıkları sürümü kullanmaya devam eder.
+        İçeriği Club Studio ile düzenle (otomatik kayıt + sürüm geçmişi) ya da JSON dışa aktar → düzenle → “İçeriği değiştir”.
+        Devam eden canlı dersler başlatıldıkları sürümü kullanmaya devam eder.
       </p>
     </div>
   );

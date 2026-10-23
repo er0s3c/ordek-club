@@ -1,10 +1,10 @@
 # Ördek Club — Uygulama Durumu
 
-> Son güncelleme: 2026-10-23 · Branch: `feature/club-classroom` (Faz 5) · Sorumlu: Opus 5.5
+> Son güncelleme: 2026-10-23 · Branch: `feature/club-studio` (Faz 6) · Sorumlu: Opus 5.5
 
 ## Özet
 
-**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. **Faz 4 (XP, seviyeler, rozetler, liderlik) çalışır durumda.** **Faz 5 (görevler, dosyalar, canlı quiz/anket, duyurular, VMware uygulama molası) çalışır durumda.** Faz 6 başlamadı.
+**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. **Faz 4 (XP, seviyeler, rozetler, liderlik) çalışır durumda.** **Faz 5 (görevler, dosyalar, canlı quiz/anket, duyurular, VMware uygulama molası) ve Faz 5'in eksikleri (sınıf/etkinlik, takım görevi, otomatik puanlanan görev, ZIP/ClamAV taraması) çalışır durumda.** **Faz 6 (Club Studio, görsel blok, e-posta, analitik, oturum yönetimi, sahiplik devri, 13 adımlı Playwright E2E, CI güvenlik taraması) çalışır durumda.**
 
 ## ✅ Çalışan özellikler (Faz 1)
 
@@ -122,14 +122,55 @@ sunum içeriği yalnız düz metin + kayıtlı animasyon kimliği (çalıştır�
 | VMware uygulama molası slaytı (`practical` blok): öğrenciye açıklama, dosyalar, adımlar, süre ve teslim formu; eğitmene hazırlık notları, VM'ler, snapshot, beklenen sonuç, teslim durumu (5 sn'de bir), değerlendirme bağlantısı. Eğitmen notları öğrenci destesinden sunucuda çıkarılır. Slayta ilk geçişte bağlı görev bir kez oluşur. **Sistem VMware'i başlatmaz/yönetmez**; WebRTC gerekmiyor | Testler + tarayıcı |
 | Sayfalar: /tasks, /tasks/[id], /teach/tasks (+ yeni, düzenle, değerlendirme), /files, /announcements, /notifications; panelde görev ve duyuru kartları; yönetim → sistem durumunda dosya kotası; ayarlarda kulüp/öğrenci kotası | Masaüstü + 375 px, taşma yok |
 
-### Faz 5'te bilinçli olarak eksik kalanlar
-- **Sınıf/şube ve etkinlik kapsamları** (görev ve dosyayı bir sınıfa/etkinliğe atamak): veri modelinde sınıf/etkinlik yok; şimdilik "tüm öğrenciler" ya da kullanıcı adı listesi.
-- **Grup görevleri** (ortak teslim): her teslim kişiseldir.
-- **Çoktan seçmeli / eşleştirme görev türü** (otomatik puanlanan ödev): canlı quiz ve akademi quizleri var; ödev tarafında yok.
-- **E-posta bildirimleri**: yalnız uygulama içi (SMTP Faz 6).
-- **Görsel (resim) slayt bloğu**: dosya deposu hazır; blok ve editör desteği Faz 6.
-- **Dosya içeriği taraması** (antivirüs): yalnız tür doğrulaması yapılır; ZIP içleri açılmaz. Dosyalar indirme olarak sunulur, uygulama kökeninde çalışmaz.
+### Faz 5'in eksikleri — Faz 6'da tamamlandı (branch: feature/club-studio)
+
+| Özellik | Kanıt |
+|---|---|
+| **Sınıflar ve etkinlikler** (`ClassGroup`): sınıf üyelerini personel belirler; etkinlikte tarih/yer/kapasite ve isteğe bağlı öğrenci kaydı (kapasite eşzamanlı isteklerde satır kilidiyle korunur). Görev (`audience: GROUP`) ve dosya (`scope: GROUP`) bir gruba hedeflenebilir; arşivlenen grubun görev/dosyaları üyelerine kapanır; öğrenci üye listesini görmez | migration `phase6_studio`; 3 test (4 eşzamanlı kayıt → 2 kabul) |
+| **Takım görevleri**: takım başına tek teslim; takım arkadaşları teslimi ve dosyalarını görür, günceller; onayda XP takımdaki herkese (kişi başı bir kez); teslimden sonra takımlar değişmez | 2 test |
+| **Otomatik puanlanan görev** (`QUIZ`): tek/çoklu seçim, doğru/yanlış, kısa cevap (harf/Türkçe karakter duyarsız), eşleştirme (deterministik karıştırma). Cevap anahtarı öğrenciye gitmez; geçen teslim aynı transaction'da onay + XP; deneme hakkı; sonuç kesinleşince açıklamalar | 5 birim + 2 entegrasyon testi |
+| **ZIP denetimi** (açmadan, merkezi dizinden): şifreli öğe, yol geçişi (`..`, mutlak yol), iç içe arşiv, çalıştırılabilir ad/içerik, sıkıştırma bombası, ZIP64 | 4 birim testi (test içinde ZIP üretilir) |
+| **ClamAV** (isteğe bağlı, `docker compose --profile clamav`): clamd INSTREAM; tanımlıysa tarama zorunlu, tarayıcıya ulaşılamazsa yükleme reddedilir | sahte clamd ile 2 test |
+
+### Faz 5 ve 6'da hâlâ bilinçli olarak yapılmayanlar
 - **WebRTC ekran paylaşımı**: gerekmiyor; mimari engel yok.
+- **Office makrolu belgeler / ZIP dışı arşivler** (7z, rar): yüklenemez (izin listesinde değil).
+
+## ✅ Faz 6 — Club Studio, e-posta, analitik, sertleştirme, E2E
+
+| Özellik | Kanıt |
+|---|---|
+| **Club Studio** (`/teach/presentations/[id]/studio`): slayt ekle/çoğalt/sil/taşı, düzen, 9 blok türü için form (başlık, metin, madde, kod + adım vurgusu, terminal, bilgi kutusu, animasyon, görsel, VMware molası), canlı önizleme (adım adım), eğitmen notları | Tarayıcı + E2E adım 6 |
+| Otomatik kayıt **taslağa** yazılır (sürüm oluşturmaz); doğrulama sorunları slayt/blok konumuyla listelenir ve yayını engeller; **Yayınla** doğrulanmış yeni sürüm açar; **sürüm geçmişi** ve eski sürümü taslağa yükleme; kaydedilmemiş değişiklikte sayfadan çıkış uyarısı | 4 test |
+| **Şablon olarak paylaş**: yayınlanmış sunum diğer eğitmenlerin şablon listesinde görünür ve kopyalanır | Test |
+| **Görsel bloğu**: yalnız kulübe yüklenmiş raster görsel (`MEDIA` kapsamı; PNG/JPEG/WebP, SVG yok); yayında dosyanın varlığı/türü doğrulanır; görsel `inline` + `nosniff` + `CSP sandbox` ile sunulur, diğer dosyalar her zaman indirme | Test |
+| **E-posta** (`EmailOutbox` + işçi): istek yolu SMTP'ye bağlanmaz; 5 deneme, artan bekleme; STARTTLS zorunlu; satır sonu temizliği (başlık enjeksiyonu); gönderilenler 30 gün sonra silinir. SMTP yoksa üretimde kapalı, geliştirmede `storage/mail/` | 2 test |
+| **Bildirim e-postaları**: görev, değerlendirme, duyuru; kişi Hesabım'dan kapatabilir | Test |
+| **Parola sıfırlama**: yanıt hesabın varlığını sızdırmaz; token 256 bit, DB'de yalnız hash, 30 dk, tek kullanımlık (eşzamanlı kullanımda tek kazanan), yeni istek eskisini iptal eder, bağlantı `#token` (sunucu günlüğüne düşmez), IP ve hesap başına sınır, sıfırlamada tüm oturumlar kapanır | 3 test |
+| **Oturum yönetimi** (Hesabım): cihaz listesi, tek tek ya da toplu kapatma; başkasının oturumu kapatılamaz | Test |
+| **Sahiplik devri** (Ayarlar, yalnız OWNER): parola doğrulaması, hedef aktif ADMIN olmalı, tek transaction; her an tek OWNER | Test |
+| **Analitik** (`/teach/analytics`, personel): haftalık aktif öğrenci, giriş, akademi yol tamamlanma, en zorlayan quizler, görev katılım/onay/geç teslim, canlı ders katılımı, XP kaynakları. Bireysel öğrenci listesi yok | Test + tarayıcı |
+| **İngilizce katalog**: `tr.ts` anahtarlarının tamamı (tip denetimli) | Typecheck |
+| **13 adımlı E2E** (Playwright, `npm run test:e2e`): kurulum sihirbazı → başvuru → onay öncesi giriş reddi + onay → giriş → şablondan sunum → Studio'da düzenle + yayınla → canlı ders → kodla katılım → eşzamanlı ilerleme → canlı quiz + açıklama → görev yayınla → bildirimden teslim → onay + bildirimde XP + liderlikte 130 XP | ✅ 1/1 (20 sn), ayrı `_e2e` veritabanı, derlenmiş üretim sunucusu |
+| **CI (S-01)**: E2E işi, gitleaks (tüm geçmiş; yalnız test dosyalarındaki sahte değerler muaf), CodeQL `security-extended` | Yerelde gitleaks: sızıntı yok |
+
+### Faz 6'da bilinen sınırlamalar
+- **Sayfa metinlerinin çoğu Türkçe sabit metin**; İngilizce katalog menü, roller, giriş/kayıt ve hesap ekranlarını kapsar. Tam çeviri, sayfa metinlerinin kataloğa taşınmasını gerektirir.
+- **Studio'da aynı anda iki eğitmen** aynı sunumu düzenlerse son kayıt kazanır (kilitleme yok).
+- E-posta kuyruğu tek süreçte işlenir (tek sunucu kurulumu için yeterli).
+- CodeQL ve gitleaks işleri GitHub'da henüz çalıştırılmadı (PR açılınca çalışır); E2E yerelde çalıştı.
+- Geliştirme bağımlılıklarında (vitest, braces) `npm audit` uyarıları var; üretim bağımlılıklarında açık yok (`npm audit --omit=dev`: 0).
+
+## 🧪 Çalıştırılan testler (2026-10-23, Faz 6)
+
+| Komut | Sonuç |
+|---|---|
+| `npm run typecheck` · `npm run lint` | ✅ hatasız |
+| `npm test` | ✅ **196/196** (23 dosya; yeni: ZIP/ClamAV, otomatik puanlama, gruplar/takımlar/test görevi, Studio, hesap/e-posta/analitik) |
+| `npm run build` | ✅ |
+| `npm run test:e2e:run` (Playwright, Chromium) | ✅ 13 adım, 1/1 |
+| gitleaks v8.24.3 (geçmiş + çalışma ağacı `src`, `e2e`) | ✅ sızıntı yok |
+| Tarayıcı (dev): Studio, sınıf oluştur + üye ekle, test görevi soru editörü, analitik, Hesabım (oturumlar, e-posta tercihi), parola sıfırlama sayfaları; 375 px taşma yok | ✅ |
 
 ## 🧪 Çalıştırılan testler (2026-10-23, Faz 5)
 
@@ -164,25 +205,24 @@ süresi dolmuş/boşta oturum, kaba kuvvet 429, `role: "OWNER"` enjeksiyonu, SVG
 |---|---|
 | 3 | LearningPath/Module/Lesson, 10 başlangıç yolu, quiz türleri, öğrenci dashboard içeriği, ilerleme |
 | 4 | XPTransaction (idempotency), XP kuralları (admin düzenlenebilir), seviyeler, rozetler, aylık/genel liderlik |
-| 5 | ✅ yapıldı (bkz. Faz 5). Kalanlar: sınıf/etkinlik kapsamı, grup görevi, otomatik puanlı ödev türü, görsel blok |
-| 6 | Club Studio blok editörü (şimdilik JSON dışa aktar → düzenle → içe aktar), analitik, Playwright ile 13 adımlı E2E, ek sertleştirme |
+| 5 | ✅ yapıldı (eksikleri dahil) |
+| 6 | ✅ yapıldı (bkz. Faz 6 sınırlamaları) |
 
 ### Faz 2 içindeki bilinen sınırlamalar
-- Görsel blok editörü yok (Faz 6). İçerik düzenleme: JSON dışa aktar → düzenle → “İçeriği değiştir”. Biçim: [docs/SUNUM-FORMATI.md](docs/SUNUM-FORMATI.md).
-- Görsel (resim) bloğu yok: güvenli dosya deposu Faz 5'te geldi; blok Faz 6'da.
+- ~~Görsel blok editörü yok~~ → Faz 6: Club Studio. JSON biçimi: [docs/SUNUM-FORMATI.md](docs/SUNUM-FORMATI.md).
 - Canlı oturum durumu tek süreçte; yatay ölçeklemede Redis pub/sub gerekir (8 GB tek VPS hedefi için gereksiz).
 - Sunucu ani çökerse son ≤30 sn'lik katılım süresi kaybolabilir (düzgün kapanışta kayıp yok).
 - WebRTC ekran paylaşımı yok (mimari engel yok; temel sistem için gerekmiyor).
 
 ### Faz 1 içindeki bilinen sınırlamalar
-- **E-posta ayarları / parola sıfırlama e-postası yok** (SMTP yok). Parolasını unutan üye için şimdilik çözüm: yönetici hesabı devre dışı bırakıp yeni davet verir. Faz 6'da e-posta altyapısı + güvenli sıfırlama.
-- **Sahiplik devri (OWNER → başka kullanıcı)** yok.
+- ~~E-posta / parola sıfırlama yok~~ → Faz 6 (SMTP isteğe bağlı; yoksa yönetici yardımı gerekir).
+- ~~Sahiplik devri yok~~ → Faz 6.
 - **Uygulama içinden yedek indirme** yok; yedekleme sunucu komut satırından (`club.sh backup`). Tam DB dökümünü web'den sunmak ayrı bir risk değerlendirmesi gerektirir.
-- **Tema** ayarı alanı var ama yalnızca koyu tema mevcut; **İngilizce** çeviri kısmi.
-- **Oturum yönetimi ekranı** (aktif cihazları listeleyip tek tek kapatma) yok; sayı gösteriliyor, CLI ile toplu iptal var.
+- **Tema** ayarı alanı var ama yalnızca koyu tema mevcut; **İngilizce** katalog tam, sayfa gövdeleri Türkçe (bkz. Faz 6 sınırlamaları).
+- ~~Oturum yönetimi ekranı yok~~ → Faz 6 (Hesabım).
 - Rate limit ve ayar önbelleği **süreç içi bellek**te: tek sunucu kurulumu için doğru; yatay ölçeklemede Redis gerekir.
 - Saat dilimi seçimi sihirbazda/ayarlarda 5 seçenekle sınırlı (API her geçerli IANA dilimini kabul eder).
-- Club CI workflow henüz GitHub'da çalıştırılmadı (push yapılmadı).
+- Club CI workflow'u yalnız main'e push ve PR'larda çalışır; feature dalları için PR açılmadı.
 
 ## Alınan kararlar
 
@@ -204,5 +244,7 @@ süresi dolmuş/boşta oturum, kaba kuvvet 429, `role: "OWNER"` enjeksiyonu, SVG
 2. Görseller (Midjourney sahneleri, ekran görüntüleri) geldikçe `content/academy/gorseller/` altına WebP olarak eklenecek.
 3. Kalan uzmanlık yolları (C–G) ve yol sonu quizleri.
 4. Yükseltmede bir kez: `node dist/cli.js xp-backfill` (Faz 4 öncesi tamamlanan ders ve quizlere XP).
-5. Faz 5'i incele ve commit'le (`feature/club-classroom`, henüz commit'lenmedi). Yükseltmede migration `phase5_classroom` uygulanır; ek komut gerekmez.
-6. Faz 6: Club Studio editörü, görsel blok, e-posta, analitik, E2E.
+5. Faz 6'yı incele ve commit'le (`feature/club-studio`, henüz commit'lenmedi). Yükseltmede migration'lar (`phase6_studio`) otomatik uygulanır.
+6. E-posta için `.env`'e SMTP_* değişkenlerini, virüs taraması için `--profile clamav` + `CLAMAV_HOST=clamav` ekle (isteğe bağlı).
+7. `feature/club-studio` → `main` PR'ı: CI'da test, E2E, gitleaks ve CodeQL ilk kez çalışır.
+8. Kılavuz: [docs/KULLANIM-KILAVUZU.md](docs/KULLANIM-KILAVUZU.md).

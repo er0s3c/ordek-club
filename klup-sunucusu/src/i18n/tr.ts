@@ -28,6 +28,8 @@ export const tr = {
     live: "Canlı ders",
     teach: "Eğitmen paneli",
     tasks: "Görevler",
+    groups: "Sınıflar",
+    analytics: "Analitik",
     files: "Dosyalar",
     announcements: "Duyurular",
     notifications: "Bildirimler",

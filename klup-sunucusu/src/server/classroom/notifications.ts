@@ -1,7 +1,10 @@
-// Uygulama içi bildirimler (e-posta yok; Faz 6). Bağlantılar yalnız uygulama içi yollar olabilir.
+// Bildirimler: uygulama içi kayıt + (SMTP varsa ve kişi kapatmadıysa) e-posta kuyruğu.
+// Bağlantılar yalnız uygulama içi yollar olabilir; e-postada APP_URL ile tam adrese çevrilir.
 import type { NotificationType, Prisma } from "@prisma/client";
 import { db } from "@/server/db";
+import { env } from "@/server/env";
 import type { Actor } from "@/server/auth/policy";
+import { enqueueMail, mailEnabled } from "@/server/mail/outbox";
 
 type Tx = Prisma.TransactionClient | typeof db;
 
@@ -9,9 +12,15 @@ export async function notify(tx: Tx, userIds: string[], n: { type: NotificationT
   const ids = [...new Set(userIds)];
   if (!ids.length) return 0;
   const link = n.link && /^\/[a-z0-9/_\-?=&.]*$/i.test(n.link) ? n.link : null;
-  const r = await tx.notification.createMany({
-    data: ids.map((userId) => ({ userId, type: n.type, title: n.title.slice(0, 160), body: (n.body ?? "").slice(0, 400), link })),
-  });
+  const title = n.title.slice(0, 160);
+  const body = (n.body ?? "").slice(0, 400);
+  const r = await tx.notification.createMany({ data: ids.map((userId) => ({ userId, type: n.type, title, body, link })) });
+  if (mailEnabled()) {
+    const to = await tx.user.findMany({ where: { id: { in: ids }, status: "ACTIVE", emailNotifications: true }, select: { email: true } });
+    const app = env().APP_URL.replace(/\/$/, "");
+    const text = [title, body, link ? `Aç: ${app}${link}` : "", "", `E-posta bildirimlerini kapatmak için: ${app}/account`].filter((x, i) => x || i > 2).join("\n");
+    await enqueueMail(tx, to.map((u) => ({ to: u.email, subject: title, text })));
+  }
   return r.count;
 }
 

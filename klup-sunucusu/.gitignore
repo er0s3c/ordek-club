@@ -13,3 +13,7 @@ coverage
 *.log
 # Akademi laboratuvar verisi (sentetik loglar) depoda tutulur
 !content/academy/lab/*.log
+
+# Playwright
+test-results/
+playwright-report/

@@ -16,6 +16,7 @@ export const GET = route<Ctx>(async (req, { params }) => {
 const patchSchema = z.object({
   status: z.enum(["DRAFT", "PUBLISHED"]).optional(),
   content: z.unknown().optional(),
+  isTemplate: z.boolean().optional(),
 });
 
 export const PATCH = route<Ctx>(async (req, { params }) => {

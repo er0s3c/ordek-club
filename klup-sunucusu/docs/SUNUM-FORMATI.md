@@ -38,7 +38,11 @@ En kolay başlangıç: bir şablondan sunum oluşturun → **“JSON dışa akta
 | `terminal` | `lines: [{ "cmd": "…", "out": "…" }]`, `reveal` (varsayılan true) | satır sayısı |
 | `callout` | `tone` (`info`/`warn`/`success`/`danger`), `text` | 1 |
 | `animation` | `animation` (aşağıdaki kimliklerden biri) | animasyon adım sayısı + 1 |
+| `image` | `fileId` (Studio'dan yüklenen görselin kimliği), `alt` (zorunlu kısa açıklama), `caption` | 1 |
 | `practical` | VMware uygulama molası: `title`, `description`, `files` (≤10 ad), `steps` (≤20), `durationMin` (1–240, varsayılan 30), `host: { prepNotes, vms[], snapshot, expected }` | 1 |
+
+`image` bloğu yalnız kulübe yüklenmiş PNG/JPEG/WebP görsele başvurabilir; yayınlarken sunucu dosyanın varlığını ve türünü doğrular.
+Görseli Club Studio'daki “Görsel yükle” düğmesiyle eklemek en kolayıdır.
 
 `practical` bloğunun `host` alanı yalnız eğitmene gider; öğrencinin aldığı destede sunucu bu alanı boşaltır.
 Canlı derste bu slayta ilk geçildiğinde slayta bağlı bir görev (tür: VMware, geç teslim işaretlenir) oluşur;

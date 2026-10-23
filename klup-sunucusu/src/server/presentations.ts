@@ -1,4 +1,4 @@
-import type { Prisma, PresentationStatus } from "@prisma/client";
+import { Prisma, type PresentationStatus } from "@prisma/client";
 import type { z } from "zod";
 import { db } from "@/server/db";
 import { audit } from "@/server/audit";
@@ -23,7 +23,16 @@ export function parseDeck(raw: unknown): Deck {
   return r.data;
 }
 
+// Görsel blokları yalnız kulübe yüklenmiş (MEDIA/CLUB kapsamlı) raster görsellere başvurabilir.
+async function checkMedia(deck: Deck, tx: Tx | typeof db = db) {
+  const ids = [...new Set(deck.slides.flatMap((sl) => sl.blocks.flatMap((b) => (b.type === "image" ? [b.fileId] : []))))];
+  if (!ids.length) return;
+  const ok = await tx.fileAsset.count({ where: { id: { in: ids }, kind: "image", scope: { in: ["MEDIA", "CLUB"] }, deletedAt: null } });
+  if (ok !== ids.length) throw badRequest("Sunumdaki görsellerden biri bulunamadı ya da görsel değil. Görseli Studio'dan yeniden yükle.", "BAD_MEDIA");
+}
+
 async function writeVersion(tx: Tx, presentationId: string, deck: Deck, authorId: string) {
+  await checkMedia(deck, tx);
   const last = await tx.presentationVersion.findFirst({ where: { presentationId }, orderBy: { number: "desc" }, select: { number: true } });
   const version = await tx.presentationVersion.create({
     data: {
@@ -42,7 +51,8 @@ async function writeVersion(tx: Tx, presentationId: string, deck: Deck, authorId
       },
     },
   });
-  await tx.presentation.update({ where: { id: presentationId }, data: { currentVersionId: version.id, title: deck.title, description: deck.description } });
+  // Yeni sürüm yayınlanınca Studio taslağı temizlenir.
+  await tx.presentation.update({ where: { id: presentationId }, data: { currentVersionId: version.id, title: deck.title, description: deck.description, draft: Prisma.DbNull, draftUpdatedAt: null } });
   return version;
 }
 
@@ -59,6 +69,13 @@ export async function createPresentation(actor: Actor, deck: Deck, ip: string, t
 }
 
 export async function createFromTemplate(actor: Actor, key: string, ip: string) {
+  // Eğitmenlerin paylaştığı şablon: "user:<sunumId>"
+  if (key.startsWith("user:")) {
+    const p = await db.presentation.findUnique({ where: { id: key.slice(5) } });
+    if (!p || !p.isTemplate || p.status === "ARCHIVED" || !canViewPresentation(actor, p)) throw notFound("Şablon bulunamadı.");
+    const deck = await exportDeck(actor, p.id);
+    return createPresentation(actor, deck, ip, key);
+  }
   const t = TEMPLATES[key];
   if (!t) throw notFound("Şablon bulunamadı.");
   return createPresentation(actor, parseDeck(t), ip, key);
@@ -74,7 +91,7 @@ export async function listPresentations(actor: Actor) {
     orderBy: { updatedAt: "desc" },
     take: 200,
     select: {
-      id: true, title: true, description: true, status: true, ownerId: true, updatedAt: true, templateKey: true,
+      id: true, title: true, description: true, status: true, ownerId: true, updatedAt: true, templateKey: true, isTemplate: true, draftUpdatedAt: true,
       owner: { select: { username: true, displayName: true } },
       currentVersion: { select: { number: true, _count: { select: { slides: true } } } },
     },
@@ -124,7 +141,7 @@ export async function getPresentation(actor: Actor, id: string) {
     p.ownerId ? db.user.findUnique({ where: { id: p.ownerId }, select: { username: true, displayName: true } }) : null,
     db.presentationVersion.findUnique({ where: { id: p.currentVersionId }, select: { number: true } }),
   ]);
-  return { id: p.id, status: p.status, ownerId: p.ownerId, owner, version: versionNo?.number ?? 1, updatedAt: p.updatedAt, canEdit: canEditPresentation(actor, p), deck };
+  return { id: p.id, status: p.status, ownerId: p.ownerId, owner, version: versionNo?.number ?? 1, updatedAt: p.updatedAt, canEdit: canEditPresentation(actor, p), isTemplate: p.isTemplate, hasDraft: p.draft !== null, deck };
 }
 
 export async function exportDeck(actor: Actor, id: string): Promise<Deck> {
@@ -141,7 +158,7 @@ export async function exportDeck(actor: Actor, id: string): Promise<Deck> {
 export async function updatePresentation(
   actor: Actor,
   id: string,
-  input: { status?: PresentationStatus; content?: unknown },
+  input: { status?: PresentationStatus; content?: unknown; isTemplate?: boolean },
   ip: string,
 ) {
   const p = await loadForActor(actor, id, "edit");
@@ -150,7 +167,8 @@ export async function updatePresentation(
   await db.$transaction(async (tx) => {
     if (deck) await writeVersion(tx, p.id, deck, actor.id);
     if (input.status && input.status !== p.status) await tx.presentation.update({ where: { id: p.id }, data: { status: input.status } });
-    await audit({ actorId: actor.id, action: deck ? "presentation.content" : "presentation.status", targetType: "Presentation", targetId: p.id, meta: { status: input.status ?? null, newVersion: Boolean(deck) }, ip }, tx);
+    if (input.isTemplate !== undefined && input.isTemplate !== p.isTemplate) await tx.presentation.update({ where: { id: p.id }, data: { isTemplate: input.isTemplate } });
+    await audit({ actorId: actor.id, action: deck ? "presentation.content" : "presentation.status", targetType: "Presentation", targetId: p.id, meta: { status: input.status ?? null, newVersion: Boolean(deck), isTemplate: input.isTemplate ?? null }, ip }, tx);
   });
 }
 
@@ -169,3 +187,83 @@ export async function archivePresentation(actor: Actor, id: string, ip: string) 
 }
 
 export type ImportInput = z.input<typeof deckSchema>;
+
+// ── Club Studio ─────────────────────────────────────────────────────────────
+// Otomatik kayıt bir "taslak" (Presentation.draft) yazar; sürüm oluşturmaz. Yayınla → doğrulanmış yeni sürüm.
+// Taslak düzenleme sırasında geçici olarak geçersiz olabilir; sorunlar kaydedilir ama yayın engellenir.
+
+const MAX_DRAFT_BYTES = 512 * 1024;
+
+export type DeckIssue = { path: string; message: string };
+
+export function deckIssues(raw: unknown): DeckIssue[] {
+  const r = deckSchema.safeParse(raw);
+  return r.success ? [] : r.error.issues.slice(0, 20).map((i) => ({ path: i.path.join("."), message: i.message }));
+}
+
+export async function getStudio(actor: Actor, id: string) {
+  const p = await loadForActor(actor, id, "edit");
+  const current = p.currentVersionId ? await exportDeck(actor, id) : null;
+  const versions = await db.presentationVersion.findMany({
+    where: { presentationId: id },
+    orderBy: { number: "desc" },
+    take: 50,
+    select: { id: true, number: true, createdAt: true, createdBy: { select: { displayName: true } }, _count: { select: { slides: true } } },
+  });
+  return {
+    id: p.id,
+    status: p.status,
+    isTemplate: p.isTemplate,
+    deck: (p.draft as unknown) ?? current,
+    draftUpdatedAt: p.draftUpdatedAt,
+    hasDraft: p.draft !== null,
+    version: versions[0]?.number ?? 0,
+    versions,
+  };
+}
+
+export async function saveDraft(actor: Actor, id: string, content: unknown) {
+  await loadForActor(actor, id, "edit");
+  if (Buffer.byteLength(JSON.stringify(content ?? null)) > MAX_DRAFT_BYTES) throw badRequest("Sunum çok büyük (en fazla 512 KB).", "TOO_LARGE");
+  const at = new Date();
+  await db.presentation.update({ where: { id }, data: { draft: content as Prisma.InputJsonValue, draftUpdatedAt: at } });
+  return { savedAt: at, issues: deckIssues(content) };
+}
+
+export async function publishDraft(actor: Actor, id: string, ip: string) {
+  const p = await loadForActor(actor, id, "edit");
+  if (p.draft === null) throw badRequest("Yayınlanacak taslak yok.", "NO_DRAFT");
+  const deck = parseDeck(p.draft);
+  return db.$transaction(async (tx) => {
+    const v = await writeVersion(tx, id, deck, actor.id);
+    await audit({ actorId: actor.id, action: "presentation.publish", targetType: "Presentation", targetId: id, meta: { version: v.number, slides: deck.slides.length }, ip }, tx);
+    return { version: v.number };
+  });
+}
+
+export async function discardDraft(actor: Actor, id: string) {
+  await loadForActor(actor, id, "edit");
+  await db.presentation.update({ where: { id }, data: { draft: Prisma.DbNull, draftUpdatedAt: null } });
+}
+
+// Eski sürümü taslağa yükler (yayınlamak ayrı adım): geçmiş değişmez, yeni sürüm olarak eklenir.
+export async function restoreVersion(actor: Actor, id: string, versionId: string) {
+  await loadForActor(actor, id, "edit");
+  const v = await db.presentationVersion.findFirst({ where: { id: versionId, presentationId: id }, select: { id: true } });
+  if (!v) throw notFound("Sürüm bulunamadı.");
+  const deck = await loadClientDeck(v.id, true);
+  const content: Deck = { schema: DECK_SCHEMA_VERSION, title: deck.title, description: deck.description, slides: deck.slides.map((sl) => ({ title: sl.title, layout: sl.layout, blocks: sl.blocks, notes: sl.notes ?? "" })) };
+  await db.presentation.update({ where: { id }, data: { draft: content as unknown as Prisma.InputJsonValue, draftUpdatedAt: new Date() } });
+  return content;
+}
+
+// Şablon listesi: hazır şablonlar + eğitmenlerin paylaştığı (yayınlanmış ya da kendine ait) şablonlar.
+export async function userTemplates(actor: Actor) {
+  const rows = await db.presentation.findMany({
+    where: { isTemplate: true, status: { not: "ARCHIVED" }, ...(isAdmin(actor.role) ? {} : { OR: [{ ownerId: actor.id }, { status: "PUBLISHED" }] }) },
+    orderBy: { updatedAt: "desc" },
+    take: 50,
+    select: { id: true, title: true, description: true, owner: { select: { displayName: true } }, currentVersion: { select: { _count: { select: { slides: true } } } } },
+  });
+  return rows.map((p) => ({ key: `user:${p.id}`, title: p.title, description: `${p.description}${p.description ? " · " : ""}${p.owner?.displayName ?? "—"} paylaştı`, slideCount: p.currentVersion?._count.slides ?? 0 }));
+}

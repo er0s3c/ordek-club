@@ -130,6 +130,11 @@
 .seg button { border: 0; background: transparent; padding: 6px 10px; font-size: 12.5px; cursor: pointer; color: var(--ink-dim); }
 .seg button[aria-pressed="true"] { background: var(--accent-bg); color: #fff1e6; }
 
+/* ── görsel bloğu ── */
+.blk-image { margin: 0; flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 0.8cqw; }
+.blk-image img { max-width: 100%; max-height: 100%; min-height: 0; flex: 1; object-fit: contain; border-radius: 0.5cqw; border: 1px solid var(--line); background: #0b0908; }
+.blk-image figcaption { font-size: 1.35cqw; color: var(--ink-dim); text-align: center; }
+
 /* ── uygulama molası bloğu ── */
 .blk-practical { display: flex; flex-direction: column; gap: 1.1cqw; padding: 1.6cqw 1.8cqw; border: 1px solid rgba(95, 211, 167, 0.3); border-left: 0.45cqw solid var(--term); border-radius: 0.6cqw; background: linear-gradient(90deg, rgba(95, 211, 167, 0.07), rgba(8, 10, 9, 0.6)); }
 .blk-practical-head { display: flex; align-items: center; gap: 0.8cqw; color: var(--term); }
@@ -162,6 +167,37 @@
 .poll-live { padding-bottom: 10px; border-bottom: 1px dashed var(--line-soft); }
 .text-ok { color: var(--term); }
 .practical-card .card-h h2 { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ── Club Studio ── */
+.studio { display: grid; grid-template-columns: 200px minmax(0, 1fr) minmax(0, 0.9fr); gap: 14px; align-items: start; }
+.studio-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.studio-bar [data-state="dirty"], .studio-bar [data-state="saving"] { color: var(--amber); }
+.studio-bar [data-state="error"] { color: #f08d79; }
+.studio-title { flex: 1 1 260px; max-width: 520px; font-family: var(--font-display); font-size: 18px; }
+.studio-slides { display: flex; flex-direction: column; gap: 8px; position: sticky; top: 12px; max-height: calc(100vh - 40px); overflow: auto; }
+.studio-slides ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.studio-slides .slide-chip { width: 100%; max-width: none; min-width: 0; }
+.studio-edit { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.studio-block { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; background: var(--bg-1); display: flex; flex-direction: column; gap: 8px; }
+.studio-fields { display: flex; flex-direction: column; gap: 8px; }
+.studio-term-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto; gap: 6px; align-items: start; }
+.studio-host { border: 1px dashed var(--gold-deep); border-radius: var(--radius); padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+.studio-add { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; padding: 8px; border: 1px dashed var(--line); border-radius: var(--radius); }
+.studio-preview { position: sticky; top: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.studio-thumb { width: 96px; height: 54px; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); }
+.linklike { background: none; border: 0; padding: 0; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; }
+@media (max-width: 1200px) {
+  .studio { grid-template-columns: 180px minmax(0, 1fr); }
+  .studio-preview { grid-column: 1 / -1; position: static; }
+}
+@media (max-width: 760px) {
+  .studio { grid-template-columns: minmax(0, 1fr); }
+  .studio-slides { position: static; max-height: none; }
+  .studio-slides ol { flex-direction: row; overflow-x: auto; }
+  .studio-slides .slide-chip { width: 150px; }
+  .studio-term-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .studio-term-row textarea { grid-column: 1 / -1; }
+}
 
 /* ── modül kötü adamı dosyası (Akademi) ── */
 .villain-file { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: linear-gradient(90deg, rgba(58, 20, 24, 0.55), rgba(15, 12, 11, 0.6)); }

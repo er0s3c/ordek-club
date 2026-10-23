@@ -5,6 +5,11 @@ const LABELS: Record<string, string> = {
   "auth.login.failed": "Başarısız giriş denemesi",
   "auth.logout": "Çıkış yapıldı",
   "auth.password.change": "Parola değiştirildi",
+  "auth.password.reset.request": "Parola sıfırlama e-postası istendi",
+  "auth.password.reset": "Parola e-postayla sıfırlandı",
+  "auth.session.revoke": "Bir oturum kapatıldı",
+  "auth.session.revoke-others": "Diğer oturumlar kapatıldı",
+  "member.ownership.transfer": "Kulüp sahipliği devredildi",
   "member.register.active": "Yeni üye kaydı (aktif)",
   "member.register.pending": "Yeni üyelik başvurusu",
   "member.approve": "Üyelik onaylandı",
@@ -42,7 +47,12 @@ const LABELS: Record<string, string> = {
   "submission.rejected": "Teslim reddedildi",
   "announcement.create": "Duyuru yayınlandı",
   "announcement.delete": "Duyuru silindi",
+  "presentation.publish": "Sunum yeni sürümle yayınlandı (Studio)",
+  "group.create": "Sınıf/etkinlik oluşturuldu",
+  "group.update": "Sınıf/etkinlik düzenlendi",
+  "group.archive": "Sınıf/etkinlik arşivlendi",
+  "group.members": "Sınıf/etkinlik üyeleri değişti",
 };
 
 export const actionLabel = (code: string) => LABELS[code] ?? code;
-export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard", "file", "assignment", "submission", "announcement"];
+export const AUDIT_ACTION_PREFIXES = ["auth", "member", "invitation", "settings", "setup", "academy", "xp", "badge", "leaderboard", "file", "assignment", "submission", "announcement", "group"];

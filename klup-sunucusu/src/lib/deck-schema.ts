@@ -43,6 +43,13 @@ export const blockSchema = z.discriminatedUnion("type", [
     text: text(600),
   }),
   z.object({ type: z.literal("animation"), animation: z.enum(ANIMATION_IDS) }),
+  // Görsel: yalnız kulübe yüklenmiş raster görsel (dosya kimliği); sunucu kaydederken dosyanın varlığını ve türünü doğrular.
+  z.object({
+    type: z.literal("image"),
+    fileId: z.string().regex(/^c[a-z0-9]{20,30}$/, "Geçersiz görsel."),
+    alt: text(200).pipe(z.string().min(1, "Görsel için kısa bir açıklama (alt metin) yaz.")),
+    caption: text(300).default(""),
+  }),
   // VMware uygulama molası: öğrenci talimatları + teslim; `host` alanı yalnız eğitmene gider.
   // Sistem VMware'i başlatmaz/yönetmez; uygulamayı eğitmen kendi ortamında yürütür.
   z.object({

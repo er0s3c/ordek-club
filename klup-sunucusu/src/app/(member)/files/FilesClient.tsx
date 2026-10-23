@@ -7,11 +7,12 @@ import { useToast } from "@/components/providers";
 import { ApiError, api } from "@/lib/api-client";
 import { FILE_ACCEPT } from "@/components/classroom/labels";
 
-export function UploadForm({ maxMb }: { maxMb: number }) {
+export function UploadForm({ maxMb, groups }: { maxMb: number; groups: { id: string; name: string; kind: "CLASS" | "EVENT" }[] }) {
   const toast = useToast();
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
-  const [scope, setScope] = useState<"CLUB" | "USERS">("CLUB");
+  const [scope, setScope] = useState<"CLUB" | "USERS" | "GROUP">("CLUB");
+  const [groupId, setGroupId] = useState("");
   const [usernames, setUsernames] = useState("");
   const [description, setDescription] = useState("");
   const [busy, setBusy] = useState(false);
@@ -31,6 +32,7 @@ export function UploadForm({ maxMb }: { maxMb: number }) {
         form.set("scope", scope);
         form.set("description", description);
         if (scope === "USERS") form.set("usernames", usernames);
+        if (scope === "GROUP") form.set("groupId", groupId);
         await api("/api/files", { method: "POST", form });
         done++;
       }
@@ -53,7 +55,17 @@ export function UploadForm({ maxMb }: { maxMb: number }) {
         <div className="seg" role="group" aria-label="Kimler görsün">
           <button type="button" aria-pressed={scope === "CLUB"} onClick={() => setScope("CLUB")}>Tüm kulüp</button>
           <button type="button" aria-pressed={scope === "USERS"} onClick={() => setScope("USERS")}>Seçili üyeler</button>
+          <button type="button" aria-pressed={scope === "GROUP"} disabled={!groups.length} onClick={() => setScope("GROUP")}>Sınıf / etkinlik</button>
         </div>
+        {scope === "GROUP" && (
+          <div className="field">
+            <label htmlFor="up-group">Sınıf ya da etkinlik</label>
+            <select id="up-group" className="input select" value={groupId} onChange={(e) => setGroupId(e.target.value)}>
+              <option value="">— seç —</option>
+              {groups.map((g) => <option key={g.id} value={g.id}>{g.kind === "CLASS" ? "Sınıf" : "Etkinlik"}: {g.name}</option>)}
+            </select>
+          </div>
+        )}
         {scope === "USERS" && (
           <div className="field">
             <label htmlFor="up-users">Kullanıcı adları</label>

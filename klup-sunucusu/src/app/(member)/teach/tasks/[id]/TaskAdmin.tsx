@@ -13,11 +13,11 @@ import { FILE_ACCEPT, SUBMISSION_STATUS } from "@/components/classroom/labels";
 type FileRef = { id: string; name: string; size: number };
 type Sub = {
   id: string; status: string; late: boolean; attempts: number; submittedAt: string; text: string; score: number | null; feedback: string;
-  rubricScores: number[] | null; user: { username: string; displayName: string }; files: FileRef[];
+  rubricScores: number[] | null; user: { username: string; displayName: string }; files: FileRef[]; team: string | null;
 };
 type Task = {
   id: string; status: string; canEdit: boolean; description: string; maxScore: number; rubric: { criterion: string; points: number }[];
-  targets: string[]; files: FileRef[]; submissions: Sub[];
+  targets: string[]; files: FileRef[]; submissions: Sub[]; kind: string; passPercent: number; teams: { name: string; members: string[] }[];
 };
 
 type Filter = "pending" | "all" | "done";
@@ -102,6 +102,10 @@ export function TaskAdmin({ task, timezone }: { task: Task; timezone: string }) 
               <ul className="list-tight">{task.rubric.map((r, i) => <li key={i}><span style={{ flex: 1 }}>{r.criterion}</span><span className="mono small">{r.points}</span></li>)}</ul>
             )}
             {task.targets.length > 0 && <p className="small muted" style={{ margin: 0 }}>Hedef: {task.targets.join(", ")}</p>}
+            {task.teams.length > 0 && (
+              <ul className="list-tight">{task.teams.map((t) => <li key={t.name}><strong>{t.name}</strong><span className="small muted" style={{ flex: 1 }}>{t.members.join(", ")}</span></li>)}</ul>
+            )}
+            {task.kind === "QUIZ" && <div className="alert alert-info small">Otomatik puanlanır: geçme %{task.passPercent}. Geçen teslim onaylanır ve XP verilir; değerlendirme gerekmez.</div>}
           </div>
         </section>
         <section className="card">
@@ -159,7 +163,7 @@ export function TaskAdmin({ task, timezone }: { task: Task; timezone: string }) 
                         setPicked(n);
                       }} />}</td>
                     )}
-                    <td>{s.user.displayName}<div className="tiny faint mono">@{s.user.username}</div></td>
+                    <td>{s.team ? <><strong>{s.team}</strong><div className="tiny faint">teslim eden: {s.user.displayName}</div></> : <>{s.user.displayName}<div className="tiny faint mono">@{s.user.username}</div></>}</td>
                     <td className="small">{formatDateTime(s.submittedAt, timezone)}{s.late && <span className="badge" style={{ marginLeft: 6 }}>geç</span>}{s.attempts > 1 && <div className="tiny faint">{s.attempts}. deneme</div>}</td>
                     <td><span className={SUBMISSION_STATUS[s.status]!.cls}>{SUBMISSION_STATUS[s.status]!.label}</span></td>
                     <td className="num mono">{s.score ?? "—"}/{task.maxScore}</td>
@@ -194,7 +198,7 @@ function Review({ sub, task, busy, run, onDone }: { sub: Sub; task: Task; busy: 
 
   return (
     <section className="card" aria-labelledby="rev-h" style={{ borderColor: "var(--gold-deep)" }}>
-      <div className="card-h"><h2 id="rev-h">{sub.user.displayName} · teslim</h2><span className={SUBMISSION_STATUS[sub.status]!.cls}>{SUBMISSION_STATUS[sub.status]!.label}</span></div>
+      <div className="card-h"><h2 id="rev-h">{sub.team ? `Takım ${sub.team}` : sub.user.displayName} · teslim</h2><span className={SUBMISSION_STATUS[sub.status]!.cls}>{SUBMISSION_STATUS[sub.status]!.label}</span></div>
       <div className="card-b grid-2" style={{ alignItems: "start" }}>
         <div className="stack-sm">
           <div className="notes">{sub.text || "— metin yok —"}</div>

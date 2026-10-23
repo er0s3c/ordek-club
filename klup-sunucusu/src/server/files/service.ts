@@ -5,8 +5,9 @@ import { audit } from "@/server/audit";
 import { badRequest, forbidden, notFound } from "@/server/errors";
 import { canManageClassroom, isAdmin, isStaff, type Actor } from "@/server/auth/policy";
 import { getSettings } from "@/server/settings";
-import { visibleAssignmentsWhere } from "@/server/classroom/access";
+import { memberGroupWhere, visibleAssignmentsWhere } from "@/server/classroom/access";
 import { cleanFileName, readBlob, removeBlob, validateUpload, writeBlob } from "./store";
+import { scanUpload } from "./scan";
 
 const MB = 1024 * 1024;
 
@@ -14,7 +15,9 @@ export type UploadTarget =
   | { scope: "CLUB" }
   | { scope: "USERS"; userIds: string[] }
   | { scope: "ASSIGNMENT"; assignmentId: string }
-  | { scope: "SUBMISSION"; submissionId: string };
+  | { scope: "SUBMISSION"; submissionId: string }
+  | { scope: "GROUP"; groupId: string }
+  | { scope: "MEDIA" };
 
 export async function maxUploadBytes() {
   return (await getSettings()).maxUploadMb * MB;
@@ -39,6 +42,8 @@ export async function storeFile(
   const name = cleanFileName(file.name);
   const buf = new Uint8Array(await file.arrayBuffer());
   const sniffed = validateUpload(name, buf);
+  if (target.scope === "MEDIA" && sniffed.kind !== "image") throw badRequest("Sunum görseli PNG, JPEG ya da WebP olmalı.", "NOT_IMAGE");
+  const scanNote = await scanUpload(sniffed.kind, buf);
   if ((await usedBytes({})) + buf.length > s.storageQuotaMb * MB) throw badRequest("Kulüp depolama kotası doldu. Yöneticiye haber ver.", "QUOTA_CLUB");
   if (!isStaff(actor.role) && (await usedBytes({ ownerId: actor.id })) + buf.length > s.userQuotaMb * MB)
     throw badRequest(`Kişisel yükleme kotan (${s.userQuotaMb} MB) doldu.`, "QUOTA_USER");
@@ -57,6 +62,8 @@ export async function storeFile(
         ownerId: actor.id,
         assignmentId: target.scope === "ASSIGNMENT" ? target.assignmentId : null,
         submissionId: target.scope === "SUBMISSION" ? target.submissionId : null,
+        groupId: target.scope === "GROUP" ? target.groupId : null,
+        scanNote,
         ...(target.scope === "USERS" ? { grants: { create: [...new Set(target.userIds)].map((userId) => ({ userId })) } } : {}),
       },
     });
@@ -67,7 +74,7 @@ export async function storeFile(
   }
 }
 
-// Personelin kulüp kütüphanesine / belirli üyelere / bir göreve dosya yüklemesi.
+// Personelin kulüp kütüphanesine / belirli üyelere / bir göreve / bir gruba dosya ya da sunum görseli yüklemesi.
 export async function uploadLibraryFile(actor: Actor, file: File, target: Exclude<UploadTarget, { scope: "SUBMISSION" }>, description: string, ip: string) {
   if (!canManageClassroom(actor)) throw forbidden("Dosya paylaşımı eğitmen ve yöneticilere açıktır.");
   if (target.scope === "USERS") {
@@ -80,12 +87,16 @@ export async function uploadLibraryFile(actor: Actor, file: File, target: Exclud
     if (!a) throw notFound("Görev bulunamadı.");
     if (!isAdmin(actor.role) && a.createdById !== actor.id) throw forbidden("Bu göreve yalnızca oluşturan eğitmen dosya ekleyebilir.");
   }
+  if (target.scope === "GROUP") {
+    const g = await db.classGroup.findUnique({ where: { id: target.groupId }, select: { archivedAt: true } });
+    if (!g || g.archivedAt) throw notFound("Sınıf/etkinlik bulunamadı.");
+  }
   const f = await storeFile(db, actor, file, target, description);
-  await audit({ actorId: actor.id, action: "file.upload", targetType: "FileAsset", targetId: f.id, meta: { name: f.name, scope: f.scope, size: f.size, sha256: f.sha256 }, ip });
+  await audit({ actorId: actor.id, action: "file.upload", targetType: "FileAsset", targetId: f.id, meta: { name: f.name, scope: f.scope, size: f.size, sha256: f.sha256, scan: f.scanNote }, ip });
   return f;
 }
 
-type FileWithRefs = FileAsset & { grants: { userId: string }[]; submission: { userId: string } | null };
+type FileWithRefs = FileAsset & { grants: { userId: string }[]; submission: { userId: string; teamId: string | null } | null };
 
 export async function canReadFile(actor: Actor, f: FileWithRefs): Promise<boolean> {
   if (f.deletedAt || actor.status !== "ACTIVE") return false;
@@ -93,18 +104,23 @@ export async function canReadFile(actor: Actor, f: FileWithRefs): Promise<boolea
   if (f.ownerId === actor.id) return true;
   switch (f.scope as FileScope) {
     case "CLUB":
+    case "MEDIA":
       return true;
     case "USERS":
       return f.grants.some((g) => g.userId === actor.id);
     case "SUBMISSION":
-      return f.submission?.userId === actor.id;
+      if (f.submission?.userId === actor.id) return true;
+      // Takım teslimi: takım arkadaşları da görür.
+      return !!f.submission?.teamId && (await db.assignmentTeamMember.count({ where: { teamId: f.submission.teamId, userId: actor.id } })) > 0;
     case "ASSIGNMENT":
       return !!f.assignmentId && (await db.assignment.count({ where: { id: f.assignmentId, ...visibleAssignmentsWhere(actor) } })) > 0;
+    case "GROUP":
+      return !!f.groupId && (await db.classGroup.count({ where: { id: f.groupId, ...memberGroupWhere(actor.id) } })) > 0;
   }
 }
 
 const loadFile = (id: string) =>
-  db.fileAsset.findUnique({ where: { id }, include: { grants: { select: { userId: true } }, submission: { select: { userId: true } } } });
+  db.fileAsset.findUnique({ where: { id }, include: { grants: { select: { userId: true } }, submission: { select: { userId: true, teamId: true } } } });
 
 // İndirme: yetkisiz kullanıcıya dosyanın varlığı da sızdırılmaz (404).
 export async function openFile(actor: Actor, id: string) {
@@ -131,13 +147,14 @@ export async function deleteFile(actor: Actor, id: string, ip: string) {
 // Kütüphane: kişinin görebildiği paylaşılmış dosyalar (teslim dosyaları hariç).
 export async function listLibrary(actor: Actor) {
   const where: Prisma.FileAssetWhereInput = isStaff(actor.role)
-    ? { deletedAt: null, scope: { not: "SUBMISSION" } }
+    ? { deletedAt: null, scope: { notIn: ["SUBMISSION", "MEDIA"] } }
     : {
         deletedAt: null,
         OR: [
           { scope: "CLUB" },
           { scope: "USERS", grants: { some: { userId: actor.id } } },
           { scope: "ASSIGNMENT", assignment: visibleAssignmentsWhere(actor) },
+          { scope: "GROUP", group: memberGroupWhere(actor.id) },
         ],
       };
   return db.fileAsset.findMany({
@@ -148,6 +165,7 @@ export async function listLibrary(actor: Actor) {
       id: true, name: true, kind: true, size: true, scope: true, description: true, createdAt: true, ownerId: true,
       owner: { select: { displayName: true } },
       assignment: { select: { id: true, title: true } },
+      group: { select: { id: true, name: true } },
       _count: { select: { grants: true } },
     },
   });

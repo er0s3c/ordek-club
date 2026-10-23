@@ -10,6 +10,16 @@ const schema = z.object({
   TRUST_PROXY: z.enum(["0", "1"]).default("0"),
   // Akademi içeriğinin (Markdown) kaynağı; imajda /app/content/academy
   ACADEMY_DIR: z.string().default("./content/academy"),
+  // İsteğe bağlı virüs taraması (clamd). Tanımlıysa her yükleme taranır; tarayıcıya ulaşılamazsa yükleme reddedilir.
+  CLAMAV_HOST: z.string().default(""),
+  CLAMAV_PORT: z.coerce.number().int().min(1).max(65535).default(3310),
+  // İsteğe bağlı SMTP. SMTP_HOST boşsa e-posta gönderilmez (geliştirmede storage/mail/ altına yazılır).
+  SMTP_HOST: z.string().default(""),
+  SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(587),
+  SMTP_SECURE: z.enum(["0", "1"]).default("0"), // 1 → doğrudan TLS (465); 0 → STARTTLS zorunlu
+  SMTP_USER: z.string().default(""),
+  SMTP_PASS: z.string().default(""),
+  SMTP_FROM: z.string().default(""),
 });
 
 export type Env = z.infer<typeof schema> & { storageDir: string; academyDir: string; secureCookies: boolean; trustProxy: boolean };

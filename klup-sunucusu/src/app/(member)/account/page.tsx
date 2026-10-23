@@ -5,16 +5,19 @@ import { getSettings } from "@/server/settings";
 import { getMessages } from "@/i18n";
 import { formatDate, formatDateTime } from "@/components/ui/format";
 import { PasswordForm } from "./PasswordForm";
+import { EmailPref, SessionsCard } from "./AccountClient";
+import { listSessions } from "@/server/auth/account";
+import { mailMode } from "@/server/mail/outbox";
 
 export const metadata: Metadata = { title: "Hesabım" };
 
 export default async function AccountPage() {
-  const { user } = await requirePageSession();
+  const { user, sessionId } = await requirePageSession();
   const s = await getSettings();
   const m = getMessages(s.locale);
   const me = await db.user.findUniqueOrThrow({
     where: { id: user.id },
-    select: { email: true, studentNumber: true, department: true, joinedAt: true, createdAt: true, lastLoginAt: true, passwordChangedAt: true, _count: { select: { sessions: true } } },
+    select: { emailNotifications: true, email: true, studentNumber: true, department: true, joinedAt: true, createdAt: true, lastLoginAt: true, passwordChangedAt: true, _count: { select: { sessions: true } } },
   });
   return (
     <div className="stack fade-up">
@@ -43,6 +46,12 @@ export default async function AccountPage() {
           <div className="card-h"><h2 id="pw-h">{m.account.changePassword}</h2></div>
           <div className="card-b"><PasswordForm /></div>
         </section>
+      </div>
+      <div className="grid-2" style={{ alignItems: "start" }}>
+        <SessionsCard
+          items={(await listSessions({ id: user.id, role: user.role, status: user.status }, sessionId)).map((x) => ({ id: x.id, userAgent: x.userAgent ?? "", current: x.current, createdAt: formatDateTime(x.createdAt, s.timezone), lastSeenAt: formatDateTime(x.lastSeenAt, s.timezone) }))}
+        />
+        <EmailPref initial={me.emailNotifications} mode={mailMode()} />
       </div>
     </div>
   );

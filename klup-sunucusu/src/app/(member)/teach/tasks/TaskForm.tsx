@@ -7,41 +7,25 @@ import { useToast } from "@/components/providers";
 import { Field, TextAreaField } from "@/components/ui/Field";
 import { ApiError, api } from "@/lib/api-client";
 import { DIFFICULTY_LABEL, KIND_LABEL } from "@/components/classroom/labels";
+import type { TaskValues } from "@/components/classroom/form-values";
+import { QuizEditor, cleanQuiz, type QDraft } from "./QuizEditor";
 
-export type TaskValues = {
-  title: string;
-  description: string;
-  kind: string;
-  difficulty: string;
-  audience: "ALL" | "SELECTED";
-  targetUsernames: string;
-  startsAt: string; // datetime-local
-  dueAt: string;
-  allowLate: boolean;
-  allowResubmit: boolean;
-  requireText: boolean;
-  requireFile: boolean;
-  maxScore: number;
-  rubric: { criterion: string; points: number }[];
-  xpRuleKey: string;
-  xpAmount: string; // boş → kural varsayılanı
-};
+type GroupOpt = { id: string; name: string; kind: "CLASS" | "EVENT"; members: number };
 
-export const EMPTY_TASK: TaskValues = {
-  title: "", description: "", kind: "TEXT", difficulty: "MEDIUM", audience: "ALL", targetUsernames: "", startsAt: "", dueAt: "",
-  allowLate: false, allowResubmit: true, requireText: true, requireFile: false, maxScore: 100, rubric: [], xpRuleKey: "task.approved", xpAmount: "",
-};
+// "Takım adı: kullanıcı1, kullanıcı2" satırları
+const parseTeams = (text: string) =>
+  text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((l) => {
+      const at = l.indexOf(":");
+      return at < 0 ? { name: l, usernames: [] as string[] } : { name: l.slice(0, at).trim(), usernames: l.slice(at + 1).split(/[\s,;]+/).map((u) => u.trim().toLowerCase()).filter(Boolean) };
+    });
 
 const XP_RULE_LABEL: Record<string, string> = { "task.approved": "Görev (varsayılan)", "task.daily": "Günlük görev", "task.weekly": "Haftalık görev" };
 
-// Yerel saat ↔ ISO: datetime-local girdisi saat dilimi taşımaz, tarayıcının yerel saatiyle yorumlanır.
-export const toLocalInput = (d: string | Date | null | undefined) => {
-  if (!d) return "";
-  const x = new Date(d);
-  return new Date(x.getTime() - x.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-};
-
-export function TaskForm({ initial, id, xpDefaults }: { initial: TaskValues; id?: string; xpDefaults: Record<string, number> }) {
+export function TaskForm({ initial, id, xpDefaults, groups, locked = false }: { initial: TaskValues; id?: string; xpDefaults: Record<string, number>; groups: GroupOpt[]; locked?: boolean }) {
   const toast = useToast();
   const router = useRouter();
   const [v, setV] = useState(initial);
@@ -60,6 +44,12 @@ export function TaskForm({ initial, id, xpDefaults }: { initial: TaskValues; id?
       difficulty: v.difficulty,
       audience: v.audience,
       targetUsernames: v.audience === "SELECTED" ? v.targetUsernames.split(/[\s,]+/).filter(Boolean) : [],
+      groupId: v.audience === "GROUP" ? v.groupId || null : null,
+      teamMode: v.teamMode,
+      teams: v.teamMode ? parseTeams(v.teams) : [],
+      quiz: v.kind === "QUIZ" ? cleanQuiz(v.quiz as QDraft[]) : undefined,
+      passPercent: Number(v.passPercent),
+      maxAttempts: v.maxAttempts === "" ? null : Number(v.maxAttempts),
       ...(v.startsAt ? { startsAt: new Date(v.startsAt).toISOString() } : {}),
       dueAt: v.dueAt ? new Date(v.dueAt).toISOString() : null,
       allowLate: v.allowLate,
@@ -118,19 +108,58 @@ export function TaskForm({ initial, id, xpDefaults }: { initial: TaskValues; id?
           <div className="seg" role="group" aria-label="Hedef kitle">
             <button type="button" aria-pressed={v.audience === "ALL"} onClick={() => set("audience", "ALL")}>Tüm öğrenciler</button>
             <button type="button" aria-pressed={v.audience === "SELECTED"} onClick={() => set("audience", "SELECTED")}>Seçili öğrenciler</button>
+            <button type="button" aria-pressed={v.audience === "GROUP"} onClick={() => set("audience", "GROUP")} disabled={!groups.length} title={groups.length ? undefined : "Önce Sınıflar sayfasından bir sınıf ya da etkinlik oluştur"}>Sınıf / etkinlik</button>
           </div>
-          {v.audience === "SELECTED" && (
+          {v.audience === "GROUP" && !v.teamMode && (
+            <div className="field">
+              <label htmlFor="t-group">Sınıf ya da etkinlik</label>
+              <select id="t-group" className="input select" value={v.groupId} onChange={(e) => set("groupId", e.target.value)}>
+                <option value="">— seç —</option>
+                {groups.map((g) => <option key={g.id} value={g.id}>{g.kind === "CLASS" ? "Sınıf" : "Etkinlik"}: {g.name} ({g.members} üye)</option>)}
+              </select>
+              {fields.groupId && <span className="err" role="alert">{fields.groupId}</span>}
+            </div>
+          )}
+          {v.kind !== "QUIZ" && (
+            <label className="check"><input type="checkbox" checked={v.teamMode} disabled={locked} onChange={(e) => set("teamMode", e.target.checked)} /> Takım görevi (takım başına tek teslim; onayda XP takımdaki herkese)</label>
+          )}
+          {v.teamMode && (
+            <TextAreaField label="Takımlar" rows={5} disabled={locked} value={v.teams} onChange={(e) => set("teams", e.target.value)} error={fields.teams} hint={locked ? "Teslim alındığı için takımlar değiştirilemez." : "Her satıra bir takım: Takım adı: kullanıcı1, kullanıcı2. Görev yalnız takımlardaki öğrencilere gider."} />
+          )}
+          {v.audience === "SELECTED" && !v.teamMode && (
             <TextAreaField label="Öğrenci kullanıcı adları" rows={3} value={v.targetUsernames} onChange={(e) => set("targetUsernames", e.target.value)} error={fields.targetUsernames} hint="Virgül, boşluk ya da satırla ayır (ör. ogrenci.ali, ogrenci.ayse)." />
           )}
-          <div className="form-grid">
+          {v.kind !== "QUIZ" && <div className="form-grid">
             <label className="check"><input type="checkbox" checked={v.requireText} onChange={(e) => set("requireText", e.target.checked)} /> Metin cevabı zorunlu</label>
             <label className="check"><input type="checkbox" checked={v.requireFile} onChange={(e) => set("requireFile", e.target.checked)} /> En az bir dosya zorunlu</label>
             <label className="check"><input type="checkbox" checked={v.allowLate} onChange={(e) => set("allowLate", e.target.checked)} /> Geç teslime izin ver (işaretlenir)</label>
             <label className="check"><input type="checkbox" checked={v.allowResubmit} onChange={(e) => set("allowResubmit", e.target.checked)} /> Düzeltme istenince yeniden teslim</label>
-          </div>
+          </div>}
+          {v.kind === "QUIZ" && (
+            <div className="form-grid">
+              <label className="check"><input type="checkbox" checked={v.allowLate} onChange={(e) => set("allowLate", e.target.checked)} /> Geç teslime izin ver (işaretlenir)</label>
+              <label className="check"><input type="checkbox" checked={v.allowResubmit} onChange={(e) => set("allowResubmit", e.target.checked)} /> Geçemezse tekrar deneyebilsin</label>
+            </div>
+          )}
           {fields.requireText && <span className="err" role="alert">{fields.requireText}</span>}
         </div>
       </section>
+
+      {v.kind === "QUIZ" && (
+        <section className="card">
+          <div className="card-h"><h2>Sorular (otomatik puanlanır)</h2><span className="tiny faint">cevap anahtarı öğrenciye gitmez</span></div>
+          <div className="card-b stack">
+            <div className="form-grid">
+              <Field label="Geçme yüzdesi" type="number" min={0} max={100} value={v.passPercent} onChange={(e) => set("passPercent", Number(e.target.value))} error={fields.passPercent} hint="Geçen teslim otomatik onaylanır ve XP verilir." />
+              <Field label="Deneme hakkı (boş = sınırsız)" type="number" min={1} max={20} value={v.maxAttempts} onChange={(e) => set("maxAttempts", e.target.value)} error={fields.maxAttempts} />
+            </div>
+            {locked && <div className="alert alert-warn small">Teslim alındığı için sorular değiştirilemez.</div>}
+            <fieldset disabled={locked} style={{ border: 0, padding: 0, margin: 0 }}>
+              <QuizEditor value={v.quiz as QDraft[]} onChange={(q) => set("quiz", q)} error={fields.quiz} />
+            </fieldset>
+          </div>
+        </section>
+      )}
 
       <section className="card">
         <div className="card-h"><h2>Puanlama ve XP</h2></div>
@@ -145,7 +174,7 @@ export function TaskForm({ initial, id, xpDefaults }: { initial: TaskValues; id?
             </div>
             <Field label="Özel XP (boş = kural)" type="number" min={0} max={500} value={v.xpAmount} onChange={(e) => set("xpAmount", e.target.value)} error={fields.xpAmount} hint="0–500; onayda bir kez verilir." />
           </div>
-          <div className="stack-sm">
+          {v.kind !== "QUIZ" && <div className="stack-sm">
             <div className="row-between">
               <div className="eyebrow">Ölçütler (rubrik)</div>
               <span className={v.rubric.length && rubricSum !== Number(v.maxScore) ? "small text-warn" : "small faint"}>{v.rubric.length ? `toplam ${rubricSum} / ${v.maxScore}` : "isteğe bağlı"}</span>
@@ -159,7 +188,7 @@ export function TaskForm({ initial, id, xpDefaults }: { initial: TaskValues; id?
             ))}
             {v.rubric.length < 12 && <button type="button" className="btn btn-sm btn-ghost" style={{ alignSelf: "flex-start" }} onClick={() => set("rubric", [...v.rubric, { criterion: "", points: 10 }])}><Plus size={14} aria-hidden /> Ölçüt ekle</button>}
             {fields.rubric && <span className="err" role="alert">{fields.rubric}</span>}
-          </div>
+          </div>}
         </div>
       </section>
 

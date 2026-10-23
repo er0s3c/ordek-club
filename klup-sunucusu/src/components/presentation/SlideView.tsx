@@ -87,6 +87,16 @@ function BlockView({ block, step, speed, reducedMotion, stepKey }: { block: Bloc
         ? <FlowAnimationView def={def} step={s} speed={speed} reducedMotion={reducedMotion} stepKey={stepKey} />
         : <CodeAnimationView def={def} step={s} />;
     }
+    case "image":
+      if (!block.fileId) return <div className="blk-callout blk-callout-warn">Görsel seçilmedi.</div>;
+      // Yetki kontrollü dosya rotası; yalnız içerikten doğrulanmış raster görseller satır içi sunulur.
+      return (
+        <figure className="blk-image">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/api/files/${encodeURIComponent(block.fileId)}?inline=1`} alt={block.alt} loading="lazy" />
+          {block.caption && <figcaption>{block.caption}</figcaption>}
+        </figure>
+      );
     case "practical":
       // Yalnız öğrenciye açık kısım; `host` (VM, snapshot, beklenen sonuç) eğitmen konsolunda ayrı gösterilir.
       return (

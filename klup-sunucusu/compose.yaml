@@ -50,6 +50,14 @@ services:
       APP_SECRET: ${APP_SECRET:?APP_SECRET tanımlı değil — ./install.sh çalıştırın}
       TRUST_PROXY: ${TRUST_PROXY:-0}
       STORAGE_DIR: /app/storage
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-0}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      CLAMAV_HOST: ${CLAMAV_HOST:-}
+      CLAMAV_PORT: ${CLAMAV_PORT:-3310}
       PORT: 3100
     ports:
       - "${APP_BIND:-0.0.0.0}:${APP_PORT:-3100}:3100"
@@ -61,6 +69,19 @@ services:
       - /app/.next/cache:uid=1000,gid=1000,size=128m
     cap_drop: [ALL]
     networks: [club_net]
+    deploy:
+      resources:
+        limits: { memory: 1536m }
+
+  # İsteğe bağlı virüs taraması: docker compose --profile clamav up -d  ve .env'de CLAMAV_HOST=clamav
+  # (imza veritabanı ilk açılışta indirilir; ~1 GB bellek kullanır).
+  clamav:
+    <<: *hardening
+    profiles: ["clamav"]
+    image: clamav/clamav:stable
+    networks: [club_net]
+    volumes:
+      - clamav_db:/var/lib/clamav
     deploy:
       resources:
         limits: { memory: 1536m }
@@ -87,6 +108,7 @@ networks:
     name: ordek_club_net
 
 volumes:
+  clamav_db:
   club_pg:
   club_storage:
   caddy_data:

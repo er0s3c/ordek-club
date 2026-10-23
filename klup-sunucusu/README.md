@@ -4,8 +4,10 @@
 Ördek Lab ile aynı repository'de durur ama onunla **hiçbir çalışma zamanı bağı yoktur**: ayrı
 veritabanı, ayrı Docker yığını, ayrı ağ; saldırı lab'ı, flag sistemi veya `docker.sock` erişimi yok.
 
-> Durum: **Faz 1 + Faz 2** tamamlandı — kurulum, üyelik, roller, admin paneli, animasyonlu sunumlar ve
-> WebSocket ile canlı sınıf. Club Academy, XP/liderlik ve görevler sonraki fazlarda. Ayrıntı: [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md)
+> Durum: **Faz 1–6** çalışıyor — kurulum ve üyelik, canlı sınıf (quiz/anket, VMware uygulama molası), Club Academy,
+> XP/rozet/liderlik, görevler (rubrik, takım, otomatik puanlama), sınıflar/etkinlikler, dosya paylaşımı, duyurular,
+> Club Studio sunum editörü, e-posta, analitik. Ayrıntı: [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md) ·
+> Kullanım: [docs/KULLANIM-KILAVUZU.md](docs/KULLANIM-KILAVUZU.md)
 
 ## Canlı ders nasıl yapılır?
 
@@ -133,6 +135,7 @@ npm run dev                                  # http://localhost:3100 (kurulum an
 | Komut | |
 |---|---|
 | `npm test` | Birim + entegrasyon testleri (ayrı `ordek_club_test` veritabanında) |
+| `npm run test:e2e` | Derler ve 13 adımlı Playwright akışını ayrı `ordek_club_e2e` veritabanında, 3199 portunda çalıştırır (ilk kez: `npx playwright install chromium`) |
 | `npm run typecheck` / `npm run lint` | TypeScript ve ESLint |
 | `npm run build` | Üretim derlemesi (Next.js + `dist/server.js`) |
 | `node scripts/smoke.mjs <url>` | Çalışan sunucuya HTTP smoke testi; `SETUP_TOKEN=…` ile boş kurulumda tam uçtan uca akış |

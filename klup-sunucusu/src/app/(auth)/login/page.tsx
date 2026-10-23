@@ -5,6 +5,7 @@ import { LoginForm } from "./LoginForm";
 import { currentSession, requireSetupDone } from "@/server/auth/page-guard";
 import { getSettings } from "@/server/settings";
 import { getMessages } from "@/i18n";
+import { mailEnabled } from "@/server/mail/outbox";
 
 export const metadata: Metadata = { title: "Giriş" };
 
@@ -23,7 +24,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const m = getMessages(s.locale);
   return (
     <AuthCard title={m.auth.loginTitle} sub={m.auth.loginSub}>
-      <LoginForm next={next} canRegister={s.registrationPolicy !== "CLOSED"} />
+      <LoginForm next={next} canRegister={s.registrationPolicy !== "CLOSED"} canReset={mailEnabled()} />
     </AuthCard>
   );
 }

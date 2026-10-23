@@ -13,13 +13,14 @@ export const GET = route(async (req) => {
 });
 
 const fields = z.object({
-  scope: z.enum(["CLUB", "USERS", "ASSIGNMENT"]),
+  scope: z.enum(["CLUB", "USERS", "ASSIGNMENT", "GROUP", "MEDIA"]),
+  groupId: z.string().max(40).default(""),
   usernames: z.string().max(4000).default(""),
   assignmentId: z.string().max(40).default(""),
   description: z.string().max(300).default(""),
 });
 
-// Personel yüklemesi: kulüp kütüphanesi, seçili üyeler ya da bir görevin ekleri.
+// Personel yüklemesi: kulüp kütüphanesi, seçili üyeler, bir görevin ekleri, bir sınıf/etkinlik ya da sunum görseli (MEDIA).
 export const POST = route(async (req) => {
   const { actor, ip } = await memberContext(req, { write: true });
   const len = Number(req.headers.get("content-length") ?? NaN);
@@ -33,6 +34,7 @@ export const POST = route(async (req) => {
     scope: form.get("scope") ?? undefined,
     usernames: form.get("usernames") ?? undefined,
     assignmentId: form.get("assignmentId") ?? undefined,
+    groupId: form.get("groupId") ?? undefined,
     description: form.get("description") ?? undefined,
   });
   let target: Exclude<UploadTarget, { scope: "SUBMISSION" }>;
@@ -45,7 +47,11 @@ export const POST = route(async (req) => {
   } else if (f.scope === "ASSIGNMENT") {
     if (!f.assignmentId) throw badRequest("Görev seç.", "NO_ASSIGNMENT");
     target = { scope: "ASSIGNMENT", assignmentId: f.assignmentId };
-  } else target = { scope: "CLUB" };
+  } else if (f.scope === "GROUP") {
+    if (!f.groupId) throw badRequest("Sınıf ya da etkinlik seç.", "NO_GROUP");
+    target = { scope: "GROUP", groupId: f.groupId };
+  } else if (f.scope === "MEDIA") target = { scope: "MEDIA" };
+  else target = { scope: "CLUB" };
   const row = await uploadLibraryFile(actor, file, target, f.description, ip);
   return json({ id: row.id, name: row.name, size: row.size }, { status: 201 });
 });

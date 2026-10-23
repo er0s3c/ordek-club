@@ -21,6 +21,16 @@ export const POST = route<Ctx>(async (req, { params }) => {
   const form = await req.formData();
   const text = form.get("text");
   const files = form.getAll("files").filter((f): f is File => f instanceof File && f.size > 0);
-  const s = await submitAssignment(actor, idParam.parse((await params).id), { text: typeof text === "string" ? text : "", files }, ip);
-  return json({ id: s.id, status: s.status, late: s.late }, { status: 201 });
+  // Otomatik puanlanan görevde cevaplar JSON metni olarak gelir.
+  const raw = form.get("answers");
+  let answers: unknown;
+  if (typeof raw === "string" && raw) {
+    try {
+      answers = JSON.parse(raw);
+    } catch {
+      throw badRequest("Cevaplar geçersiz.", "BAD_ANSWERS");
+    }
+  }
+  const s = await submitAssignment(actor, idParam.parse((await params).id), { text: typeof text === "string" ? text : "", files, answers }, ip);
+  return json({ id: s.id, status: s.status, late: s.late, score: s.score, feedback: s.feedback, xp: s.xp }, { status: 201 });
 });

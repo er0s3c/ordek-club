@@ -2,11 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { Archive, Copy, Download, Eye, EyeOff, FileUp, Play } from "lucide-react";
+import Link from "next/link";
+import { Archive, BookmarkPlus, Copy, Download, Eye, EyeOff, FileUp, PenTool, Play } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
 
-export function PresentationActions({ id, status, canEdit }: { id: string; status: string; canEdit: boolean }) {
+export function PresentationActions({ id, status, canEdit, isTemplate, hasDraft }: { id: string; status: string; canEdit: boolean; isTemplate: boolean; hasDraft: boolean }) {
   const toast = useToast();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -39,6 +40,25 @@ export function PresentationActions({ id, status, canEdit }: { id: string; statu
       >
         <Play size={16} aria-hidden /> Canlı dersi başlat
       </button>
+      {canEdit && (
+        <Link className="btn" href={`/teach/presentations/${enc}/studio`}>
+          <PenTool size={16} aria-hidden /> Club Studio{hasDraft ? " (yayınlanmamış taslak var)" : ""}
+        </Link>
+      )}
+      {canEdit && (
+        <button
+          className="btn"
+          disabled={busy}
+          aria-pressed={isTemplate}
+          title="Şablonlar listesinde diğer eğitmenlere (sunum yayındaysa) görünür"
+          onClick={async () => {
+            await run(() => api(`/api/presentations/${enc}`, { method: "PATCH", body: { isTemplate: !isTemplate } }), isTemplate ? "Şablonlardan çıkarıldı." : "Şablon olarak paylaşıldı.");
+            router.refresh();
+          }}
+        >
+          <BookmarkPlus size={16} aria-hidden /> {isTemplate ? "Şablondan çıkar" : "Şablon olarak paylaş"}
+        </button>
+      )}
       {canEdit && (
         <button
           className="btn"

@@ -8,6 +8,7 @@ export const KIND_LABEL: Record<string, string> = {
   OSINT: "OSINT (laboratuvar)",
   CODE_REVIEW: "Kod inceleme",
   VMWARE: "VMware uygulaması",
+  QUIZ: "Otomatik puanlanan test",
 };
 
 export const DIFFICULTY_LABEL: Record<string, string> = { EASY: "Kolay", MEDIUM: "Orta", HARD: "Zor" };
@@ -25,7 +26,7 @@ export const SUBMISSION_STATUS: Record<string, { label: string; cls: string }> =
   REJECTED: { label: "Reddedildi", cls: "badge badge-red" },
 };
 
-export const SCOPE_LABEL: Record<string, string> = { CLUB: "Tüm kulüp", USERS: "Seçili üyeler", ASSIGNMENT: "Görev eki", SUBMISSION: "Teslim" };
+export const SCOPE_LABEL: Record<string, string> = { CLUB: "Tüm kulüp", USERS: "Seçili üyeler", ASSIGNMENT: "Görev eki", SUBMISSION: "Teslim", GROUP: "Sınıf / etkinlik", MEDIA: "Sunum görseli" };
 
 // files/store.ts ALLOWED_EXTENSIONS ile aynı tutulmalı (sunucu yine de içeriği doğrular).
 export const FILE_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,.zip,.pcap,.pcapng,.cap,.txt,.md,.csv,.log,.json,.jsonl,.yaml,.yml,.xml,.ini,.conf,.toml,.yar,.yara,.rules,.py,.js,.ts,.c,.h,.cpp,.hpp,.java,.go,.rs,.rb,.php,.sh,.ps1,.sql,.asm";

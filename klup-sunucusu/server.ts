@@ -13,6 +13,7 @@ import { sweep } from "@/server/rate-limit";
 import { env } from "@/server/env";
 import { createLiveUpgradeHandler } from "@/server/live/ws-server";
 import { hub } from "@/server/live/hub";
+import { startMailer, stopMailer } from "@/server/mail/outbox";
 
 const dev = process.env.NODE_ENV !== "production";
 const port = Number(process.env.PORT ?? 3100);
@@ -60,6 +61,7 @@ async function main() {
         const line = "═".repeat(64);
         console.log(`\n${line}\n  İLK KURULUM GEREKLİ\n  Tarayıcıda /setup adresini aç ve şu kurulum anahtarını gir:\n\n      ${token}\n\n  (Ayrıca ${setupTokenFile()} dosyasına yazıldı; 24 saat geçerli.)\n${line}\n`);
       }
+      startMailer();
     } catch (err) {
       console.error("[club] Veritabanına bağlanılamadı. DATABASE_URL ve migration'ları kontrol et.", err);
     }
@@ -67,6 +69,7 @@ async function main() {
 
   const shutdown = async (sig: string) => {
     console.log(`[club] ${sig} alındı, kapanıyor…`);
+    stopMailer();
     // Canlı derslerin durumunu ve katılım sürelerini kaybetmeden kapat
     await hub.checkpoint().catch((err) => console.error("[club] canlı ders verisi yazılamadı", err));
     for (const c of live.wss.clients) c.close(1012, "server restart"); // 1012: istemci yeniden bağlanır

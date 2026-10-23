@@ -15,3 +15,7 @@ compose*.yaml
 install.sh
 README.md
 IMPLEMENTATION_STATUS.md
+e2e
+playwright.config.ts
+test-results
+playwright-report

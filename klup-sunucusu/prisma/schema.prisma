@@ -39,55 +39,61 @@ enum RegistrationPolicy {
 }
 
 model User {
-  id                String       @id @default(cuid())
-  username          String       @unique // küçük harf, normalize edilmiş
-  email             String       @unique // küçük harf, normalize edilmiş
-  displayName       String
-  passwordHash      String
-  role              Role         @default(STUDENT)
-  status            MemberStatus @default(PENDING)
+  id                 String       @id @default(cuid())
+  username           String       @unique // küçük harf, normalize edilmiş
+  email              String       @unique // küçük harf, normalize edilmiş
+  displayName        String
+  passwordHash       String
+  role               Role         @default(STUDENT)
+  status             MemberStatus @default(PENDING)
   // Başvuru bilgileri (veri minimizasyonu: yalnızca kulübün ihtiyaç duyduğu alanlar)
-  studentNumber     String?
-  department        String?
-  applicationNote   String?
-  reviewNote        String?
-  reviewedAt        DateTime?
-  reviewedById      String?
-  reviewedBy        User?        @relation("UserReviews", fields: [reviewedById], references: [id], onDelete: SetNull)
-  reviewed          User[]       @relation("UserReviews")
-  invitationId      String?
-  invitation        Invitation?  @relation("InvitationUses", fields: [invitationId], references: [id], onDelete: SetNull)
+  studentNumber      String?
+  department         String?
+  applicationNote    String?
+  reviewNote         String?
+  reviewedAt         DateTime?
+  reviewedById       String?
+  reviewedBy         User?        @relation("UserReviews", fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewed           User[]       @relation("UserReviews")
+  invitationId       String?
+  invitation         Invitation?  @relation("InvitationUses", fields: [invitationId], references: [id], onDelete: SetNull)
   // Kulübe katılım (onay) zamanı — genel liderlik tablosu bu tarihten sayar.
-  joinedAt          DateTime?
-  lastLoginAt       DateTime?
-  passwordChangedAt DateTime     @default(now())
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
+  joinedAt           DateTime?
+  lastLoginAt        DateTime?
+  passwordChangedAt  DateTime     @default(now())
+  // E-posta bildirimleri (SMTP yapılandırılmışsa gönderilir); kişi profilinden kapatabilir.
+  emailNotifications Boolean      @default(true)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
 
   sessions            Session[]
-  invitationsCreated  Invitation[]          @relation("InvitationCreator")
+  invitationsCreated  Invitation[]           @relation("InvitationCreator")
   auditLogs           AuditLog[]
-  presentations       Presentation[]        @relation("PresentationOwner")
-  versionsAuthored    PresentationVersion[] @relation("VersionAuthor")
-  hostedSessions      LiveSession[]         @relation("LiveHost")
+  presentations       Presentation[]         @relation("PresentationOwner")
+  versionsAuthored    PresentationVersion[]  @relation("VersionAuthor")
+  hostedSessions      LiveSession[]          @relation("LiveHost")
   participations      SessionParticipant[]
-  liveEvents          LiveSessionEvent[]    @relation("LiveEventAuthor")
+  liveEvents          LiveSessionEvent[]     @relation("LiveEventAuthor")
   lessonProgress      LessonProgress[]
   quizAttempts        QuizAttempt[]
-  xpTransactions      XpTransaction[]       @relation("XpOwner")
-  xpAuthored          XpTransaction[]       @relation("XpAuthor")
-  badges              UserBadge[]           @relation("BadgeOwner")
-  activityDays        ActivityDay[]         @relation("ActivityOwner")
-  leaderboardEntries  LeaderboardEntry[]    @relation("LeaderboardUser")
-  filesOwned          FileAsset[]           @relation("FileOwner")
-  fileGrants          FileGrant[]           @relation("FileGrantUser")
-  assignmentsAuthored Assignment[]          @relation("AssignmentAuthor")
-  assignmentTargets   AssignmentTarget[]    @relation("AssignmentTargetUser")
-  submissions         Submission[]          @relation("SubmissionAuthor")
-  reviews             Submission[]          @relation("SubmissionReviewer")
-  announcements       Announcement[]        @relation("AnnouncementAuthor")
-  notifications       Notification[]        @relation("NotificationOwner")
-  pollAnswers         LivePollAnswer[]      @relation("PollAnswerUser")
+  xpTransactions      XpTransaction[]        @relation("XpOwner")
+  xpAuthored          XpTransaction[]        @relation("XpAuthor")
+  badges              UserBadge[]            @relation("BadgeOwner")
+  activityDays        ActivityDay[]          @relation("ActivityOwner")
+  leaderboardEntries  LeaderboardEntry[]     @relation("LeaderboardUser")
+  filesOwned          FileAsset[]            @relation("FileOwner")
+  fileGrants          FileGrant[]            @relation("FileGrantUser")
+  assignmentsAuthored Assignment[]           @relation("AssignmentAuthor")
+  assignmentTargets   AssignmentTarget[]     @relation("AssignmentTargetUser")
+  submissions         Submission[]           @relation("SubmissionAuthor")
+  reviews             Submission[]           @relation("SubmissionReviewer")
+  announcements       Announcement[]         @relation("AnnouncementAuthor")
+  notifications       Notification[]         @relation("NotificationOwner")
+  pollAnswers         LivePollAnswer[]       @relation("PollAnswerUser")
+  groupsAuthored      ClassGroup[]           @relation("GroupAuthor")
+  groupMemberships    ClassGroupMember[]     @relation("GroupMember")
+  teamMemberships     AssignmentTeamMember[] @relation("TeamMember")
+  passwordResets      PasswordResetToken[]
 
   @@index([status, role])
   @@index([createdAt])
@@ -192,6 +198,11 @@ model Presentation {
   currentVersionId String?               @unique
   currentVersion   PresentationVersion?  @relation("CurrentVersion", fields: [currentVersionId], references: [id], onDelete: SetNull)
   templateKey      String? // hazır şablondan oluşturulduysa
+  // Club Studio otomatik kaydı: yayınlanmamış çalışma kopyası (sürüm oluşturmaz)
+  draft            Json?
+  draftUpdatedAt   DateTime?
+  // Eğitmenlerin "şablon olarak kaydet" ile paylaştığı sunumlar
+  isTemplate       Boolean               @default(false)
   createdAt        DateTime              @default(now())
   updatedAt        DateTime              @updatedAt
   versions         PresentationVersion[] @relation("PresentationVersions")
@@ -521,6 +532,8 @@ enum FileScope {
   USERS // yalnız izin verilen üyeler (FileGrant)
   ASSIGNMENT // görevin hedefindeki öğrenciler + personel
   SUBMISSION // teslim eden öğrenci + personel
+  GROUP // sınıf/etkinlik üyeleri + personel
+  MEDIA // sunum görselleri: tüm aktif üyeler (kütüphanede listelenmez)
 }
 
 model FileAsset {
@@ -539,6 +552,10 @@ model FileAsset {
   assignment   Assignment? @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   submissionId String?
   submission   Submission? @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  groupId      String?
+  group        ClassGroup? @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  // Tarama özeti (ör. "zip:12 öğe", "clamav:temiz")
+  scanNote     String      @default("")
   createdAt    DateTime    @default(now())
   deletedAt    DateTime?
   grants       FileGrant[]
@@ -547,6 +564,7 @@ model FileAsset {
   @@index([ownerId])
   @@index([assignmentId])
   @@index([submissionId])
+  @@index([groupId])
 }
 
 model FileGrant {
@@ -568,6 +586,7 @@ enum AssignmentKind {
   OSINT
   CODE_REVIEW
   VMWARE
+  QUIZ // otomatik puanlanan (çoktan seçmeli, çoklu seçim, D/Y, kısa cevap, eşleştirme)
 }
 
 enum Difficulty {
@@ -585,6 +604,7 @@ enum AssignmentStatus {
 enum AssignmentAudience {
   ALL // tüm aktif öğrenciler
   SELECTED // yalnız AssignmentTarget'taki öğrenciler
+  GROUP // bir sınıfın/etkinliğin üyeleri
 }
 
 model Assignment {
@@ -613,8 +633,17 @@ model Assignment {
   liveSessionId String?
   liveSession   LiveSession?       @relation(fields: [liveSessionId], references: [id], onDelete: SetNull)
   slideId       String?
+  groupId       String?
+  group         ClassGroup?        @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  // Grup görevi: takım başına tek teslim; onayda XP takımdaki herkese
+  teamMode      Boolean            @default(false)
+  // Otomatik puanlanan görev: sorular (cevap anahtarı yalnız sunucuda), geçme yüzdesi, deneme sınırı
+  quiz          Json?
+  passPercent   Int                @default(60)
+  maxAttempts   Int?
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
+  teams         AssignmentTeam[]
   targets       AssignmentTarget[]
   submissions   Submission[]
   files         FileAsset[]
@@ -658,6 +687,9 @@ model Submission {
   reviewedById String?
   reviewedBy   User?            @relation("SubmissionReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
   reviewedAt   DateTime?
+  teamId       String?          @unique
+  team         AssignmentTeam?  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  answers      Json?
   files        FileAsset[]
 
   @@unique([assignmentId, userId])
@@ -743,4 +775,102 @@ model LivePollAnswer {
   createdAt DateTime @default(now())
 
   @@id([pollId, userId])
+}
+
+// ───────────────────────────── Faz 6 ─────────────────────────────
+
+enum GroupKind {
+  CLASS // sınıf/şube: üyeleri personel belirler
+  EVENT // etkinlik: tarih/yer; isteğe bağlı öğrenci kaydı
+}
+
+model ClassGroup {
+  id          String             @id @default(cuid())
+  kind        GroupKind          @default(CLASS)
+  name        String
+  description String             @default("")
+  startsAt    DateTime?
+  endsAt      DateTime?
+  location    String             @default("")
+  selfJoin    Boolean            @default(false) // öğrenci kendisi kaydolabilir (etkinlik)
+  capacity    Int?
+  archivedAt  DateTime?
+  createdById String?
+  createdBy   User?              @relation("GroupAuthor", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  members     ClassGroupMember[]
+  assignments Assignment[]
+  files       FileAsset[]
+
+  @@index([kind, archivedAt])
+}
+
+model ClassGroupMember {
+  groupId  String
+  group    ClassGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User       @relation("GroupMember", fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime   @default(now())
+
+  @@id([groupId, userId])
+  @@index([userId])
+}
+
+model AssignmentTeam {
+  id           String                 @id @default(cuid())
+  assignmentId String
+  assignment   Assignment             @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  name         String
+  members      AssignmentTeamMember[]
+  submission   Submission?
+
+  @@unique([assignmentId, name])
+}
+
+model AssignmentTeamMember {
+  teamId       String
+  team         AssignmentTeam @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User           @relation("TeamMember", fields: [userId], references: [id], onDelete: Cascade)
+  assignmentId String // bir öğrenci bir görevde tek takımda olabilir
+
+  @@id([teamId, userId])
+  @@unique([assignmentId, userId])
+}
+
+// Parola sıfırlama: e-postadaki token'ın yalnız SHA-256 hash'i; tek kullanımlık, kısa ömürlü.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  ip        String    @default("")
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+// Giden e-posta kuyruğu: istek yolunu SMTP'ye bağlamaz; arka plan işçisi gönderir ve yeniden dener.
+model EmailOutbox {
+  id            String      @id @default(cuid())
+  to            String
+  subject       String
+  text          String
+  status        EmailStatus @default(PENDING)
+  attempts      Int         @default(0)
+  lastError     String      @default("")
+  nextAttemptAt DateTime    @default(now())
+  createdAt     DateTime    @default(now())
+  sentAt        DateTime?
+
+  @@index([status, nextAttemptAt])
 }

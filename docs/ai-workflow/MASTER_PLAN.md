@@ -51,8 +51,8 @@ tarayıcı ──HTTPS──> caddy (opsiyonel, otomatik TLS)
 | 2 | Sunum veri modeli, oynatıcı, animasyon motoru, canlı oturum, WS senkronizasyonu, eğitmen paneli | ✅ Tamamlandı (canlı quiz/anket Faz 5'e bırakıldı) |
 | 3 | Club Academy: öğrenme yolları, dersler, quiz, öğrenci dashboard, ilerleme | ✅ Çalışıyor (içerik içe aktarıcı, ders/quiz sayfaları, ilerleme) |
 | 4 | XP transaction, seviyeler, rozetler, aylık/genel liderlik | ✅ Çalışıyor (XP motoru, rozetler, aylık+genel liderlik, yönetici düzeltmeleri) |
-| 5 | Görev atama/teslim, dosya paylaşımı, canlı quiz/anket, duyurular, VMware molası | ✅ Çalışıyor (sınıf/etkinlik kapsamı, grup görevi ve otomatik puanlı ödev türü yok) |
-| 6 | Club Studio editörü, şablonlar, analitik, sertleştirme, E2E, dokümantasyon | Bekliyor |
+| 5 | Görev atama/teslim, dosya paylaşımı, canlı quiz/anket, duyurular, VMware molası | ✅ Çalışıyor (sınıf/etkinlik, takım görevi, otomatik puanlı görev ve ZIP/ClamAV taraması Faz 6 dalında eklendi) |
+| 6 | Club Studio editörü, şablonlar, analitik, sertleştirme, E2E, dokümantasyon | ✅ Çalışıyor (Studio, görsel blok, e-posta, analitik, oturum yönetimi, sahiplik devri, 13 adımlı E2E, CI taraması) |
 
 Görev ayrıntıları: `OPUS_55_TASKS.md`. Lab doğrulama görevleri: `OPUS_48_TASKS.md`.
 
@@ -62,6 +62,7 @@ Görev ayrıntıları: `OPUS_55_TASKS.md`. Lab doğrulama görevleri: `OPUS_48_T
 - `feature/club-realtime` — Faz 2
 - `feature/club-gamification` — Faz 4
 - `feature/club-classroom` — Faz 5
+- `feature/club-studio` — Faz 5 eksikleri + Faz 6
 - `fix/security-hardening` — güvenlik düzeltmeleri
 - `lab/authorized-validation` — yalnız Opus 4.8 lab doğrulama görevleri; inceleme + test olmadan `main`'e girmez
 
