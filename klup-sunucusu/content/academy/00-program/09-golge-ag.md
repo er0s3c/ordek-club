@@ -81,4 +81,8 @@ Her uzmanlık yolu yeni bir dosya açar ve Kapüşonlular'ın geçmişinden bir 
 |---|---|---|
 | A | [Çekmeceler](../02-uzmanlik/yol-a-web/00-genel-bakis.md) | Tek Tırnak Jasmine |
 | B | [Tüneller](../02-uzmanlik/yol-b-ag/00-genel-bakis.md) | Tünelci Tarık |
-| C–G | *yakında* | — |
+| C | [Temizlik](../02-uzmanlik/yol-c-soc/00-genel-bakis.md) | Temizlikçi Tamer |
+| D | [Sahte Bayraklar](../02-uzmanlik/yol-d-cti/00-genel-bakis.md) | Bayrakçı Bedri |
+| E | [Ayna](../02-uzmanlik/yol-e-ai/00-genel-bakis.md) | Vantrolog Veysel |
+| F | [Gözler](../02-uzmanlik/yol-f-mobil-iot/00-genel-bakis.md) | Lehimci Leman |
+| G | [Saat İşliyor](../02-uzmanlik/yol-g-tersine/00-genel-bakis.md) | Saatçi Sabri |

@@ -1,0 +1,28 @@
+zaman,siem_alinma,bilgisayar,olay_id,islem,ust_islem,kullanici,ayrinti
+2026-03-14T02:12:30Z,2026-03-14T02:12:30Z,KLP-WS07,1,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,C:\Windows\explorer.exe,KLP-WS07\lab-admin,komut=powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\bakim.ps1
+2026-03-14T02:12:31Z,2026-03-14T02:12:31Z,KLP-WS07,22,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,KLP-WS07\lab-admin,"sorgu=guncelleme.kotu.test; sonuc=198.51.100.200"
+2026-03-14T02:12:32Z,2026-03-14T02:12:32Z,KLP-WS07,3,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,KLP-WS07\lab-admin,192.0.2.57:49812 -> 198.51.100.200:443 tcp
+2026-03-14T02:13:05Z,2026-03-14T02:13:05Z,KLP-WS07,11,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,KLP-WS07\lab-admin,dosya_olusturuldu=C:\Users\Public\bakim.exe
+2026-03-14T02:14:08Z,2026-03-14T02:14:08Z,KLP-WS07,1,C:\Windows\System32\net.exe,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,KLP-WS07\lab-admin,komut=net user yardim.masasi /add
+2026-03-14T02:14:14Z,2026-03-14T02:14:14Z,KLP-WS07,1,C:\Windows\System32\net.exe,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,KLP-WS07\lab-admin,komut=net localgroup Administrators yardim.masasi /add
+2026-03-14T02:15:41Z,2026-03-14T02:15:41Z,KLP-WS07,13,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,KLP-WS07\lab-admin,"kayit=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\WinBakim; deger=C:\Users\Public\bakim.exe"
+2026-03-14T02:15:42Z,2026-03-14T02:15:42Z,KLP-WS07,1,C:\Users\Public\bakim.exe,C:\Windows\System32\services.exe,NT AUTHORITY\SYSTEM,"komut=C:\Users\Public\bakim.exe -hizmet; SHA256=7e3f9a1c5b2d48e6a0c4f8b19d3e7a25c6b0f4d81e9a3c7b52d6f0e8a4c1b937"
+2026-03-14T02:16:00Z,2026-03-14T02:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50236 -> 198.51.100.200:443 tcp
+2026-03-14T02:38:10Z,2026-03-14T02:38:10Z,KLP-WS07,1,C:\Windows\System32\auditpol.exe,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,KLP-WS07\lab-admin,"komut=auditpol /set /category:""Logon/Logoff"" /success:disable /failure:disable"
+2026-03-14T02:40:05Z,2026-03-14T02:40:05Z,KLP-WS07,1,C:\Windows\System32\wevtutil.exe,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,KLP-WS07\lab-admin,komut=wevtutil cl Security
+2026-03-14T08:42:10Z,2026-03-14T02:42:10Z,KLP-WS07,2,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,KLP-WS07\lab-admin,"dosya=C:\Users\Public\bakim.exe; onceki_olusturma=2026-03-14T02:13:05Z; yeni_olusturma=2025-06-01T10:00:00Z"
+2026-03-14T08:43:20Z,2026-03-14T02:43:20Z,KLP-WS07,23,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,KLP-WS07\lab-admin,dosya_silindi=C:\Users\Public\bakim.ps1
+2026-03-14T08:46:00Z,2026-03-14T02:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50266 -> 198.51.100.200:443 tcp
+2026-03-14T09:16:00Z,2026-03-14T03:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50296 -> 198.51.100.200:443 tcp
+2026-03-14T09:46:00Z,2026-03-14T03:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50326 -> 198.51.100.200:443 tcp
+2026-03-14T10:16:00Z,2026-03-14T04:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50356 -> 198.51.100.200:443 tcp
+2026-03-14T10:46:00Z,2026-03-14T04:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50386 -> 198.51.100.200:443 tcp
+2026-03-14T11:16:00Z,2026-03-14T05:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50416 -> 198.51.100.200:443 tcp
+2026-03-14T11:46:00Z,2026-03-14T05:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50446 -> 198.51.100.200:443 tcp
+2026-03-14T12:16:00Z,2026-03-14T06:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50476 -> 198.51.100.200:443 tcp
+2026-03-14T12:46:00Z,2026-03-14T06:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50506 -> 198.51.100.200:443 tcp
+2026-03-14T13:16:00Z,2026-03-14T07:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50536 -> 198.51.100.200:443 tcp
+2026-03-14T13:46:00Z,2026-03-14T07:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50566 -> 198.51.100.200:443 tcp
+2026-03-14T14:16:00Z,2026-03-14T08:16:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50596 -> 198.51.100.200:443 tcp
+2026-03-14T08:46:00Z,2026-03-14T08:46:00Z,KLP-WS07,3,C:\Users\Public\bakim.exe,,NT AUTHORITY\SYSTEM,192.0.2.57:50626 -> 198.51.100.200:443 tcp
+2026-03-14T08:55:02Z,2026-03-14T08:55:02Z,KLP-WS07,1,C:\Windows\System32\notepad.exe,C:\Windows\explorer.exe,KAMPUS\deniz.kaya,komut=notepad.exe C:\Users\deniz.kaya\Documents\ders-notlari.txt

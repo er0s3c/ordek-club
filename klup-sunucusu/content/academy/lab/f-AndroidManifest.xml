@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SENTETİK LABORATUVAR DOSYASI — Ördek Club Academy, Yol F (F02, F03, F05)
+  Kurgusal "KampüsKilit" uygulamasının manifesti. Gerçek bir uygulamaya ait değildir.
+  Alan adları .test, anahtarlar sahtedir (FAKE-LAB-KEY-...).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="test.kampuskilit.app"
+    android:versionCode="7"
+    android:versionName="1.3.0">
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <application
+        android:name=".KilitApp"
+        android:label="KampüsKilit"
+        android:icon="@mipmap/ic_launcher"
+        android:debuggable="true"
+        android:allowBackup="true"
+        android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="cloud.api.key"
+            android:value="FAKE-LAB-KEY-9F3A-KILIT-0000" />
+        <meta-data
+            android:name="cloud.api.base"
+            android:value="http://api.kampuskilit.test/v1" />
+
+        <activity
+            android:name=".GirisActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Giriş yapmadan da açılabiliyor: izin (permission) tanımı yok -->
+        <activity
+            android:name=".YoneticiPaneliActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".KapiAcActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="test.kampuskilit.KAPI_AC" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".BleKilitServisi"
+            android:exported="false" />
+
+        <receiver
+            android:name=".KomutAlici"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="test.kampuskilit.UZAKTAN_KOMUT" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".KayitSaglayici"
+            android:authorities="test.kampuskilit.kayitlar"
+            android:exported="true"
+            android:grantUriPermissions="true" />
+
+    </application>
+</manifest>

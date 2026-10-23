@@ -1,10 +1,10 @@
 # Ördek Club — Uygulama Durumu
 
-> Son güncelleme: 2026-10-22 · Branch: `feature/academy-content` (Faz 3) · Sorumlu: Opus 5.5
+> Son güncelleme: 2026-10-22 · Branch: `feature/club-gamification` (Faz 4) · Sorumlu: Opus 5.5
 
 ## Özet
 
-**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. Faz 4–6 başlamadı.
+**Faz 1 (çalışan temel) ve Faz 2 (canlı eğitim) tamamlandı ve doğrulandı. Faz 3 (Club Academy) çalışır durumda:** dersler, quizler, ilerleme ve hikâye platformda. **Faz 4 (XP, seviyeler, rozetler, liderlik) çalışır durumda.** Faz 5–6 başlamadı.
 
 ## ✅ Çalışan özellikler (Faz 1)
 
@@ -66,14 +66,15 @@ sunum içeriği yalnız düz metin + kayıtlı animasyon kimliği (çalıştır�
 | Akademi hakkında: 8 sayfa | ✅ |
 | Kısım I — M01–M11: 55 ders, 12 uygulama, 10 quiz | ✅ |
 | Kısım II — 7 uzmanlık yolunun tanıtım sayfası | ✅ |
-| Kısım II — 84 uzmanlık dersinin tam sayfaları | ⏳ |
+| Kısım II — 7 uzmanlık yolunun 84 dersi (A–G) | ✅ |
 | Sentetik laboratuvar dosyası (`content/academy/lab/auth.log`) | ✅ |
 | Noir mafya + hacker tasarımı (Club arayüzü, canlı ders slaytları, AI görsel stili) | ✅ |
 | Gölge Ağ Ailesi: 11 modül kötü adamı + Baron Eren (genç hâli dahil) + Tek Tırnak Jasmine ([karakterler.yaml](content/academy/karakterler.yaml) → [KARAKTERLER.md](content/academy/KARAKTERLER.md)) | ✅ |
 | Hikâye "Gölge Ağ — Sezon 1": [hikâye sayfası](content/academy/00-program/09-golge-ag.md), her modülde bölüm girişi + DOSYA KAPANDI kutusu | ✅ |
 | Yol A (Web güvenliği): 12 ders + Sezon 2 "Çekmeceler" (Tek Tırnak Jasmine), sentetik `lab/access.log` | ✅ |
 | Yol B (Ağ ve sistem güvenliği): 12 ders + Sezon 2 "Tüneller" (Tünelci Tarık, dördüncü Kapüşonlu) | ✅ |
-| Görseller: 153 adet (16 karakter portresi, 122 Midjourney sahnesi — her bölümde bir tane, 15 ekran görüntüsü) — [GORSELLER.md](content/academy/GORSELLER.md) | ⏳ kullanıcıdan bekleniyor |
+| Yol C–G: 60 ders, 5 yeni kötü adam (Tamer, Bedri, Veysel, Leman, Sabri), Sezon 2 "Proje Ayna" hikâyesi, 22 sentetik laboratuvar dosyası ([lab/README.md](content/academy/lab/README.md)) | ✅ |
+| Görseller: 229 adet (21 karakter portresi — 15 hazır, 187 Midjourney sahnesi, 21 ekran görüntüsü) — [GORSELLER.md](content/academy/GORSELLER.md) | ⏳ kullanıcıdan bekleniyor |
 | İçerik doğrulayıcı `npm run academy:check` / liste üretici `npm run academy:gorseller` | ✅ |
 | Platformda gösterim (Markdown içe aktarıcı, ders/quiz sayfaları) | ✅ Faz 3 (aşağıda) |
 
@@ -89,6 +90,21 @@ sunum içeriği yalnız düz metin + kayıtlı animasyon kimliği (çalıştır�
 | Hikâye: 🕴️ DOSYA kutusu portreyle; 🔒 DOSYA KAPANDI ve sıradaki ipucu bölüm tamamlanınca açılır | Tarayıcıda M01 quiz geçilerek |
 | Sayfalar: /academy (kaldığın yer + sezonlar), /academy/[yol], /academy/lesson/[ders], panelde akademi kartı, /admin/academy (içe aktarma + katılım) | Masaüstü + 375 px mobilde taşma yok |
 | Ders görselleri yalnız üyelere, katı ad kalıbıyla (`/api/academy/images/<ad>`); olmayan görsele yer tutucu | Yol geçişi testleri |
+
+## ✅ Faz 4 — XP, seviye, rozet, liderlik
+
+| Özellik | Kanıt |
+|---|---|
+| XP kayıt defteri (`XpTransaction`): her kazanım, düzeltme ve geri alma ayrı satır; toplam = SUM | migration `phase4_gamification` |
+| Çift ödül yok: benzersiz `idempotencyKey` + `ON CONFLICT DO NOTHING`; ödül, onu doğuran işlemle aynı transaction'da | Eşzamanlı 4 yazımda tek kayıt testi |
+| Kurallar sunucuda (`XpRewardRule`, yönetimden düzenlenir): ders 40, bilgi 10, quiz 30 (ilk geçiş), yol 200, canlı ders 25 (≥10 dk); görev kuralları Faz 5 için hazır | İstemcinin gönderdiği XP yok sayılır testi |
+| Suistimal önlemleri: quiz tekrarı XP üretmez; ders açılmadan veya 15 sn dolmadan tamamlanamaz; kısa tanıtım yolları yol ödülü vermez; şüpheli etkinlik listesi (10 dk'da >8 ödül, 24 saatte >1500 XP) | Entegrasyon testleri |
+| 10 seviye, artan eşikler (Çaylak → Efsane Tilki); yönetimden düzenlenir, artmayan eşik reddedilir | Birim + entegrasyon |
+| 11 rozet (İlk Ders, İlk Quiz, 7/30 günlük seri, Web Security Beginner, Network Explorer, Digital Detective, Monthly Champion, Top 10, Learning Path Master, Gölge Ağ Çökertildi) + yöneticinin yeni rozetleri (sabit kural tipleri; kod çalışmaz) | Entegrasyon testleri |
+| Aylık liderlik kulüp saat dilimine göre; biten ay ilk ihtiyaçta arşivlenir (sonraki düzeltmeler arşivi değiştirmez) ve ay şampiyonu rozeti verilir; genel liderlik sıfırlanmaz; yalnız öğrenciler sıralanır | Yaz saati dahil saat dilimi testleri |
+| Yönetici: elle düzeltme (gerekçe zorunlu), geri alma (karşı kayıt, bir kez), rozet ver/geri al; hepsi denetim kaydında | 403/400/409 testleri |
+| Sayfalar: /leaderboard (bu ay · genel · geçmiş aylar, podyum, Top 10/50/tümü, kendi sıran), /u/[kullanıcı] profil (XP geçmişi yalnız kişiye ve yöneticiye), panelde XP kartı, /admin/xp, /admin/badges | Masaüstü + 375 px, taşma yok |
+| CLI: `xp-backfill` (Faz 4 öncesi ilerlemeye XP; tekrar çalıştırmak güvenli), `leaderboard-archive` | Yerelde çalıştırıldı |
 
 ## 🧪 Çalıştırılan testler (2026-10-22)
 
@@ -153,4 +169,5 @@ süresi dolmuş/boşta oturum, kaba kuvvet 429, `role: "OWNER"` enjeksiyonu, SVG
 1. Noir tasarım + akademi içeriği + Faz 3 değişikliklerini incele ve commit'le (`feature/academy-content`, henüz commit'lenmedi; ham `images/` klasörü commit dışında kalmalı).
 2. Görseller (Midjourney sahneleri, ekran görüntüleri) geldikçe `content/academy/gorseller/` altına WebP olarak eklenecek.
 3. Kalan uzmanlık yolları (C–G) ve yol sonu quizleri.
-4. Faz 4: XP, seviyeler, rozetler, liderlik tablosu (akademi ilerlemesi XP kaynağı olacak).
+4. Yükseltmede bir kez: `node dist/cli.js xp-backfill` (Faz 4 öncesi tamamlanan ders ve quizlere XP).
+5. Faz 5: görev atama/teslim (günlük, haftalık, eğitmen onaylı görev XP kuralları hazır), dosya paylaşımı, canlı quiz/anket, duyurular.

@@ -310,6 +310,96 @@ karakterler:
       half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable,
       the other hand gripping a pair of cable pliers
 
+  - id: tamer
+    ad: Temizlikçi Tamer
+    unvan: İz Silici
+    modul: Yol C
+    tehdit: Log silme, iz gizleme (anti-forensics), saldırı sonrası kalıcılık, alarm yorgunluğu
+    ozet: Gölge Ağ'ın her operasyonundan sonra gelir; logları siler, saatleri kaydırır, izleri süpürür. "Burada hiçbir şey olmadı" onun imzasıdır.
+    fiziksel: 50'lerinde, orta boylu, tıknaz ama sessiz adımlı; 5 kafa boyu.
+    yuz: Kısa kesilmiş kır saç, kalın gri bıyık, ifadesiz sakin yüz, yorgun ama dikkatli gözler.
+    poz: Bir elinde gövdeden uzak tuttuğu yeşil parlayan paspas, diğer elinde içinde kâğıt şeritlerin eridiği kova.
+    kiyafet: Gri iş tulumu üstüne çizgili yelek, boynunda gevşek kravat, beline asılı anahtar destesi ve küçük el feneri; sarı lastik eldivenler.
+    imza: Değdiği yerde izleri silen parlayan paspas.
+    palet: { tulum: "#5B5E5A", yelek: "#2F2A27", eldiven: "#C9953B", isik: "#5FD3A7", ten: "#D1A07E" }
+    tarif: >-
+      Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless
+      face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves,
+      a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green
+      and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light
+
+  - id: bedri
+    ad: Bayrakçı Bedri
+    unvan: Sahte İzlerin Ustası
+    modul: Yol D
+    tehdit: Sahte bayrak (yanlış atıf), dezenformasyon, sahte tehdit raporları, iz şaşırtma
+    ozet: Gölge Ağ'ın saldırılarını başkasının üstüne yıkan adam. Her operasyona başka bir grubun "imzasını" bırakır; analist yanlış kapıyı çalarken aile işini bitirir.
+    fiziksel: 60'larında, uzun boylu, geniş omuzlu eski denizci duruşu; 5.5 kafa boyu.
+    yuz: Kısa beyaz sakal, rüzgârdan yıpranmış yüz, bir gözü kısık, sinsi yarım gülümseme.
+    poz: Bir elinde gövdeden uzak tuttuğu, her biri farklı soyut simge taşıyan küçük bayraklardan bir demet; diğer eli arkada.
+    kiyafet: Lacivert kaban, krem boğazlı kazak, koyu kaptan kasketi; kabanın cebinden taşan katlı haritalar ve yazısız kartlar.
+    imza: Hepsi farklı, hiçbiri gerçek olmayan bayrak demeti.
+    palet: { kaban: "#1E2A3A", kazak: "#E6DDD3", kasket: "#2B2420", isik: "#5FD3A7", ten: "#C68E6A" }
+    tarif: >-
+      Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye
+      squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and
+      blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each
+      showing a different abstract geometric symbol, the other hand behind his back
+
+  - id: veysel
+    ad: Vantrolog Veysel
+    unvan: Sesin Sahibi
+    modul: Yol E
+    tehdit: Prompt injection, dolaylı enjeksiyon, jailbreak, veri zehirleme, sahte ses ve görüntü
+    ozet: Konuşan her makineyi kendi sesiyle konuşturan vantrolog. Bir belgeye, bir web sayfasına, bir e-postaya fısıldar; sohbet robotu onun cümlelerini kendi düşüncesi sanır.
+    fiziksel: 40'larında, çok uzun ve ince, uzun parmaklı; 5.5 kafa boyu.
+    yuz: Geriye taranmış parlak siyah saç, ince bıyık, abartılı tiyatro gülümsemesi; dudakları hiç kıpırdamıyor.
+    poz: Dizinde oturan yarı saydam robot kuklayı bir eliyle tutuyor; diğer elini gövdeden uzak, sahneye sunar gibi açmış.
+    kiyafet: Bordo kadife smokin, siyah papyon, beyaz eldivenler; kuklanın ağzından yeşil ışık dökülüyor.
+    imza: Ağzı onun yerine konuşan parlayan robot kukla.
+    palet: { smokin: "#5A1B24", papyon: "#14110F", eldiven: "#F3EEDF", isik: "#5FD3A7", ten: "#D8A585" }
+    tarif: >-
+      Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin
+      mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black
+      bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open
+      mouth, his other arm held away from his body in a grand presenting gesture
+
+  - id: leman
+    ad: Lehimci Leman
+    unvan: Devre Ustası
+    modul: Yol F
+    tehdit: Akıllı cihaz ve IoT açıkları, varsayılan parolalar, güvensiz mobil uygulamalar, açık bırakılan hata ayıklama portları, güvensiz güncellemeler
+    ozet: Kampüsteki her akıllı kilidin, kameranın ve telefonun içini bilen kadın. Varsayılan parola ona davetiye, açık bırakılmış bir hata ayıklama portu ise ön kapıdır.
+    fiziksel: 50'lerinde, kısa ve dinç, hızlı hareketli; 4.5 kafa boyu.
+    yuz: Kısa kesilmiş kırçıl saç, alnında büyüteçli atölye gözlüğü, keskin dikkatli gözler, yarım alaycı gülümseme.
+    poz: Bir elinde gövdeden uzak tuttuğu ucu parlayan havya, diğer elinde küçük bir devre kartı; omzunun üstünde süzülen minik bir dron.
+    kiyafet: Koyu yeşil iş gömleği üstünde deri atölye önlüğü, önlük cebinde minik çipler ve kablolar. Cinselleştirilmez.
+    imza: Ucu yeşil parlayan havya ve omzunun üstündeki minik dron.
+    palet: { onluk: "#5C3B27", gomlek: "#2E4436", gozluk: "#C9953B", isik: "#5FD3A7", ten: "#C99474" }
+    tarif: >-
+      Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop
+      goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under
+      a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron
+      whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder
+
+  - id: sabri
+    ad: Saatçi Sabri
+    unvan: Mekanik Böceklerin Ustası
+    modul: Yol G
+    tehdit: Zararlı yazılım (truva atı, solucan, fidye yazılımı), paketleme ve gizleme, kalıcılık, analizden kaçma
+    ozet: Kampüs ağına bıraktığı her "böcek" bir saat kadar hassastır; belirli bir anda uyanır, saklanır, kopyalanır. Sabri yazılımı değil, sabrı silah olarak kullanır.
+    fiziksel: 70'lerinde, ufak tefek, hafif kambur ama elleri kıpırtısız; 4.5 kafa boyu.
+    yuz: Kel kafa, beyaz kaşlar, bir gözünde saatçi büyüteci, ince dudaklarında sabırlı bir gülümseme.
+    poz: Avucunda gövdeden uzak tuttuğu kurmalı mekanik böcek, diğer elinde minik tornavida.
+    kiyafet: Kahverengi yelek, kolları sıvalı beyaz gömlek, kol bantları, yelek cebinden sarkan altın köstek; omzunda tırmanan iki mekanik böcek.
+    imza: Gözündeki saatçi büyüteci ve avucundaki parlayan mekanik böcek.
+    palet: { yelek: "#5A4030", gomlek: "#E6DDD3", kostek: "#C9953B", isik: "#5FD3A7", ten: "#D9A988" }
+    tarif: >-
+      Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over
+      one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled
+      sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his
+      shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver
+
 # ============================================================================
 #  HİKÂYE — "Gölge Ağ", Sezon 1 (M01–M11). Öğrenci, kod adı TİLKİ olan bir Kalkan analistidir.
 #  Kural: öğrenci asla saldırmaz; izinle savunur, delil toplar, yetkililere teslim eder.
@@ -333,6 +423,11 @@ hikaye:
     celal: Kampüs yanındaki fırın-kafenin sahibi; ailenin buluşma noktası onun arka odası.
     orhan: Jasmine'in çırağı. Bot ordusunu onun verdiği kodla kurdu.
     tarik: Dördüncü Kapüşonlu. O gecenin suçu ona kaldı; Rıza ve Kadir'le aynı koğuşta yattı. Baron'a çalışıyor ama ona borçlu değil, kin besliyor.
+    tamer: Ailenin temizlikçisi; her operasyondan sonra izleri o siler. Don'un en eski adamlarından, ama raporunu doğrudan Baron'a verir.
+    bedri: Don'un babası zamanından kalma eski bir kaçakçılık kaptanı. Gölge Ağ'ın saldırılarını başkalarının üstüne yıkar.
+    veysel: Proje Ayna'nın sahnedeki yüzü. Jasmine'in çekmecelerden topladığı verilerle Ayna'yı konuşturur.
+    leman: Süper Kullanıcı Sadri'nin kız kardeşi. Ayna'nın gözlerini ve kulaklarını (kamera, kilit, sensör) o kurar.
+    sabri: Ailenin en yaşlı ustası. Ayna'yı besleyen mekanik böcekleri yapar; yirmi yıl önce genç Eren'in boynundaki altın anahtarı da o yapmıştı.
   bolumler:
     tevfik:
       baslik: Bursun Onaylandı
@@ -442,3 +537,47 @@ hikaye:
       kapanis: >-
         Son tünel kapandı; ağ bölgelerine ayrıldı, sunucular sertleştirildi. Sunucu dolabının içinde fenerinin yeşil ışığıyla
         yazılmış bir not buluyorsun: "Eren beni o gece yaktı. Ona çalışıyorum, ama onun adamı değilim. Bir gün aynı tarafta olacağız, Tilki."
+    tamer:
+      baslik: Temizlik
+      giris: >-
+        Tarık'ın notundan bir hafta sonra kampüsün olay kayıtlarında altı saatlik bir boşluk var. Saatler kaydırılmış, loglar
+        silinmiş, alarmlar susturulmuş. Bu, ailenin temizlikçisinin işi: Temizlikçi Tamer. Görevin SOC masasında; silinen her izi
+        geri getir, olayın zaman çizelgesini kur.
+      kapanis: >-
+        Zaman çizelgesi tamamlandı; Tamer'in sildiği altı saat geri geldi. Kurtarılan son kayıtta tek bir kelime tekrar ediyor:
+        AYNA. Selim Hoca kâğıdı katlayıp cebine koyuyor: "Bunu daha önce duymuştum."
+    bedri:
+      baslik: Sahte Bayraklar
+      giris: >-
+        Kampüse yapılan son saldırıyı bütün raporlar yabancı bir gruba yüklüyor. Fazla temiz, fazla kolay. Bayrakçı Bedri her
+        operasyona başka bir grubun imzasını bırakır. Görevin istihbarat masasında; kanıtı topla, hipotezleri ayır, bayrakları
+        gerçek sahibine bağla.
+      kapanis: >-
+        Bayraklar söküldü; bütün altyapı tek bir şirkete çıkıyor: Ayna Teknoloji. Kâğıt üstünde kimse yok, ama bütün alan adları
+        aynı gece, aynı saatte kaydedilmiş: Kapüşonlular'ın yirmi yıl önce buluştuğu saatte.
+    veysel:
+      baslik: Ayna
+      giris: >-
+        Kampüsün yeni yapay zekâ asistanı fazla yardımsever: soranlara notları, burs listelerini, yurt kayıtlarını gösteriyor.
+        Asistanın adı Ayna ve onu konuşturan bir vantrolog var: Vantrolog Veysel. Görevin laboratuvardaki kopyasında; Ayna'nın
+        hangi sesi kendi sesi sandığını bul ve sustur.
+      kapanis: >-
+        Ayna'nın eğitim verisinde Gölge Ağ'ın yıllardır topladığı her şey var: sesler, yazışmalar, yüzler. Baron bir asistan değil,
+        şehrin bir kopyasını kuruyor. Veysel sahneden inerken fısıldıyor: "Ayna'nın gözleri sizin cebinizde, Tilki."
+    leman:
+      baslik: Gözler
+      giris: >-
+        Kampüsteki akıllı kilitler gece kendi kendine açılıyor, kameralar boş koridorları değil seni izliyor. Ayna'nın gözleri ve
+        kulakları her cihazda; onları kuran el tek: Lehimci Leman. Görevin laboratuvar tezgâhında; her cihazı aç, her kapıyı bul,
+        her varsayılan parolayı değiştir.
+      kapanis: >-
+        Kameralar kapandı, kilitler yeniden programlandı. Leman'ın tezgâhında yarım kalmış bir kart duruyor; içinde minik, mekanik
+        bir böcek. Kartın arkasına kazınmış not: "Sabri Usta'ya teslim."
+    sabri:
+      baslik: Saat İşliyor
+      giris: >-
+        Kampüs ağında uyuyan bir şey var: belirli bir saatte uyanacak, kendini kopyalayacak ve Ayna'yı besleyecek. Saatçi Sabri'nin
+        mekanik böcekleri. Görevin izole analiz laboratuvarında; böceği güvenle aç, nasıl çalıştığını anla, saati durdur.
+      kapanis: >-
+        Saat durdu. Böceğin içindeki imza anahtarı yirmi yıl öncesine gidiyor: o gece liman bankasında kullanılan anahtar. Ve son
+        satır yeni bir geri sayım başlatıyor; bitişi, Ayna'nın uyanacağı gece. Sezon 3: Ayna.

@@ -1,0 +1,101 @@
+# ============================================================================
+#  SENTETİK VERİ — Yol D alıştırma dosyası (vaka: "Sis Düdüğü")
+#  Alan adları .example/.test, IP'ler RFC 5737 aralıklarındandır. Gerçek kayıt değildir.
+#  Bu çıktılar laboratuvar için önceden alınmıştır; komutları gerçek alan adlarında
+#  çalıştırmana gerek yok. Saatler UTC+3.
+# ============================================================================
+
+########################################################################
+# 1) WHOIS / RDAP
+########################################################################
+
+$ whois mercan-guncelleme.example
+Domain Name:          MERCAN-GUNCELLEME.EXAMPLE
+Registrar:            Liman Kayit A.S.
+Creation Date:        2026-09-14T03:17:22+03:00
+Updated Date:         2026-09-14T03:17:22+03:00
+Registrant:           REDACTED FOR PRIVACY (Gizlilik Koruma Hizmeti)
+Name Server:          NS1.AYNA-DNS.EXAMPLE
+Name Server:          NS2.AYNA-DNS.EXAMPLE
+
+$ whois cdn-mercan.example
+Domain Name:          CDN-MERCAN.EXAMPLE
+Registrar:            Liman Kayit A.S.
+Creation Date:        2026-09-14T03:17:49+03:00
+Registrant:           REDACTED FOR PRIVACY (Gizlilik Koruma Hizmeti)
+Name Server:          NS1.AYNA-DNS.EXAMPLE
+Name Server:          NS2.AYNA-DNS.EXAMPLE
+
+$ whois kampus-destek.example
+Domain Name:          KAMPUS-DESTEK.EXAMPLE
+Registrar:            Liman Kayit A.S.
+Creation Date:        2026-09-14T03:18:05+03:00
+Registrant:           REDACTED FOR PRIVACY (Gizlilik Koruma Hizmeti)
+Name Server:          NS1.AYNA-DNS.EXAMPLE
+Name Server:          NS2.AYNA-DNS.EXAMPLE
+
+$ whois ayna-dns.example
+Domain Name:          AYNA-DNS.EXAMPLE
+Registrar:            Liman Kayit A.S.
+Creation Date:        2023-02-08T03:17:10+03:00
+Registrant Org:       Ayna Teknoloji Ltd.
+Registrant Country:   (kurgusal)
+Name Server:          NS1.AYNA-DNS.EXAMPLE
+
+# Karşılaştırma: MERCAN-7'nin 2024 raporlarında geçen eski altyapısı
+$ whois mrcn-sync.example
+Domain Name:          MRCN-SYNC.EXAMPLE
+Registrar:            Kiyi Kayit Ltd.
+Creation Date:        2023-05-02T11:40:31+03:00
+Registrant:           REDACTED FOR PRIVACY
+Name Server:          NS1.KIYI-HOST.EXAMPLE
+Name Server:          NS2.KIYI-HOST.EXAMPLE
+
+########################################################################
+# 2) DNS (güncel kayıtlar)
+########################################################################
+
+$ dig +short A mercan-guncelleme.example
+203.0.113.45
+
+$ dig +short A cdn-mercan.example
+203.0.113.46
+
+$ dig +short MX kampus-destek.example
+10 mail.kampus-destek.example.
+
+$ dig +short A mail.kampus-destek.example
+203.0.113.47
+
+$ dig +short TXT kampus-destek.example
+"v=spf1 ip4:203.0.113.47 -all"
+
+$ dig +short A mrcn-sync.example
+198.51.100.20
+
+$ dig +short A liman-cdn.example
+198.51.100.200
+
+########################################################################
+# 3) Pasif DNS (bir IP'nin geçmişte hangi adlara karşılık geldiği)
+########################################################################
+
+# IP              Ad                                 İlk görülme   Son görülme
+203.0.113.45      mercan-guncelleme.example          2026-09-15    2026-10-06
+203.0.113.46      cdn-mercan.example                 2026-09-15    2026-10-06
+203.0.113.47      mail.kampus-destek.example         2026-09-16    2026-10-06
+203.0.113.47      panel.ayna-teknoloji.example       2026-09-20    2026-09-21
+198.51.100.20     mrcn-sync.example                  2023-05-03    2024-11-30
+198.51.100.200    liman-cdn.example                  2021-01-04    2026-10-06
+198.51.100.200    (ve 18.420 farklı alan adı daha — paylaşımlı CDN adresi)
+
+########################################################################
+# 4) Sertifika şeffaflığı (Certificate Transparency) kayıtları
+########################################################################
+
+# crt.sh benzeri arama: %.mercan%.example ve %.kampus-destek.example
+Logged At            Common Name                  Subject Alternative Names (SAN)
+2026-09-15 03:20     mercan-guncelleme.example    mercan-guncelleme.example
+2026-09-15 03:21     cdn-mercan.example           cdn-mercan.example, panel.ayna-teknoloji.example
+2026-09-16 03:19     mail.kampus-destek.example   mail.kampus-destek.example
+2024-01-10 14:02     mrcn-sync.example            mrcn-sync.example

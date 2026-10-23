@@ -35,6 +35,11 @@ Kurgusal bir siber suç ailesi. Her üyesi bir saldırı türünün ustasıdır 
 | Baron | **Baron Eren** | Ailenin En Büyüğü | Hepsi — gelmiş geçmiş en iyi hacker; Gölge Ağ'ın kurucusu ve görünmez beyni |
 | Geçmiş | **Kapüşon (genç Eren)** | Baron'un geçmişi | Yirmi yıl önceki ilk büyük sızma — hikâyenin başladığı gece |
 | Yol B | **Tünelci Tarık** | Ağın Hayaleti | Ağda yatay hareket, segmentasyon boşlukları, sahte erişim noktaları, tünelleme, zayıf sunucu yapılandırması |
+| Yol C | **Temizlikçi Tamer** | İz Silici | Log silme, iz gizleme (anti-forensics), saldırı sonrası kalıcılık, alarm yorgunluğu |
+| Yol D | **Bayrakçı Bedri** | Sahte İzlerin Ustası | Sahte bayrak (yanlış atıf), dezenformasyon, sahte tehdit raporları, iz şaşırtma |
+| Yol E | **Vantrolog Veysel** | Sesin Sahibi | Prompt injection, dolaylı enjeksiyon, jailbreak, veri zehirleme, sahte ses ve görüntü |
+| Yol F | **Lehimci Leman** | Devre Ustası | Akıllı cihaz ve IoT açıkları, varsayılan parolalar, güvensiz mobil uygulamalar, açık bırakılan hata ayıklama portları, güvensiz güncellemeler |
+| Yol G | **Saatçi Sabri** | Mekanik Böceklerin Ustası | Zararlı yazılım (truva atı, solucan, fidye yazılımı), paketleme ve gizleme, kalıcılık, analizden kaçma |
 
 ## 3. Kimlik kartları
 
@@ -338,6 +343,106 @@ Full-body character design portrait of young Eren twenty years ago, a slim 20-ye
 Full-body character design portrait of Tunelci Tarik, a lean wiry ghost of the network in his mid 40s with short dark hair shaved at the sides, stubble, hollow cheeks and tired but sharp eyes, a slightly hunched tunneler's posture, wearing a worn long dark khaki parka over a faded hoodie, a miner's headlamp glowing green on his forehead and a small key tattoo on the back of one hand, half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable, the other hand gripping a pair of cable pliers. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
+### Yol C — Temizlikçi Tamer (İz Silici)
+
+- **Portre dosyası:** `karakter-tamer.png`
+- **Özet:** Gölge Ağ'ın her operasyonundan sonra gelir; logları siler, saatleri kaydırır, izleri süpürür. "Burada hiçbir şey olmadı" onun imzasıdır.
+- **Temsil ettiği tehdit:** Log silme, iz gizleme (anti-forensics), saldırı sonrası kalıcılık, alarm yorgunluğu
+- **Fiziksel yapı:** 50'lerinde, orta boylu, tıknaz ama sessiz adımlı; 5 kafa boyu.
+- **Yüz ve ifade:** Kısa kesilmiş kır saç, kalın gri bıyık, ifadesiz sakin yüz, yorgun ama dikkatli gözler.
+- **Poz ve silüet:** Bir elinde gövdeden uzak tuttuğu yeşil parlayan paspas, diğer elinde içinde kâğıt şeritlerin eridiği kova.
+- **Kıyafet ve aksesuar:** Gri iş tulumu üstüne çizgili yelek, boynunda gevşek kravat, beline asılı anahtar destesi ve küçük el feneri; sarı lastik eldivenler.
+- **İmza detay:** Değdiği yerde izleri silen parlayan paspas.
+- **Renk paleti:** tulum `#5B5E5A` · yelek `#2F2A27` · eldiven `#C9953B` · isik `#5FD3A7` · ten `#D1A07E`
+
+- **Hikâyedeki yeri:** Ailenin temizlikçisi; her operasyondan sonra izleri o siler. Don'un en eski adamlarından, ama raporunu doğrudan Baron'a verir.
+
+**Portre promptu (Midjourney):**
+
+```text
+Full-body character design portrait of Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### Yol D — Bayrakçı Bedri (Sahte İzlerin Ustası)
+
+- **Portre dosyası:** `karakter-bedri.png`
+- **Özet:** Gölge Ağ'ın saldırılarını başkasının üstüne yıkan adam. Her operasyona başka bir grubun "imzasını" bırakır; analist yanlış kapıyı çalarken aile işini bitirir.
+- **Temsil ettiği tehdit:** Sahte bayrak (yanlış atıf), dezenformasyon, sahte tehdit raporları, iz şaşırtma
+- **Fiziksel yapı:** 60'larında, uzun boylu, geniş omuzlu eski denizci duruşu; 5.5 kafa boyu.
+- **Yüz ve ifade:** Kısa beyaz sakal, rüzgârdan yıpranmış yüz, bir gözü kısık, sinsi yarım gülümseme.
+- **Poz ve silüet:** Bir elinde gövdeden uzak tuttuğu, her biri farklı soyut simge taşıyan küçük bayraklardan bir demet; diğer eli arkada.
+- **Kıyafet ve aksesuar:** Lacivert kaban, krem boğazlı kazak, koyu kaptan kasketi; kabanın cebinden taşan katlı haritalar ve yazısız kartlar.
+- **İmza detay:** Hepsi farklı, hiçbiri gerçek olmayan bayrak demeti.
+- **Renk paleti:** kaban `#1E2A3A` · kazak `#E6DDD3` · kasket `#2B2420` · isik `#5FD3A7` · ten `#C68E6A`
+
+- **Hikâyedeki yeri:** Don'un babası zamanından kalma eski bir kaçakçılık kaptanı. Gölge Ağ'ın saldırılarını başkalarının üstüne yıkar.
+
+**Portre promptu (Midjourney):**
+
+```text
+Full-body character design portrait of Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### Yol E — Vantrolog Veysel (Sesin Sahibi)
+
+- **Portre dosyası:** `karakter-veysel.png`
+- **Özet:** Konuşan her makineyi kendi sesiyle konuşturan vantrolog. Bir belgeye, bir web sayfasına, bir e-postaya fısıldar; sohbet robotu onun cümlelerini kendi düşüncesi sanır.
+- **Temsil ettiği tehdit:** Prompt injection, dolaylı enjeksiyon, jailbreak, veri zehirleme, sahte ses ve görüntü
+- **Fiziksel yapı:** 40'larında, çok uzun ve ince, uzun parmaklı; 5.5 kafa boyu.
+- **Yüz ve ifade:** Geriye taranmış parlak siyah saç, ince bıyık, abartılı tiyatro gülümsemesi; dudakları hiç kıpırdamıyor.
+- **Poz ve silüet:** Dizinde oturan yarı saydam robot kuklayı bir eliyle tutuyor; diğer elini gövdeden uzak, sahneye sunar gibi açmış.
+- **Kıyafet ve aksesuar:** Bordo kadife smokin, siyah papyon, beyaz eldivenler; kuklanın ağzından yeşil ışık dökülüyor.
+- **İmza detay:** Ağzı onun yerine konuşan parlayan robot kukla.
+- **Renk paleti:** smokin `#5A1B24` · papyon `#14110F` · eldiven `#F3EEDF` · isik `#5FD3A7` · ten `#D8A585`
+
+- **Hikâyedeki yeri:** Proje Ayna'nın sahnedeki yüzü. Jasmine'in çekmecelerden topladığı verilerle Ayna'yı konuşturur.
+
+**Portre promptu (Midjourney):**
+
+```text
+Full-body character design portrait of Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### Yol F — Lehimci Leman (Devre Ustası)
+
+- **Portre dosyası:** `karakter-leman.png`
+- **Özet:** Kampüsteki her akıllı kilidin, kameranın ve telefonun içini bilen kadın. Varsayılan parola ona davetiye, açık bırakılmış bir hata ayıklama portu ise ön kapıdır.
+- **Temsil ettiği tehdit:** Akıllı cihaz ve IoT açıkları, varsayılan parolalar, güvensiz mobil uygulamalar, açık bırakılan hata ayıklama portları, güvensiz güncellemeler
+- **Fiziksel yapı:** 50'lerinde, kısa ve dinç, hızlı hareketli; 4.5 kafa boyu.
+- **Yüz ve ifade:** Kısa kesilmiş kırçıl saç, alnında büyüteçli atölye gözlüğü, keskin dikkatli gözler, yarım alaycı gülümseme.
+- **Poz ve silüet:** Bir elinde gövdeden uzak tuttuğu ucu parlayan havya, diğer elinde küçük bir devre kartı; omzunun üstünde süzülen minik bir dron.
+- **Kıyafet ve aksesuar:** Koyu yeşil iş gömleği üstünde deri atölye önlüğü, önlük cebinde minik çipler ve kablolar. Cinselleştirilmez.
+- **İmza detay:** Ucu yeşil parlayan havya ve omzunun üstündeki minik dron.
+- **Renk paleti:** onluk `#5C3B27` · gomlek `#2E4436` · gozluk `#C9953B` · isik `#5FD3A7` · ten `#C99474`
+
+- **Hikâyedeki yeri:** Süper Kullanıcı Sadri'nin kız kardeşi. Ayna'nın gözlerini ve kulaklarını (kamera, kilit, sensör) o kurar.
+
+**Portre promptu (Midjourney):**
+
+```text
+Full-body character design portrait of Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### Yol G — Saatçi Sabri (Mekanik Böceklerin Ustası)
+
+- **Portre dosyası:** `karakter-sabri.png`
+- **Özet:** Kampüs ağına bıraktığı her "böcek" bir saat kadar hassastır; belirli bir anda uyanır, saklanır, kopyalanır. Sabri yazılımı değil, sabrı silah olarak kullanır.
+- **Temsil ettiği tehdit:** Zararlı yazılım (truva atı, solucan, fidye yazılımı), paketleme ve gizleme, kalıcılık, analizden kaçma
+- **Fiziksel yapı:** 70'lerinde, ufak tefek, hafif kambur ama elleri kıpırtısız; 4.5 kafa boyu.
+- **Yüz ve ifade:** Kel kafa, beyaz kaşlar, bir gözünde saatçi büyüteci, ince dudaklarında sabırlı bir gülümseme.
+- **Poz ve silüet:** Avucunda gövdeden uzak tuttuğu kurmalı mekanik böcek, diğer elinde minik tornavida.
+- **Kıyafet ve aksesuar:** Kahverengi yelek, kolları sıvalı beyaz gömlek, kol bantları, yelek cebinden sarkan altın köstek; omzunda tırmanan iki mekanik böcek.
+- **İmza detay:** Gözündeki saatçi büyüteci ve avucundaki parlayan mekanik böcek.
+- **Renk paleti:** yelek `#5A4030` · gomlek `#E6DDD3` · kostek `#C9953B` · isik `#5FD3A7` · ten `#D9A988`
+
+- **Hikâyedeki yeri:** Ailenin en yaşlı ustası. Ayna'yı besleyen mekanik böcekleri yapar; yirmi yıl önce genç Eren'in boynundaki altın anahtarı da o yapmıştı.
+
+**Portre promptu (Midjourney):**
+
+```text
+Full-body character design portrait of Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
 ## 4. Grup sahnesi
 
 - Don Gölge kompozisyonun tam merkezinde; tüm karakterler aynı yatay zemine basar.
@@ -372,3 +477,8 @@ son sayfası 🔒 DOSYA KAPANDI kutusunu ve bir sonraki kötü adama uzanan ipuc
 | 11 · M11 | Don Gölge | Son Masa | Don Gölge'nin dosyası kapandı. Tam o anda ekranında bir mesaj beliriyor, imza tek harf: "İyi oyundu Tilki. Selim'e selamımı söyle. — B." Selim Hoca çekmecesinden yirmi yıllık bir fotoğraf çıkarıyor: üç kapüşonlu genç. "Eren..." diyor. Sezon 2 uzmanlık yollarında başlıyor. |
 | S2 · Yol A | Tek Tırnak Jasmine | Çekmeceler | Son çekmece kilitlendi; raporun okulun güvenlik ekibinin masasında. Laboratuvarın kapı kolunda bir yasemin çiçeği ve katlanmış bir not var: "Kapüşonlular hep üç kişi miydi sanıyorsun, Tilki? Selim'e dördüncüyü sor." |
 | S2 · Yol B | Tünelci Tarık | Tüneller | Son tünel kapandı; ağ bölgelerine ayrıldı, sunucular sertleştirildi. Sunucu dolabının içinde fenerinin yeşil ışığıyla yazılmış bir not buluyorsun: "Eren beni o gece yaktı. Ona çalışıyorum, ama onun adamı değilim. Bir gün aynı tarafta olacağız, Tilki." |
+| S2 · Yol C | Temizlikçi Tamer | Temizlik | Zaman çizelgesi tamamlandı; Tamer'in sildiği altı saat geri geldi. Kurtarılan son kayıtta tek bir kelime tekrar ediyor: AYNA. Selim Hoca kâğıdı katlayıp cebine koyuyor: "Bunu daha önce duymuştum." |
+| S2 · Yol D | Bayrakçı Bedri | Sahte Bayraklar | Bayraklar söküldü; bütün altyapı tek bir şirkete çıkıyor: Ayna Teknoloji. Kâğıt üstünde kimse yok, ama bütün alan adları aynı gece, aynı saatte kaydedilmiş: Kapüşonlular'ın yirmi yıl önce buluştuğu saatte. |
+| S2 · Yol E | Vantrolog Veysel | Ayna | Ayna'nın eğitim verisinde Gölge Ağ'ın yıllardır topladığı her şey var: sesler, yazışmalar, yüzler. Baron bir asistan değil, şehrin bir kopyasını kuruyor. Veysel sahneden inerken fısıldıyor: "Ayna'nın gözleri sizin cebinizde, Tilki." |
+| S2 · Yol F | Lehimci Leman | Gözler | Kameralar kapandı, kilitler yeniden programlandı. Leman'ın tezgâhında yarım kalmış bir kart duruyor; içinde minik, mekanik bir böcek. Kartın arkasına kazınmış not: "Sabri Usta'ya teslim." |
+| S2 · Yol G | Saatçi Sabri | Saat İşliyor | Saat durdu. Böceğin içindeki imza anahtarı yirmi yıl öncesine gidiyor: o gece liman bankasında kullanılan anahtar. Ve son satır yeni bir geri sayım başlatıyor; bitişi, Ayna'nın uyanacağı gece. Sezon 3: Ayna. |

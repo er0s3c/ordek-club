@@ -1,0 +1,54 @@
+# SENTETİK LABORATUVAR DOSYASI — Ördek Club Academy, Yol F (F08, F11)
+# Kurgusal "GozCam-Mini v2.1.4" laboratuvar kamerasının firmware imajı (gozcam-2.1.4.bin) üzerinde
+# binwalk çıktısı ve çıkarılan dosya sisteminden alıntılar. Gerçek bir ürüne ait değildir.
+
+$ binwalk gozcam-2.1.4.bin
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             uImage header, header size: 64 bytes, image name: "GozCam-Mini 2.1.4", OS: Linux, CPU: MIPS
+64            0x40            LZMA compressed data, properties: 0x5D, dictionary size: 8388608 bytes
+1572864       0x180000        Squashfs filesystem, little endian, version 4.0, compression: xz, size: 4718592 bytes
+6553600       0x640000        JFFS2 filesystem, little endian
+
+$ binwalk -e gozcam-2.1.4.bin
+$ ls _gozcam-2.1.4.bin.extracted/squashfs-root/
+bin  dev  etc  lib  mnt  proc  sbin  tmp  usr  var  www
+
+# --- etc/shadow ---------------------------------------------------------------
+root::0:0:99999:7:::
+admin:$1$lab$FAKEHASHFAKEHASH0000.:19000:0:99999:7:::
+
+# --- etc/init.d/rcS (alıntı) --------------------------------------------------
+#!/bin/sh
+mount -a
+/usr/sbin/telnetd -l /bin/sh -p 23 &
+/usr/bin/goz_daemon --uart-console=on --log-level=debug &
+/usr/bin/upnpc -r 80 TCP 554 TCP &
+/usr/bin/guncelle.sh &
+
+# --- usr/bin/guncelle.sh ------------------------------------------------------
+#!/bin/sh
+URL="http://guncelleme.gozcam.test/son/gozcam.bin"
+wget -q -O /tmp/yeni.bin "$URL"
+# imza kontrolu: TODO
+mtd write /tmp/yeni.bin firmware && reboot
+
+# --- etc/goz.conf -------------------------------------------------------------
+web_user=admin
+web_pass=admin
+cloud_host=bulut.gozcam.test
+cloud_key=FAKE-LAB-KEY-GOZCAM-7731
+wifi_ssid=Lab-IoT
+wifi_psk=FAKE-LAB-PSK-12345678
+rtsp_auth=off
+
+# --- etc/ssl/ -----------------------------------------------------------------
+-rw-r--r--  1 root root  1704  etc/ssl/cihaz.key     (-----BEGIN PRIVATE KEY----- FAKE-LAB-KEY ...)
+-rw-r--r--  1 root root  1298  etc/ssl/cihaz.crt
+
+# --- bilesen surumleri (strings / --version ile) -------------------------------
+BusyBox v1.24.1 (2016)
+OpenSSL 1.0.2k (2017)
+lighttpd/1.4.35
+dropbear: yok (SSH yerine telnetd)

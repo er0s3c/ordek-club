@@ -1,0 +1,24 @@
+alarm_id,zaman,onem,kural,kaynak,hedef,durum
+AL-1001,2026-03-14T02:00:12Z,orta,Yedekleme: kısa sürede çok sayıda dosya okuma,192.0.2.20,192.0.2.40,yeni
+AL-1002,2026-03-14T02:01:00Z,düşük,IDS: Port taraması,203.0.113.10,192.0.2.30,yeni
+AL-1003,2026-03-14T02:04:25Z,düşük,IDS: Port taraması,203.0.113.14,192.0.2.37,yeni
+AL-1004,2026-03-14T02:07:50Z,düşük,IDS: Port taraması,203.0.113.21,192.0.2.44,yeni
+AL-1005,2026-03-14T02:09:41Z,yüksek,RDP: çok sayıda başarısız giriş,203.0.113.66,KLP-WS07 (192.0.2.57),yeni
+AL-1006,2026-03-14T02:10:03Z,yüksek,Dış IP'den RDP ile başarılı giriş,203.0.113.66,KLP-WS07 (192.0.2.57),yeni
+AL-1007,2026-03-14T02:11:15Z,düşük,IDS: Port taraması,203.0.113.33,192.0.2.51,yeni
+AL-1008,2026-03-14T02:12:33Z,orta,Bilinmeyen alan adına ilk bağlantı,192.0.2.57,guncelleme.kotu.test (198.51.100.200),yeni
+AL-1009,2026-03-14T02:14:16Z,kritik,Yeni hesap yerel yöneticilere eklendi,lab-admin,KLP-WS07,yeni
+AL-1010,2026-03-14T02:14:40Z,düşük,IDS: Port taraması,203.0.113.38,192.0.2.58,yeni
+AL-1011,2026-03-14T02:15:41Z,orta,Yeni hizmet kuruldu,lab-admin,KLP-WS07,yeni
+AL-1012,2026-03-14T02:18:05Z,düşük,IDS: Port taraması,203.0.113.45,192.0.2.65,yeni
+AL-1013,2026-03-14T02:21:30Z,düşük,IDS: Port taraması,203.0.113.52,192.0.2.72,yeni
+AL-1014,2026-03-14T02:22:40Z,düşük,Antivirüs imza güncellemesi başarısız,192.0.2.61,guncelleme.kampus.test,yeni
+AL-1015,2026-03-14T02:24:55Z,düşük,IDS: Port taraması,203.0.113.59,192.0.2.79,yeni
+AL-1016,2026-03-14T02:28:20Z,düşük,IDS: Port taraması,203.0.113.71,192.0.2.86,yeni
+AL-1017,2026-03-14T02:31:45Z,düşük,IDS: Port taraması,203.0.113.80,192.0.2.33,yeni
+AL-1018,2026-03-14T02:35:10Z,düşük,IDS: Port taraması,203.0.113.84,192.0.2.40,yeni
+AL-1019,2026-03-14T02:38:13Z,yüksek,Denetim politikası değiştirildi,lab-admin,KLP-WS07,yeni
+AL-1020,2026-03-14T02:38:35Z,düşük,IDS: Port taraması,203.0.113.90,192.0.2.47,yeni
+AL-1021,2026-03-14T02:40:07Z,kritik,Güvenlik günlüğü temizlendi,lab-admin,KLP-WS07,yeni
+AL-1022,2026-03-14T02:41:01Z,orta,Sistem saati değiştirildi,lab-admin,KLP-WS07,yeni
+AL-1023,2026-03-14T02:44:10Z,düşük,IDS: Port taraması,203.0.113.66,192.0.2.57,yeni

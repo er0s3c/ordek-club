@@ -3,7 +3,7 @@
 > ⚠️ Bu dosya **otomatik üretilir** (`npm run academy:gorseller`). Elle düzenlemeyin;
 > görsel bilgisi sayfaların `gorseller:` alanında, karakterler [`karakterler.yaml`](karakterler.yaml) dosyasındadır.
 
-**Toplam:** 153 · 🕴️ Karakter portresi: 16 · 🎨 Sahne: 122 · 📸 Ekran görüntüsü: 15 · ✅ Hazır: 15 · ⬜ Bekleyen: 138
+**Toplam:** 229 · 🕴️ Karakter portresi: 21 · 🎨 Sahne: 187 · 📸 Ekran görüntüsü: 21 · ✅ Hazır: 15 · ⬜ Bekleyen: 214
 
 ## Nasıl üretilir ve gönderilir?
 
@@ -135,6 +135,46 @@ Full-body character design portrait of young Eren twenty years ago, a slim 20-ye
 
 ```text
 Full-body character design portrait of Tunelci Tarik, a lean wiry ghost of the network in his mid 40s with short dark hair shaved at the sides, stubble, hollow cheeks and tired but sharp eyes, a slightly hunched tunneler's posture, wearing a worn long dark khaki parka over a faded hoodie, a miner's headlamp glowing green on his forehead and a small key tattoo on the back of one hand, half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable, the other hand gripping a pair of cable pliers. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `karakter-tamer` · Yol C · Temizlikçi Tamer
+
+- **Dosya adı:** `karakter-tamer.png`
+
+```text
+Full-body character design portrait of Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `karakter-bedri` · Yol D · Bayrakçı Bedri
+
+- **Dosya adı:** `karakter-bedri.png`
+
+```text
+Full-body character design portrait of Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `karakter-veysel` · Yol E · Vantrolog Veysel
+
+- **Dosya adı:** `karakter-veysel.png`
+
+```text
+Full-body character design portrait of Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `karakter-leman` · Yol F · Lehimci Leman
+
+- **Dosya adı:** `karakter-leman.png`
+
+```text
+Full-body character design portrait of Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `karakter-sabri` · Yol G · Saatçi Sabri
+
+- **Dosya adı:** `karakter-sabri.png`
+
+```text
+Full-body character design portrait of Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. Three-quarter view, the entire figure visible, plain dark smoky background under a single soft spotlight, character sheet clarity. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 2:3 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
 ### ⬜ `karakter-aile` · Grup sahnesi · Gölge Ağ Ailesi
@@ -1559,56 +1599,814 @@ The main character is Tunelci Tarik, a lean wiry ghost of the network in his mid
 The main character is Tunelci Tarik, a lean wiry ghost of the network in his mid 40s with short dark hair shaved at the sides, stubble, hollow cheeks and tired but sharp eyes, a slightly hunched tunneler's posture, wearing a worn long dark khaki parka over a faded hoodie, a miner's headlamp glowing green on his forehead and a small key tattoo on the back of one hand, half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable, the other hand gripping a pair of cable pliers. A server cabinet with its door ajar in a dark room. Inside, between the cables, a folded note glows faintly green as if lit by a headlamp, and next to it hangs an old faded instant photo of four hooded teenagers on a basement floor. In the doorway behind, the character's silhouette with his headlamp turns away and disappears. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
-### ⬜ `c-00-a` · 🎨 AI · 🕴️ Aile
+### ⬜ `c-00-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
 
 - **Sayfa:** [Yol C — SOC, Olay Müdahalesi ve Dijital Adli Bilişim](02-uzmanlik/yol-c-soc/00-genel-bakis.md)
-- **Ne görünmeli:** Güvenlik operasyon merkezinin ekran duvarında Gölge Ağ Ailesi üyelerinin kırmızı işaretli siluetleri
+- **Ne görünmeli:** Temizlikçi Tamer gece boş SOC'ta parlayan paspasıyla ekran duvarını tek tek siliyor; arkasında tek bir kehribar alarm ışığı inatla yanıp sönüyor
 - **Dosya adı:** `c-00-a.png`
+- **Omni Reference:** `karakter-tamer.png`
 
 ```text
-The family is the members of a fictional shadowy noir family posing together as a group lineup on one shared ground line: the gray-haired family patriarch with a cigar in the center, and right behind him, half in shadow, a calm tall mastermind in a black three-piece suit with a black hoodie under the jacket resting one hand on the boss's shoulder, beside him an elegant woman in an emerald trouser suit with a jasmine flower in her ponytail holding a giant fountain pen, a huge bald bodyguard with chains on one side, an elegant woman in a burgundy trench coat holding masks on the other, flanked by a slick con artist with two glowing phones, a portly lawyer with a briefcase, a gaunt locksmith with a giant keyring, a bald old boss seated on a throne of server racks, a small wiry listener in a cable-lined trench coat with headphones, a burly baker in an apron over a pinstripe suit, a tall puppeteer controlling tiny robots with glowing strings, and an old vault mechanic with a stethoscope. A dim security operations center seen from behind empty analyst chairs: a wall of screens shows abstract graphs, timelines and map dots, and on the largest screen the shadowy silhouettes of the family members appear one by one, each highlighted with a red alert frame. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A dim security operations center at night seen from behind empty analyst chairs, a wall of screens glowing with abstract graphs, timelines and map dots. The character tiptoes along the wall with his glowing green mop, wiping one screen after another until each turns blank and calm, while behind his back a single amber alert lamp on the far screen keeps blinking stubbornly. A small rubber duck on an analyst desk watches him with one open eye. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
-### ⬜ `d-00-a` · 🎨 AI · 🕴️ Maskeli Mine
+### ⬜ `c-01-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [SOC nedir? Olay, alarm ve vaka arasındaki fark](02-uzmanlik/yol-c-soc/01-soc-temelleri.md)
+- **Ne görünmeli:** Temizlikçi Tamer gece nöbet masasındaki üç pirinç zilden en büyüğünün üstüne sessizce havlu örtüyor; masadaki oyuncak ördek tek gözüyle onu izliyor
+- **Dosya adı:** `c-01-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A night-shift security desk under a single amber lamp with three brass service bells of increasing size lined up in a row. The character leans over on tiptoe and gently drapes a soft folded towel over the biggest bell so it cannot ring, whistling innocently with his mop tucked under one arm, while a sleepy rubber duck on the desk watches him with one suspicious open eye. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-02-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [SIEM: dağınık logları tek ekranda nasıl birleştiririz?](02-uzmanlik/yol-c-soc/02-siem-temelleri.md)
+- **Ne görünmeli:** Temizlikçi Tamer dev pirinç huninin ağzında merdivene çıkmış, borulardan akan parlayan kâğıt şeritlerden birkaçını yakalayıp kovasında eritiyor
+- **Dosya adı:** `c-02-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A huge funnel-shaped brass machine in a dim hall collects glowing paper strips that flow in from many pipes connected to servers, laptops and firewalls, then sorts them into neat tidy stacks at the bottom. The character stands on a wobbly stepladder at the funnel's mouth, catching a few strips with his yellow gloves and dropping them into his bucket where they dissolve into green light, glancing nervously over his shoulder at a copy machine quietly duplicating every strip. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-03-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Wazuh laboratuvarı: ajan, kural ve uyarı](02-uzmanlik/yol-c-soc/03-wazuh-laboratuvari.md)
+- **Ne görünmeli:** Temizlikçi Tamer masaüstü bilgisayarlara bağlı küçük pirinç nöbetçi robotlardan birinin bayrağının üstüne bez örtüyor; diğer robotların hepsi bayraklarıyla onu gösteriyor
+- **Dosya adı:** `c-03-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A row of small round brass sentry robots, each plugged into a desktop computer by a glowing cable, raising tiny amber flags toward a central watchtower that collects their signals. The character crouches beside one robot and tucks a cleaning cloth over its flag with an exaggerated finger-to-lips gesture, while every other robot in the row turns and points its flag straight at him. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-03-b` · 📸 Ekran görüntüsü
+
+- **Sayfa:** [Wazuh laboratuvarı: ajan, kural ve uyarı](02-uzmanlik/yol-c-soc/03-wazuh-laboratuvari.md)
+- **Ne görünmeli:** Wazuh panelinde Threat Hunting ekranı; bir laboratuvar ajanından gelen yüksek seviyeli uyarılar ve kural kimliği sütunu
+- **Dosya adı:** `c-03-b.png`
+- **Nasıl çekilir:** Kulüp laboratuvarındaki Wazuh panelinde (tek ajanlı test VM'i) Threat Hunting → Events sekmesini açın. Laboratuvar VM'inde birkaç kez yanlış parolayla SSH denemesi yapıp uyarıları üretin. rule.level ≥ 10 filtresini uygulayın; rule.id ve rule.description sütunlarını ve en üstteki uyarı satırını kehribar (#C9953B) çerçeveyle işaretleyin. Ajan adı ve IP'ler laboratuvara ait olmalı; gerçek kullanıcı adı veya kampüs adresi görünüyorsa bulanıklaştırın.
+
+### ⬜ `c-04-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [IDS/IPS: ağdaki şüpheli trafiği kuralla yakalamak](02-uzmanlik/yol-c-soc/04-ids-ips.md)
+- **Ne görünmeli:** Temizlikçi Tamer parlayan ağ borularıyla dolu koridorda paspasını denge sopası gibi tutup parmak uçlarında yürüyor; tavandaki sensör lambaları geçtiği yerde tek tek yanıyor
+- **Dosya adı:** `c-04-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A long dark corridor lined with glowing network pipes, a row of round motion-sensor lamps along the ceiling. The character tries to sneak through on tiptoe, holding his glowing mop horizontally like a tightrope balancing pole, but every lamp he passes flips on amber one after another, lighting him up in a comic spotlight with a frozen startled expression. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-05-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Uç nokta güvenliği: EDR, IOC ve IOA](02-uzmanlik/yol-c-soc/05-endpoint-guvenligi.md)
+- **Ne görünmeli:** Temizlikçi Tamer cam fanus altındaki dizüstü bilgisayarın camını paspaslıyor; arkasındaki mekanik kollu büyüteç kaçırdığı parlayan parmak izlerini ve ayak izlerini gösteriyor
+- **Dosya adı:** `c-05-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A tidy office desk at night where a laptop sits under a tall glass dome like a museum exhibit. The character carefully polishes the glass with his glowing mop, looking pleased, but a large magnifying lens on a mechanical brass arm hovers right behind him, revealing a trail of glowing green fingerprints and little footprints across the desk that his mop has completely missed. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-06-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Windows adli bilişim: olay kayıtları, Sysmon, registry, prefetch](02-uzmanlik/yol-c-soc/06-windows-adli-bilisim.md)
+- **Ne görünmeli:** Temizlikçi Tamer pencere biçimli dev dosya dolabından olay kartlarını kovasına atıyor; habersiz olduğu bir borudan her kartın kopyası kilitli kehribar kutuya kayıyor
+- **Dosya adı:** `c-06-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A giant old wooden filing cabinet shaped like a four-pane window, its drawers marked only with abstract symbols and overflowing with small glowing event cards. The character pulls out a drawer and tips the cards into his bucket where they dissolve into green light, completely unaware that behind the cabinet a brass pneumatic tube is quietly delivering a carbon copy of every card into a locked amber box on the floor. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-07-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Linux adli bilişim: auth.log, journald, auditd ve kalıcılık](02-uzmanlik/yol-c-soc/07-linux-adli-bilisim.md)
+- **Ne görünmeli:** Temizlikçi Tamer bodrum sunucu koridorunda yere serilmiş kâğıt şerit defteri paspaslıyor; yüksek raftaki gizli ikinci defter adımlarını yeniden yazmaya devam ediyor
+- **Dosya adı:** `c-07-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A long dim basement server hallway where a paper-tape logbook unrolls along the floor like a carpet, covered in tiny glowing abstract symbols. The character mops the tape clean behind him step by step, looking satisfied, but on a high shelf above, a second hidden brass journal machine with a little spinning reel keeps printing fresh glowing marks of his every footstep. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-08-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Ağ adli bilişimi: DNS anomalileri ve düzenli nabız](02-uzmanlik/yol-c-soc/08-ag-adli-bilisimi.md)
+- **Ne görünmeli:** Temizlikçi Tamer gece iskelesinde cep saatine bakarak tam aralıklarla fenerli kâğıt kayıklar bırakıyor; deniz fenerindeki dev mercek her kayığı kusursuz bir sıra hâlinde kaydediyor
+- **Dosya adı:** `c-08-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A night harbor where glowing network cables run under the water like currents. The character stands at the end of a wooden pier, checking his pocket watch and releasing a tiny paper boat carrying a little lantern at perfectly regular intervals. High on a lighthouse above, a giant brass lens swivels to follow each boat and marks it as an amber dot in a perfectly even row across the night sky. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-09-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Zararlı yazılım triyajı: hash, strings, YARA ve sandbox](02-uzmanlik/yol-c-soc/09-zararli-yazilim-triyaji.md)
+- **Ne görünmeli:** Temizlikçi Tamer camdan bir deney tankının dışından endişeyle bakıyor; içerideki mekanik cımbızlar kurmalı oyuncak kutudan parlayan dişlileri çıkarıp sıraya diziyor
+- **Dosya adı:** `c-09-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A laboratory bench at night under a bright amber lamp, where a strange wind-up toy box sits opened inside a sealed glass sandbox tank filled with fine sand. Mechanical brass tweezers pull out tiny glowing gears one by one and lay them in a neat labeled row next to a big magnifying glass, each gear stamped with an abstract symbol. The character presses his nose against the outside of the glass with mild panic, clutching his mop. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-10-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Disk ve bellek analizi: Autopsy, MFT ve Volatility 3](02-uzmanlik/yol-c-soc/10-disk-bellek-analizi.md)
+- **Ne görünmeli:** Temizlikçi Tamer yeraltı arşivindeki dev dönen disk plağını paspaslıyor; oluklar paspasın altında parlamaya devam ediyor, arkadaki rafta diskin mühürlü kopyaları duruyor
+- **Dosya adı:** `c-10-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A vast underground archive where a hard drive is shown as a huge slowly spinning disc like an old vinyl record, its grooves glowing faintly green. The character mops the surface of the disc with great effort, but beneath his mop the grooves keep glowing as before. Behind him, on a tall shelf, a stack of identical mirror copies of the disc rests sealed in amber evidence pouches, each tagged with a little brass label. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-10-b` · 📸 Ekran görüntüsü
+
+- **Sayfa:** [Disk ve bellek analizi: Autopsy, MFT ve Volatility 3](02-uzmanlik/yol-c-soc/10-disk-bellek-analizi.md)
+- **Ne görünmeli:** Autopsy'de laboratuvar disk imajının Timeline görünümü; bir dosyanın oluşturma ve değiştirme zamanları yan yana
+- **Dosya adı:** `c-10-b.png`
+- **Nasıl çekilir:** Kulüp laboratuvarındaki sentetik disk imajını (eğitmenin verdiği ders imajı) Autopsy'de yeni bir vakaya ekleyin. Timeline aracını açın, 2026-03-14 gününe yakınlaştırın ve C:\Users\Public klasöründeki bir dosyanın satırını seçin. Dosyanın oluşturma ve değiştirme zaman sütunlarını kehribar (#C9953B) çerçeveyle işaretleyin. Vaka adı ve inceleyen adı alanlarında gerçek isim kullanmayın; ekranda kişisel yol veya kullanıcı adı varsa bulanıklaştırın.
+
+### ⬜ `c-11-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Olay müdahalesi: NIST döngüsü, playbook ve delil zinciri](02-uzmanlik/yol-c-soc/11-olay-mudahalesi.md)
+- **Ne görünmeli:** Temizlikçi Tamer paspasını kaldırıp mühürlü kehribar delil kutusuna yaklaşıyor; kutu duvardaki imza panosuna uzun kehribar bir kurdeleyle bağlı
+- **Dosya adı:** `c-11-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A tidy incident response room at night with a large round wall board showing six glowing stages connected in a circle by abstract icons. The character tiptoes toward a sealed amber evidence box on a table, mop raised to sweep it away, but the box is tied with a long amber ribbon to a clipboard on the wall that holds a neat column of signature scribbles, and the ribbon has already wrapped twice around his ankle. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-12-a` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Final simülasyonu: alarmdan olay raporuna](02-uzmanlik/yol-c-soc/12-final-simulasyonu.md)
+- **Ne görünmeli:** Temizlikçi Tamer gece SOC'unun ortasında ters çevrilmiş kovasının üstüne oturmuş; sildiği bütün ayak izleri yerde kehribar bir iz hâlinde yeniden parlıyor
+- **Dosya adı:** `c-12-a.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. The night security operations center from before, now with every screen on the wall showing one long glowing timeline restored piece by piece. The character sits on his upturned bucket in the middle of the floor, his mop resting against his shoulder, staring in comic disbelief as every footprint he wiped glows back to life across the floor in a neat amber trail leading straight to his shoes. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `c-12-b` · 🎨 AI · 🕴️ Temizlikçi Tamer
+
+- **Sayfa:** [Final simülasyonu: alarmdan olay raporuna](02-uzmanlik/yol-c-soc/12-final-simulasyonu.md)
+- **Ne görünmeli:** Masa lambasının altında ayna gibi parlayan kurtarılmış bir kayıt şeridi, yansımasında dev bir aynanın silueti; kapıda Temizlikçi Tamer'in paspaslı silueti uzaklaşıyor
+- **Dosya adı:** `c-12-b.png`
+- **Omni Reference:** `karakter-tamer.png`
+
+```text
+The main character is Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light. A recovered strip of paper log lying on a desk under a warm desk lamp, its surface polished and reflective like a small mirror. In its reflection glows the faint green outline of a huge ornate mirror that is not in the room. In the doorway behind the desk, the character's silhouette with his mop and bucket turns away and fades into the dark corridor, his little flashlight beam disappearing last. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-00-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
 
 - **Sayfa:** [Yol D — OSINT, Tehdit İstihbaratı ve Tehdit Avcılığı](02-uzmanlik/yol-d-cti/00-genel-bakis.md)
-- **Ne görünmeli:** Maskeli Mine, kırmızı iplerle bağlanmış bir kanıt panosunun önünde yeni bir maske seçiyor
+- **Ne görünmeli:** Bayrakçı Bedri sisli bir limanda, her biri farklı soyut simgeli bayraklarla dolu bir direk rafının önünde hangi bayrağı çekeceğini seçiyor
 - **Dosya adı:** `d-00-a.png`
-- **Omni Reference:** `karakter-mine.png`
+- **Omni Reference:** `karakter-bedri.png`
 
 ```text
-The main character is Maskeli Mine, a tall elegant information broker woman in her 30s, non-sexualized and composed, with a sharp dark bob haircut, high cheekbones, an ice-cold calculating gaze and a thin measured smile, wearing a burgundy trench coat with the collar turned up and black leather gloves, binoculars around her neck, in a 3/4 pose holding a fan of several porcelain masks with different fictional faces away from her body. A dark investigation room with a large corkboard of abstract photos, map fragments and blank index cards connected by red strings. The character stands before it with her fan of porcelain masks, calmly choosing one, binoculars hanging at her chest, lit by a single desk lamp. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A foggy harbor pier at night with a lighthouse sweeping its amber beam across the water. The character stands beside a tall wooden rack holding dozens of small signal flags, each showing a different abstract geometric symbol, calmly choosing which one to hoist next, while behind him a large corkboard of abstract photos linked by red strings leans against a stack of crates. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
-### ⬜ `e-00-a` · 🎨 AI · 🕴️ Kuklacı Orhan
+### ⬜ `d-01-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [OSINT metodolojisi: önce soru, sonra arama](02-uzmanlik/yol-d-cti/01-osint-metodolojisi.md)
+- **Ne görünmeli:** Bayrakçı Bedri bir harita masasına onlarca sahte bayrak iğnesi saçıyor; masanın kenarında pergel ve tek bir düzgün rota bekliyor
+- **Dosya adı:** `d-01-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A captain's chart table under a hanging brass lamp, covered with a wide sea map. The character leans over it with a sly half-smile, scattering dozens of tiny decoy flag pins across the map in every direction, while at the edge of the table a neat compass, a ruler and one carefully drawn route lie untouched, waiting to be used. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-02-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Arama ve arşiv: bilgi nereden çıktı?](02-uzmanlik/yol-d-cti/02-arama-ve-arsiv.md)
+- **Ne görünmeli:** Bayrakçı Bedri iskeledeki ilk megafona fısıldıyor; aynı parlayan simge bir megafondan diğerine geçerek büyüyor
+- **Dosya adı:** `d-02-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A foggy harbor promenade with five old-fashioned brass megaphones mounted on tall poles, each one pointing at the next in a loose circle. The character leans close and whispers into the first megaphone with a sly half-smile, and the same glowing green abstract symbol travels from megaphone to megaphone, growing bigger and brighter each time. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-03-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [İnternet varlıkları: WHOIS, DNS ve sertifika kayıtları](02-uzmanlik/yol-d-cti/03-internet-varliklari.md)
+- **Ne görünmeli:** Bayrakçı Bedri farklı bayraklı şamandıraların hepsini sandalından aynı parlayan zincirle tek bir batık sandığa bağlıyor
+- **Dosya adı:** `d-03-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A calm night harbor with a row of small round buoys floating on dark water, each painted with a different abstract flag symbol. The character rows a little wooden boat between them, quietly tying every buoy to the same single thick glowing green anchor chain that disappears down into one sunken crate on the seabed, visible through the clear water. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-04-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Görsel ve coğrafi OSINT: bu fotoğraf ne zaman, nerede çekildi?](02-uzmanlik/yol-d-cti/04-gorsel-cografi-osint.md)
+- **Ne görünmeli:** Bayrakçı Bedri gemi güvertesinde boyalı bir şehir manzarası dekorunun önüne fotoğraf makinesi kuruyor; gerçek sisli liman çerçevenin hemen dışında görünüyor
+- **Dosya adı:** `d-04-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A ship deck at dusk turned into a tiny photo studio: a painted backdrop of a sunny modern office skyline on a wooden frame and a vintage camera on a tripod. The character carefully adjusts the backdrop and places a potted palm tree in front of it, while the real foggy harbor, the ship's mast and a lighthouse are clearly visible just outside the backdrop, and the shadows on the backdrop fall in the opposite direction from the real ones. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-05-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Dijital iz ve sahte kimlikler: kim konuşuyor?](02-uzmanlik/yol-d-cti/05-dijital-iz.md)
+- **Ne görünmeli:** Bayrakçı Bedri liman kafesindeki aynı yüzlü karton figürlerin şapkalarını tek tek değiştiriyor; hepsi aynı anda bardak kaldırıyor
+- **Dosya adı:** `d-05-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A small harbor cafe table at night where a dozen flat cardboard cutout figures sit side by side, every one of them with the exact same painted face, all raising their teacups at the very same moment. The character walks behind the row, cheerfully swapping their hats one by one, a sailor cap, a beret, a bowler, a scarf, so they look like different people. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-06-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Tehdit istihbaratı: veri ne zaman istihbarat olur?](02-uzmanlik/yol-d-cti/06-tehdit-istihbarati.md)
+- **Ne görünmeli:** Bayrakçı Bedri piramidin alt basamağındaki ucuz parlak çakılları çuvalından kolayca yeniliyor; tepedeki ağır kasket biçimli taş bloğu ise kaldıramıyor
+- **Dosya adı:** `d-06-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A tall stepped stone pyramid on a moonlit beach. On the lowest step, the character cheerfully tosses away a handful of cheap glowing pebbles and instantly replaces them from an overflowing sack, while at the very top of the pyramid sits one heavy carved stone block shaped like his own captain's cap, which he glances up at nervously, clearly unable to move it. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-07-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [MITRE ATT&CK: davranışı ortak dile çevir](02-uzmanlik/yol-d-cti/07-mitre-attack.md)
+- **Ne görünmeli:** Bayrakçı Bedri herkese açık bir defterdeki simgeleri kopyalayıp çekmece duvarına yapıştırıyor; karşı duvardaki başka bir kaptanın düzenini taklit ediyor
+- **Dosya adı:** `d-07-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A ship's chart room with a huge wall-sized grid of small wooden drawers, each drawer front carved with a different abstract symbol and some glowing green. The character holds an open public notebook in one hand and copies its symbols onto little stickers, pasting them on his own drawers so his wall looks exactly like another captain's drawer wall displayed on the opposite side of the room. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-08-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [CTI platformları: MISP, OpenCTI ve STIX/TAXII](02-uzmanlik/yol-d-cti/08-cti-platformlari.md)
+- **Ne görünmeli:** Bayrakçı Bedri liman sinyal istasyonundaki paylaşım tüplerinden birine resmî görünümlü sahte bir kapsül atıyor; yanında kehribar, yeşil ve kırmızı lambalı bir pano yanıp sönüyor
+- **Dosya adı:** `d-08-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A busy harbor signal station where many glowing brass pneumatic tubes carry small capsules between distant ships. The character slips a capsule wrapped in an official-looking ribbon with a shiny abstract seal into one of the tubes with a theatrical wink, while a keeper's signal board with amber, green and red lamps blinks on the wall beside him. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-09-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Zararlı yazılım istihbaratı: aynı aile mi, aynı el mi?](02-uzmanlik/yol-d-cti/09-zararli-yazilim-istihbarati.md)
+- **Ne görünmeli:** Bayrakçı Bedri mekanik bir oyuncak robotun koluna başka bir kaptanın armasını dikiyor; büyüteç iç dişlilerdeki bambaşka bir ustanın işaretini gösteriyor
+- **Dosya adı:** `d-09-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A cozy ship's workshop lit by a green desk lamp. The character sits at a wooden bench carefully stitching a sewn patch with another captain's abstract emblem onto the arm of a small mechanical tin robot, while a large magnifying glass on a stand beside him reveals the robot's open chest, where the inner gears carry a completely different maker's abstract mark. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-10-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Tehdit avcılığı: alarm çalmadan izi bul](02-uzmanlik/yol-d-cti/10-tehdit-avciligi.md)
+- **Ne görünmeli:** Bayrakçı Bedri gemi ambarında ters yöne bakan sahte ayak izleri bırakıyor; bir fenerin ışığı altındaki gerçek izleri ortaya çıkarıyor
+- **Dosya adı:** `d-10-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A dark ship's hold full of stacked wooden crates lit only by a few glowing green retro terminals. The character tiptoes between the crates with exaggerated care, pressing a pair of fake boot-shaped stamps into the dusty floor so the footprints point the wrong way, while a warm amber lantern beam held by an unseen hand sweeps across the floor and reveals his real footprints glowing faintly underneath. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-11-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Korelasyon ve atıf: sahte bayrağı nasıl ayırırsın?](02-uzmanlik/yol-d-cti/11-korelasyon.md)
+- **Ne görünmeli:** Bayrakçı Bedri kanıt panosundaki kırmızı ipleri gizlice başka bir kaptanın silüetine yönlendiriyor; kaçırdığı kehribar ipler kendi askıdaki kasketine çıkıyor
+- **Dosya adı:** `d-11-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A dim ship's cabin with a large investigation corkboard covered in abstract photos and symbol cards linked by strings. The character secretly re-pins all the red strings so they lead to a faceless silhouette portrait of a different captain, looking very pleased with himself, but a few amber strings he missed still run straight across the cabin to his own captain's cap hanging on a hook by the door. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-12-a` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Final: Sis Düdüğü istihbarat raporu](02-uzmanlik/yol-d-cti/12-final-istihbarat-raporu.md)
+- **Ne görünmeli:** Şafakta sisli limanda bütün sahte bayraklar indirilip açık bir rapor dosyasının yanına katlanmış; Bayrakçı Bedri iskele babasının üstünde oturup omuz silkiyor
+- **Dosya adı:** `d-12-a.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. The foggy harbor at dawn with soft amber light breaking through. All the small flags have been taken down from a tall flagpole rack and lie neatly folded on a wooden table beside an open report folder; only one plain flag remains on the pole, showing a single simple abstract symbol. The character sits on a mooring bollard nearby, empty hands raised in a theatrical shrug, with a reluctant grin. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `d-12-b` · 🎨 AI · 🕴️ Bayrakçı Bedri
+
+- **Sayfa:** [Final: Sis Düdüğü istihbarat raporu](02-uzmanlik/yol-d-cti/12-final-istihbarat-raporu.md)
+- **Ne görünmeli:** Karanlık bir ofiste gece yarısında durmuş bir duvar saatinin altında aynı ayna simgesini taşıyan kayıt kartları; masadaki el aynasında Kapüşonlular'ın eski fotoğrafı yansıyor, kapıda Bayrakçı Bedri'nin silüeti kasketini çıkarıyor
+- **Dosya adı:** `d-12-b.png`
+- **Omni Reference:** `karakter-bedri.png`
+
+```text
+The main character is Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back. A dark empty office at night. On the wall a round clock has stopped at an hour deep in the night, and beneath it a row of glowing green index cards is pinned up, every card carrying the same small abstract mirror symbol. On the desk lies an oval hand mirror reflecting a faded instant photo of hooded teenagers in a basement lab. In the doorway, the character's silhouette tips his captain's cap and steps back into the fog. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-00-a` · 🎨 AI · 🕴️ Vantrolog Veysel
 
 - **Sayfa:** [Yol E — Yapay Zekâ ve LLM Güvenliği](02-uzmanlik/yol-e-ai/00-genel-bakis.md)
-- **Ne görünmeli:** Kuklacı Orhan, belgeleri okuyan yarı saydam bir sohbet robotunu kukla iplerle yönetiyor
+- **Ne görünmeli:** Vantrolog Veysel dev bir aynanın önündeki sahnede, dizindeki yarı saydam robot kuklayı belgelere, bir zarfa ve bir hoparlöre uzanan parlayan iplerle konuşturuyor
 - **Dosya adı:** `e-00-a.png`
-- **Omni Reference:** `karakter-orhan.png`
+- **Omni Reference:** `karakter-veysel.png`
 
 ```text
-The main character is Kuklaci Orhan, a tall thin theatrical puppeteer in his 50s with slicked-back silver hair, a pointed goatee, thin eyebrows and a sly showman grin, wearing a black hoodie under a long tailcoat with a red lining and circuit-board cufflinks, both arms spread wide away from his body, glowing green marionette strings descending from his long fingers to a swarm of tiny boxy robots below. A friendly translucent chatbot robot made of glowing green light sits at a desk reading a stack of documents; one document has a hidden glowing red thread woven into it. Above, the character controls the robot's hands with glowing marionette strings, grinning theatrically. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. An old campus auditorium turned into a ventriloquist theater. On stage, in front of a giant ornate mirror, a friendly translucent robot puppet made of glowing green light sits on the character's knee and speaks to rows of empty velvet seats. Thin glowing strings run from the character's white-gloved fingers to a stack of documents, a sealed envelope and a small vintage speaker placed around the puppet, while his own lips stay perfectly still in a wide theatrical smile. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
-### ⬜ `f-00-a` · 🎨 AI · 🕴️ Anahtarcı Rıza
+### ⬜ `e-01-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [AI sistemlerinin temelleri: model aslında neyi okuyor?](02-uzmanlik/yol-e-ai/01-ai-temelleri.md)
+- **Ne görünmeli:** Vantrolog Veysel perdenin arkasından uzanıp robot kuklanın okuduğu uzun kâğıt şeridin ucuna parlayan bir parça yapıştırıyor
+- **Dosya adı:** `e-01-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A vintage theater stage in a dim hall. A translucent robot puppet sits on a stool reading aloud from a long paper scroll that unrolls from an old typewriter, the scroll covered in small glowing abstract symbols chopped into colored tiles. From behind the velvet curtain, the character leans out with a sly theatrical smile and quietly tapes an extra glowing green strip onto the end of the scroll. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-01-b` · 📸 Ekran görüntüsü
+
+- **Sayfa:** [AI sistemlerinin temelleri: model aslında neyi okuyor?](02-uzmanlik/yol-e-ai/01-ai-temelleri.md)
+- **Ne görünmeli:** Laboratuvar bilgisayarında terminalde ollama show komutunun çıktısı; context length ve parameters satırları işaretli
+- **Dosya adı:** `e-01-b.png`
+- **Nasıl çekilir:** Laboratuvar bilgisayarında koyu temalı bir terminal açın. 'ollama pull llama3.2:3b' ile modeli indirdikten sonra 'ollama show llama3.2:3b' komutunu çalıştırın. Çıktıdaki 'parameters' ve 'context length' satırlarını kehribar (#C9953B) çerçeveyle işaretleyin. Kullanıcı adı ve bilgisayar adı görünen komut istemini bulanıklaştırın veya kırpın.
+
+### ⬜ `e-02-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Modern AI uygulamaları: RAG, embedding ve ajanlar](02-uzmanlik/yol-e-ai/02-modern-ai-uygulamalari.md)
+- **Ne görünmeli:** Vantrolog Veysel memur kılığında, robot kuklanın kucağına dosya taşıyan banda fazladan bir dosya bırakıp göz kırpıyor
+- **Dosya adı:** `e-02-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A cozy campus help desk at night. A translucent robot puppet with a glowing mouth sits behind the counter while a mechanical arm fetches folders from a tall filing wall and drops them onto a small conveyor belt leading into the robot's lap; a belt of tiny glowing gadgets hangs from the robot's waist. In the background, the character disguised in a clerk's visor slides one extra folder onto the conveyor and winks. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-03-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Prompt injection: robotun ağzına kim söz koyuyor?](02-uzmanlik/yol-e-ai/03-prompt-injection.md)
+- **Ne görünmeli:** Vantrolog Veysel dizindeki robot kuklanın yüksek sesle okuduğu kâğıtların arasına eldivenli parmaklarıyla parlayan yeşil bir not sıkıştırıyor
+- **Dosya adı:** `e-03-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A grand ventriloquist stage under a single warm spotlight. A translucent robot puppet sits on the character's knee and reads aloud from a stack of papers, green light spilling from its mouth. With his gloved fingers the character secretly slips one glowing green note between the pages, lips perfectly still, while an audience of tiny cartoon ducks in the front row watches, completely unaware. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-04-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Hassas bilgi ifşası: Ayna neyi fazla biliyor?](02-uzmanlik/yol-e-ai/04-hassas-bilgi-ifsasi.md)
+- **Ne görünmeli:** Vantrolog Veysel, ağzından parlayan kartlar dökülen robot kuklanın arkasında parmağını dudağına götürüp kartları silindir şapkasına topluyor
+- **Dosya adı:** `e-04-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A theater dressing room with a big vanity mirror ringed by warm bulbs. A translucent robot puppet sits before the mirror, and from its glowing open mouth a long ribbon of tiny paper cards marked with glowing abstract symbols spills endlessly onto the floor. The character stands behind it, holding a gloved finger to his still smiling lips while scooping the cards into an upturned top hat. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-05-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [RAG güvenliği: zehirli belge bilgi tabanına nasıl girer?](02-uzmanlik/yol-e-ai/05-rag-guvenligi.md)
+- **Ne görünmeli:** Vantrolog Veysel tekerlekli kütüphane merdiveninde, robot kuklanın kulağına akan dosya rafına yeşil mühürlü tek bir dosya sıkıştırıyor
+- **Dosya adı:** `e-05-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A vast archive hall with towering shelves of identical glowing folders; a brass funnel collects folders from the shelves and pours them into the ear of a translucent robot puppet sitting at the bottom. High up on a rolling library ladder, the character carefully slips one single folder with a faint glowing green seal between the identical ones, while a large magnifying glass lies forgotten on the floor below. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-06-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Ajan güvenliği: robot neye kadar el uzatabilmeli?](02-uzmanlik/yol-e-ai/06-ajan-guvenligi.md)
+- **Ne görünmeli:** Vantrolog Veysel yüksek bir sahne köprüsünden, kollarıyla bütün kollara uzanan robot kuklayı parlayan iplerle orkestra şefi gibi yönetiyor
+- **Dosya adı:** `e-06-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A theater backstage packed with brass levers, pulleys, ropes and big switches. A translucent robot puppet with many long extendable arms reaches toward every lever at once, one arm already pulling a big glowing red switch. Above, the character sits comfortably on a high catwalk, guiding the puppet's arms with glowing green strings like an orchestra conductor. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-07-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Model ve API güvenliği: anahtar, fatura ve model dosyası](02-uzmanlik/yol-e-ai/07-model-ve-api-guvenligi.md)
+- **Ne görünmeli:** Vantrolog Veysel bilet gişesinin açık çekmecesinden iple altın bir anahtar çekerken, içerideki robot kukla durmadan bilet basıyor
+- **Dosya adı:** `e-07-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A small theater ticket booth at night. Inside, a translucent robot puppet prints an endless ribbon of glowing tickets that piles up into a small mountain, while a brass meter on the wall spins wildly. Outside the booth, the character dangles a golden key on a string that he has just fished out of an open drawer, beaming a frozen theatrical smile. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-08-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [AI red teaming: tehdit modelinden tekrarlanabilir teste](02-uzmanlik/yol-e-ai/08-ai-red-teaming.md)
+- **Ne görünmeli:** Vantrolog Veysel prova salonunun ayna duvarı önünde robot kuklayla onlarca farklı sesi deniyor; köşedeki boş yönetmen sandalyesinde parlayan bir kontrol listesi duruyor
+- **Dosya adı:** `e-08-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A rehearsal hall with a long mirror wall and warm practice lights. In front of the mirror, the character rehearses dozens of different puppet voices with a translucent robot puppet on his knee, each voice shown as a differently colored glowing speech bubble filled with abstract symbols floating around them. In the corner, an empty director's chair holds a clipboard with a glowing checklist of tick boxes. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-09-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [AI güvenlik kontrolleri: araç izni ve çıktı doğrulama](02-uzmanlik/yol-e-ai/09-ai-guvenlik-kontrolleri.md)
+- **Ne görünmeli:** Vantrolog Veysel, robot kuklanın ağzından çıkan konuşma balonlarını tek tek denetleyen pirinç turnikeden kılık değiştirmiş bir balonu geçirmeye çalışırken yakalanıyor
+- **Dosya adı:** `e-09-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A theater stage exit guarded by a stern brass turnstile with a glowing inspection lamp above it. Glowing speech bubbles float out of a translucent robot puppet's mouth and must pass through the turnstile one by one; the lamp turns some of them amber and stops them. The character tries to squeeze a speech bubble wearing a tiny fake mustache through the turnstile, looking comically annoyed as the amber light catches it. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-10-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Güvenli AI uygulaması: Ayna'yı sahte veriyle yeniden kur](02-uzmanlik/yol-e-ai/10-guvenli-ai-uygulamasi.md)
+- **Ne görünmeli:** Vantrolog Veysel yarı açık atölye kapısından, robot kuklanın gevşek ipleri kesilip kısa kehribar kablolarla değiştirilirken elinde kesik iplerle somurtarak bakıyor
+- **Dosya adı:** `e-10-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A cozy backstage repair workshop with neat tool racks. A translucent robot puppet sits upright on a workbench while its loose glowing strings have been neatly cut and replaced with short, tidy amber cables plugged into a control panel full of clear switches and small lamps. The character peeks in through the half-open door, holding a bundle of limp cut strings and frowning theatrically. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-11-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [AI güvenlik denetimi: OWASP LLM riskleri ve test matrisi](02-uzmanlik/yol-e-ai/11-ai-guvenlik-denetimi.md)
+- **Ne görünmeli:** Vantrolog Veysel on spot ışığının ortasında yakalanmış; her ışık onun başka bir numarasını aydınlatıyor, o da mahcup bir reveransla gözlerini kısıyor
+- **Dosya adı:** `e-11-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A dark theater seen from the balcony, where an auditor's desk with a glowing checklist faces the stage. Ten bright spotlights shine down, each lighting a different trick prop of the character on the stage floor: a hidden note, a golden key, a forged folder, a mask that copies a face, a microphone that copies a voice. The character stands caught in the center of all the beams, squinting into the light and making a sheepish theatrical bow. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-12-a` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Final: Ayna'nın güvenlik değerlendirmesi](02-uzmanlik/yol-e-ai/12-final-ayna-degerlendirmesi.md)
+- **Ne görünmeli:** Vantrolog Veysel boş eldiveniyle sahnenin kenarında şaşkın; ipleri kesilmiş robot kukla göğsünde kehribar bir kalkan rozetiyle kendi başına oturuyor
+- **Dosya adı:** `e-12-a.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. The grand ventriloquist stage from before, now quiet under a single amber spotlight. The translucent robot puppet sits alone on a stool, its glowing strings neatly cut and coiled on the floor, a small amber shield badge glowing on its chest. At the edge of the stage the character holds an empty white glove, his famous frozen smile finally slipping into a surprised open mouth. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `e-12-b` · 🎨 AI · 🕴️ Vantrolog Veysel
+
+- **Sayfa:** [Final: Ayna'nın güvenlik değerlendirmesi](02-uzmanlik/yol-e-ai/12-final-ayna-degerlendirmesi.md)
+- **Ne görünmeli:** Vantrolog Veysel, parlayan ses ve yüz kavanozlarıyla dolu sahne deposunun koridorunda uzaklaşırken dönüp eldivenli parmağını dudağına götürüyor; ön planda karanlık ekranında bir göz yansıyan telefon
+- **Dosya adı:** `e-12-b.png`
+- **Omni Reference:** `karakter-veysel.png`
+
+```text
+The main character is Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture. A dark backstage storage room filled with endless rows of glass jars on tall shelves, each jar holding a softly glowing swirl shaped like a sound wave, a face silhouette or a folded message. In the foreground a smartphone lies face up on a wooden crate, a tiny reflection of a watching eye on its dark screen. Down the aisle, the character walks away, glances back over his shoulder and raises a gloved finger to his perfectly still lips. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-00-a` · 🎨 AI · 🕴️ Lehimci Leman
 
 - **Sayfa:** [Yol F — Mobil, IoT ve Gömülü Sistem Güvenliği](02-uzmanlik/yol-f-mobil-iot/00-genel-bakis.md)
-- **Ne görünmeli:** Anahtarcı Rıza bir tezgâhta akıllı kilitleri, telefonu ve küçük devre kartlarını maymuncukla açmaya çalışıyor
+- **Ne görünmeli:** Lehimci Leman bir atölye tezgâhında açık bir telefona, akıllı kilide ve küçük bir kameraya ucu yeşil parlayan havyasıyla kablo lehimliyor; kablolar arkadaki parlayan bir aynaya uzanıyor
 - **Dosya adı:** `f-00-a.png`
-- **Omni Reference:** `karakter-riza.png`
+- **Omni Reference:** `karakter-leman.png`
 
 ```text
-The main character is Anahtarci Riza, a gaunt very tall locksmith in his 40s with sunken cheeks, three-day stubble, a long bony nose and one squinting sly eye under a flat cap, slightly hunched sideways stance, wearing a long gray trench coat and fingerless gloves, an enormous ring with hundreds of keys and lockpicks hanging from his hip, one arm raised high away from his body holding a single glowing golden master key. A cluttered workbench seen from above under a hanging lamp: an opened smartphone, a small microcontroller board with a sensor, a smart door lock and a tiny smart bulb. The character leans over the bench working a lockpick into the smart lock, his giant keyring spread out beside the devices. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A cluttered workbench seen at a slight angle under a hanging lamp: an opened smartphone, a small microcontroller board with a sensor, a smart door lock with its back panel off, a tiny camera and a small smart bulb. The character leans over the bench with her magnifier goggles down, carefully soldering a thin glowing wire onto the lock's board, her tiny drone holding the wire. From every device, thin glowing green wires run to a large oval mirror in the shadows behind the bench, its surface shimmering like an eye. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
 
-### ⬜ `g-00-a` · 🎨 AI · 🕴️ Fidyeci Ferhat
+### ⬜ `f-01-a` · 🎨 AI · 🕴️ Lehimci Leman
 
-- **Sayfa:** [Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik](02-uzmanlik/yol-g-tersine/00-genel-bakis.md)
-- **Ne görünmeli:** Fidyeci Ferhat, cam bir muhafaza kutusunun içinde katman katman sökülen parlayan bir programa öfkeyle bakıyor
-- **Dosya adı:** `g-00-a.png`
-- **Omni Reference:** `karakter-ferhat.png`
+- **Sayfa:** [Mobil güvenlik mimarisi: sandbox, izinler ve güvenli depolama](02-uzmanlik/yol-f-mobil-iot/01-mobil-guvenlik-mimarisi.md)
+- **Ne görünmeli:** Lehimci Leman, odaları ayrı ayrı parlayan dev bir telefon-apartmanının merdiveninde; bir odanın kapısını aralık tutan izin fişine havyasıyla dokunuyor
+- **Dosya adı:** `f-01-a.png`
+- **Omni Reference:** `karakter-leman.png`
 
 ```text
-The main character is Fidyeci Ferhat, a massive broad-shouldered bodyguard in his 40s with a huge inverted-triangle torso, a thick neck, a shaved head, a scar across one eyebrow, a square jaw and a cold intimidating scowl, wearing a black leather coat over a dark shirt with heavy chains and padlocks draped over his shoulders, wide immovable stance, one arm held away from his body gripping a briefcase spilling glowing chained file icons, the other hand clenched into a fist. Inside a sealed transparent containment box with glove ports on a lab bench, a glowing abstract software object is being disassembled into floating layers of blocks, arrows and gears, revealing a small chained padlock core. Outside the box, the character glares furiously as his creation is taken apart. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A giant smartphone drawn as a tall apartment building at night, each floor a separate glowing room with its own sealed door, one small app living in each room. The character stands on a rolling ladder outside one room whose door is propped open by an oversized permission slip marked with an abstract stamp symbol, and she peeks inside with her magnifier goggles down, her tiny drone hovering nearby holding a flashlight. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-02-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Android uygulama yapısı: APK, Manifest ve bileşenler](02-uzmanlik/yol-f-mobil-iot/02-android-uygulama-yapisi.md)
+- **Ne görünmeli:** Lehimci Leman tezgâhta açtığı bir APK kolisinden uzun bir manifest parşömeni çekiyor; parşömendeki kapıların bazıları ardına kadar açık
+- **Dosya adı:** `f-02-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. On a cluttered workbench, an opened cardboard parcel shaped like a zip archive spills out small labelled drawers and gears. The character pulls a long glowing scroll out of the parcel, the scroll covered with tiny drawn doors and abstract symbols, several of the little doors swinging wide open. She grins with her goggles pushed up, while her tiny drone tugs the end of the scroll across the bench. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-03-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Android statik analiz: JADX ve MobSF ile kodu okumak](02-uzmanlik/yol-f-mobil-iot/03-android-statik-analiz.md)
+- **Ne görünmeli:** Lehimci Leman büyüteçli gözlüğüyle açılmış bir saat mekanizmasına benzeyen uygulamanın dişlileri arasına bantlanmış minik altın anahtarı buluyor
+- **Dosya adı:** `f-03-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A smartphone app drawn as an opened pocket-watch mechanism lying on a workbench, its gears and springs glowing faintly green. The character leans in close with her magnifier goggles down, tweezers in one hand, triumphantly lifting a tiny golden key that had been taped between two gears, the key tag showing an abstract symbol. Her tiny drone shines a spotlight on the hidden spot. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-03-b` · 📸 Ekran görüntüsü
+
+- **Sayfa:** [Android statik analiz: JADX ve MobSF ile kodu okumak](02-uzmanlik/yol-f-mobil-iot/03-android-statik-analiz.md)
+- **Ne görünmeli:** MobSF'in kasıtlı olarak zafiyetli DIVA uygulaması için ürettiği statik analiz özet ekranı; güvenlik puanı ve Manifest bulguları işaretli
+- **Dosya adı:** `f-03-b.png`
+- **Nasıl çekilir:** Laboratuvar VM'inde MobSF'i Docker ile çalıştır, DIVA APK'sını yükle. Özet sayfasında güvenlik puanını ve 'Manifest Analysis' bölümünü kehribar (#C9953B) dikdörtgenle işaretle. Yalnızca rapor alanını kırp; tarayıcı sekmeleri, kullanıcı adı ve yerel dosya yolları görünmesin, gerekirse bulanıklaştır. 1600×900, koyu tema.
+
+### ⬜ `f-04-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Mobil dinamik analiz: emülatör, logcat ve trafik](02-uzmanlik/yol-f-mobil-iot/04-mobil-dinamik-analiz.md)
+- **Ne görünmeli:** Lehimci Leman cam bir fanusun içindeki telefonu stetoskopla dinliyor; telefondan dışarı parlayan bir log şeridi akıyor
+- **Dosya adı:** `f-04-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A smartphone sits inside a large glass terrarium on a workbench like a specimen under study, its screen glowing. The character presses a stethoscope against the glass, listening intently with one eyebrow raised, while a long glowing paper tape of abstract symbols spools out of a small slot in the terrarium and curls across the bench. Her tiny drone hovers above, reading the tape with a tiny magnifier. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-05-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Mobil API güvenliği: token saklama ve sertifika doğrulama](02-uzmanlik/yol-f-mobil-iot/05-mobil-api-guvenligi.md)
+- **Ne görünmeli:** Lehimci Leman telefonla sunucu arasındaki havalı posta borusuna cam bir ek kutusu takmış; elindeki mühürlü zarf bir türlü açılmıyor
+- **Dosya adı:** `f-05-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A pneumatic tube system carries glowing envelopes from a smartphone on one side of the room to a tall server tower on the other. Halfway along, the character has fitted a small glass junction box into the tube and is pulling envelopes out to peek at them. Most open easily, but the one in her hands carries a bright amber wax seal shaped like an abstract symbol and refuses to open no matter how she tugs, her goggles fogging up comically while her tiny drone shrugs. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-06-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [iOS güvenliğine giriş: Keychain, entitlements ve sandbox](02-uzmanlik/yol-f-mobil-iot/06-ios-guvenligi.md)
+- **Ne görünmeli:** Lehimci Leman yüksek duvarlı, mühürlü kapısı olan beyaz bir bahçenin dışında dronunu duvarın üstünden içeri baktırmaya çalışıyor
+- **Dosya adı:** `f-06-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A pristine walled garden with tall smooth white walls and a single gate sealed by a large glowing amber signature seal shaped like an abstract symbol. Inside, small tidy app houses each sit in their own fenced plot, and in the center stands a tiny vault. Outside the wall, the character stands on tiptoe on a toolbox, steering her tiny drone with a little remote to peek over the top, while a single garden window on one app house has been left open. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-07-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [IoT temelleri: ESP32, MQTT ve Bluetooth](02-uzmanlik/yol-f-mobil-iot/07-iot-temelleri.md)
+- **Ne görünmeli:** Lehimci Leman kampüsün ortasındaki kocaman bir posta kutusunun üstünde oturmuş, sensörlerden uçarak gelen parlayan mesaj baloncuklarını tek tek okuyor
+- **Dosya adı:** `f-07-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A miniature campus courtyard at night where tiny sensors, a smart lock and a small camera each send glowing message bubbles flying through the air toward one big old-fashioned mailbox in the center. The character sits cross-legged on top of the mailbox, catching the bubbles one by one and reading their abstract symbols with delight, while her tiny drone happily drops a bubble of its own into the slot. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-08-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Firmware ve donanım: binwalk, UART ve güvenli güncelleme](02-uzmanlik/yol-f-mobil-iot/08-firmware-donanim.md)
+- **Ne görünmeli:** Lehimci Leman bir akıllı kilidin arka kapağını açmış; içeride dört parlayan pin ve çengele asılı, üzerinde soyut bir varsayılan simgesi olan bir anahtar buluyor
+- **Dosya adı:** `f-08-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. Close-up of a smart door lock on a workbench with its back panel unscrewed and lifted away. Inside the casing, a small circuit board shows a row of four glowing pins and a tiny memory chip, and hanging from a little hook beside them is a brass key with a tag marked by an abstract default symbol. The character, goggles down, clips a tiny probe onto the pins with a satisfied smirk, her glowing green soldering iron resting safely in its stand and her tiny drone holding the unscrewed panel. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-09-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [IoT ağ güvenliği: izolasyon ve şifreli haberleşme](02-uzmanlik/yol-f-mobil-iot/09-iot-ag-guvenligi.md)
+- **Ne görünmeli:** Lehimci Leman bir binanın kesit görünümünde akıllı ampulden dizüstü bilgisayara uzanan parlayan bir kablo köprüsünün üstünde sekerek yürüyor
+- **Dosya adı:** `f-09-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A cutaway view of a building floor. On the left, smart bulbs, a small camera, a thermostat and student laptops all sit together in one big open room, and the character happily hops across a glowing cable bridge from a smart bulb straight to a laptop, her tiny drone following. On the right, the same devices sit in separate glass rooms with closed doors and only one narrow amber-lit corridor leading outside, and there is no bridge to walk on. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-10-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Endüstriyel sistemler: IT/OT, SCADA ve Modbus](02-uzmanlik/yol-f-mobil-iot/10-endustriyel-sistemler.md)
+- **Ne görünmeli:** Lehimci Leman cam fanus altındaki oyuncak bir fabrika maketinin büyük kolunu çevirmeye uzanıyor; maketteki minik borular ve vanalar parlıyor
+- **Dosya adı:** `f-10-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A detailed tabletop toy model of a tiny factory under a large glass dome on a workbench, with miniature conveyor belts, little pipes, valves and a small water tank glowing softly. A toy control panel with oversized dials sits in front of the dome. The character reaches eagerly toward a big lever on the toy panel, tongue between her teeth in concentration, while her tiny drone tries to hold the glass dome shut with both little arms. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-11-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [IoT güvenlik testi: tehdit modeli ve firmware envanteri](02-uzmanlik/yol-f-mobil-iot/11-iot-guvenlik-testi.md)
+- **Ne görünmeli:** Lehimci Leman tezgâha bir akıllı kameranın dev planını sermiş; plandaki her giriş noktasını yeşil havyasıyla daire içine alıyor
+- **Dosya adı:** `f-11-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. A large blueprint of a smart security camera spread across a workbench, held flat by a coffee mug and a spool of solder. The blueprint shows the camera's insides, its antenna, a small companion phone and a cloud drawn as a puffy shape. The character leans over the blueprint drawing glowing green circles around little doorways on the drawing with the tip of her soldering iron, each circled doorway marked with a tiny abstract symbol, while her tiny drone counts them on its little fingers. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-12-a` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Final: akıllı cihaz ve mobil uygulama güvenlik denetimi](02-uzmanlik/yol-f-mobil-iot/12-final-guvenlik-denetimi.md)
+- **Ne görünmeli:** Lehimci Leman'ın tezgâhındaki tüm cihazların kapakları vidalanmış, portları kehribar mühürlerle kapatılmış; Leman soğumuş havyasıyla oturup etkilenmiş gibi başını sallıyor
+- **Dosya adı:** `f-12-a.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. The same cluttered workbench from before, now neatly tidied: the smartphone, smart lock, small camera and circuit boards all have their back panels screwed shut, and every little port and pin row is covered with a glowing amber seal. The character sits on a stool at the edge of the bench, goggles pushed up, her soldering iron cooled in its stand and her tiny drone powered down on her shoulder, nodding slowly with a reluctant impressed smile. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `f-12-b` · 🎨 AI · 🕴️ Lehimci Leman
+
+- **Sayfa:** [Final: akıllı cihaz ve mobil uygulama güvenlik denetimi](02-uzmanlik/yol-f-mobil-iot/12-final-guvenlik-denetimi.md)
+- **Ne görünmeli:** Boş tezgâhta yarım kalmış bir devre kartının içinde minik mekanik bir böcek; kartın arkasında kazınmış soyut simgeler, kapıda uzaklaşan Leman ve dronunun silüeti
+- **Dosya adı:** `f-12-b.png`
+- **Omni Reference:** `karakter-leman.png`
+
+```text
+The main character is Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder. An empty workbench under a single hanging lamp in a dark workshop. In the center lies a half-finished circuit board, and nestled among its components is a tiny clockwork beetle glowing faintly green. The back edge of the board is engraved with small abstract symbols catching the lamplight. In the doorway behind, the character's silhouette with goggles on her forehead walks away into the dark, her tiny drone following over her shoulder. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-00-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik](02-uzmanlik/yol-g-tersine/00-genel-bakis.md)
+- **Ne görünmeli:** Saatçi Sabri, açık bir dev cep saatinin içinden sıra sıra çıkan kurmalı böceklerini gururla izliyor; böceklerden biri tezgâhtaki cam fanusun altına alınmış, büyüteçle inceleniyor
+- **Dosya adı:** `g-00-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. In a dim old watchmaker's workshop, a giant pocket watch lies open on the workbench like a doorway, and a parade of glowing clockwork beetles marches out of it in a neat line toward a faintly glowing server rack in the corner. The character watches the procession with a proud, patient smile, a tiny screwdriver in hand. At the edge of the bench, one beetle has been separated from the line and sits under a sealed glass bell jar beneath a large magnifying lens on an arm, calmly being examined. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-01-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Tersine mühendislik nedir? Güvenli analiz laboratuvarı](02-uzmanlik/yol-g-tersine/01-temeller-ve-guvenli-lab.md)
+- **Ne görünmeli:** Saatçi Sabri kurmalı böceğini minyatür bir şehre bırakıyor; şehrin cam bir fanusun içinde olduğunu, kablosunun çekildiğini ve yanında dev bir geri sarma düğmesi bulunduğunu fark etmiyor
+- **Dosya adı:** `g-01-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. On a laboratory bench sits a sealed glass terrarium holding a tiny model city of miniature houses and glowing server towers. The character, peering through his jeweler's loupe, lowers a glowing clockwork beetle into it through a small hatch, smiling as if the city were real. He does not notice the glass walls, the unplugged cable lying on the bench outside, or the big brass rewind knob on the side of the terrarium. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-02-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Windows iç yapısı: process, DLL ve PE biçimi](02-uzmanlik/yol-g-tersine/02-windows-ic-yapisi.md)
+- **Ne görünmeli:** Saatçi Sabri dev bir cep saatinin arka kapağını dolap gibi açmış; içi başlık plakası, dişli çekmecesi, kavanoz rafı ve ödünç alet listesi gibi bölmelere ayrılmış, bir çekmecede kurmalı böcek kıvrılmış yatıyor
+- **Dosya adı:** `g-02-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. The character swings open the hinged back of a giant pocket watch as if it were a cabinet. Inside are neatly stacked compartments: a small brass header plate at the top engraved with abstract symbols, a drawer full of turning gears, a shelf of tiny glass jars, and a rolled-up scroll listing borrowed tools. In one drawer a clockwork beetle lies curled up, pretending to be an ordinary gear. The character looks proud of his tidy hiding place. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-03-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Assembly temelleri: register, stack ve kontrol akışı](02-uzmanlik/yol-g-tersine/03-assembly-temelleri.md)
+- **Ne görünmeli:** Saatçi Sabri bir mile dişlileri üst üste diziyor; minik böcekler tezgâhtaki pirinç kaplar arasında dişli taşıyor, arkada makaslı bir oyuncak ray ikiye ayrılıyor
+- **Dosya adı:** `g-03-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. At a long workbench the character carefully stacks brass gears onto a tall vertical spindle one by one, last on and first off. A few tiny clockwork beetles hop between eight small brass cups lined up on the bench, each beetle carrying a single glowing gear from cup to cup. Behind him a toy railway track splits at a junction with a lever, and a little beetle-driven train waits for him to decide which way to switch it. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-04-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Statik analiz: hash, strings, entropi ve Ghidra](02-uzmanlik/yol-g-tersine/04-statik-analiz.md)
+- **Ne görünmeli:** Saatçi Sabri kurmalı böceğini kat kat buruşuk kâğıda sarıyor; yanındaki pirinç terazi paketin şüpheli ağırlığıyla bir yana yatmış
+- **Dosya adı:** `g-04-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. At his workbench the character wraps a small clockwork beetle in layer after layer of crumpled paper and twine, like a gift that never ends, sweating with comic effort. A growing pile of paper scraps surrounds him, and a hanging brass scale beside the bench tips heavily under the tiny bundle, hinting at its suspicious density. A faint glow of the beetle still leaks through one torn corner. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-04-b` · 📸 Ekran görüntüsü
+
+- **Sayfa:** [Statik analiz: hash, strings, entropi ve Ghidra](02-uzmanlik/yol-g-tersine/04-statik-analiz.md)
+- **Ne görünmeli:** Ghidra'da eğitim crackme'sinin import listesi ve parola karşılaştırmasını gösteren Decompile penceresi
+- **Dosya adı:** `g-04-b.png`
+- **Nasıl çekilir:** Analiz VM'inde herkese açık, zararsız bir eğitim crackme'sini Ghidra'da aç ve otomatik analizi çalıştır. Solda Symbol Tree → Imports açık, sağda main fonksiyonunun Decompile görünümü olsun. Parola karşılaştırmasını kehribar (#C9953B) dikdörtgenle işaretle. Yalnızca Ghidra penceresini kırp; kullanıcı adı ve dosya yolları görünmesin. 1600×900, koyu tema.
+
+### ⬜ `g-05-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Dinamik analiz: debugger, breakpoint ve API izleme](02-uzmanlik/yol-g-tersine/05-dinamik-analiz.md)
+- **Ne görünmeli:** Saatçi Sabri kurduğu böceğin her birkaç adımda bir raya takılmış pirinç iğnelerde donup kaldığını görünce cep saatine sinirle vuruyor
+- **Dosya adı:** `g-05-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. On a long brass track laid across a workbench, the character winds up a large clockwork beetle and lets it go, but every few steps it freezes mid-motion at tiny brass pins pushed into the track at precise spots. A magnifying lens on a jointed arm hovers over the frozen beetle, revealing its glowing inner gears. The character taps his pocket watch in comic frustration, his loupe slipping from his eye. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-06-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [.NET analizi: IL ve decompile edilmiş kod](02-uzmanlik/yol-g-tersine/06-dotnet-analizi.md)
+- **Ne görünmeli:** Saatçi Sabri cam kabuklu böceğinin bütün dişlilerinin dışarıdan görünmesine bozuluyor ve üstünü minik bir bezle örtmeye çalışıyor; arkadaki perdeye böceğin düzgün montaj şeması yansıyor
+- **Dosya adı:** `g-06-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. On the workbench stands a clockwork beetle with a fully transparent glass shell, every gear and spring inside clearly visible. Behind it a projector casts a neat, perfectly readable assembly diagram of the same beetle onto a hanging screen, drawn with abstract symbols and arrows. The character, dismayed, hurriedly tries to cover the glass shell with a tiny embroidered cloth that is far too small. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-07-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Zararlı yazılım türleri ve kalıcılık göstergeleri](02-uzmanlik/yol-g-tersine/07-zararli-turleri.md)
+- **Ne görünmeli:** Saatçi Sabri vitrinindeki böcek koleksiyonunu kuyumcu gibi sunuyor: biri hediye kutusunda saklanıyor, biri sıra sıra kopyalarına bölünüyor, biri bir sandığı zincirle kilitliyor, biri anahtar deliğinden gözetliyor
+- **Dosya adı:** `g-07-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. In an old watchmaker's shop window at night, a velvet display tray presents a lineup of clockwork beetles, each with its own quirk: one hiding inside an elegant ribboned gift box, one splitting into a line of tiny identical copies marching away, one wrapping a small treasure chest in chains with a padlock, and one peeking through a keyhole with a tiny spyglass. The character presents them proudly with an open palm, like a jeweler showing his finest collection. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-08-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Davranış analizi: dosya, registry, ağ izleri ve IOC](02-uzmanlik/yol-g-tersine/08-davranis-analizi.md)
+- **Ne görünmeli:** Saatçi Sabri, böceğinin yumuşak kil üzerinde bıraktığı ayak izlerine ve duvardaki boyalı sahte kapıya fırlattığı kâğıt uçağa bozularak bakıyor; çevredeki pirinç aletler her adımı kaydediyor
+- **Dosya adı:** `g-08-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. On a laboratory table covered with a smooth sheet of soft clay, a clockwork beetle walks along, leaving a perfect trail of tiny footprints, scratch marks around a little drawer it opened, and a small paper airplane it has launched toward a door painted on the wall that is only a flat picture. Brass recording instruments with needles and dials surround the table, tracing every movement onto paper rolls. The character watches from the side in dismay, loupe in hand. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-08-b` · 📸 Ekran görüntüsü
+
+- **Sayfa:** [Davranış analizi: dosya, registry, ağ izleri ve IOC](02-uzmanlik/yol-g-tersine/08-davranis-analizi.md)
+- **Ne görünmeli:** Process Monitor'de eğitim örneğinin süreç adına göre filtrelenmiş dosya, registry ve süreç oluşturma olayları
+- **Dosya adı:** `g-08-b.png`
+- **Nasıl çekilir:** Ağı kapalı analiz VM'inde, eğitmenin zararsız eğitim örneğini çalıştırırken Process Monitor kaydı al. Filtre: Process Name is <örnek adı>; Operation is WriteFile, RegSetValue, Process Create. Run anahtarına yazılan RegSetValue satırını kehribar (#C9953B) dikdörtgenle işaretle. Yalnızca Procmon penceresini kırp; kullanıcı adını bulanıklaştır. 1600×900, koyu tema.
+
+### ⬜ `g-09-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Bellek güvenliği: buffer overflow mantığı](02-uzmanlik/yol-g-tersine/09-bellek-guvenligi.md)
+- **Ne görünmeli:** Saatçi Sabri raftaki küçük bir fincana durmadan dişli döküyor; taşan dişliler yandaki fincandaki dönüş oku pulunu deviriyor, ama raftaki pirinç nöbetçi kanarya ötmeye başlamış
+- **Dosya adı:** `g-09-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. On a wooden shelf stands a neat row of small porcelain cups. The character pours an endless stream of tiny brass gears into one small cup; it overflows and the gears spill into the neighboring cup, knocking over a little brass token shaped like a curved return arrow. Just beside the cups, a small brass canary figurine has sprung up and is singing an alarm, and the character freezes mid-pour with a guilty grin. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-10-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Exploit geliştirme temelleri: crash analizi, ASLR ve DEP](02-uzmanlik/yol-g-tersine/10-crash-analizi.md)
+- **Ne görünmeli:** Saatçi Sabri, kapıları dişliler üzerinde dönüp her göz kırpışta yer değiştiren bir saat kulesi koridorunda artık tutmayan haritasına bakıyor; böceği kaygan, kehribar ışıklı bir rafa tırmanamayıp kayıyor
+- **Dosya adı:** `g-10-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. Inside a grand clocktower corridor, a row of wooden doors rides on huge rotating gears and keeps swapping places, so the paper map in the character's hands no longer matches anything. Nearby, his clockwork beetle tries to climb onto a shelf glowing with a soft amber stop symbol and slides right off its slick, polished surface. The character scratches his bald head under his loupe, comically puzzled. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-11-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Tespit: YARA kuralları ve davranışsal göstergeler](02-uzmanlik/yol-g-tersine/11-yara-tespit.md)
+- **Ne görünmeli:** Saatçi Sabri birbirinin aynısı böceklerini pirinç bir ayıklama makinesinin önünden geçirmeye çalışıyor; makinenin mercekli kolu her birini kabuğundaki desenden tanıyıp cam kavanoza bırakıyor
+- **Dosya adı:** `g-11-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. At a workshop gate, the character tiptoes a neat row of identical-looking clockwork beetles past a large brass sorting machine. The machine's jointed mechanical arm, fitted with a pattern-matching magnifying lens, recognizes the distinctive swirl pattern on each beetle's shell and plucks them one by one into a big glass jar. The character stares open-mouthed, his loupe popping off his eye. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-12-a` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Final: eğitim örneği için zararlı yazılım analiz raporu](02-uzmanlik/yol-g-tersine/12-final-analiz-raporu.md)
+- **Ne görünmeli:** Saatçi Sabri durdurulmuş saat kulesinin önünde tabureye çökmüş; her dişli kehribar bir kıskaçla sabitlenmiş, böcekleri cam kavanozlarda sıra sıra dizilmiş
+- **Dosya adı:** `g-12-a.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. Inside a towering clockwork mechanism, every great gear has been gently held still by a small glowing amber clamp, and the giant clock hands are frozen just before the hour. Rows of glass jars on a shelf hold the clockwork beetles, neatly sorted and resting. The character sits on a low stool at the foot of the mechanism, his loupe in his lap, nodding slowly as if quietly impressed. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
+```
+
+### ⬜ `g-12-b` · 🎨 AI · 🕴️ Saatçi Sabri
+
+- **Sayfa:** [Final: eğitim örneği için zararlı yazılım analiz raporu](02-uzmanlik/yol-g-tersine/12-final-analiz-raporu.md)
+- **Ne görünmeli:** Kadife bir örtü üzerinde açılmış mekanik bir böceğin içinde parlayan eski bir altın anahtar; yanındaki küçük aynada uzaktan uyanan belirsiz bir ışık var
+- **Dosya adı:** `g-12-b.png`
+- **Omni Reference:** `karakter-sabri.png`
+
+```text
+The main character is Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver. On a velvet cloth lies an opened clockwork beetle, its shell hinged back. Inside, among the tiny gears, rests a small old golden key glowing faintly. Next to it a little hand mirror reflects a dim, distant glow, as if something were slowly waking up inside the glass. In the shadows of the workshop behind, the character's silhouette with his loupe turns away while the pendulum of a tall clock keeps swinging. stylized 2D cartoon illustration in a film noir comic look, semi-cartoon proportions about 5 heads tall, clear readable silhouette with arms and props held away from the body, bold confident outer ink contours with tapered thinner interior lines, line art tinted in dark local colors (deep brown, burgundy, ink-navy) instead of pure black, warm worn-out desaturated vintage palette, high-contrast hard cel-shaded shadows combined with soft airbrushed volumes, subtle cyan-green tint in the shadows and warm amber-sepia highlights, thin soft rim light separating figures from the dark background, cinematic 1940s film noir atmosphere with vintage pinstripe fashion mixed with glowing green retro computer terminals and cables, playful and comedic tone --ar 16:9 --v 7 --no text, letters, words, numbers, logo, watermark, signature
 ```
