@@ -9,14 +9,11 @@ import { LessonAnimation } from "./LessonAnimation";
 import { Terminal } from "@/components/ui/Terminal";
 import { parseShell, SHELL_LANGS } from "@/components/ui/terminal-parse";
 import { MissionCard, type MissionData } from "./MissionCard";
+import { decode, stripTags } from "./markdown-text";
 
 // Gövdedeki görev yerleştirme ayracı (::gorev[id]); tanım ders front-matter'ında (gorevler:).
 export type MissionCtx = { slug: string; items: MissionData[]; next: { href: string; title: string } | null; trackHref: string; readOnly?: boolean };
 type Ctx = { images: ReadonlySet<string>; skipTitle: boolean; revealEnding: boolean; missions?: MissionCtx };
-
-const ENTITIES: Record<string, string> = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&nbsp;": " " };
-const decode = (s: string) => s.replace(/&(amp|lt|gt|quot|#39|nbsp);/g, (m) => ENTITIES[m] ?? m);
-const stripTags = (s: string) => decode(s.replace(/<[^>]*>/g, ""));
 
 export function slugify(text: string): string {
   return text
