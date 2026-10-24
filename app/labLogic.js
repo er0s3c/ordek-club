@@ -5,7 +5,7 @@
 //  mantık tek yerde durur, framework olmadan test edilebilir.
 //  NOT: Bu modülde flag/secret YOK — yalnızca istemci-güvenli katalog mantığı.
 // ============================================================================
-import { VULNS, KILLCHAINS } from "./labData.js";
+import { VULNS, KILLCHAINS, GROUP_SLUGS } from "./labData.js";
 
 // Bir zafiyetin çözülmüş seviye listesi (0..3 eleman).
 const levelsOf = (solved, slug) => (solved && solved[slug]) || [];
@@ -129,20 +129,35 @@ export function computeBadges(solved) {
   const s = solved || {};
   const has = (slug) => (s[slug] || []).length > 0;
   // Yalnız zafiyet flag'lerini say (tool-* lab çözümleri rozet/oranı bozmasın).
-  const gotFlags = VULNS.reduce((a, v) => a + ((s[v.slug] || []).length), 0);
-  const groupSlugs = (g) => VULNS.filter((v) => v.group === g).map((v) => v.slug);
-  const allSolved = (arr) => arr.length > 0 && arr.every(has);
-  const levelCount = (lv) => Object.values(s).filter((ls) => ls && ls.includes(lv)).length;
+  let gotFlags = 0;
+  for (let i = 0; i < VULNS.length; i++) {
+    const ls = s[VULNS[i].slug];
+    if (ls) gotFlags += ls.length;
+  }
+  const allSolved = (arr) => (arr || []).length > 0 && (arr || []).every(has);
+
+  // Single pass over solved values for level counts
+  let lowCount = 0, medCount = 0, highCount = 0;
+  const values = Object.values(s);
+  for (let i = 0; i < values.length; i++) {
+    const ls = values[i];
+    if (Array.isArray(ls)) {
+      if (ls.includes("low")) lowCount++;
+      if (ls.includes("medium")) medCount++;
+      if (ls.includes("high")) highCount++;
+    }
+  }
+
   const chainDone = KILLCHAINS.some((kc) => kc.steps.every(has));
   const totalFlags = VULNS.length * 3;
   return [
     { emo: "🩸", t: "İlk Kan", d: "İlk flag'ini yakala", on: gotFlags >= 1 },
-    { emo: "🧩", t: "Çekirdek Avcısı", d: "Tüm çekirdek zafiyetleri çöz", on: allSolved(groupSlugs("core")) },
-    { emo: "🔑", t: "Kimlik Kırıcı", d: "Tüm AuthN/AuthZ çöz", on: allSolved(groupSlugs("auth")) },
-    { emo: "⚙️", t: "Modern Usta", d: "Tüm modern/sunucu çöz", on: allSolved(groupSlugs("modern")) },
-    { emo: "🟥", t: "Low Avcısı", d: "10+ Low flag", on: levelCount("low") >= 10 },
-    { emo: "🟧", t: "Medium Avcısı", d: "10+ Medium flag", on: levelCount("medium") >= 10 },
-    { emo: "🟩", t: "High Avcısı", d: "10+ High flag", on: levelCount("high") >= 10 },
+    { emo: "🧩", t: "Çekirdek Avcısı", d: "Tüm çekirdek zafiyetleri çöz", on: allSolved(GROUP_SLUGS.core) },
+    { emo: "🔑", t: "Kimlik Kırıcı", d: "Tüm AuthN/AuthZ çöz", on: allSolved(GROUP_SLUGS.auth) },
+    { emo: "⚙️", t: "Modern Usta", d: "Tüm modern/sunucu çöz", on: allSolved(GROUP_SLUGS.modern) },
+    { emo: "🟥", t: "Low Avcısı", d: "10+ Low flag", on: lowCount >= 10 },
+    { emo: "🟧", t: "Medium Avcısı", d: "10+ Medium flag", on: medCount >= 10 },
+    { emo: "🟩", t: "High Avcısı", d: "10+ High flag", on: highCount >= 10 },
     { emo: "⛓️", t: "Zincir Kırıcı", d: "Bir kill-chain'i tamamla", on: chainDone },
     { emo: "🌗", t: "Yarı Yol", d: "Flag'lerin yarısı", on: totalFlags > 0 && gotFlags >= Math.ceil(totalFlags / 2) },
     { emo: "🏆", t: "Efsane", d: "Tüm flag'leri topla", on: totalFlags > 0 && gotFlags === totalFlags },

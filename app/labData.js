@@ -477,4 +477,20 @@ const KILLCHAINS = [
   },
 ];
 
-export { GROUPS, VULNS, KILLCHAINS };
+// Precompute haystack on each vulnerability item for fast search filtering
+VULNS.forEach((v) => {
+  v.haystack = `${v.name} ${v.scenario || ""}`.toLowerCase();
+});
+
+// Fast O(1) lookup Maps & pre-grouped slug sets
+const VULNS_BY_SLUG = new Map(VULNS.map((v) => [v.slug, v]));
+const VULNS_BY_ID = new Map(VULNS.map((v) => [v.id, v]));
+const GROUPS_BY_ID = new Map(GROUPS.map((g) => [g.id, g]));
+
+const GROUP_SLUGS = {
+  core: VULNS.filter((v) => v.group === "core").map((v) => v.slug),
+  auth: VULNS.filter((v) => v.group === "auth").map((v) => v.slug),
+  modern: VULNS.filter((v) => v.group === "modern").map((v) => v.slug),
+};
+
+export { GROUPS, VULNS, KILLCHAINS, VULNS_BY_SLUG, VULNS_BY_ID, GROUPS_BY_ID, GROUP_SLUGS };
