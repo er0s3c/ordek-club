@@ -1,0 +1,72 @@
+# ============================================================================
+#  Ördek Akademi — Yol G laboratuvar dosyası (KURGUSAL, METİN)
+#  Bu dosya gerçek bir programın değil, kurgusal bir eğitim örneğinin
+#  PE başlık özetidir. Hash'ler uydurmadır; hiçbir gerçek dosyaya ait değildir.
+#  Alan adları .test, IP'ler RFC 5737 belgelendirme aralığındandır.
+# ============================================================================
+
+Dosya adı          : kampus-saat-guncelleme.exe_
+Boyut              : 178 688 bayt
+MD5                : 9ac3b07a0b30a474a37f389944796e26
+SHA-256            : 5ed7dd0f78b3988a364564bb530f35204f8dc40eebf27cb186c0f94ef7ce0632
+Dosya türü (file)  : PE32+ executable (GUI) x86-64, for MS Windows
+
+---- DOS başlığı ----
+e_magic            : 0x5A4D ("MZ")
+e_lfanew           : 0x00000108
+
+---- PE / COFF başlığı ----
+Signature          : 0x00004550 ("PE\0\0")
+Machine            : 0x8664 (AMD64)
+NumberOfSections   : 5
+TimeDateStamp      : 0x453ADEB0  ->  2006-10-22 03:00:00 UTC
+Characteristics    : EXECUTABLE_IMAGE, LARGE_ADDRESS_AWARE
+
+---- Optional header ----
+Magic              : 0x020B (PE32+)
+AddressOfEntryPoint: 0x0000C1A0      (dikkat: hangi bölümün içinde?)
+ImageBase          : 0x0000000140000000
+Subsystem          : WINDOWS_GUI
+DllCharacteristics : NX_COMPAT
+                     (DYNAMIC_BASE yok, GUARD_CF yok)
+
+---- Bölümler (sections) ----
+Ad       VirtAddr   VirtSize   RawSize    Entropi  İzinler
+.text    0x00001000 0x00006A20 0x00006C00  6.21    R-X
+.rdata   0x00008000 0x00002310 0x00002400  4.87    R--
+.data    0x0000B000 0x00000890 0x00000400  2.10    RW-
+.cark    0x0000C000 0x0001F400 0x0001F400  7.91    RWX
+.rsrc    0x0002C000 0x00000D10 0x00000E00  3.95    R--
+
+---- Import tablosu ----
+KERNEL32.dll
+    CreateFileW
+    WriteFile
+    CopyFileW
+    FindFirstFileW
+    FindNextFileW
+    GetLogicalDrives
+    CreateMutexW
+    GetLastError
+    Sleep
+    IsDebuggerPresent
+    VirtualAlloc
+    LoadLibraryA
+    GetProcAddress
+ADVAPI32.dll
+    RegOpenKeyExW
+    RegSetValueExW
+    RegCloseKey
+WININET.dll
+    InternetOpenA
+    InternetConnectA
+    HttpOpenRequestA
+    HttpSendRequestA
+
+---- Kaynaklar (.rsrc) ----
+RT_ICON        1   (saat kadranı simgesi)
+RT_VERSION     1   CompanyName="Kampus Bilgi Islem"  FileDescription="Kampus Saat Senkron Guncellemesi"
+                   FileVersion="3.0.0.3"  OriginalFilename="saatkulesi.exe"
+
+---- İmza ----
+Authenticode imzası: YOK

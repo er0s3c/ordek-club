@@ -1,0 +1,19 @@
+tip,deger,kaynak,ilk_gorulme,baglam,not
+domain,mercan-guncelleme.example,K1;K2,2026-10-03T09:12:33+03:00,PowerShell ikinci aşama indirme adresi,
+domain,cdn-mercan.example,K1,2026-10-03T09:13:05+03:00,rundll32 komuta-kontrol (HTTPS) adresi,
+domain,kampus-destek.example,K1,2026-10-03T09:10:00+03:00,Kimlik avı e-postasının gönderen alan adı,
+ipv4,203.0.113.45,K1;K2,2026-10-03T09:12:33+03:00,mercan-guncelleme.example A kaydı,
+ipv4,203.0.113.46,K1,2026-10-03T09:13:05+03:00,cdn-mercan.example A kaydı,
+ipv4,203.0.113.47,K1,2026-10-03T10:13:05+03:00,Yedek komuta-kontrol (8443) ve mail.kampus-destek.example,
+ipv4,198.51.100.200,K2,2026-10-04T08:10:00+03:00,Blogun "engelleyin" listesi,Doğrulanmadı
+email,burs-ofisi@kampus-destek.example,K1,2026-10-03T09:10:00+03:00,Kimlik avı gönderen adresi,
+filename,Burs_Sonuclari_2026.docm,K1,2026-10-03T09:12:04+03:00,Makrolu e-posta eki,
+sha256,ce24c0846f4e4334d33a1c26c87afad75e0f58a0fbdc685e3a6bb5012c4303a3,K1,2026-10-03T09:12:04+03:00,H2 — Burs_Sonuclari_2026.docm,
+sha256,b310d596c2370e07f36eae7913ef5b8ac6aec81abdbdcd5afb26e92507af342e,K1;K5,2026-10-03T09:12:40+03:00,H1 — svc_update.dll (LAB-PC-07),imphash 5d41e68e19d3c8dabd9f59ff1cc058ae
+sha256,b64cef74e3d6d4b5212abdc97211297ad7bfae7ced1bd9d09fc3e7c5fd227aa3,K1;K5,2026-10-03T09:47:49+03:00,H3 — svc_update.dll (LAB-PC-12),imphash 5d41e68e19d3c8dabd9f59ff1cc058ae
+sha256,1bdc8f31c7f83a2c2e3ea2defeaa47f22428b4fae0e353d5145c8edc870ca7be,K5,2025-03-18T00:00:00+03:00,H5 — sızdırılan MrcnLoader derleyicisinin varsayılan çıktısı,imphash 5d41e68e19d3c8dabd9f59ff1cc058ae
+sha256,a5e9ff6524c0a495a4fc4bc1c15baf58e0cdb182e6be45f134928b46528be521,K5,2024-02-01T00:00:00+03:00,H4 — MERCAN-7 MrcnLoader (2024 raporu),imphash 9bd7f5f8a1ae6f85ec966d9676caf38f
+sha256,e2a9db82d0b999e8955f31262c5262f72eff4b85c539c31082585ffaea208602,K2,2026-10-04T08:10:00+03:00,Blogun "engelleyin" listesi,Doğrulanmadı
+scheduled_task,MercanSync,K1,2026-10-03T09:12:44+03:00,Zamanlanmış görev adı,
+path,%APPDATA%\mrcn\svc_update.dll,K1,2026-10-03T09:12:40+03:00,Bırakılan DLL yolu,
+string,MERCAN-7 was here,K2;K5,2026-10-04T08:10:00+03:00,DLL içindeki dize,

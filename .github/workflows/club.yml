@@ -39,10 +39,71 @@ jobs:
       - run: npx prisma generate
       - run: npm run typecheck
       - run: npm run lint
+      - run: npm run academy:check
       - run: npm test
       - run: npm run build
       - name: Dependency audit (yüksek/kritik)
         run: npm audit --omit=dev --audit-level=high
+
+  e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: klup-sunucusu
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: club
+          POSTGRES_PASSWORD: change-me-local-dev-only
+          POSTGRES_DB: ordek_club_e2e
+        ports: ["5433:5432"]
+        options: >-
+          --health-cmd "pg_isready -U club" --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: klup-sunucusu/package-lock.json
+      - run: npm ci
+      - run: cp .env.example .env
+      - run: npx playwright install --with-deps chromium
+      - name: Uçtan uca 13 adımlı akış (Playwright)
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-trace
+          path: klup-sunucusu/test-results
+          retention-days: 7
+
+  # S-01: gizli anahtar taraması (tüm geçmiş) + statik analiz
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks
+        run: |
+          docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.24.3 detect --source /repo --no-banner --redact --log-opts="-- klup-sunucusu .github"
+
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+          config: |
+            paths: [klup-sunucusu/src, klup-sunucusu/server.ts, klup-sunucusu/cli.ts]
+      - uses: github/codeql-action/analyze@v3
 
   docker:
     runs-on: ubuntu-latest

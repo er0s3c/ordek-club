@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   WS_CLOSE, WS_PATH,
-  type ClientMessage, type LiveState, type ParticipantView, type QuestionView, type ServerMessage,
+  type ClientMessage, type LiveState, type ParticipantView, type PollStats, type PollView, type QuestionView, type ServerMessage,
 } from "@/lib/live-protocol";
 
 export type ConnStatus = "connecting" | "open" | "reconnecting" | "ended" | "error";
@@ -21,6 +21,9 @@ export type LiveSnapshot = {
   questions: QuestionView[];
   handRaised: boolean;
   announcement: { text: string; at: number } | null;
+  poll: PollView | null;
+  pollStats: PollStats | null; // yalnızca eğitmen
+  clockSkew: number; // sunucu saati - yerel saat (ms), geri sayım için
 };
 
 // Canlı oturum bağlantısı: otomatik yeniden bağlanma (üstel geri çekilme + jitter),
@@ -28,7 +31,7 @@ export type LiveSnapshot = {
 export function useLiveSession(code: string) {
   const [snap, setSnap] = useState<LiveSnapshot>({
     status: "connecting", error: null, v: -1, state: null, stateKey: 0, isHost: false, online: 0,
-    participants: [], questions: [], handRaised: false, announcement: null,
+    participants: [], questions: [], handRaised: false, announcement: null, poll: null, pollStats: null, clockSkew: 0,
   });
   const ws = useRef<WebSocket | null>(null);
   const vRef = useRef(-1);
@@ -61,7 +64,7 @@ export function useLiveSession(code: string) {
       // Yan etkiler (ref güncellemeleri) updater DIŞINDA: StrictMode updater'ları iki kez çağırır.
       switch (m.t) {
         case "welcome":
-          return setSnap((s) => ({ ...s, isHost: m.you.isHost }));
+          return setSnap((s) => ({ ...s, isHost: m.you.isHost, clockSkew: m.serverNow - Date.now() }));
         case "state": {
           if (m.v <= vRef.current) return; // sıra dışı/eski mesaj
           vRef.current = m.v;
@@ -73,6 +76,10 @@ export function useLiveSession(code: string) {
           return setSnap((s) => ({ ...s, questions: m.items }));
         case "you":
           return setSnap((s) => ({ ...s, handRaised: m.handRaised }));
+        case "poll":
+          return setSnap((s) => ({ ...s, poll: m.poll, pollStats: m.poll && s.pollStats?.pollId === m.poll.id ? s.pollStats : null }));
+        case "poll.stats":
+          return setSnap((s) => ({ ...s, pollStats: m.stats }));
         case "announcement":
           return setSnap((s) => ({ ...s, announcement: { text: m.text, at: m.at } }));
         case "ended":

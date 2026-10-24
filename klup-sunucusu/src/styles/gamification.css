@@ -1,0 +1,61 @@
+/* ============================================================================
+   Faz 4 — XP, seviyeler, rozetler, liderlik (galeri teması)
+   ============================================================================ */
+
+.input-num { width: 96px; text-align: right; font-family: var(--font-mono); }
+.xp-pos { color: var(--term); }
+.xp-neg { color: var(--ciu-error); }
+.is-reversed td { opacity: 0.55; }
+.xp-gain { margin-top: 4px; font-size: 13px; font-weight: 500; color: var(--ciu-success); }
+
+/* Sekmeler (sayfa içi gezinme) */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs a { padding: 12px 20px; color: var(--ink); font-size: 15px; font-weight: 500; text-decoration: none; border-bottom: 3px solid var(--accent); margin-bottom: -1px; transition: background-color var(--dur) var(--ease); }
+.tabs a:hover { color: var(--ink); }
+.tabs a[aria-current="page"] { color: #fff; background: var(--ciu-gradient-galaxy); border-bottom-color: transparent; border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+
+/* Seviye rozeti */
+.level-chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px 2px 3px; border-radius: var(--radius-tag); border: 1px solid var(--accent); background: var(--surface); font-size: 12.5px; font-weight: 500; color: var(--accent); white-space: nowrap; }
+.level-no { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; }
+
+/* Ana panel XP kartı */
+.xp-card { display: flex; gap: var(--sp-6); flex-wrap: wrap; align-items: flex-start; }
+.xp-kv { flex: 1; min-width: 200px; margin: 0; }
+
+/* Liderlik tablosu */
+.podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: end; padding: 18px; border-bottom: 1px dashed var(--line); }
+.podium-spot { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-inset); color: inherit; text-align: center; position: relative; min-width: 0; }
+.podium-spot:hover { border-color: var(--gold-deep); color: inherit; }
+.podium-1 { padding-top: 28px; padding-bottom: 24px; border: 2px solid var(--accent); background: var(--accent-bg); }
+.podium-2 { border-color: var(--line-strong); }
+.podium-3 { border-color: var(--line); }
+.podium-crown { position: absolute; top: -13px; color: var(--accent); background: var(--surface); padding: 0 4px; }
+.podium-rank { font-size: 44px; font-weight: 700; line-height: 1.12; font-family: var(--font-display); letter-spacing: var(--tracking-display); color: var(--accent); }
+.podium-2 .podium-rank { color: var(--ink-dim); }
+.podium-3 .podium-rank { color: var(--ink-faint); }
+.podium-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.podium-xp { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+.board tr.is-me td { background: var(--accent-bg); }
+.board tr.is-me td:first-child { box-shadow: inset 4px 0 0 var(--accent); }
+.history-list li { padding: 10px 18px; }
+
+/* Profil */
+.profile-head { display: flex; align-items: center; gap: var(--sp-4); }
+.avatar-lg { width: 64px; height: 64px; font-size: 22px; }
+.badge-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.badge-tile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 14px 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-inset); }
+.badge-tile strong { font-size: 13.5px; }
+.badge-tile.is-earned { border-color: var(--gold-deep); }
+.badge-tile.is-locked { opacity: 0.55; }
+.badge-medal { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 0; color: #fff; background: var(--ciu-gradient-galaxy); flex-shrink: 0; }
+.badge-tile.is-locked .badge-medal { background: var(--ciu-gray-50); color: var(--ink-faint); }
+td .badge-medal { width: 34px; height: 34px; }
+
+@media (max-width: 640px) {
+  .podium { gap: 6px; padding: 12px; }
+  .podium-spot { padding: 10px 4px; }
+  .podium-spot .level-chip { display: none; }
+  .podium-rank { font-size: 20px; }
+  .profile-head { align-items: flex-start; }
+  .avatar-lg { width: 48px; height: 48px; font-size: 18px; }
+}

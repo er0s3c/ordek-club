@@ -92,7 +92,7 @@ export function TeachHome({ items, sessions, templates, timezone }: { items: Ite
           {templates.map((t) => (
             <div key={t.key} className="card" style={{ background: "var(--bg-inset)" }}>
               <div className="card-b stack-sm">
-                <div className="row"><LayoutTemplate size={18} color="var(--lime)" aria-hidden /><strong>{t.title}</strong><span className="badge">{t.slideCount} slayt</span></div>
+                <div className="row"><LayoutTemplate size={18} color="var(--gold)" aria-hidden /><strong>{t.title}</strong><span className="badge">{t.slideCount} slayt</span></div>
                 <p className="small muted" style={{ margin: 0 }}>{t.description}</p>
                 <div><button className="btn btn-sm" onClick={() => fromTemplate(t.key)} disabled={busy !== null}>{busy === t.key && <span className="spinner" aria-hidden />} Bu şablondan oluştur</button></div>
               </div>

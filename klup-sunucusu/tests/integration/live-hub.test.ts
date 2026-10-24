@@ -60,7 +60,7 @@ describe("canlı sınıf hub'ı", () => {
     expect(a.last("state")!.state).toMatchObject({ slide: 1, step: 1 });
     await send(ch, { t: "control", c: { action: "goto", slide: 99, step: 99 } }); // sınırlar kısıtlanır
     const st = a.last("state")!.state;
-    expect(st.slide).toBe(7);
+    expect(st.slide).toBe(8); // ağ temelleri şablonu: 9 slayt (uygulama molası dahil)
     expect(st.step).toBeLessThan(10);
     await send(ch, { t: "control", c: { action: "prev" } });
     expect(a.last("state")!.v).toBe(v0 + 4);

@@ -3,6 +3,7 @@ import { invalidateSettings } from "@/server/settings";
 import { resetAll } from "@/server/rate-limit";
 import { hashPassword } from "@/server/auth/password";
 import { createSession } from "@/server/auth/session";
+import { resetDefaultsCache } from "@/server/xp/defaults";
 import type { MemberStatus, RegistrationPolicy, Role } from "@prisma/client";
 
 export const ORIGIN = "http://club.test";
@@ -10,10 +11,11 @@ export const ORIGIN = "http://club.test";
 export async function resetDb() {
   if (!process.env.DATABASE_URL?.includes("_test")) throw new Error("resetDb yalnızca _test veritabanında çalışır");
   await db.$executeRawUnsafe(
-    `TRUNCATE "LiveSessionEvent", "SessionParticipant", "LiveSession", "Slide", "PresentationVersion", "Presentation", "AuditLog", "Session", "User", "Invitation", "ClubSettings" RESTART IDENTITY CASCADE`,
+    `TRUNCATE "EmailOutbox", "PasswordResetToken", "AssignmentTeamMember", "AssignmentTeam", "ClassGroupMember", "ClassGroup", "LivePollAnswer", "LivePoll", "Notification", "Announcement", "FileGrant", "FileAsset", "Submission", "AssignmentTarget", "Assignment", "LeaderboardEntry", "LeaderboardPeriod", "ActivityDay", "UserBadge", "Badge", "Level", "XpRewardRule", "XpTransaction", "QuizAttempt", "LessonProgress", "Lesson", "Track", "LiveSessionEvent", "SessionParticipant", "LiveSession", "Slide", "PresentationVersion", "Presentation", "AuditLog", "Session", "User", "Invitation", "ClubSettings" RESTART IDENTITY CASCADE`,
   );
   invalidateSettings();
   resetAll();
+  resetDefaultsCache(); // XP kuralları/seviyeler/rozetler bir sonraki kullanımda yeniden eklenir
 }
 
 export async function completeSetupFixture(policy: RegistrationPolicy = "APPROVAL") {

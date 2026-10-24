@@ -16,4 +16,10 @@ done
 echo "[club] migration'lar uygulanıyor…"
 node node_modules/prisma/build/index.js migrate deploy
 
+# İmajdaki akademi içeriğini eşitle (ilerleme korunur). Hatalı içerik sunucuyu durdurmaz: eski içerik kalır.
+if [ "${ACADEMY_AUTO_IMPORT:-1}" = "1" ]; then
+  echo "[club] akademi içeriği içe aktarılıyor…"
+  node dist/cli.js academy-import || echo "[club] UYARI: akademi içeriği içe aktarılamadı; önceki içerik kullanılmaya devam ediyor." >&2
+fi
+
 exec "$@"

@@ -12,7 +12,7 @@ export class ApiError extends Error {
   }
 }
 
-type Opts = { method?: "GET" | "POST" | "PATCH" | "DELETE"; body?: unknown; form?: FormData; signal?: AbortSignal };
+type Opts = { method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"; body?: unknown; form?: FormData; signal?: AbortSignal };
 
 export async function api<T = unknown>(path: string, opts: Opts = {}): Promise<T> {
   const headers: Record<string, string> = { Accept: "application/json" };

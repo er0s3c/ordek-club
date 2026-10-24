@@ -1,0 +1,78 @@
+# ============================================================================
+#  Ördek Akademi — Yol G laboratuvar dosyası (KURGUSAL, METİN)
+#  Kurgusal eğitim örneği "kampus-saat-guncelleme.exe_" üzerinde
+#     strings -n 6 -t x      (ASCII)   ve   strings -n 6 -t x -el   (UTF-16LE)
+#  çıktısının birleştirilmiş, kısaltılmış hâli. Gerçek bir dosyadan alınmamıştır.
+#  Alan adları .test, IP'ler RFC 5737 belgelendirme aralığındandır.
+#  Sütunlar: dosya ofseti (hex)  [A]=ASCII / [W]=UTF-16  dize
+# ============================================================================
+
+     4d [A] !This program cannot be run in DOS mode.
+    1f8 [A] .text
+    220 [A] .rdata
+    248 [A] .data
+    270 [A] .cark
+    298 [A] .rsrc
+   6c40 [A] KERNEL32.dll
+   6c50 [A] CreateFileW
+   6c5e [A] WriteFile
+   6c6a [A] CopyFileW
+   6c76 [A] FindFirstFileW
+   6c88 [A] FindNextFileW
+   6c98 [A] GetLogicalDrives
+   6cac [A] CreateMutexW
+   6cbc [A] GetLastError
+   6cd2 [A] IsDebuggerPresent
+   6ce6 [A] VirtualAlloc
+   6cf6 [A] LoadLibraryA
+   6d06 [A] GetProcAddress
+   6d18 [A] ADVAPI32.dll
+   6d28 [A] RegOpenKeyExW
+   6d38 [A] RegSetValueExW
+   6d4a [A] RegCloseKey
+   6d58 [A] WININET.dll
+   6d66 [A] InternetOpenA
+   6d76 [A] InternetConnectA
+   6d8a [A] HttpOpenRequestA
+   6d9e [A] HttpSendRequestA
+   8010 [A] SaatKulesi/1.0 (Kurgu; Windows NT 10.0)
+   8040 [A] zamanlayici.kurmali-sabri.test
+   8060 [A] yedek.kurmali-sabri.test
+   8080 [A] 198.51.100.23
+   8090 [A] 203.0.113.45
+   80a0 [A] /cark/kur
+   80b0 [A] /cark/teslim
+   80c0 [A] POST
+   80c8 [A] Content-Type: application/octet-stream
+   80f0 [A] bocek_no=%s&saat=%s&host=%s
+   8110 [A] AYNA_BESLE
+   8120 [A] imza=LMN-2006-ALTIN
+   8140 [A] kontrol: debugger var, uyu
+   8160 [A] kontrol: kafes var, uyu
+   8180 [A] %s\cark.dat
+   8190 [A] *.docx
+   8198 [A] *.xlsx
+   81a0 [A] *.pdf
+   81a8 [A] SAATI KURDUM. TIK TAK.
+   9a00 [W] Global\SaatIsliyor-03
+   9a30 [W] Software\Microsoft\Windows\CurrentVersion\Run
+   9a90 [W] KampusSaat
+   9aa8 [W] %APPDATA%\SaatKulesi\saatkulesi.exe
+   9af0 [W] %TEMP%
+   9b00 [W] cmd.exe /c schtasks /create /tn "KampusSaatSenkron" /tr "%APPDATA%\SaatKulesi\saatkulesi.exe" /sc daily /st 03:00 /f
+   9be0 [W] Belgeler
+   9bf0 [W] vboxservice.exe
+   9c10 [W] vmtoolsd.exe
+   9c30 [W] procmon64.exe
+   9c50 [W] x64dbg.exe
+   9c70 [W] wireshark.exe
+   c0a0 [A] KURGU
+   c3f1 [A] x9#kQ!vZ
+   d7a2 [A] p@L2]m^e
+   f119 [A] Gq7&uT0z
+  1a4c8 [A] ;nB)w5rH
+  2b9e0 [A] ]Zt!4yQe
+  2c0f0 [W] Kampus Bilgi Islem
+  2c120 [W] Kampus Saat Senkron Guncellemesi
+  2c170 [W] 3.0.0.3
+  2c190 [W] saatkulesi.exe

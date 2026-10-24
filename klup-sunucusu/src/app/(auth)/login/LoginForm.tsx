@@ -7,7 +7,7 @@ import { Field } from "@/components/ui/Field";
 import { useMessages } from "@/components/providers";
 import { ApiError, api } from "@/lib/api-client";
 
-export function LoginForm({ next, canRegister }: { next: string; canRegister: boolean }) {
+export function LoginForm({ next, canRegister, canReset }: { next: string; canRegister: boolean; canReset: boolean }) {
   const m = useMessages();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -37,6 +37,7 @@ export function LoginForm({ next, canRegister }: { next: string; canRegister: bo
       <button className="btn btn-primary btn-block" disabled={busy}>
         {busy && <span className="spinner" aria-hidden />} {m.auth.loginButton}
       </button>
+      {canReset && <p className="auth-foot" style={{ marginTop: -6 }}><Link href="/forgot-password">Parolamı unuttum</Link></p>}
       {canRegister && (
         <p className="auth-foot">
           {m.auth.noAccount} <Link href="/register">{m.auth.registerLink}</Link>

@@ -34,7 +34,7 @@ export function Providers({ messages, children }: { messages: Messages; children
         <div className="toasts" role="status" aria-live="polite">
           {toasts.map((t) => (
             <div key={t.id} className={`toast toast-${t.kind}`}>
-              {t.kind === "ok" ? <CheckCircle2 size={18} color="var(--lime)" aria-hidden /> : t.kind === "error" ? <XCircle size={18} color="var(--red)" aria-hidden /> : <Info size={18} color="var(--blue)" aria-hidden />}
+              {t.kind === "ok" ? <CheckCircle2 size={18} color="var(--term)" aria-hidden /> : t.kind === "error" ? <XCircle size={18} color="var(--red)" aria-hidden /> : <Info size={18} color="var(--blue)" aria-hidden />}
               <span>{t.text}</span>
             </div>
           ))}

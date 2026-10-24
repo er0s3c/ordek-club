@@ -14,7 +14,7 @@ type Row = {
 };
 type Res = { total: number; page: number; pageSize: number; items: Row[] };
 
-const PREFIX_LABEL: Record<string, string> = { auth: "Kimlik", member: "Üyelik", invitation: "Davet", settings: "Ayarlar", setup: "Kurulum" };
+const PREFIX_LABEL: Record<string, string> = { auth: "Kimlik", member: "Üyelik", invitation: "Davet", settings: "Ayarlar", setup: "Kurulum", academy: "Akademi", xp: "XP", badge: "Rozet", leaderboard: "Liderlik" };
 
 export function AuditTable({ timezone }: { timezone: string }) {
   const m = useMessages();

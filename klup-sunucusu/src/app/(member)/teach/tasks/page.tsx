@@ -1,0 +1,54 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ClipboardList, Plus } from "lucide-react";
+import { requirePageSession } from "@/server/auth/page-guard";
+import { STAFF_ROLES } from "@/server/auth/guard";
+import { listAssignmentsForStaff } from "@/server/classroom/assignments";
+import { getSettings } from "@/server/settings";
+import { formatDateTime } from "@/components/ui/format";
+import { ASSIGNMENT_STATUS, KIND_LABEL } from "@/components/classroom/labels";
+
+export const metadata: Metadata = { title: "Görev yönetimi" };
+
+export default async function TeachTasksPage() {
+  const { user } = await requirePageSession(STAFF_ROLES);
+  const [items, s] = await Promise.all([listAssignmentsForStaff({ id: user.id, role: user.role, status: user.status }), getSettings()]);
+  return (
+    <div className="stack fade-up">
+      <div className="page-head row-between">
+        <div>
+          <div className="eyebrow"><Link href="/teach">Eğitmen paneli</Link></div>
+          <h1 className="page-title">Görev yönetimi</h1>
+          <p className="page-sub">Görev oluştur, öğrencilere ata, teslimleri ölçütlerle değerlendir. XP yalnızca onayda verilir.</p>
+        </div>
+        <Link className="btn btn-primary" href="/teach/tasks/new"><Plus size={16} aria-hidden /> Yeni görev</Link>
+      </div>
+      <section className="card">
+        {!items.length ? (
+          <div className="empty"><ClipboardList size={28} aria-hidden /><div>Henüz görev yok.</div></div>
+        ) : (
+          <div className="table-wrap">
+            <table className="table">
+              <thead><tr><th>Görev</th><th>Durum</th><th>Son teslim</th><th>Hedef</th><th className="num">Teslim</th><th className="num">Bekleyen</th></tr></thead>
+              <tbody>
+                {items.map((a) => (
+                  <tr key={a.id}>
+                    <td>
+                      <Link href={`/teach/tasks/${a.id}`}><strong>{a.title}</strong></Link>
+                      <div className="tiny faint">{KIND_LABEL[a.kind]} · {a.createdBy?.displayName ?? "—"}{a.liveSession && <> · canlı ders <span className="mono">{a.liveSession.code}</span></>}</div>
+                    </td>
+                    <td><span className={ASSIGNMENT_STATUS[a.status]!.cls}>{ASSIGNMENT_STATUS[a.status]!.label}</span></td>
+                    <td className="small">{a.dueAt ? formatDateTime(a.dueAt, s.timezone) : "—"}</td>
+                    <td className="small">{a.audience === "ALL" ? "Tüm öğrenciler" : `${a._count.targets} öğrenci`}</td>
+                    <td className="num mono">{a._count.submissions}</td>
+                    <td className="num">{a.pending ? <span className="badge badge-amber">{a.pending}</span> : <span className="faint">0</span>}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}

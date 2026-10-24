@@ -9,6 +9,8 @@ import { useToast } from "@/components/providers";
 import { CopyButton } from "@/components/ui/CopyButton";
 import { SlideView } from "@/components/presentation/SlideView";
 import { useLiveSession } from "@/hooks/useLiveSession";
+import { HostPollPanel } from "@/components/live/Poll";
+import { HostPractical } from "@/components/live/Practical";
 import { api } from "@/lib/api-client";
 import { SPEEDS, type ControlAction } from "@/lib/live-protocol";
 import type { ClientDeck } from "@/lib/deck-schema";
@@ -25,6 +27,8 @@ export function HostConsole({ sessionId, code, joinUrl, qr, deck }: { sessionId:
   const { state, send } = live;
   const slide = state ? deck.slides[state.slide] : undefined;
   const nextSlide = state ? deck.slides[state.slide + 1] : undefined;
+  const practical = slide?.blocks.find((b) => b.type === "practical");
+  const practicalInfo = state ? state.practicals?.[String(state.slide)] : undefined;
   const control = (c: ControlAction) => {
     if (!send({ t: "control", c })) toast("error", "Bağlantı yok; yeniden bağlanılıyor…");
   };
@@ -119,6 +123,10 @@ export function HostConsole({ sessionId, code, joinUrl, qr, deck }: { sessionId:
             ))}
           </div>
 
+          {practical?.type === "practical" && (
+            <HostPractical assignmentId={practicalInfo?.assignmentId ?? null} dueAt={practicalInfo?.dueAt ?? null} block={practical} skew={live.clockSkew} online={live.online} />
+          )}
+
           <div className="grid-2">
             <section className="card">
               <div className="card-h"><h2>Eğitmen notları</h2><span className="tiny faint">yalnızca sen görürsün</span></div>
@@ -162,6 +170,8 @@ export function HostConsole({ sessionId, code, joinUrl, qr, deck }: { sessionId:
               )}
             </div>
           </section>
+
+          <HostPollPanel poll={live.poll} stats={live.pollStats} skew={live.clockSkew} send={send} />
 
           {hands.length > 0 && <div className="alert alert-warn small"><Hand size={16} aria-hidden /> {hands.length} kişi el kaldırdı</div>}
 

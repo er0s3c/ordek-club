@@ -104,7 +104,7 @@ export function SetupWizard({ configuredUrl, requestIsHttps }: { configuredUrl: 
           {STEPS.map((_, i) => <span key={i} data-done={i <= step} />)}
         </div>
         <div className="row" style={{ marginBottom: 16 }}>
-          <Icon size={20} color="var(--lime)" aria-hidden />
+          <Icon size={20} color="var(--gold)" aria-hidden />
           <h2 style={{ fontSize: 17 }}>
             Adım {step + 1}/4 · {STEPS[step]!.title}
           </h2>

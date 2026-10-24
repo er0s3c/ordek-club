@@ -1,0 +1,118 @@
+/* ============================================================================
+   Mini görev (docs/design-council/04 §6.7, 05 §6). C dili: krem posta maketi, ilk görevde koyu yüzey yok.
+   Posta gövdesi gerçeğe yakın ve sade: marka moru/yeşili çerçevede kalır, maketin içine girmez (07 §1).
+   B atmosferi yalnız kanca bandında ve kapanış kartında.
+   ============================================================================ */
+.mission { --m-line: var(--lab-border, rgba(46, 46, 46, 0.16)); display: flex; flex-direction: column; gap: 16px; max-width: 640px; margin: 0 auto; padding: 24px; border-radius: 20px; background: var(--lab-bg, #fff); border: 1px solid var(--m-line); color: var(--lab-text, var(--ciu-ink)); font: 400 16px/1.6 var(--font-sans); letter-spacing: 0.01em; scroll-margin-top: 90px; }
+.mission:focus-within { outline: none; }
+
+.mission-sim { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 5px 12px; border-radius: 30px; background: var(--lab-surface-2, #f4effd); color: var(--lab-text, var(--ciu-ink)); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em; }
+.mission-sim svg { color: var(--ciu-purple); flex-shrink: 0; }
+.lab-room[data-theme="dark"] .mission-sim svg { color: var(--ciu-green); }
+
+/* Kanca bandı: B atmosferi, tek satır, saat damgası yalnız burada */
+.mission-hook { margin: 0; padding: 14px 18px; border-radius: 16px; background: var(--ciu-gradient-galaxy); color: #fff; font-size: 16px; line-height: 1.55; }
+.mission-hook time { font: 600 14px/1 var(--font-term); margin-right: 8px; padding: 3px 8px; border-radius: 6px; background: rgba(0, 0, 0, 0.28); }
+
+.mission-rail { display: flex; align-items: center; gap: 14px; }
+.mission-rail .lab-progress-rail { flex: 1; height: 12px; border-radius: 30px; background: var(--lab-surface-2, #f4effd); overflow: hidden; }
+
+/* Posta maketi — kasıtlı olarak sade, krem/beyaz; marka renkleri yok */
+.mail { border: 1px solid #d9d4c7; border-radius: 14px; background: #fffdf7; color: #2b2b2b; overflow: hidden; font: 400 15.5px/1.55 Arial, "Readex Pro", sans-serif; letter-spacing: 0; }
+.mail-head { padding: 14px 16px 10px; border-bottom: 1px solid #ebe5d6; display: flex; flex-direction: column; gap: 6px; position: relative; }
+.mail-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; padding-right: 54px; }
+.mail-label { font-size: 12px; color: #6b6458; min-width: 58px; }
+.mail-from { font-weight: 700; }
+.mail-subject { font-weight: 700; }
+.mail-time { position: absolute; top: 14px; right: 16px; font-size: 12.5px; color: #6b6458; font-variant-numeric: tabular-nums; }
+.mail-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 12px; border-radius: 30px; border: 1.5px solid var(--ciu-purple); background: #fff; color: var(--ciu-purple); font: 500 13px/1 var(--font-sans); cursor: pointer; }
+.mail-chip:hover { background: #f4effd; }
+.mail-chip[aria-expanded="true"] { background: var(--ciu-purple); color: #fff; }
+.mail-chip[aria-expanded="true"] svg { transform: rotate(90deg); }
+.mail-chip svg { transition: transform 200ms var(--ease); }
+.mail-chip:focus-visible { box-shadow: 0 0 0 4px rgba(92, 31, 226, 0.35); outline: none; }
+.mail-compare { margin: 4px 0 2px; padding: 12px 14px; border-radius: 10px; background: #f4effd; border: 1px solid #ddd2fb; display: flex; flex-direction: column; gap: 6px; font-size: 14px; animation: fadeUp 0.25s var(--ease) both; }
+.mail-compare-row { display: grid; grid-template-columns: 150px 1fr; gap: 10px; align-items: baseline; }
+.mail-compare-row > span { color: #5a5248; font-size: 13px; }
+.mail-compare-full { font-size: 12.5px; color: #5a5248; }
+.mail-addr, .mail-compare-full code { font: 600 14px/1.4 var(--font-term); color: #1f1f1f; overflow-wrap: anywhere; }
+.mail-addr mark { background: transparent; color: inherit; padding: 0 2px; border-radius: 4px; box-shadow: 0 0 0 2px var(--ciu-purple); animation: ringIn 300ms var(--ease) both; }
+@keyframes ringIn { from { box-shadow: 0 0 0 6px rgba(92, 31, 226, 0); } to { box-shadow: 0 0 0 2px var(--ciu-purple); } }
+.mail-body { padding: 14px 16px 6px; }
+.mail-body p { margin: 0 0 10px; }
+.mail-cta { padding: 4px 16px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mail-fake-btn { min-height: 38px; padding: 0 18px; border: 0; border-radius: 6px; background: #1d5fbf; color: #fff; font: 700 14px/1 Arial, sans-serif; cursor: pointer; }
+.mail-fake-btn:focus-visible { box-shadow: 0 0 0 4px rgba(92, 31, 226, 0.35); outline: none; }
+
+/* Simülasyon giriş ekranı: input YOK */
+.mission-scene { padding: 16px; border-radius: 14px; border: 2px dashed var(--lab-danger, var(--ciu-error)); background: var(--lab-surface, var(--ciu-cream)); display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.25s var(--ease) both; }
+.mission-scene p { margin: 0; font-size: 15px; }
+.mission-scene .btn { align-self: flex-start; }
+.sim-bar { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; background: #ececec; color: #333; font: 600 13px/1.3 var(--font-term); overflow-wrap: anywhere; }
+.sim-form { display: flex; flex-direction: column; gap: 8px; max-width: 320px; opacity: 0.75; }
+.sim-field { padding: 10px 12px; border-radius: 6px; border: 1px solid #c9c9c9; background: #f7f7f7; color: #8a8a8a; font-size: 14px; }
+.sim-submit { padding: 10px 12px; border-radius: 6px; background: #b9b9b9; color: #fff; text-align: center; font-weight: 700; font-size: 14px; }
+
+/* Karar kartı */
+.mission-step { display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }
+.mission-step-title { margin: 0; font: 500 22px/1.3 var(--font-sans); text-transform: none; letter-spacing: 0; color: var(--lab-text, var(--ciu-ink)); }
+.mission-prompt { margin: 0; color: var(--lab-text-muted, #474747); }
+.mission-gate { margin: 0; padding: 10px 14px; border-radius: 10px; border-left: 4px solid var(--ciu-purple); background: var(--lab-surface-2, #f4effd); font-size: 14.5px; }
+.mission-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.mission-opt { display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 20px; border-radius: 30px; border: 1.5px solid var(--lab-text, var(--ciu-ink)); background: var(--lab-bg, #fff); color: var(--lab-text, var(--ciu-ink)); font: 500 15px/1.25 var(--font-sans); text-align: left; cursor: pointer; transition: background-color 180ms, border-color 180ms; }
+.mission-opt:hover:not(:disabled) { background: var(--lab-surface-2, #f4effd); }
+.mission-opt:focus-visible { box-shadow: var(--lab-focus, 0 0 0 4px rgba(92, 31, 226, 0.35)); outline: none; }
+.mission-opt:disabled { cursor: default; }
+.mission-opt.is-on { border-color: var(--ciu-purple); background: color-mix(in srgb, var(--ciu-purple) 14%, transparent); }
+.mission-opt.is-wrong { border-color: var(--lab-danger, var(--ciu-error)); color: var(--lab-danger, var(--ciu-error)); text-decoration: line-through; text-decoration-thickness: 1px; opacity: 0.85; }
+.mission-opt.is-right { border-color: var(--lab-ok, var(--ciu-success)); color: var(--lab-ok, var(--ciu-success)); }
+.mission-opt:disabled:not(.is-wrong):not(.is-right) { opacity: 0.55; }
+
+.mission-feedback:focus { outline: none; }
+.mission-feedback:empty { display: none; }
+.mission-verdict { display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; border-radius: 14px; border: 1.5px solid; font-size: 15.5px; }
+.mission-verdict svg { flex-shrink: 0; margin-top: 3px; }
+.mission-verdict.is-ok { border-color: var(--lab-ok, var(--ciu-success)); background: color-mix(in srgb, var(--lab-ok, var(--ciu-success)) 8%, transparent); }
+.mission-verdict.is-ok svg { color: var(--lab-ok, var(--ciu-success)); }
+.mission-verdict.is-bad { border-color: var(--lab-danger, var(--ciu-error)); background: color-mix(in srgb, var(--lab-danger, var(--ciu-error)) 6%, transparent); animation: labShake 300ms var(--ease); }
+.mission-verdict.is-bad svg { color: var(--lab-danger, var(--ciu-error)); }
+.mission-solution { margin-top: 10px; padding: 12px 16px; border-radius: 14px; background: var(--lab-surface-2, #f4effd); border-left: 4px solid var(--ciu-purple); font-size: 15px; }
+.mission-hints { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.mission-hints li { display: flex; gap: 8px; align-items: flex-start; padding: 10px 14px; border-radius: 12px; background: var(--lab-surface, var(--ciu-cream)); border: 1px solid var(--m-line); font-size: 15px; }
+.mission-hints svg { flex-shrink: 0; margin-top: 3px; color: var(--lab-warn, #8a5a00); }
+.mission-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mission-actions .btn-primary { margin-left: auto; }
+
+/* Kapanış kartı — B atmosferi (DOSYA KAPANDI + ifşa) */
+.mission-closing { background: var(--lab-surface, var(--ciu-cream)); }
+.mission-closing-head:focus { outline: none; }
+.mission-stamp { display: inline-block; padding: 6px 16px; border-radius: 6px; transform: rotate(-1.5deg); background: var(--ciu-purple); color: #fff; font: 700 14px/1.2 var(--font-display); letter-spacing: var(--tracking-display); }
+.mission-closing-body { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; }
+.mission-closing-body:not(:has(.mission-portrait)) { grid-template-columns: 1fr; }
+.mission-portrait { width: 140px; height: auto; border-radius: 14px; border: 1px solid var(--m-line); background: var(--lab-bg, #fff); }
+.mission-reveal { margin: 0; font-size: 18px; line-height: 1.55; color: var(--lab-text, var(--ciu-ink)); }
+.mission-xp { margin: 10px 0 0; font-weight: 500; color: var(--lab-ok, var(--ciu-success)); font-variant-numeric: tabular-nums; }
+.mission-rules { margin: 0; padding: 14px 18px 14px 38px; border-radius: 14px; background: var(--lab-bg, #fff); border: 1px solid var(--m-line); display: flex; flex-direction: column; gap: 6px; font-weight: 500; }
+.mission-rules li::marker { color: var(--ciu-purple); font-weight: 700; }
+.lab-room[data-theme="dark"] .mission-rules li::marker { color: var(--ciu-green); }
+.mission-next { margin: 0; padding: 12px 16px; border-radius: 14px; background: var(--ciu-gradient-galaxy); color: #fff; font-size: 15px; }
+.mission-story { align-self: flex-start; font-size: 14px; color: var(--lab-accent-ink, var(--ciu-purple)); }
+
+.mission.is-readonly { gap: 12px; }
+.mission-preview { margin: 0; padding-left: 22px; font-size: 15px; color: var(--lab-text-muted, #474747); }
+.mission-note { margin: 0; font-size: 13.5px; color: var(--lab-text-subtle, #6b6b6b); }
+.mission-missing { padding: 12px 16px; border-radius: 12px; border: 1px dashed var(--m-line, rgba(46, 46, 46, 0.2)); color: var(--lab-text-subtle, #6b6b6b); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-verdict.is-bad, .mail-compare, .mission-scene, .mail-addr mark { animation: none; }
+  .mail-chip svg, .mission-opt { transition: none; }
+}
+@media (max-width: 640px) {
+  .mission { padding: 16px; border-radius: 16px; }
+  .mission-opt { width: 100%; justify-content: flex-start; }
+  .mail-compare-row { grid-template-columns: 1fr; gap: 2px; }
+  .mission-actions .btn { flex: 1 1 auto; justify-content: center; }
+  .mission-actions .btn-primary { margin-left: 0; width: 100%; }
+  .mission-closing-body { grid-template-columns: 1fr; }
+  .mission-portrait { width: 110px; }
+}

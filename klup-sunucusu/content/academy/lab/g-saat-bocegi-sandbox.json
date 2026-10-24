@@ -1,0 +1,122 @@
+{
+  "_aciklama": "Ördek Akademi Yol G laboratuvar dosyası. KURGUSAL bir eğitim örneğinin uydurma sandbox raporudur; gerçek bir analizden alınmamıştır. Hash'ler uydurmadır. Alan adları .test, IP'ler RFC 5737 aralığındandır.",
+  "kafes": {
+    "ad": "Kafes (laboratuvar sandbox'ı)",
+    "isletim_sistemi": "Windows 10 x64 analiz VM'i",
+    "ag": "host-only; DNS ve HTTP sahte servislerle (FakeNet benzeri) yanıtlandı, internete çıkış yok",
+    "sure_saniye": 300,
+    "baslangic": "2026-10-21T14:02:10Z",
+    "not": "İzleme araçlarının süreç adları değiştirildi; örnek kendini analiz ortamında sanmadı."
+  },
+  "ornek": {
+    "dosya_adi": "kampus-saat-guncelleme.exe",
+    "boyut": 178688,
+    "md5": "9ac3b07a0b30a474a37f389944796e26",
+    "sha256": "5ed7dd0f78b3988a364564bb530f35204f8dc40eebf27cb186c0f94ef7ce0632",
+    "tur": "PE32+ GUI x86-64",
+    "imza": "yok"
+  },
+  "surec_agaci": [
+    {
+      "pid": 4120,
+      "ust_pid": 2964,
+      "ust_surec": "explorer.exe",
+      "ad": "kampus-saat-guncelleme.exe",
+      "komut_satiri": "\"C:\\Users\\analist\\Desktop\\kampus-saat-guncelleme.exe\"",
+      "alt_surecler": [
+        {
+          "pid": 4232,
+          "ad": "cmd.exe",
+          "komut_satiri": "cmd.exe /c schtasks /create /tn \"KampusSaatSenkron\" /tr \"C:\\Users\\analist\\AppData\\Roaming\\SaatKulesi\\saatkulesi.exe\" /sc daily /st 03:00 /f",
+          "alt_surecler": [
+            { "pid": 4240, "ad": "schtasks.exe", "alt_surecler": [] }
+          ]
+        },
+        {
+          "pid": 4388,
+          "ad": "saatkulesi.exe",
+          "komut_satiri": "\"C:\\Users\\analist\\AppData\\Roaming\\SaatKulesi\\saatkulesi.exe\"",
+          "alt_surecler": []
+        }
+      ]
+    }
+  ],
+  "dosya": [
+    {
+      "islem": "olusturma",
+      "pid": 4120,
+      "yol": "C:\\Users\\analist\\AppData\\Roaming\\SaatKulesi\\saatkulesi.exe",
+      "sha256": "5ed7dd0f78b3988a364564bb530f35204f8dc40eebf27cb186c0f94ef7ce0632"
+    },
+    {
+      "islem": "listeleme",
+      "pid": 4388,
+      "yol": "C:\\Users\\analist\\Documents\\*.docx; *.xlsx; *.pdf",
+      "adet": 37
+    },
+    {
+      "islem": "olusturma",
+      "pid": 4388,
+      "yol": "C:\\Users\\analist\\AppData\\Local\\Temp\\cark.dat",
+      "boyut": 4096,
+      "sha256": "6e570b138677d522acc3adea66ec1585425e8e4b07eed1e0fc027945d6ff1464"
+    }
+  ],
+  "registry": [
+    {
+      "islem": "RegSetValue",
+      "pid": 4120,
+      "anahtar": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "deger_adi": "KampusSaat",
+      "veri": "C:\\Users\\analist\\AppData\\Roaming\\SaatKulesi\\saatkulesi.exe"
+    }
+  ],
+  "zamanlanmis_gorevler": [
+    {
+      "ad": "\\KampusSaatSenkron",
+      "tetikleyici": "her gün 03:00",
+      "eylem": "C:\\Users\\analist\\AppData\\Roaming\\SaatKulesi\\saatkulesi.exe"
+    }
+  ],
+  "mutex": [
+    { "pid": 4120, "ad": "Global\\SaatIsliyor-03" }
+  ],
+  "api_ozeti": [
+    { "pid": 4120, "api": "IsDebuggerPresent", "sonuc": 0 },
+    { "pid": 4120, "api": "Sleep", "arguman_ms": 600000, "not": "Kafes uyku süresini kısalttı" },
+    { "pid": 4388, "api": "GetLogicalDrives", "sonuc": "C: (çıkarılabilir sürücü yok)" },
+    { "pid": 4388, "api": "VirtualAlloc", "not": "RWX bellek ayrıldı; .cark bölümünden 126 KB kopyalandı" }
+  ],
+  "ag": [
+    {
+      "tur": "dns",
+      "pid": 4388,
+      "alan_adi": "zamanlayici.kurmali-sabri.test",
+      "yanit": "192.0.2.10",
+      "not": "yanıtı sahte DNS verdi"
+    },
+    {
+      "tur": "http",
+      "pid": 4388,
+      "alan_adi": "zamanlayici.kurmali-sabri.test",
+      "hedef": "192.0.2.10:80",
+      "yontem": "POST",
+      "url": "http://zamanlayici.kurmali-sabri.test/cark/teslim",
+      "user_agent": "SaatKulesi/1.0 (Kurgu; Windows NT 10.0)",
+      "govde_boyutu": 4096,
+      "govde_ornegi": "bocek_no=03&saat=2026-10-21T14:12:10Z&host=ANALIZ-VM"
+    },
+    {
+      "tur": "tcp",
+      "pid": 4388,
+      "alan_adi": null,
+      "hedef": "203.0.113.45:8443",
+      "not": "bağlantı denemesi; host-only ağda yanıt yok"
+    }
+  ],
+  "analizden_kacma": [
+    "IsDebuggerPresent kontrolü",
+    "600 saniyelik Sleep (sandbox'ın sabrını tüketme)",
+    "VM ve analiz aracı süreç adları arandı: vboxservice.exe, vmtoolsd.exe, procmon64.exe, x64dbg.exe, wireshark.exe"
+  ]
+}

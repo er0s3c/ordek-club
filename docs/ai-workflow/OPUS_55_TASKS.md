@@ -99,15 +99,15 @@ node scripts/smoke.mjs http://localhost:3100            # canlı sunucuya HTTP s
 | C3-01 | LearningPath/Module/Lesson/LessonProgress + 10 başlangıç yolu (seed) | feature/club-academy | TODO |
 | C3-02 | Quiz/Question/QuizAttempt (çoktan seçmeli, D/Y, kısa cevap, eşleştirme, senaryo) | feature/club-academy | TODO |
 | C3-03 | Öğrenci dashboard (devam eden, önerilen, görevler, sıralama, duyurular) | feature/club-academy | TODO |
-| C4-01 | XPTransaction (idempotency anahtarı, unique), XPRewardRule, Level eşikleri | feature/club-gamification | TODO |
-| C4-02 | Badge/UserBadge + otomatik rozet kuralları | feature/club-gamification | TODO |
-| C4-03 | Aylık (TZ ayarlı, arşivli) + genel liderlik; admin düzeltme + şüpheli kayıtlar | feature/club-gamification | TODO |
-| C5-01 | Assignment/Target/Submission + rubrik + onay sonrası XP | feature/club-classroom | TODO |
-| C5-02 | FileAsset/FilePermission: güvenli yükleme/indirme, kota | feature/club-classroom | TODO |
-| C5-03 | Canlı quiz/anket, duyurular, Notification | feature/club-classroom | TODO |
-| C5-04 | VMware uygulama molası slaytı (öğrenci/eğitmen görünümü, teslim) | feature/club-classroom | TODO |
-| C6-01 | Club Studio blok editörü (otomatik kayıt, sürüm, içe/dışa aktarma, şablonlar) | feature/club-studio | TODO |
-| C6-02 | Analitik ekranları | feature/club-studio | TODO |
-| C6-03 | Uçtan uca 13 adımlı akış testi (Playwright) | feature/club-studio | TODO |
-| S-01 | Dependency audit + secret scanning + static analysis CI (club workflow) | fix/security-hardening | TODO |
+| C4-01 | XPTransaction (idempotency anahtarı, unique), XPRewardRule, Level eşikleri | feature/club-gamification | DONE |
+| C4-02 | Badge/UserBadge + otomatik rozet kuralları | feature/club-gamification | DONE |
+| C4-03 | Aylık (TZ ayarlı, arşivli) + genel liderlik; admin düzeltme + şüpheli kayıtlar | feature/club-gamification | DONE |
+| C5-01 | Assignment/Target/Submission + rubrik + onay sonrası XP | feature/club-classroom | DONE |
+| C5-02 | FileAsset/FilePermission: güvenli yükleme/indirme, kota | feature/club-classroom | DONE |
+| C5-03 | Canlı quiz/anket, duyurular, Notification | feature/club-classroom | DONE |
+| C5-04 | VMware uygulama molası slaytı (öğrenci/eğitmen görünümü, teslim) | feature/club-classroom | DONE |
+| C6-01 | Club Studio blok editörü (otomatik kayıt, sürüm, içe/dışa aktarma, şablonlar) | feature/club-studio | DONE (commit bekliyor) |
+| C6-02 | Analitik ekranları | feature/club-studio | DONE (commit bekliyor) |
+| C6-03 | Uçtan uca 13 adımlı akış testi (Playwright) | feature/club-studio | DONE (commit bekliyor) |
+| S-01 | Dependency audit + secret scanning + static analysis CI (club workflow) | feature/club-studio | DONE (commit bekliyor; GitHub'da ilk PR'da çalışacak) |
 | S-02 | WebSocket yetkisiz olay regresyon testleri | feature/club-realtime | DONE |

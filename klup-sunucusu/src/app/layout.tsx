@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import "@/styles/presentation.css";
+import "@/styles/academy.css";
+import "@/styles/gamification.css";
+import "@/styles/classroom.css";
+import "@/styles/terminal.css";
+import "@/styles/lab.css";
+import "@/styles/mission.css";
 import { Providers } from "@/components/providers";
 import { getMessages } from "@/i18n";
 import { getSettings } from "@/server/settings";
@@ -13,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: { default: name, template: `%s · ${name}` }, description: s?.description || "Siber güvenlik kulübü eğitim platformu" };
 }
 
-export const viewport: Viewport = { themeColor: "#121510", colorScheme: "dark" };
+export const viewport: Viewport = { themeColor: "#5c1fe2", colorScheme: "light" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const s = await getSettings().catch(() => null);

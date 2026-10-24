@@ -1,0 +1,16 @@
+# Gitleaks yapılandırması (CI: .github/workflows/club.yml → secrets işi).
+# Varsayılan kurallar geçerli; yalnız test/E2E dosyalarındaki bilinçli sahte değerler (test parolaları,
+# test ortamı APP_SECRET'ı) muaf tutulur. Uygulama kaynak kodu ve yapılandırma dosyaları taranmaya devam eder.
+title = "Ördek Club gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Yalnız testlere özgü sahte gizli değerler"
+paths = [
+  '''(^|/)klup-sunucusu/tests/''',
+  '''(^|/)klup-sunucusu/e2e/''',
+  '''(^|/)klup-sunucusu/vitest\.config\.ts$''',
+  '''(^|/)klup-sunucusu/\.env\.example$''',
+]

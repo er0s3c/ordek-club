@@ -1,0 +1,28 @@
+# ============================================================================
+#  Akademi yapısı — platform içe aktarıcısı bu dosyayı okur (npm run cli academy-import).
+#  Her yol bir klasördür; klasördeki sayfalar dosya adı sırasıyla ders olur.
+#  tur: program (akademi hakkında) · temel (Kısım I, Sezon 1) · uzmanlik (Kısım II, Sezon 2)
+#  Kötü adam bilgisi karakterler.yaml'dan (modul alanı = bu dosyadaki kod) gelir.
+# ============================================================================
+yollar:
+  - { anahtar: program, kod: Program, klasor: 00-program, tur: program, baslik: "Akademi hakkında", ozet: "Program, seviyeler, laboratuvar kuralları ve Gölge Ağ'ın hikâyesi." }
+
+  - { anahtar: m01, kod: M01, klasor: 01-temel/m01-dijital-tehlikeler, tur: temel, baslik: "Dijital tehlikeler", ozet: "Siber güvenlik neden seni ilgilendirir; dolandırıcılıklar ve dijital ayak izi." }
+  - { anahtar: m02, kod: M02, klasor: 01-temel/m02-etik-ve-hukuk, tur: temel, baslik: "Etik ve hukuk", ozet: "İzin, kapsam, KKTC mevzuatı, sorumlu bildirim ve kişisel veriler." }
+  - { anahtar: m03, kod: M03, klasor: 01-temel/m03-isletim-sistemi, tur: temel, baslik: "İşletim sistemi", ozet: "Hesaplar, yetkiler, süreçler, güncelleme, sanal makine ve yedek." }
+  - { anahtar: m04, kod: M04, klasor: 01-temel/m04-linux, tur: temel, baslik: "Linux ve terminal", ozet: "Dosya sistemi, arama, izinler, sudo, süreçler ve paketler." }
+  - { anahtar: m05, kod: M05, klasor: 01-temel/m05-aglar, tur: temel, baslik: "Ağlar", ozet: "İnternet nasıl çalışır: katmanlar, adresler, portlar, DNS, TLS ve paket yakalama." }
+  - { anahtar: m06, kod: M06, klasor: 01-temel/m06-web, tur: temel, baslik: "Web", ozet: "HTTP, frontend/backend, oturum ve yetki, bulut ve CDN." }
+  - { anahtar: m07, kod: M07, klasor: 01-temel/m07-python, tur: temel, baslik: "Python ile otomasyon", ozet: "Karar ve döngü, dosyalar, regex, hash, log analizi ve güvenli kod." }
+  - { anahtar: m08, kod: M08, klasor: 01-temel/m08-kriptografi, tur: temel, baslik: "Kriptografi ve dijital kimlik", ozet: "Şifreleme, hash ve salt, imza ve sertifika, parola, MFA ve passkey." }
+  - { anahtar: m09, kod: M09, klasor: 01-temel/m09-osint, tur: temel, baslik: "OSINT", ozet: "Etik açık kaynak araştırması, doğrulama ve raporlama." }
+  - { anahtar: m10, kod: M10, klasor: 01-temel/m10-saldirilar, tur: temel, baslik: "Saldırılar ve savunma", ozet: "Tehdit, zafiyet, risk; sosyal mühendislik, zararlılar ve saldırı zinciri." }
+  - { anahtar: m11, kod: M11, klasor: 01-temel/m11-mini-ctf, tur: temel, baslik: "Mini CTF", ozet: "Öğrendiklerinin tek gecede sınandığı ilk operasyon." }
+
+  - { anahtar: yol-a, kod: Yol A, klasor: 02-uzmanlik/yol-a-web, tur: uzmanlik, baslik: "Yol A — Web Uygulaması ve API Güvenliği", ozet: "Web pentest ve uygulama güvenliği." }
+  - { anahtar: yol-b, kod: Yol B, klasor: 02-uzmanlik/yol-b-ag, tur: uzmanlik, baslik: "Yol B — Ağ ve Sistem Güvenliği", ozet: "Trafik, tarama, Wi-Fi, firewall, Windows ve Linux sunucular." }
+  - { anahtar: yol-c, kod: Yol C, klasor: 02-uzmanlik/yol-c-soc, tur: uzmanlik, baslik: "Yol C — SOC, Olay Müdahalesi ve Dijital Adli Bilişim", ozet: "Alarm, olay müdahalesi ve adli inceleme." }
+  - { anahtar: yol-d, kod: Yol D, klasor: 02-uzmanlik/yol-d-cti, tur: uzmanlik, baslik: "Yol D — OSINT, Tehdit İstihbaratı ve Tehdit Avcılığı", ozet: "İstihbarat döngüsü ve tehdit avcılığı." }
+  - { anahtar: yol-e, kod: Yol E, klasor: 02-uzmanlik/yol-e-ai, tur: uzmanlik, baslik: "Yol E — Yapay Zekâ ve LLM Güvenliği", ozet: "LLM uygulamalarının saldırı yüzeyi ve savunması." }
+  - { anahtar: yol-f, kod: Yol F, klasor: 02-uzmanlik/yol-f-mobil-iot, tur: uzmanlik, baslik: "Yol F — Mobil, IoT ve Gömülü Sistem Güvenliği", ozet: "Mobil uygulamalar, akıllı cihazlar ve donanım." }
+  - { anahtar: yol-g, kod: Yol G, klasor: 02-uzmanlik/yol-g-tersine, tur: uzmanlik, baslik: "Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik", ozet: "Zararlı yazılımları güvenle incelemek." }

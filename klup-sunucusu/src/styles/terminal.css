@@ -1,0 +1,72 @@
+/* ============================================================================
+   Terminal bloğu (docs/TASARIM-SISTEMI.md §5.14) — her temada koyu kalır.
+   ============================================================================ */
+:root {
+  --term-bar-bg: #3e4552;
+  --term-bar-fg: #ffffff;
+  --term-bg: #0f1923;
+  --term-fg: #bac8d4;
+  --term-fg-bright: #f8f8f2;
+  --term-prompt-symbol: #fd971f;
+  --term-keyword: #ffaf00;
+  --term-dot-red: #ff4444;
+  --term-dot-yellow: #ff9c07;
+  --term-dot-green: #b2e028;
+  --term-control-icon: #8b9bb4;
+  --term-control-hover: rgba(255, 255, 255, 0.12);
+  --term-control-pressed: rgba(255, 255, 255, 0.16);
+  --term-success: #3bc81e;
+  --term-focus: #719cf9;
+  --term-bg-attacker: #512323;
+  --term-bg-defender: #1e3c61;
+  --font-term: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+}
+
+.ciu-terminal { margin: 0 0 18px; position: relative; min-width: 0; letter-spacing: 0; }
+.ciu-terminal__bar { position: relative; display: flex; align-items: center; justify-content: center; height: 35px; background: var(--term-bar-bg); color: var(--term-bar-fg); font: 400 16px/1 var(--font-sans); border-radius: 6px 6px 0 0; }
+.ciu-terminal__title { margin: 0; }
+.ciu-terminal__dots { position: absolute; left: 12px; display: flex; gap: 6px; }
+.ciu-terminal__dots i { width: 9px; height: 9px; border-radius: 50%; }
+.ciu-terminal__dots i:nth-child(1) { background: var(--term-dot-red); }
+.ciu-terminal__dots i:nth-child(2) { background: var(--term-dot-yellow); }
+.ciu-terminal__dots i:nth-child(3) { background: var(--term-dot-green); }
+
+.ciu-terminal__controls { position: absolute; top: 4.5px; right: 8px; display: flex; gap: 2px; opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity 180ms, transform 180ms; }
+.ciu-terminal:hover .ciu-terminal__controls, .ciu-terminal:focus-within .ciu-terminal__controls { opacity: 1; transform: none; pointer-events: auto; }
+/* dokunmatik ekranlarda hover yok: kontroller hep görünür */
+@media (hover: none) { .ciu-terminal__controls { opacity: 1; transform: none; pointer-events: auto; } }
+.ciu-terminal__btn { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; padding: 0; border: 0; border-radius: 5px; background: transparent; color: var(--term-control-icon); cursor: pointer; transition: background-color 180ms, color 180ms, transform 120ms; }
+.ciu-terminal__btn svg { width: 14px; height: 14px; }
+.ciu-terminal__btn:hover { background: var(--term-control-hover); color: #fff; }
+.ciu-terminal__btn:active { transform: scale(0.9); }
+.ciu-terminal__btn[aria-pressed="true"] { background: var(--term-control-pressed); color: #fff; }
+.ciu-terminal__btn.is-copied, .ciu-terminal__btn.is-copied:hover { color: var(--term-success); }
+.ciu-terminal__btn:focus-visible { outline: 2px solid var(--term-focus); outline-offset: 2px; box-shadow: none; }
+
+.ciu-terminal__body { margin: 0; padding: 15px; background: var(--term-bg); color: var(--term-fg); font: 600 15px/1.8 var(--font-term); white-space: pre; tab-size: 4; overflow: auto; border-radius: 0 0 6px 6px; }
+.ciu-terminal__body:focus-visible { outline: 2px solid var(--term-focus); outline-offset: -2px; box-shadow: none; }
+.ciu-terminal__body code { font: inherit; }
+.ciu-terminal.is-wrapped .ciu-terminal__body { white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; }
+.ciu-terminal[data-variant="attacker"] .ciu-terminal__body { background: var(--term-bg-attacker); }
+.ciu-terminal[data-variant="defender"] .ciu-terminal__body { background: var(--term-bg-defender); }
+
+.t-user, .t-out, .t-cmd { color: var(--term-fg); }
+.t-path, .t-param { color: var(--term-fg-bright); }
+.t-symbol { color: var(--term-prompt-symbol); font-weight: 700; }
+.t-fn, .t-num { color: var(--term-keyword); }
+.t-comment { color: var(--term-control-icon); font-weight: 400; }
+.t-line.is-new { animation: fadeUp 0.35s var(--ease) both; }
+
+/* Slayt içinde: ölçüler sahne genişliğiyle ölçeklenir (cqw) */
+.ciu-terminal--slide { margin: 0; }
+.ciu-terminal--slide .ciu-terminal__bar { height: 2.6cqw; font-size: 1.15cqw; border-radius: 0.5cqw 0.5cqw 0 0; }
+.ciu-terminal--slide .ciu-terminal__dots { left: 1cqw; gap: 0.5cqw; }
+.ciu-terminal--slide .ciu-terminal__dots i { width: 0.75cqw; height: 0.75cqw; }
+.ciu-terminal--slide .ciu-terminal__body { padding: 1.2cqw 1.4cqw; font-size: 1.35cqw; border-radius: 0 0 0.5cqw 0.5cqw; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ciu-terminal__controls, .ciu-terminal__btn { transition: none; }
+}
+@media (max-width: 640px) {
+  .ciu-terminal__body { font-size: 13.5px; padding: 12px; }
+}

@@ -43,7 +43,43 @@ export const blockSchema = z.discriminatedUnion("type", [
     text: text(600),
   }),
   z.object({ type: z.literal("animation"), animation: z.enum(ANIMATION_IDS) }),
+  // Görsel: yalnız kulübe yüklenmiş raster görsel (dosya kimliği); sunucu kaydederken dosyanın varlığını ve türünü doğrular.
+  z.object({
+    type: z.literal("image"),
+    fileId: z.string().regex(/^c[a-z0-9]{20,30}$/, "Geçersiz görsel."),
+    alt: text(200).pipe(z.string().min(1, "Görsel için kısa bir açıklama (alt metin) yaz.")),
+    caption: text(300).default(""),
+  }),
+  // Mini görev köprüsü (docs/design-council/07 Adım 5): eğitmen görev slaytına geçer, öğrenci görevi KENDİ cihazında
+  // akademide çözer; XP aynı uç noktadan gelir. Canlı hub/protokol görev için değişmez. Sunucu kaydederken ders ve
+  // görevin varlığını doğrular (görsel bloğu gibi).
+  z.object({
+    type: z.literal("mission"),
+    lesson: z.string().regex(/^[a-z0-9-]{1,40}$/, "Geçersiz ders."),
+    mission: z.string().regex(/^[a-z0-9-]{1,40}$/, "Geçersiz görev."),
+    title: text(160).default(""),
+  }),
+  // VMware uygulama molası: öğrenci talimatları + teslim; `host` alanı yalnız eğitmene gider.
+  // Sistem VMware'i başlatmaz/yönetmez; uygulamayı eğitmen kendi ortamında yürütür.
+  z.object({
+    type: z.literal("practical"),
+    title: text(160).pipe(z.string().min(1, "Uygulama başlığı gerekli.")),
+    description: text(2000).default(""),
+    files: z.array(text(120)).max(10).default([]),
+    steps: z.array(text(300)).max(20).default([]),
+    durationMin: z.number().int().min(1).max(240).default(30),
+    host: z
+      .object({
+        prepNotes: text(3000).default(""),
+        vms: z.array(text(160)).max(10).default([]),
+        snapshot: text(300).default(""),
+        expected: text(3000).default(""),
+      })
+      .default({}),
+  }),
 ]);
+
+export const EMPTY_PRACTICAL_HOST = { prepNotes: "", vms: [] as string[], snapshot: "", expected: "" };
 export type Block = z.output<typeof blockSchema>;
 
 export const slideSchema = z.object({

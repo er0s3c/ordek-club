@@ -14,16 +14,17 @@ const ICONS: Record<IconKey, LucideIcon> = {
 };
 
 const TONE: Record<StepTone, string> = {
-  request: "var(--blue)",
-  reply: "var(--lime)",
+  request: "var(--anim-request)",
+  reply: "var(--anim-reply)",
   attack: "var(--red)",
-  secure: "#7ee0a1",
-  info: "var(--amber)",
+  secure: "var(--anim-secure)",
+  info: "var(--anim-info)",
 };
 
-const ACTOR_RING = { neutral: "var(--line)", infra: "#3d5a6c", good: "var(--lime-deep)", bad: "#8a3a22" } as const;
-const ZONE = { trusted: "rgba(166,227,74,.06)", dmz: "rgba(229,171,58,.07)", untrusted: "rgba(224,96,58,.06)" } as const;
-const ZONE_LINE = { trusted: "rgba(166,227,74,.35)", dmz: "rgba(229,171,58,.4)", untrusted: "rgba(224,96,58,.35)" } as const;
+const ACTOR_RING = { neutral: "var(--color-iron)", infra: "var(--color-iron)", good: "var(--color-ash)", bad: "var(--color-arterial-red)" } as const;
+// Bölgeler ton farkıyla; güvenilmeyen bölge tek kırmızı ince çizgiyle.
+const ZONE = { trusted: "rgba(252,252,252,.035)", dmz: "rgba(252,252,252,.015)", untrusted: "transparent" } as const;
+const ZONE_LINE = { trusted: "rgba(252,252,252,.3)", dmz: "rgba(252,252,252,.18)", untrusted: "rgba(254,30,52,.55)" } as const;
 
 const R = 30; // aktör yarıçapı
 
@@ -131,8 +132,8 @@ export function FlowAnimationView({ def, step, speed, reducedMotion, stepKey }: 
           return (
             <g key={a.id} className={active ? "anim-actor is-active" : "anim-actor"}>
               {selfStep && <circle cx={a.x} cy={a.y} r={R + 10} fill="none" stroke={TONE[current.tone ?? "info"]} strokeWidth={2} className={reducedMotion ? undefined : "anim-pulse"} />}
-              <circle cx={a.x} cy={a.y} r={R} fill="var(--bg-1)" stroke={active ? "var(--lime)" : ACTOR_RING[a.tone ?? "neutral"]} strokeWidth={active ? 2.5 : 1.5} />
-              <Icon x={a.x - 13} y={a.y - 13} width={26} height={26} color={a.tone === "bad" ? "var(--red)" : active ? "var(--lime-bright)" : "var(--ink-dim)"} aria-hidden />
+              <circle cx={a.x} cy={a.y} r={R} fill="var(--bg-1)" stroke={active ? "var(--gold)" : ACTOR_RING[a.tone ?? "neutral"]} strokeWidth={active ? 2.5 : 1.5} />
+              <Icon x={a.x - 13} y={a.y - 13} width={26} height={26} color={a.tone === "bad" ? "var(--red)" : active ? "var(--gold-bright)" : "var(--ink-dim)"} aria-hidden />
               <text x={a.x} y={a.y + R + 18} textAnchor="middle" className="anim-label">{a.label}</text>
               {a.sub && <text x={a.x} y={a.y + R + 33} textAnchor="middle" className="anim-sub">{a.sub}</text>}
               {selfStep && <Label x={a.x} y={a.y - R - 20} text={current.label} color={TONE[current.tone ?? "info"]} />}

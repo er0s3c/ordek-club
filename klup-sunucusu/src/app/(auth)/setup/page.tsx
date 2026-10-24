@@ -15,10 +15,11 @@ export default async function SetupPage() {
     <div className="auth-wrap">
       <div className="auth-card wide fade-up">
         <div className="auth-head">
-          <span className="brand-logo" aria-hidden>Ö</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="brand-logo" src="/brand/club-mark.png" alt="" />
           <div>
-            <div className="eyebrow">Ördek Club · ilk kurulum</div>
-            <h1 className="page-title">Kulübünü kur</h1>
+            <div className="eyebrow">Kulüp platformu · ilk kurulum</div>
+            <h1 className="page-title">Kulübünü <em>şimdi</em> kur</h1>
             <p className="page-sub">Birkaç dakikada kulüp bilgilerini gir ve kurucu (owner) hesabını oluştur.</p>
           </div>
         </div>

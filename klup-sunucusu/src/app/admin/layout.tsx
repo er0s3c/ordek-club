@@ -14,7 +14,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   // Yalnızca çalışan ekranlar menüde: sonraki fazların ekranları hazır olduklarında eklenir.
   const groups: NavGroup[] = [
     {
-      label: m.nav.admin,
       items: [
         { href: "/admin", label: m.nav.dashboard, icon: "LayoutDashboard", exact: true },
         { href: "/admin/members", label: m.nav.members, icon: "Users", count: pending },
@@ -22,19 +21,28 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       ],
     },
     {
-      label: "Sistem",
+      label: m.nav.content,
+      items: [
+        { href: "/admin/academy", label: m.nav.academy, icon: "GraduationCap" },
+        { href: "/admin/xp", label: m.nav.xp, icon: "Gauge" },
+        { href: "/admin/badges", label: m.nav.badges, icon: "Medal" },
+      ],
+    },
+    {
+      label: m.nav.systemGroup,
       items: [
         { href: "/admin/settings", label: m.nav.settings, icon: "Settings" },
         { href: "/admin/audit", label: m.nav.audit, icon: "ScrollText" },
         { href: "/admin/system", label: m.nav.system, icon: "Activity" },
       ],
     },
-    { items: [{ href: "/dashboard", label: m.nav.backToApp, icon: "ArrowLeft" }] },
   ];
   return (
     <AppShell
       user={user}
       groups={groups}
+      home="/admin"
+      userMenu={[{ href: "/dashboard", label: m.nav.backToApp, icon: "ArrowLeft" }]}
       brand={
         <>
           <BrandMark settings={s} />

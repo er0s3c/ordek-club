@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Hand, Maximize2, Megaphone, MessageSquareText, Radio, Users, X, Coffee } from "lucide-react";
+import { ChevronLeft, ChevronRight, Hand, Maximize2, Megaphone, MessageSquareText, Radio, Users, X, Coffee, FlaskConical } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { SlideView } from "@/components/presentation/SlideView";
 import { nextPos, prevPos, type Position } from "@/components/presentation/DeckPlayer";
 import { useLiveSession } from "@/hooks/useLiveSession";
+import { StudentPoll } from "@/components/live/Poll";
+import { StudentPractical } from "@/components/live/Practical";
 import type { ClientDeck } from "@/lib/deck-schema";
 
 const STATUS_TEXT = { connecting: "Bağlanıyor…", open: "Canlı", reconnecting: "Yeniden bağlanıyor…", ended: "Ders bitti", error: "Bağlantı hatası" };
@@ -44,6 +46,11 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
   const following = local === null;
   const pos: Position | null = following ? (state ? { slide: state.slide, step: state.step } : null) : local;
   const slide = pos ? deck.slides[Math.min(pos.slide, deck.slides.length - 1)] : undefined;
+  // Uygulama molası: canlı slayttaki practical bloğu ve sunucunun ona bağladığı görev.
+  const liveSlide = state ? deck.slides[state.slide] : undefined;
+  const practical = liveSlide?.blocks.find((b) => b.type === "practical");
+  const practicalInfo = state ? state.practicals?.[String(state.slide)] : undefined;
+  const lastPractical = state ? Object.values(state.practicals ?? {}).sort((a, b) => b.dueAt - a.dueAt)[0] : undefined;
 
   useEffect(() => {
     if (!state?.freeNav) return;
@@ -59,13 +66,23 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
   }, [state, local, deck]);
 
   if (live.status === "ended") {
+    // Canlıdan bireysel moda köprü (07 Adım 5): destedeki görevler "kendi hızında tekrar et" bağlantısı olur.
+    const missions = deck.slides.flatMap((sl) => sl.blocks.flatMap((b) => (b.type === "mission" ? [b] : [])));
     return (
       <div className="auth-wrap">
         <div className="card auth-card"><div className="card-b stack" style={{ textAlign: "center", alignItems: "center" }}>
-          <Radio size={32} color="var(--lime)" aria-hidden />
+          <Radio size={32} color="var(--gold)" aria-hidden />
           <h1 className="page-title">Ders sona erdi</h1>
           <p className="muted">Katıldığın için teşekkürler! Katılımın kaydedildi.</p>
-          <Link className="btn btn-primary" href="/dashboard">Ana sayfaya dön</Link>
+          {missions.length > 0 && (
+            <div className="stack" style={{ gap: 8, width: "100%" }}>
+              <div className="eyebrow">Kendi hızında tekrar et</div>
+              {missions.map((b) => (
+                <Link key={`${b.lesson}/${b.mission}`} className="btn btn-primary" href={`/academy/lesson/${b.lesson}#gorev-${b.mission}`}>{b.title || "Mini görev"} →</Link>
+              ))}
+            </div>
+          )}
+          <Link className={missions.length ? "btn" : "btn btn-primary"} href="/dashboard">Ana sayfaya dön</Link>
         </div></div>
       </div>
     );
@@ -101,13 +118,22 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
             <div className="stage skeleton" aria-busy="true" aria-label="Ders yükleniyor" />
           )}
           {state?.paused && following && (
-            <div className="stage-overlay"><div className="stack-sm" style={{ alignItems: "center" }}><Coffee size={34} color="var(--lime)" aria-hidden /><h2>Kısa bir ara</h2><p className="muted">Eğitmen dersi duraklattı. Ekran kendiliğinden devam edecek.</p></div></div>
+            <div className="stage-overlay"><div className="stack-sm" style={{ alignItems: "center" }}><Coffee size={34} color="var(--gold)" aria-hidden /><h2>Kısa bir ara</h2><p className="muted">Eğitmen dersi duraklattı. Ekran kendiliğinden devam edecek.</p></div></div>
           )}
           {live.status === "reconnecting" && (
-            <div className="stage-overlay" style={{ background: "rgba(10,12,9,.55)" }}><div className="stack-sm" style={{ alignItems: "center" }}><span className="spinner" aria-hidden /><span>Bağlantı koptu, yeniden bağlanılıyor…</span></div></div>
+            <div className="stage-overlay" style={{ background: "rgba(8,8,8,.7)" }}><div className="stack-sm" style={{ alignItems: "center" }}><span className="spinner" aria-hidden /><span>Bağlantı koptu, yeniden bağlanılıyor…</span></div></div>
           )}
         </div>
       </main>
+
+      {(live.poll || (practical?.type === "practical" && practicalInfo && !live.isHost)) && (
+        <div className="live-dock">
+          {live.poll && <StudentPoll poll={live.poll} skew={live.clockSkew} send={live.send} readOnly={live.isHost} />}
+          {practical?.type === "practical" && practicalInfo && !live.isHost && (
+            <StudentPractical key={practicalInfo.assignmentId} assignmentId={practicalInfo.assignmentId} dueAt={practicalInfo.dueAt} block={practical} skew={live.clockSkew} />
+          )}
+        </div>
+      )}
 
       <footer className="live-bottom">
         {state?.freeNav && (
@@ -125,6 +151,9 @@ export function LiveViewer({ code, title, deck, present }: { code: string; title
         <button className="btn btn-sm" onClick={() => dialog.current?.showModal()} disabled={live.status !== "open"}>
           <MessageSquareText size={15} aria-hidden /> Soru sor
         </button>
+        {!live.isHost && lastPractical && !practicalInfo && (
+          <Link className="btn btn-sm" href={`/tasks/${lastPractical.assignmentId}`} target="_blank" rel="noopener"><FlaskConical size={15} aria-hidden /> Uygulama teslimi</Link>
+        )}
         <button className="btn btn-sm btn-ghost" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Tam ekran"><Maximize2 size={15} aria-hidden /></button>
       </footer>
 

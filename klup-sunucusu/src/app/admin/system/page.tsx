@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import { requirePageSession } from "@/server/auth/page-guard";
 import { ADMIN_ROLES } from "@/server/auth/guard";
 import { systemReport } from "@/server/health";
+import { storageUsage } from "@/server/files/service";
+import { SCOPE_LABEL } from "@/components/classroom/labels";
 import { getSettings } from "@/server/settings";
 import { formatBytes, formatDateTime } from "@/components/ui/format";
 
 export const metadata: Metadata = { title: "Sistem durumu" };
 
-const Dot = ({ ok }: { ok: boolean }) => <span style={{ color: ok ? "var(--lime)" : "var(--red)" }}>●</span>;
+const Dot = ({ ok }: { ok: boolean }) => <span style={{ color: ok ? "var(--term)" : "var(--red)" }}>●</span>;
 
 export default async function SystemPage() {
   await requirePageSession(ADMIN_ROLES);
-  const [r, s] = await Promise.all([systemReport(), getSettings()]);
+  const [r, s, files] = await Promise.all([systemReport(), getSettings(), storageUsage()]);
+  const pct = files.quota ? Math.min(100, Math.round((files.total / files.quota) * 100)) : 0;
   const upH = Math.floor(r.uptimeSec / 3600), upM = Math.floor((r.uptimeSec % 3600) / 60);
 
   return (
@@ -53,6 +57,17 @@ export default async function SystemPage() {
           </div>
         </section>
       </div>
+      <section className="card" aria-labelledby="files-h">
+        <div className="card-h"><h2 id="files-h">Paylaşılan dosyalar</h2><span className="tiny faint">kota: Kulüp ayarları</span></div>
+        <div className="card-b stack-sm">
+          <div className="row-between small"><span>{formatBytes(files.total)} / {formatBytes(files.quota)} kullanılıyor</span><span className="mono">%{pct}</span></div>
+          <div className={pct >= 85 ? "meter is-high" : "meter"} role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} aria-label="Dosya kotası doluluğu"><span style={{ width: `${pct}%` }} /></div>
+          <dl className="kv">
+            {files.byScope.map((b) => <Fragment key={b.scope}><dt>{SCOPE_LABEL[b.scope]}</dt><dd>{b.count} dosya · {formatBytes(b.bytes)}</dd></Fragment>)}
+            <dt>Öğrenci başına</dt><dd>en fazla {formatBytes(files.userQuota)}</dd>
+          </dl>
+        </div>
+      </section>
       <section className="card" aria-labelledby="ops-h">
         <div className="card-h"><h2 id="ops-h">Yedekleme ve güncelleme</h2></div>
         <div className="card-b stack small">

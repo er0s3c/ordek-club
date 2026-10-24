@@ -1,0 +1,26 @@
+# SENTETİK LABORATUVAR DOSYASI — Ördek Club Academy, Yol F (F07, F09, F11)
+# Kurgusal laboratuvar broker'ı: mqtt.lab-kampus.test (192.0.2.10). Gerçek cihaz veya kişi verisi yoktur.
+# Biçim: zaman | olay | istemci | ayrıntı
+2026-10-14T21:58:02Z | CONNECT   | kilit-kutuphane-01   | 192.0.2.31:50112 port=1883 tls=no user=- (anonim)
+2026-10-14T21:58:02Z | SUBSCRIBE | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/komut qos=1
+2026-10-14T21:58:05Z | CONNECT   | kamera-koridor-03    | 192.0.2.44:41870 port=1883 tls=no user=admin pass=admin
+2026-10-14T21:58:05Z | PUBLISH   | kamera-koridor-03    | topic=kampus/kamera/koridor-03/durum retain=0 payload={"durum":"acik","rtsp":"rtsp://admin:admin@192.0.2.44:554/yayin"}
+2026-10-14T21:58:10Z | CONNECT   | sensor-sera-02       | 192.0.2.52:39001 port=1883 tls=no user=- (anonim)
+2026-10-14T21:58:10Z | PUBLISH   | sensor-sera-02       | topic=kampus/sensor/sera-02/sicaklik retain=0 payload={"c":23.4,"nem":61}
+2026-10-14T21:59:30Z | CONNECT   | mobil-kampuskilit    | 198.51.100.23:61544 port=1883 tls=no user=ogrenci17 pass=Kilit2026!
+2026-10-14T21:59:31Z | PUBLISH   | mobil-kampuskilit    | topic=kampus/kilit/kutuphane-01/komut retain=0 payload={"komut":"ac","kart":"0007731","token":"FAKE-LAB-TOKEN-ogrenci17"}
+2026-10-14T21:59:31Z | PUBLISH   | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/durum retain=0 payload={"kapi":"acik","kart":"0007731"}
+2026-10-14T21:59:40Z | PUBLISH   | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/durum retain=0 payload={"kapi":"kilitli"}
+2026-10-14T23:12:07Z | CONNECT   | x9                   | 203.0.113.66:52004 port=1883 tls=no user=- (anonim)
+2026-10-14T23:12:07Z | SUBSCRIBE | x9                   | topic=# qos=0
+2026-10-14T23:12:08Z | SUBSCRIBE | x9                   | topic=$SYS/# qos=0
+2026-10-14T23:40:51Z | PUBLISH   | x9                   | topic=kampus/kilit/kutuphane-01/komut retain=1 payload={"komut":"ac"}
+2026-10-14T23:40:51Z | PUBLISH   | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/durum retain=0 payload={"kapi":"acik","kart":null}
+2026-10-14T23:41:20Z | PUBLISH   | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/durum retain=0 payload={"kapi":"kilitli"}
+2026-10-15T02:03:44Z | DISCONNECT| kilit-kutuphane-01   | neden=guc-kesintisi
+2026-10-15T02:04:19Z | CONNECT   | kilit-kutuphane-01   | 192.0.2.31:50340 port=1883 tls=no user=- (anonim)
+2026-10-15T02:04:19Z | SUBSCRIBE | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/komut qos=1
+2026-10-15T02:04:19Z | DELIVER   | broker               | topic=kampus/kilit/kutuphane-01/komut retained=1 payload={"komut":"ac"} -> kilit-kutuphane-01
+2026-10-15T02:04:19Z | PUBLISH   | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/durum retain=0 payload={"kapi":"acik","kart":null}
+2026-10-15T02:04:49Z | PUBLISH   | kilit-kutuphane-01   | topic=kampus/kilit/kutuphane-01/durum retain=0 payload={"kapi":"kilitli"}
+2026-10-15T07:30:00Z | PUBLISH   | sensor-sera-02       | topic=kampus/sensor/sera-02/sicaklik retain=0 payload={"c":19.8,"nem":66}
