@@ -1,6 +1,6 @@
 // Makine aksiyonu: durdur / yeniden başlat (deep-freeze).
 // Sınıf modunda öğrenci oturumu varsa olaylar aktivite günlüğüne yazılır.
-import { stopMachine, restartMachine, restartToolLab, MACHINE_SLUGS, LEVELS } from "@/lib/docker";
+import { stopMachine, restartMachine, restartToolLab, listMachines, MACHINE_SLUGS, LEVELS } from "@/lib/docker";
 import { isToolLab } from "@/lib/toolLabs";
 import { getSession } from "@/lib/session";
 import { getUserById } from "@/lib/accounts";
@@ -8,11 +8,7 @@ import { logEvent } from "@/lib/events";
 
 export const dynamic = "force-dynamic";
 
-function student(req) {
-  if (process.env.LAB_MODE !== "class") return null;
-  const s = getSession(req);
-  return s && s.role === "student" ? s : null;
-}
+const safeLabel = (s) => String(s || "").replace(/[^a-zA-Z0-9_.-]/g, "_").slice(0, 64);
 
 export async function POST(req, { params }) {
   const id = params.id;
@@ -20,9 +16,21 @@ export async function POST(req, { params }) {
   let body = {}; try { body = await req.json(); } catch {}
   const action = body.action || "stop";
 
-  const sess = student(req);
-  const studentId = sess ? sess.userId : null;
-  const studentName = sess ? (getUserById(sess.userId) || {}).username || sess.userId : null;
+  let sess = null;
+  if (process.env.LAB_MODE === "class") {
+    sess = getSession(req);
+    if (!sess) return Response.json({ error: "yetkisiz" }, { status: 401 });
+    if (sess.role === "student") {
+      const machines = await listMachines();
+      const m = machines.find((x) => x.id === id || (x.id && id && x.id.startsWith(id)));
+      if (!m || (m.studentId && m.studentId !== safeLabel(sess.userId))) {
+        return Response.json({ error: "bu makine sana ait değil" }, { status: 403 });
+      }
+    }
+  }
+
+  const studentId = sess && sess.role === "student" ? sess.userId : null;
+  const studentName = studentId ? (getUserById(studentId) || {}).username || studentId : null;
 
   try {
     if (action === "stop") {
