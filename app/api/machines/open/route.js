@@ -44,7 +44,13 @@ export async function GET(req) {
   // Sahiplik (yalnız sınıf modu + öğrenci oturumu için zorunlu)
   if (process.env.LAB_MODE === "class") {
     const sess = getSession(req);
-    if (sess && sess.role === "student") {
+    if (!sess) {
+      return html(401, "ördek",
+        `<div class="e">🦆🚫</div><h2>Giriş yapmalısın</h2>
+         <p>Makineyi açmak için önce giriş yap.</p>
+         <p><a href="/">← Panele dön</a></p>`);
+    }
+    if (sess.role === "student") {
       const owner = mInfo ? mInfo.studentId : null;
       if (owner && owner !== safeLabel(sess.userId)) {
         const me = getUserById(sess.userId);

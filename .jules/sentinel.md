@@ -1,0 +1,4 @@
+## 2026-03-30 - Class Mode Machine Endpoint Authorization Bypass
+**Vulnerability:** In class mode (`LAB_MODE=class`), machine lifecycle endpoints (`/api/machines`, `/api/machines/[id]`, `/api/conncheck`) used a `student(req)` helper that only populated student identifiers for logging/labeling, but failed to enforce mandatory authentication and container ownership checks before performing Docker container operations (list/start/stop/restart).
+**Learning:** Helper functions intended for metadata labeling/audit logging can easily be mistaken for authorization guards if not explicitly enforcing session and ownership checks.
+**Prevention:** Always enforce explicit `getSession(req)` checks and verify resource ownership (e.g., `m.studentId === safeLabel(userId)`) on all state-modifying API endpoints in class mode.
