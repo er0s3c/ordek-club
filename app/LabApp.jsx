@@ -1,6 +1,6 @@
 "use client";
 import React, { useState as uS, useEffect as uE, useMemo, useRef } from "react";
-import { GROUPS, VULNS, KILLCHAINS } from "./labData";
+import { GROUPS, VULNS, KILLCHAINS, VULNS_BY_SLUG, VULNS_BY_ID, GROUPS_BY_ID } from "./labData";
 import { filterVulns, pickRandomVuln, pickNextUnsolved, computeBadges, roadmapStatus, moduleProgress, matchRunningMachine } from "./labLogic";
 import { LEARN, ROADMAP } from "./academyData";
 import { computeGamify } from "./gamifyData";
@@ -350,7 +350,7 @@ function App() {
     return () => clearTimeout(t);
   }, [mounted, session, auth]);
 
-  const vuln = useMemo(() => VULNS.find(v => v.id === vulnId), [vulnId]);
+  const vuln = useMemo(() => VULNS_BY_ID.get(vulnId), [vulnId]);
   const totalFlags = VULNS.length * 3;
   // Yalnız zafiyet flag'lerini say (tool-* lab çözümleri sayacı bozmasın).
   const gotFlags = VULNS.reduce((a, v) => a + ((solved[v.slug] || []).length), 0);
@@ -720,7 +720,7 @@ function VulnDetail({ vuln, level, setLevel, solved, markSolved, openVuln, autoC
       <div className="page-h">
         <div className="row between wrap" style={{ alignItems: "flex-end" }}>
           <div>
-            <div className="eyebrow">// {GROUPS.find(g => g.id === vuln.group).label}</div>
+            <div className="eyebrow">// {GROUPS_BY_ID.get(vuln.group)?.label}</div>
             <h1>{vuln.name}</h1>
             <div className="sub">{vuln.scenario}</div>
           </div>
@@ -780,7 +780,7 @@ function VulnDetail({ vuln, level, setLevel, solved, markSolved, openVuln, autoC
 
       <div className="row between mt24">
         <button className="kbtn ghost" disabled={idx === 0} style={{ opacity: idx === 0 ? 0.4 : 1 }} onClick={() => idx > 0 && openVuln(groupVulns[idx - 1].id)}>← önceki</button>
-        <span className="faint mono" style={{ fontSize: 12 }}>{idx + 1} / {groupVulns.length} — {GROUPS.find(g => g.id === vuln.group).label}</span>
+        <span className="faint mono" style={{ fontSize: 12 }}>{idx + 1} / {groupVulns.length} — {GROUPS_BY_ID.get(vuln.group)?.label}</span>
         <button className="kbtn ghost" disabled={idx === groupVulns.length - 1} style={{ opacity: idx === groupVulns.length - 1 ? 0.4 : 1 }} onClick={() => idx < groupVulns.length - 1 && openVuln(groupVulns[idx + 1].id)}>sonraki →</button>
       </div>
     </div>
@@ -936,7 +936,7 @@ function AssignmentsView({ assignments = [], submissions = {}, openVuln, onSubmi
                     <div className="row"><button className="kbtn primary" disabled={busy === a.id} onClick={() => submit(a)}>{sub ? "↻ Yeniden teslim et" : "Teslim et"}</button></div>
                   </>
                 ) : a.type === "lab" ? (
-                  <div className="row"><button className="kbtn" onClick={() => { const v = VULNS.find(x => x.slug === a.ref); if (v && openVuln) openVuln(v.id); }}>Laba git →</button></div>
+                  <div className="row"><button className="kbtn" onClick={() => { const v = VULNS_BY_SLUG.get(a.ref); if (v && openVuln) openVuln(v.id); }}>Laba git →</button></div>
                 ) : (
                   <div className="callout"><span className="ci">📘</span><span>Bu modülü "Akademi → Yol Haritası" bölümünden tamamla.</span></div>
                 )}
@@ -1018,7 +1018,7 @@ function FlagsView({ solved, readLessons, openVuln, gotFlags, totalFlags, onRese
       <h2 style={{ fontSize: 16, fontFamily: "var(--font-mono)", margin: "0 0 12px" }}>Kill-Chain Senaryoları</h2>
       <div className="col" style={{ gap: 14, marginBottom: 28 }}>
         {KILLCHAINS.map(kc => {
-          const steps = kc.steps.map(s => VULNS.find(v => v.slug === s)).filter(Boolean);
+          const steps = kc.steps.map(s => VULNS_BY_SLUG.get(s)).filter(Boolean);
           const doneCount = steps.filter(s => (solved[s.slug] || []).length > 0).length;
           return (
             <div className="panel" key={kc.id}>
@@ -1126,7 +1126,7 @@ function FlagHub({ level, markSolved, openVuln, autoClose = true, addNote }) {
             <button className="kbtn sm" onClick={cancelClose}>İptal</button>
           </div>
         )}
-        {state && state.ok && (() => { const v = VULNS.find(x => x.slug === state.slug); return v ? <button className="kbtn ghost" style={{ alignSelf: "flex-start" }} onClick={() => openVuln(v.id)}>→ {v.name} zafiyetine git</button> : null; })()}
+        {state && state.ok && (() => { const v = VULNS_BY_SLUG.get(state.slug); return v ? <button className="kbtn ghost" style={{ alignSelf: "flex-start" }} onClick={() => openVuln(v.id)}>→ {v.name} zafiyetine git</button> : null; })()}
       </div></div>
     </div>
   );
@@ -1242,7 +1242,7 @@ function FlagHistory({ openVuln }) {
       <div className="panel"><div className="panel-b col" style={{ gap: 0 }}>
         {events.length === 0 && <div className="muted" style={{ fontSize: 13, padding: "8px 2px" }}>Henüz flag denemesi yok.</div>}
         {events.map((e, i) => {
-          const v = VULNS.find(x => x.slug === e.slug);
+          const v = VULNS_BY_SLUG.get(e.slug);
           return (
             <div key={i} className="row between wrap" style={{ padding: "9px 2px", borderTop: i ? "1px solid var(--line-soft)" : 0, gap: 10 }}>
               <div className="row" style={{ gap: 10, alignItems: "center" }}>
@@ -1868,7 +1868,7 @@ const downloadBlob = (name, content, type) => {
 };
 const evtLine = (e) => {
   const meta = EVT[e.type] || { emo: "•", t: e.type, c: "var(--ink-dim)" };
-  const tail = [e.slug && (VULNS.find(v => v.slug === e.slug)?.name || e.slug), e.level && LEVEL_LABEL[e.level], e.detail].filter(Boolean).join(" · ");
+  const tail = [e.slug && (VULNS_BY_SLUG.get(e.slug)?.name || e.slug), e.level && LEVEL_LABEL[e.level], e.detail].filter(Boolean).join(" · ");
   return { meta, tail };
 };
 
@@ -1972,7 +1972,7 @@ function TeacherConsole() {
       roomPost({ action: "assign", classId, type: "lab", submitType: "writeup", ref: "", title: asgTitle.trim(), description: asgDesc.trim(), dueDate: asgDue ? new Date(asgDue).getTime() : null, maxPoints: Number(asgPoints) || 100 }, "📝 Yazılı ödev atandı");
       setAsgTitle(""); setAsgDesc(""); setAsgDue(""); return;
     }
-    const t = asgType === "module" ? (ROADMAP.find(m => m.id === asgRef) || {}).name : (VULNS.find(v => v.slug === asgRef) || {}).name;
+    const t = asgType === "module" ? (ROADMAP.find(m => m.id === asgRef) || {}).name : (VULNS_BY_SLUG.get(asgRef) || {}).name;
     roomPost({ action: "assign", classId, type: asgType, ref: asgRef, title: t || asgRef }, "📌 Görev atandı");
   };
   const unassign = (classId, assignmentId) => roomPost({ action: "unassign", classId, assignmentId });
