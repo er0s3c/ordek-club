@@ -23,6 +23,16 @@ const {
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
 
+function summarize(solved) {
+  let total = 0, low = 0, medium = 0, high = 0;
+  if (!solved || typeof solved !== "object") return { total, low, medium, high };
+  for (const ls of Object.values(solved)) {
+    if (!Array.isArray(ls)) continue;
+    for (const l of ls) { total++; if (l === "low") low++; else if (l === "medium") medium++; else if (l === "high") high++; }
+  }
+  return { total, low, medium, high };
+}
+
 let pass = 0, fail = 0;
 function t(name, fn) {
   try { fn(); pass++; console.log(`\x1b[32mPASS\x1b[0m ${name}`); }
@@ -33,6 +43,14 @@ function t(name, fn) {
 const cls = createClass({ name: "Test Sınıfı", teacherId: "t_test" });
 const s1 = createUser({ role: "student", username: "stud1", password: "1234", classId: cls.id });
 const s2 = createUser({ role: "student", username: "stud2", password: "1234", classId: cls.id });
+
+/* ───────── summarize (teacher overview) ───────── */
+t("summarize: handles valid, empty, null, and malformed progress safely", () => {
+  assert.deepEqual(summarize(null), { total: 0, low: 0, medium: 0, high: 0 });
+  assert.deepEqual(summarize("invalid"), { total: 0, low: 0, medium: 0, high: 0 });
+  assert.deepEqual(summarize({ vuln1: "not-an-array", vuln2: null }), { total: 0, low: 0, medium: 0, high: 0 });
+  assert.deepEqual(summarize({ vuln1: ["low", "medium"], vuln2: ["high", "unknown"] }), { total: 4, low: 1, medium: 1, high: 1 });
+});
 
 /* ───────── addNotification ───────── */
 t("addNotification: type/priority/title alanlarını saklar", () => {
