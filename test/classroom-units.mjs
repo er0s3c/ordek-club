@@ -22,6 +22,7 @@ const {
   takeAttendance, getAttendance,
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
+const { verifyToken } = await import("../lib/session.js");
 
 let pass = 0, fail = 0;
 function t(name, fn) {
@@ -234,6 +235,31 @@ t("pruneClassData: submissions + attendance da temizlenir", () => {
   pruneClassData(c.id, [u.id]);
   assert.equal(getSubmissions(c.id, a.id).length, 0);
   assert.equal(getAttendance(c.id).length, 0);
+});
+
+/* ───────── verifyToken (lib/session.js) ───────── */
+t("verifyToken: geçerli, süresi dolmuş, değiştirilmiş ve farklı imza uzunluklarını güvenli işler", async () => {
+  const payload = { uid: "u123", role: "teacher", exp: Date.now() + 60000 };
+  const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const cryptoModule = await import("node:crypto");
+  const secret = process.env.LAB_SESSION_SECRET || "ordek-lab-dev-session-secret-change-me";
+  const sig = cryptoModule.createHmac("sha256", secret).update(body).digest().toString("base64url");
+  const validToken = `${body}.${sig}`;
+
+  const sess = verifyToken(validToken);
+  assert.equal(sess.userId, "u123");
+  assert.equal(sess.role, "teacher");
+
+  assert.equal(verifyToken(null), null);
+  assert.equal(verifyToken("bozuktoken"), null);
+  assert.equal(verifyToken(`${body}.yanlisimza`), null);
+  assert.equal(verifyToken(`${body}.${sig}extra`), null);
+  assert.equal(verifyToken(`${body}.${sig.slice(0, 10)}`), null);
+
+  const expPayload = { uid: "u123", role: "teacher", exp: Date.now() - 1000 };
+  const expBody = Buffer.from(JSON.stringify(expPayload)).toString("base64url");
+  const expSig = cryptoModule.createHmac("sha256", secret).update(expBody).digest().toString("base64url");
+  assert.equal(verifyToken(`${expBody}.${expSig}`), null);
 });
 
 // temizlik
