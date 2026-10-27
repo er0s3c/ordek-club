@@ -19,6 +19,8 @@ function dockerErr(e) {
   );
 }
 
+const safeLabel = (s) => String(s || "").replace(/[^a-zA-Z0-9_.-]/g, "_").slice(0, 64);
+
 function student(req) {
   if (process.env.LAB_MODE !== "class") return null;
   const s = getSession(req);
@@ -29,15 +31,24 @@ function student(req) {
 // öğretmen (ve bireysel mod) hepsini görür.
 export async function GET(req) {
   try {
-    let machines = await listMachines();
-    const sess = process.env.LAB_MODE === "class" ? getSession(req) : null;
-    if (sess && sess.role === "student") machines = machines.filter((m) => m.studentId === sess.userId);
+    if (process.env.LAB_MODE === "class") {
+      const sess = getSession(req);
+      if (!sess) return Response.json({ error: "yetkisiz" }, { status: 401 });
+      let machines = await listMachines();
+      if (sess.role === "student") machines = machines.filter((m) => m.studentId === safeLabel(sess.userId));
+      return Response.json({ machines });
+    }
+    const machines = await listMachines();
     return Response.json({ machines });
   } catch (e) { return dockerErr(e); }
 }
 
 // Makine baslat: belirli zafiyet + seviye icin tek hedef konteyner
 export async function POST(req) {
+  if (process.env.LAB_MODE === "class" && !getSession(req)) {
+    return Response.json({ error: "yetkisiz" }, { status: 401 });
+  }
+
   let body = {};
   try { body = await req.json(); } catch {}
   const slug = body.slug;
