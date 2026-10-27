@@ -7,15 +7,14 @@ hedefler:
   - Bir örneği sandbox'ta güvenle çalıştırıp süreç, dosya, registry ve ağ etkinliğini kaydetmek
   - Bulgulardan paylaşılabilir IOC listesi çıkarmak
 gorseller:
-  - id: g-08-a
-    tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri, böceğinin yumuşak kil üzerinde bıraktığı ayak izlerine ve duvardaki boyalı sahte kapıya fırlattığı kâğıt uçağa bozularak bakıyor; çevredeki pirinç aletler her adımı kaydediyor"
-    prompt: "On a laboratory table covered with a smooth sheet of soft clay, a clockwork beetle walks along, leaving a perfect trail of tiny footprints, scratch marks around a little drawer it opened, and a small paper airplane it has launched toward a door painted on the wall that is only a flat picture. Brass recording instruments with needles and dials surround the table, tracing every movement onto paper rolls. The villain watches from the side in dismay, loupe in hand."
   - id: g-08-b
     tur: ekran
     alt: "Process Monitor'de eğitim örneğinin süreç adına göre filtrelenmiş dosya, registry ve süreç oluşturma olayları"
     nasil: "Ağı kapalı analiz VM'inde, eğitmenin zararsız eğitim örneğini çalıştırırken Process Monitor kaydı al. Filtre: Process Name is <örnek adı>; Operation is WriteFile, RegSetValue, Process Create. Run anahtarına yazılan RegSetValue satırını kehribar (#C9953B) dikdörtgenle işaretle. Yalnızca Procmon penceresini kırp; kullanıcı adını bulanıklaştır. 1600×900, koyu tema."
+  - id: g-08-c
+    tur: ai
+    alt: "Cam kutudaki mekanik böceğin her hareketi dört kalemli bir kayıt cihazına çiziliyor: dosya, kayıt defteri, ağ ve süreç"
+    prompt: "A mechanical beetle moves inside a glass box while a seismograph-like recorder with four pens draws its every action on a long paper roll, four colored lines for files, ledgers, network and helpers, an analyst annotating the peaks."
 animasyonlar:
   - dns-resolution
 ---
@@ -25,9 +24,11 @@ animasyonlar:
 > Bir böceği en iyi, bıraktığı **izlerden** tanırsın. Davranış analizi o izleri kayda geçirir.
 > ⚙️ **Çark 8:** Böcek kafeste uyanıyor. Selim Hoca kronometreyi başlatıyor: "Her adımını kaydet. Saat kaçta işleyecek, onu bul."
 
-![Saatçi Sabri, böceğinin yumuşak kil üzerinde bıraktığı ayak izlerine ve duvardaki boyalı sahte kapıya fırlattığı kâğıt uçağa bozularak bakıyor; çevredeki pirinç aletler her adımı kaydediyor](../../gorseller/g-08-a.webp)
+::cizgi[g-08-sahne]
 
 ## Akış
+
+![Cam kutudaki mekanik böceğin her hareketi dört kalemli bir kayıt cihazına çiziliyor: dosya, kayıt defteri, ağ ve süreç](../../gorseller/g-08-c.webp)
 
 Snapshot al → izleme araçlarını başlat → örneği çalıştır → 3–5 dk bekle → kaydı durdur ve dışa aktar → **snapshot'a dön**.
 Ağ tarafında sahte servisler (INetSim, FakeNet-NG fikri) her DNS sorusuna laboratuvar adresiyle yanıt verir; internete tek paket çıkmaz.

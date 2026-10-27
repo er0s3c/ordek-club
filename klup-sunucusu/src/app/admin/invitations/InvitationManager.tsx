@@ -9,6 +9,7 @@ import { CopyButton } from "@/components/ui/CopyButton";
 import { RoleBadge } from "@/components/ui/badges";
 import { formatDateTime } from "@/components/ui/format";
 import { ApiError, api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 type Inv = {
   id: string; label: string; codePrefix: string; role: Role; autoApprove: boolean; maxUses: number | null; useCount: number;
@@ -24,6 +25,7 @@ const STATE: Record<Inv["state"], { label: string; cls: string }> = {
 };
 
 export function InvitationManager({ roles, timezone, appUrl }: { roles: Role[]; timezone: string; appUrl: string }) {
+  const t = useT();
   const m = useMessages();
   const toast = useToast();
   const [items, setItems] = useState<Inv[] | null>(null);
@@ -71,10 +73,10 @@ export function InvitationManager({ roles, timezone, appUrl }: { roles: Role[]; 
   }
 
   async function revoke(inv: Inv) {
-    if (!window.confirm(`"${inv.label}" daveti iptal edilsin mi? Bu kodla artık kayıt olunamaz.`)) return;
+    if (!window.confirm(t("\"{label}\" daveti iptal edilsin mi? Bu kodla artık kayıt olunamaz.", { label: inv.label }))) return;
     try {
       await api(`/api/admin/invitations/${encodeURIComponent(inv.id)}`, { method: "DELETE" });
-      toast("ok", "Davet iptal edildi.");
+      toast("ok", t("Davet iptal edildi."));
       await load();
     } catch (e) {
       toast("error", (e as Error).message);
@@ -87,12 +89,12 @@ export function InvitationManager({ roles, timezone, appUrl }: { roles: Role[]; 
   return (
     <div className="stack">
       <section className="card" aria-labelledby="new-inv-h">
-        <div className="card-h"><h2 id="new-inv-h">Yeni davet</h2></div>
+        <div className="card-h"><h2 id="new-inv-h">{t("Yeni davet")}</h2></div>
         <div className="card-b">
           {created && (
             <div className="stack" style={{ marginBottom: 18 }}>
               <div className="alert alert-ok">
-                <span><strong>{created.label}</strong> daveti oluşturuldu. Kodu şimdi kopyala — güvenlik nedeniyle tekrar gösterilmeyecek.</span>
+                <span><strong>{created.label}</strong>{" "}{t("daveti oluşturuldu. Kodu şimdi kopyala — güvenlik nedeniyle tekrar gösterilmeyecek.")}</span>
               </div>
               <div className="code-box"><span>{created.code}</span><CopyButton value={created.code} /></div>
               <div className="row small"><span className="muted mono" style={{ wordBreak: "break-all" }}>{link}</span><CopyButton value={link} /></div>
@@ -100,50 +102,50 @@ export function InvitationManager({ roles, timezone, appUrl }: { roles: Role[]; 
           )}
           <form className="stack" onSubmit={create} noValidate>
             <div className="form-grid">
-              <Field label="Etiket" name="label" required maxLength={80} placeholder="ör. 2026 Güz tanışma etkinliği" error={fields.label} />
+              <Field label={t("Etiket")} name="label" required maxLength={80} placeholder={t("ör. 2026 Güz tanışma etkinliği")} error={fields.label} />
               <div className="field">
-                <label htmlFor="inv-role">Rol</label>
+                <label htmlFor="inv-role">{t("Rol")}</label>
                 <select id="inv-role" name="role" className="select" defaultValue="STUDENT">
                   {roles.map((r) => <option key={r} value={r}>{m.roles[r]}</option>)}
                 </select>
               </div>
-              <Field label="Kullanım limiti" name="maxUses" type="number" min={1} max={10000} placeholder="sınırsız" error={fields.maxUses} />
-              <Field label="Geçerlilik (gün)" name="expiresInDays" type="number" min={1} max={365} defaultValue={30} hint="Boş bırakılırsa süresiz." error={fields.expiresInDays} />
+              <Field label={t("Kullanım limiti")} name="maxUses" type="number" min={1} max={10000} placeholder={t("sınırsız")} error={fields.maxUses} />
+              <Field label={t("Geçerlilik (gün)")} name="expiresInDays" type="number" min={1} max={365} defaultValue={30} hint={t("Boş bırakılırsa süresiz.")} error={fields.expiresInDays} />
             </div>
             <label className="check">
               <input type="checkbox" name="autoApprove" />
-              <span>Bu kodla kayıt olanları otomatik onayla<br /><span className="tiny faint">Kapalıysa ve kayıt politikası “Başvuru + onay” ise üyeler yine onay bekler.</span></span>
+              <span>{t("Bu kodla kayıt olanları otomatik onayla")}<br /><span className="tiny faint">{t("Kapalıysa ve kayıt politikası “Başvuru + onay” ise üyeler yine onay bekler.")}</span></span>
             </label>
-            <div><button className="btn btn-primary" disabled={busy}>{busy ? <span className="spinner" aria-hidden /> : <Plus size={16} aria-hidden />} Davet oluştur</button></div>
+            <div><button className="btn btn-primary" disabled={busy}>{busy ? <span className="spinner" aria-hidden /> : <Plus size={16} aria-hidden />}{" "}{t("Davet oluştur")}</button></div>
           </form>
         </div>
       </section>
 
       <section className="card" aria-labelledby="inv-list-h">
-        <div className="card-h"><h2 id="inv-list-h">Davetler</h2></div>
+        <div className="card-h"><h2 id="inv-list-h">{t("Davetler")}</h2></div>
         <div className="card-b flush">
           {error ? (
             <div className="empty"><div className="alert alert-error" style={{ display: "inline-flex" }}>{error}</div></div>
           ) : !items ? (
             <div className="stack" style={{ padding: 18 }} aria-busy="true">{[1, 2, 3].map((i) => <div key={i} className="skeleton" style={{ height: 30 }} />)}</div>
           ) : items.length === 0 ? (
-            <div className="empty"><Ticket size={28} aria-hidden /><div>Henüz davet yok.</div></div>
+            <div className="empty"><Ticket size={28} aria-hidden /><div>{t("Henüz davet yok.")}</div></div>
           ) : (
             <div className="table-wrap">
               <table className="table">
-                <thead><tr><th>Etiket</th><th>Kod</th><th>Rol</th><th>Kullanım</th><th>Bitiş</th><th>Durum</th><th><span className="sr-only">İşlem</span></th></tr></thead>
+                <thead><tr><th>{t("Etiket")}</th><th>{t("Kod")}</th><th>{t("Rol")}</th><th>{t("Kullanım")}</th><th>{t("Bitiş")}</th><th>{t("Durum")}</th><th><span className="sr-only">{t("İşlem")}</span></th></tr></thead>
                 <tbody>
                   {items.map((i) => (
                     <tr key={i.id}>
-                      <td>{i.label}<div className="tiny faint">{i.createdBy ? `@${i.createdBy.username} · ` : ""}{formatDateTime(i.createdAt, timezone)}{i.autoApprove ? " · otomatik onay" : ""}</div></td>
+                      <td>{i.label}<div className="tiny faint">{i.createdBy ? `@${i.createdBy.username} · ` : ""}{formatDateTime(i.createdAt, timezone, t.intl)}{i.autoApprove ? t(" · otomatik onay") : ""}</div></td>
                       <td className="mono small">{i.codePrefix}-••••-••••</td>
                       <td><RoleBadge role={i.role} /></td>
                       <td className="num">{i.useCount}{i.maxUses !== null ? ` / ${i.maxUses}` : ""}</td>
-                      <td className="tiny faint">{i.expiresAt ? formatDateTime(i.expiresAt, timezone) : "süresiz"}</td>
-                      <td><span className={STATE[i.state].cls}>{STATE[i.state].label}</span></td>
+                      <td className="tiny faint">{i.expiresAt ? formatDateTime(i.expiresAt, timezone, t.intl) : t("süresiz")}</td>
+                      <td><span className={STATE[i.state].cls}>{t(STATE[i.state].label)}</span></td>
                       <td style={{ textAlign: "right" }}>
                         {i.state === "ACTIVE" && roles.includes(i.role) && (
-                          <button className="btn btn-sm btn-danger" onClick={() => revoke(i)} aria-label={`${i.label} davetini iptal et`}><Ban size={14} aria-hidden /> İptal</button>
+                          <button className="btn btn-sm btn-danger" onClick={() => revoke(i)} aria-label={t("{label} davetini iptal et", { label: i.label })}><Ban size={14} aria-hidden />{" "}{t("İptal")}</button>
                         )}
                       </td>
                     </tr>

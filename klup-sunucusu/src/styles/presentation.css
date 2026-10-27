@@ -214,3 +214,51 @@
 
 /* Mini görev köprüsü (görev öğrencinin kendi cihazında çözülür) */
 .blk-mission .blk-mission-cta { align-self: flex-start; font-size: 1.25cqw; min-height: 3.2cqw; padding: 0 1.8cqw; }
+
+/* Dosyadan slayt içe aktarma (PDF/PPTX/PPT) */
+dialog.modal.import-deck { width: min(600px, calc(100vw - 32px)); }
+.import-deck-thumb { width: 100%; max-height: 220px; object-fit: contain; background: var(--bg-inset); border: 1px solid var(--line); border-radius: var(--radius); }
+
+/* ── Shiki renklendirme + magic-move kod geçişleri ── */
+.code-line.is-dim { opacity: 0.45; transition: opacity 0.3s var(--ease); }
+.magic-code { --code-lh: 1.6em; position: relative; margin: 0; background: var(--bg-inset); border: 1px solid rgba(252, 252, 252, 0.18); border-radius: 0.6cqw; padding: 1.2cqw 1.4cqw; font-family: var(--font-mono); font-size: 1.45cqw; line-height: var(--code-lh); overflow: hidden; }
+.magic-code .magic-pre { position: relative; z-index: 1; margin: 0; background: transparent !important; line-height: var(--code-lh); }
+.magic-hl { position: absolute; left: 0; right: 0; height: var(--code-lh); margin-top: 1.2cqw; background: rgba(252, 252, 252, 0.1); box-shadow: inset 3px 0 0 var(--term); transition: top 0.4s var(--ease); }
+.shiki-code span { transition: color 0.3s var(--ease); }
+
+/* ── Yeni bloklar: Mermaid diyagramı, Excalidraw çizimi, Motion Canvas sahnesi, Lottie, terminal kaydı ── */
+.mermaid-figure { margin: 0; display: grid; gap: 0.8cqw; }
+.mermaid-host { display: grid; place-items: center; min-height: 8cqw; }
+.mermaid-host svg { max-width: 100%; height: auto; max-height: 34cqw; }
+.sketch-view { display: grid; place-items: center; }
+.sketch-view svg { max-width: 100%; height: auto; max-height: 34cqw; }
+.sketch-board { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.motion-scene { margin: 0; display: grid; gap: 1cqw; }
+.motion-scene-host { aspect-ratio: 16 / 9; width: 100%; border-radius: 0.6cqw; overflow: hidden; background: #120d1f; }
+.motion-scene-canvas { width: 100%; height: 100%; display: block; }
+.blk-lottie { margin: 0; display: grid; justify-items: center; gap: 0.6cqw; font-size: 1.4cqw; color: var(--muted); }
+.lottie-canvas { width: min(18cqw, 240px); height: auto; aspect-ratio: 1; }
+.lottie-svg svg { display: block; }
+.terminal-cast { border-radius: 0.6cqw; overflow: hidden; }
+.terminal-cast .ap-wrapper { justify-content: flex-start; }
+
+/* ── Studio: sürüklenebilir slayt listesi, ortak düzenleme, Theatre zaman çizelgesi ── */
+.slide-chip-row { display: flex; align-items: stretch; gap: 2px; }
+.slide-chip-row .slide-chip { flex: 1; position: relative; }
+.slide-chip-row.is-dragging { z-index: 3; opacity: 0.9; filter: drop-shadow(0 8px 18px rgba(43, 33, 71, 0.22)); }
+.slide-grip { display: grid; place-items: center; width: 20px; border: 0; background: transparent; color: var(--ink-faint); cursor: grab; border-radius: 6px; touch-action: none; }
+.slide-grip:hover, .slide-grip:focus-visible { background: var(--bg-1); color: var(--ink); }
+.chip-peers { position: absolute; top: 6px; right: 6px; display: flex; gap: 2px; }
+.collab-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-1); }
+.collab-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); }
+.collab-pill.is-live .collab-dot { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent); }
+.collab-pill.is-offline .collab-dot { background: var(--amber); }
+.peer-avatar { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #fff; font: 700 10.5px/1 var(--font-sans, inherit); border: 2px solid var(--surface, #fff); margin-left: -4px; }
+.peer-avatar:first-child { margin-left: 0; }
+.peer-avatar.is-sm { width: 16px; height: 16px; font-size: 9px; }
+.choreo-bar { padding: 6px 8px; border: 1px dashed var(--line); border-radius: var(--radius); }
+
+/* Sunucu görünümü (sıradaki slayt + süre) */
+.presenter { display: grid; grid-template-columns: minmax(0, 320px) auto; gap: 16px; align-items: start; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-1); }
+.presenter-next { pointer-events: none; opacity: 0.92; }
+.presenter-clock { display: grid; gap: 4px; justify-items: start; font-size: 26px; font-weight: 700; }

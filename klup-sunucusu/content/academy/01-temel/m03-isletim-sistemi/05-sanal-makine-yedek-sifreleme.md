@@ -8,22 +8,25 @@ hedefler:
   - 3-2-1 yedekleme kuralını uygulamak
   - Disk şifrelemenin neyi koruduğunu açıklamak
 gorseller:
-  - id: m03-05-a
-    tur: ai
-    karakter: riza
-    alt: "Anahtarcı Rıza bir kar küresi gibi cam fanusun içinde mahsur kalmış, camı yumrukluyor"
-    prompt: "A laptop on a desk with three small glass snow-globe domes floating above its screen, each containing a tiny separate computer. Inside one dome, a miniature version of the villain is trapped, pounding on the glass and shouting, while the glass contains him completely."
   - id: m03-05-b
     tur: ekran
     alt: VirtualBox'ta bir sanal makinenin anlık görüntü (snapshot) listesi
     nasil: "VirtualBox'ta bir laboratuvar sanal makinesi seçin → sağ üstteki menüden 'Snapshots' (Anlık Görüntüler) görünümü. En az iki snapshot olsun (ör. 'temiz-kurulum' ve 'ders-oncesi'). 'Take' (Al) ve 'Restore' (Geri yükle) düğmelerini kehribar (#C9953B) çerçeveyle işaretleyin. VM adında kişisel bilgi olmasın."
+  - id: m03-05-c
+    tur: ai
+    alt: "Üç aynı dosya kutusu: biri masada, biri harici diskte, biri bulutta; bulut olan uzakta ve kablosu yok"
+    prompt: "Three identical glowing file boxes: one on a desk next to a laptop, one inside a small external hard drive on a shelf, and one carried away by a small cloud floating to a distant hill, with no cable connecting it to the desk. A storm cloud of red sparks hits the desk but the faraway box stays safe."
+  - id: m03-05-d
+    tur: ai
+    alt: "Çalınan bir laptopun içi açılınca yalnızca kilitli, düğümlü ipliklerden bir yumak görünüyor"
+    prompt: "A thief's gloved hands open a stolen laptop like a book, but inside there is only a tightly knotted ball of glowing threads wrapped around a padlock, impossible to untangle, while the owner's key hangs safely on a hook far away."
 ---
 
 # Sanal makine, yedek ve disk şifreleme
 
 > Bir şeyleri bozarak öğreneceksin. Bunu **kendi bilgisayarını bozmadan** yapmanın yolu: sanal makine.
 
-![Anahtarcı Rıza bir kar küresi gibi cam fanusun içinde mahsur kalmış, camı yumrukluyor](../../gorseller/m03-05-a.webp)
+::cizgi[m03-05-sahne]
 
 ## Sanal makine (VM)
 
@@ -38,6 +41,8 @@ Laboratuvarda zararlı yazılım, açıklı uygulama veya riskli komut **hep VM'
 
 ## Yedekleme: 3-2-1 kuralı
 
+![Üç aynı dosya kutusu: biri masada, biri harici diskte, biri bulutta; bulut olan uzakta ve kablosu yok](../../gorseller/m03-05-c.webp)
+
 - **3** kopya (asıl + 2 yedek)
 - **2** farklı ortamda (ör. harici disk + bulut)
 - **1** tanesi başka bir yerde, bilgisayara bağlı değil
@@ -46,6 +51,8 @@ Fidye yazılımı (ransomware) bağlı diskleri de şifreleyebilir; o yüzden "b
 Yedeği bir kez **geri yüklemeyi denemediysen**, yedeğin olduğundan emin değilsin.
 
 ## Disk şifreleme
+
+![Çalınan bir laptopun içi açılınca yalnızca kilitli, düğümlü ipliklerden bir yumak görünüyor](../../gorseller/m03-05-d.webp)
 
 Laptopun çalınırsa hırsız diski söküp başka bilgisayara takabilir. Disk şifreliyse dosyalar okunamaz.
 

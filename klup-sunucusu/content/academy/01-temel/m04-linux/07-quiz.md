@@ -42,12 +42,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: Base64 bir kodlamadır, şifreleme değildir; herkes çözebilir.
-gorseller:
-  - id: m04-07-a
-    tur: ai
-    karakter: sadri
-    alt: "Süper Kullanıcı Sadri devrilen sunucu tahtının önünde yerde, çatlak monokluyla; bütün sunucu ışıkları sakin yeşil"
-    prompt: "In a server room the villain's throne of server racks has toppled over; he sits on the floor amid tangled cables holding his cracked green monocle, stunned, while every server light around him has turned a calm steady green."
 ---
 
 # M04 Quiz: Linux ve komut satırı
@@ -56,8 +50,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Süper Kullanıcı Sadri** · *quiz'i %70 ile geçince*
 >
-> ![Süper Kullanıcı Sadri devrilen sunucu tahtının önünde yerde, çatlak monokluyla; bütün sunucu ışıkları sakin yeşil](../../gorseller/m04-07-a.webp)
->
-> Sadri'nin tahtı devrildi. Loglarda unuttuğu tek satır kaldı: yirmi yıllık bir kullanıcı adı, "eren". Selim Hoca o satırı görünce uzun süre konuşmuyor.
+> ::cizgi[sadri-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Dinleyici Nuri** (M05)*

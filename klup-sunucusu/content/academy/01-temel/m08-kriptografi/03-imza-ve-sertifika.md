@@ -8,20 +8,25 @@ hedefler:
   - Sertifika ve PKI zincirini anlamak
 animasyonlar: [tls-handshake]
 gorseller:
-  - id: m08-03-a
+  - id: m08-03-b
     tur: ai
-    karakter: kadir
-    alt: "Kasa Kıran Kadir, üç halkalı güven zincirindeki mührü sahte bir mühür kalıbıyla taklit etmeye çalışıyor"
-    prompt: "A vertical chain of three glowing links hanging from above: the top link holds a large golden wax seal, the middle a smaller silver seal, the bottom a card with a small website icon. The villain holds a crude fake seal stamp up to the bottom link, but it clearly does not match."
+    alt: "Belgeye yalnızca sahibinin elindeki özel mühürle basılan bir balmumu mühür; herkes elindeki büyüteçle mührü doğrulayabiliyor"
+    prompt: "A person presses a unique private seal ring into warm wax on a document, while a crowd of onlookers each hold an identical public magnifying lens that shows a matching glowing outline only when the seal is genuine."
+  - id: m08-03-c
+    tur: ai
+    alt: "Pasaport kontrolü: bir anahtarın kimlik belgesi, güvenilir bir makam tarafından damgalanmış"
+    prompt: "A passport control booth where an official with a heavy trusted stamp checks a small passport attached to a brass key, compares the photo with the key owner standing in line, and stamps it with a glowing green approval seal."
 ---
 
 # Dijital imza ve sertifika
 
 > Şifreleme "kimse okuyamasın" der. İmza ise "**bunu gerçekten ben gönderdim ve kimse değiştirmedi**" der.
 
-![Kasa Kıran Kadir, üç halkalı güven zincirindeki mührü sahte bir mühür kalıbıyla taklit etmeye çalışıyor](../../gorseller/m08-03-a.webp)
+::cizgi[m08-03-sahne]
 
 ## Dijital imza nasıl çalışır?
+
+![Belgeye yalnızca sahibinin elindeki özel mühürle basılan bir balmumu mühür; herkes elindeki büyüteçle mührü doğrulayabiliyor](../../gorseller/m08-03-b.webp)
 
 1. Gönderen belgenin **hash**'ini alır.
 2. Hash'i kendi **özel anahtarıyla** imzalar.
@@ -35,6 +40,8 @@ Sonuç:
 Nerede? Yazılım güncellemeleri, e-imzalı belgeler, Git commit'leri, TLS.
 
 ## Sertifika: "Bu açık anahtar gerçekten kime ait?"
+
+![Pasaport kontrolü: bir anahtarın kimlik belgesi, güvenilir bir makam tarafından damgalanmış](../../gorseller/m08-03-c.webp)
 
 Bir saldırgan da "ben bankayım" diyen bir açık anahtar üretebilir. Çözüm: **güvenilir bir üçüncü taraf** bunu doğrulayıp imzalar.
 

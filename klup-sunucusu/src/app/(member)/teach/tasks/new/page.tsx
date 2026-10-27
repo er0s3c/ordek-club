@@ -5,16 +5,20 @@ import { STAFF_ROLES } from "@/server/auth/guard";
 import { EMPTY_TASK } from "@/components/classroom/form-values";
 import { TaskForm } from "../TaskForm";
 import { taskGroupOptions, taskXpDefaults } from "../xp";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Yeni görev" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Yeni görev") };
+}
 
 export default async function NewTaskPage() {
+  const t = await getT();
   await requirePageSession(STAFF_ROLES);
   return (
-    <div className="stack fade-up" style={{ maxWidth: 900 }}>
+    <div className="stack fade-up">
       <div className="page-head">
-        <div className="eyebrow"><Link href="/teach/tasks">Görev yönetimi</Link></div>
-        <h1 className="page-title">Yeni görev</h1>
+        <div className="eyebrow"><Link href="/teach/tasks">{t("Görev yönetimi")}</Link></div>
+        <h1 className="page-title">{t("Yeni görev")}</h1>
       </div>
       <TaskForm initial={EMPTY_TASK} xpDefaults={await taskXpDefaults()} groups={await taskGroupOptions()} />
     </div>

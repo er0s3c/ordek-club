@@ -7,6 +7,7 @@ import { useMessages } from "@/components/providers";
 import { formatDateTime } from "@/components/ui/format";
 import { AUDIT_ACTION_PREFIXES, actionLabel } from "@/components/admin/audit-labels";
 import { api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 type Row = {
   id: string; action: string; targetType: string | null; targetId: string | null; meta: unknown; ip: string | null; createdAt: string;
@@ -17,6 +18,7 @@ type Res = { total: number; page: number; pageSize: number; items: Row[] };
 const PREFIX_LABEL: Record<string, string> = { auth: "Kimlik", member: "Üyelik", invitation: "Davet", settings: "Ayarlar", setup: "Kurulum", academy: "Akademi", xp: "XP", badge: "Rozet", leaderboard: "Liderlik" };
 
 export function AuditTable({ timezone }: { timezone: string }) {
+  const t = useT();
   const m = useMessages();
   const router = useRouter();
   const pathname = usePathname();
@@ -50,10 +52,10 @@ export function AuditTable({ timezone }: { timezone: string }) {
   return (
     <section className="card">
       <div className="card-h">
-        <div className="row" role="group" aria-label="Kategori filtresi">
+        <div className="row" role="group" aria-label={t("Kategori filtresi")}>
           <button className={`btn btn-sm ${action ? "btn-ghost" : ""}`} aria-pressed={!action} onClick={() => go({ action: "", page: "" })}>{m.common.all}</button>
           {AUDIT_ACTION_PREFIXES.map((p) => (
-            <button key={p} className={`btn btn-sm ${action === p ? "" : "btn-ghost"}`} aria-pressed={action === p} onClick={() => go({ action: p, page: "" })}>{PREFIX_LABEL[p] ?? p}</button>
+            <button key={p} className={`btn btn-sm ${action === p ? "" : "btn-ghost"}`} aria-pressed={action === p} onClick={() => go({ action: p, page: "" })}>{t(PREFIX_LABEL[p] ?? p)}</button>
           ))}
         </div>
       </div>
@@ -63,15 +65,15 @@ export function AuditTable({ timezone }: { timezone: string }) {
         ) : !data ? (
           <div className="stack" style={{ padding: 18 }} aria-busy="true">{[1, 2, 3, 4].map((i) => <div key={i} className="skeleton" style={{ height: 28 }} />)}</div>
         ) : data.items.length === 0 ? (
-          <div className="empty"><ScrollText size={28} aria-hidden /><div>Kayıt yok.</div></div>
+          <div className="empty"><ScrollText size={28} aria-hidden /><div>{t("Kayıt yok.")}</div></div>
         ) : (
           <div className="table-wrap">
             <table className="table">
-              <thead><tr><th>Zaman</th><th>Eylem</th><th>Kim</th><th>Hedef</th><th>Ayrıntı</th><th>IP</th></tr></thead>
+              <thead><tr><th>{t("Zaman")}</th><th>{t("Eylem")}</th><th>{t("Kim")}</th><th>{t("Hedef")}</th><th>{t("Ayrıntı")}</th><th>IP</th></tr></thead>
               <tbody>
                 {data.items.map((r) => (
                   <tr key={r.id}>
-                    <td className="tiny faint mono" style={{ whiteSpace: "nowrap" }}>{formatDateTime(r.createdAt, timezone)}</td>
+                    <td className="tiny faint mono" style={{ whiteSpace: "nowrap" }}>{formatDateTime(r.createdAt, timezone, t.intl)}</td>
                     <td>{actionLabel(r.action)}<div className="tiny faint mono">{r.action}</div></td>
                     <td className="small">{r.actor ? `@${r.actor.username}` : "—"}</td>
                     <td className="tiny faint mono">{r.targetType ? `${r.targetType}:${r.targetId ?? ""}` : "—"}</td>
@@ -86,7 +88,7 @@ export function AuditTable({ timezone }: { timezone: string }) {
       </div>
       {data && data.total > 0 && (
         <div className="pager">
-          <span>{data.total} kayıt · {m.common.page} {page}/{pages}</span>
+          <span>{t("{total} kayıt · {page} {page1}/{pages}", { total: data.total, page: m.common.page, page1: page, pages })}</span>
           <div className="row">
             <button className="btn btn-sm" disabled={page <= 1} onClick={() => go({ page: String(page - 1) })}>{m.common.previous}</button>
             <button className="btn btn-sm" disabled={page >= pages} onClick={() => go({ page: String(page + 1) })}>{m.common.next}</button>

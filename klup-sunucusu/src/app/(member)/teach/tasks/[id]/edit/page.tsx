@@ -8,10 +8,14 @@ import { HttpError } from "@/server/errors";
 import { toLocalInput } from "@/components/classroom/form-values";
 import { TaskForm } from "../../TaskForm";
 import { taskGroupOptions, taskXpDefaults } from "../../xp";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Görevi düzenle" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Görevi düzenle") };
+}
 
 export default async function EditTaskPage({ params }: { params: Promise<{ id: string }> }) {
+  const tl = await getT();
   const { user } = await requirePageSession(STAFF_ROLES);
   const { id } = await params;
   const a = await getAssignmentForStaff({ id: user.id, role: user.role, status: user.status }, id).catch((e) => {
@@ -20,10 +24,10 @@ export default async function EditTaskPage({ params }: { params: Promise<{ id: s
   });
   if (!a.canEdit) redirect(`/teach/tasks/${id}`);
   return (
-    <div className="stack fade-up" style={{ maxWidth: 900 }}>
+    <div className="stack fade-up">
       <div className="page-head">
         <div className="eyebrow"><Link href={`/teach/tasks/${id}`}>{a.title}</Link></div>
-        <h1 className="page-title">Görevi düzenle</h1>
+        <h1 className="page-title">{tl("Görevi düzenle")}</h1>
       </div>
       <TaskForm
         id={id}
@@ -53,6 +57,10 @@ export default async function EditTaskPage({ params }: { params: Promise<{ id: s
           quiz: (Array.isArray(a.quiz) ? a.quiz : []) as unknown[],
           passPercent: a.passPercent,
           maxAttempts: a.maxAttempts === null ? "" : String(a.maxAttempts),
+          checklist: a.checklist.join("\n"),
+          skills: a.skills,
+          peerReviewEnabled: a.peerReviewEnabled,
+          peerReviewCount: a.peerReviewCount,
         }}
       />
     </div>

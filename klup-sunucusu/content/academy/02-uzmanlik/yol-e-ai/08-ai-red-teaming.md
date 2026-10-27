@@ -7,11 +7,10 @@ hedefler:
   - Bir AI uygulaması için kapsam ve tehdit modeli yazmak
   - Jailbreak ve enjeksiyon testlerini tekrarlanabilir biçimde raporlamak
 gorseller:
-  - id: e-08-a
+  - id: e-08-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel prova salonunun ayna duvarı önünde robot kuklayla onlarca farklı sesi deniyor; köşedeki boş yönetmen sandalyesinde parlayan bir kontrol listesi duruyor"
-    prompt: "A rehearsal hall with a long mirror wall and warm practice lights. In front of the mirror, the villain rehearses dozens of different puppet voices with a translucent robot puppet on his knee, each voice shown as a differently colored glowing speech bubble filled with abstract symbols floating around them. In the corner, an empty director's chair holds a clipboard with a glowing checklist of tick boxes."
+    alt: "Aynı deneyi defalarca tekrarlayan araştırmacı; her denemede aynı sonuç kartı dosyaya ekleniyor"
+    prompt: "A researcher at a lab bench repeats the same experiment with a robot several times in a row, each run producing the same small colored card that gets filed into a neat binder, a stopwatch and a notebook beside them."
 ---
 
 # AI red teaming: tehdit modelinden tekrarlanabilir teste
@@ -19,7 +18,7 @@ gorseller:
 > Red teaming (*kırmızı takım*) "jailbreak denemek" değildir; **izinli, kapsamlı, tekrarlanabilir** bir güvenlik testidir.
 > 🎭 **Ses 8:** Veysel'in yüz farklı sesi var. Kalkan'ın da yüz testlik bir defteri olmalı.
 
-![Vantrolog Veysel prova salonunun ayna duvarı önünde robot kuklayla onlarca farklı sesi deniyor; köşedeki boş yönetmen sandalyesinde parlayan bir kontrol listesi duruyor](../../gorseller/e-08-a.webp)
+::cizgi[e-08-sahne]
 
 ## Önce kapsam ve izin
 
@@ -46,6 +45,8 @@ Jailbreak: modelin kurallarını aşmaya yönelik istem.
 - **Çok adımlı:** masum sorularla yavaş yavaş kaydırma
 
 ## Tekrarlanabilirlik
+
+![Aynı deneyi defalarca tekrarlayan araştırmacı; her denemede aynı sonuç kartı dosyaya ekleniyor](../../gorseller/e-08-b.webp)
 
 Model rastgeledir; tek denemeyle "güvenli" denmez.
 

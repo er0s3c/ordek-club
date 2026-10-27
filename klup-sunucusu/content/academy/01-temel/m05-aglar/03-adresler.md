@@ -8,11 +8,14 @@ hedefler:
   - Özel ve genel IP farkını açıklamak
   - Basit bir subnet maskesini okumak
 gorseller:
-  - id: m05-03-a
+  - id: m05-03-b
     tur: ai
-    karakter: nuri
-    alt: "Dinleyici Nuri apartman kapısındaki isim levhasını kendi levhasıyla değiştiriyor"
-    prompt: "A Mediterranean apartment building at night with a glowing street plaque on the main entrance and blank nameplates on each door. The villain stands on tiptoe swapping one door's nameplate for his own blank plate, a screwdriver in his teeth."
+    alt: "Bir posta paketinin üstünde iki etiket: şehirler arası adres etiketi (IP) ve apartman içi daire zili (MAC)"
+    prompt: "A parcel traveling through a noir city: on the long highway between cities it carries a large shipping label pointing to a far-away building, and once inside the apartment building a doorman reads a small brass doorbell plate on a specific apartment door to deliver it. Two clear moments shown side by side, the long journey and the final doorstep."
+  - id: m05-03-c
+    tur: ai
+    alt: "Çitle çevrili iki mahalle; aynı mahalledeki evler birbirine doğrudan yürüyor, diğer mahalleye geçmek için kapıdaki muhafızdan geçmek gerekiyor"
+    prompt: "Two fenced neighborhoods seen from above at night: houses inside the same fence pass envelopes directly to each other across their gardens, while an envelope going to the other neighborhood must pass through a single gate with a guard booth between the fences."
 ---
 
 # IP, MAC ve 192.168: cihazların adresleri
@@ -20,9 +23,11 @@ gorseller:
 > Bir paketin doğru cihaza ulaşması için iki adres gerekir:
 > **hangi bina** (IP) ve **hangi daire** (MAC).
 
-![Dinleyici Nuri apartman kapısındaki isim levhasını kendi levhasıyla değiştiriyor](../../gorseller/m05-03-a.webp)
+::cizgi[m05-03-sahne]
 
 ## Üç adres türü
+
+![Bir posta paketinin üstünde iki etiket: şehirler arası adres etiketi (IP) ve apartman içi daire zili (MAC)](../../gorseller/m05-03-b.webp)
 
 | | Örnek | Ne işe yarar? |
 |---|---|---|
@@ -50,6 +55,8 @@ Evdeki cihazların hepsi **özel** adresler kullanır; dışarıya tek bir **gen
 Bir log'da `192.168.x.x` görüyorsan olay **içeride**, başka bir adres görüyorsan dışarıdan gelen bir bağlantı olabilir.
 
 ## Subnet: aynı mahalle mi?
+
+![Çitle çevrili iki mahalle; aynı mahalledeki evler birbirine doğrudan yürüyor, diğer mahalleye geçmek için kapıdaki muhafızdan geçmek gerekiyor](../../gorseller/m05-03-c.webp)
 
 `192.168.1.24/24` → ilk 24 bit (ilk üç sayı) **ağ adresi**, son sayı cihaz.
 Yani `192.168.1.1` – `192.168.1.254` aynı ağdadır; `192.168.2.5` başka bir ağdır ve arada router gerekir.

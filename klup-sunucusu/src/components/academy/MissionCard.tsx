@@ -8,6 +8,7 @@ import { useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import type { MissionClosing, PublicMission, StepAnswer } from "@/server/academy/missions";
+import { useT } from "@/i18n/client";
 
 // Mini görev (docs/design-council/04 §6.7, 05 §6.6): kanca → posta maketi → "Gönderene dokun" → karar → kanıt →
 // kapanış (DOSYA KAPANDI). Cevap anahtarı istemcide yok; her adım sunucuda puanlanır, XP "tamamla"da yeniden doğrulanır.
@@ -79,13 +80,15 @@ function save(key: string, v: Saved | null) {
   }
 }
 
-export function MissionCard({ slug, mission, next, trackHref, readOnly = false }: {
+export function MissionCard({ slug, mission, next, trackHref, readOnly = false, lang }: {
   slug: string;
+  lang?: "tr" | "en"; // görev metinlerinin dili; geri bildirim aynı dilde gelir
   mission: MissionData;
   next?: { href: string; title: string } | null;
   trackHref?: string;
   readOnly?: boolean;
 }) {
+  const t = useT();
   const router = useRouter();
   const toast = useToast();
   const reduced = useReducedMotion();
@@ -146,7 +149,7 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
     if (readOnly || busy || solvedStep) return;
     setBusy(true);
     try {
-      const r = await api<StepResult>(`/api/academy/lessons/${slug}/missions/${mission.id}/check`, { body: { step, answer, hints } });
+      const r = await api<StepResult>(`/api/academy/lessons/${slug}/missions/${mission.id}/check`, { body: { step, answer, hints, lang } });
       setResult(r);
       if (r.correct) {
         const nextAnswers = answers.map((a, i) => (i === step ? answer : a));
@@ -179,11 +182,11 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
     }
     setBusy(true);
     try {
-      const r = await api<Done>(`/api/academy/lessons/${slug}/missions/${mission.id}/complete`, { body: { answers, hints } });
+      const r = await api<Done>(`/api/academy/lessons/${slug}/missions/${mission.id}/complete`, { body: { answers, hints, lang } });
       setDone(r);
       setReplay(false);
       save(key, null);
-      r.badges.forEach((b) => toast("ok", `🏅 Yeni rozet: ${b}`));
+      r.badges.forEach((b) => toast("ok", t("🏅 Yeni rozet: {b}", { b })));
       router.refresh();
     } catch (e) {
       toast("error", (e as Error).message);
@@ -203,23 +206,23 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
   }
 
   const mail = (
-    <article className="mail" aria-label="Simülasyon e-postası">
+    <article className="mail" aria-label={t("Simülasyon e-postası")}>
       <header className="mail-head">
         <div className="mail-row">
-          <span className="mail-label">Gönderen</span>
+          <span className="mail-label">{t("Gönderen")}</span>
           <span className="mail-from">{mission.mail.from}</span>
           <button type="button" className="mail-chip" aria-expanded={senderOpen} aria-controls={`${mission.id}-sender`} onClick={() => setSenderOpen((v) => !v)}>
-            Gönderene dokun <ChevronRight size={14} aria-hidden />
+            {t("Gönderene dokun")}{" "}<ChevronRight size={14} aria-hidden />
           </button>
         </div>
         {senderOpen && (
-          <div id={`${mission.id}-sender`} className="mail-compare" role="group" aria-label="Adres karşılaştırması">
-            <div className="mail-compare-row"><span>Yer imindeki okul</span><Diff p={officialP} /></div>
-            <div className="mail-compare-row"><span>Bu mesaj</span><Diff p={messageP} /></div>
-            <div className="mail-compare-full">Tam adres: <code>{mission.mail.address}</code></div>
+          <div id={`${mission.id}-sender`} className="mail-compare" role="group" aria-label={t("Adres karşılaştırması")}>
+            <div className="mail-compare-row"><span>{t("Yer imindeki okul")}</span><Diff p={officialP} /></div>
+            <div className="mail-compare-row"><span>{t("Bu mesaj")}</span><Diff p={messageP} /></div>
+            <div className="mail-compare-full">{t("Tam adres:")}{" "}<code>{mission.mail.address}</code></div>
           </div>
         )}
-        <div className="mail-row"><span className="mail-label">Konu</span><strong className="mail-subject">{mission.mail.subject}</strong></div>
+        <div className="mail-row"><span className="mail-label">{t("Konu")}</span><strong className="mail-subject">{mission.mail.subject}</strong></div>
         <div className="mail-time">{mission.mail.time}</div>
       </header>
       <div className="mail-body">{mission.mail.body.trim().split(/\n\s*\n/).map((p, i) => <p key={i}>{p}</p>)}</div>
@@ -229,21 +232,21 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
           <button type="button" className="mail-fake-btn" onClick={() => !readOnly && setScene("giris")}>{mission.mail.button}</button>
           {mission.mail.target && (
             <button type="button" className="mail-chip" aria-expanded={targetOpen} aria-controls={`${mission.id}-target`} onClick={() => setTargetOpen((v) => !v)}>
-              “{mission.mail.button}” nereye gidiyor? <ChevronRight size={14} aria-hidden />
+              {t("“{button}” nereye gidiyor?", { button: mission.mail.button })}{" "}<ChevronRight size={14} aria-hidden />
             </button>
           )}
         </div>
       )}
       {targetOpen && mission.mail.target && (
         <div id={`${mission.id}-target`} className="mail-compare">
-          <div className="mail-compare-row"><span>Düğmenin gittiği adres</span><code className="mail-addr">{mission.mail.target}</code></div>
+          <div className="mail-compare-row"><span>{t("Düğmenin gittiği adres")}</span><code className="mail-addr">{mission.mail.target}</code></div>
         </div>
       )}
     </article>
   );
 
   const sim = (
-    <div className="mission-sim" role="note"><ShieldCheck size={15} aria-hidden /> SİMÜLASYON · Gerçek e-posta değil, hiçbir şey sana zarar veremez</div>
+    <div className="mission-sim" role="note"><ShieldCheck size={15} aria-hidden />{" "}{t("SİMÜLASYON · Gerçek e-posta değil, hiçbir şey sana zarar veremez")}</div>
   );
 
   if (readOnly)
@@ -255,7 +258,7 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
         <ol className="mission-preview">
           {mission.steps.map((st, i) => <li key={i}><strong>{st.title}</strong> — {st.prompt}</li>)}
         </ol>
-        <p className="mission-note">Önizleme · Görev her öğrencinin kendi cihazında çözülür.</p>
+        <p className="mission-note">{t("Önizleme · Görev her öğrencinin kendi cihazında çözülür.")}</p>
       </section>
     );
 
@@ -266,32 +269,32 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
       {sim}
       {step === 0 && <p className="mission-hook"><time>{mission.hook.time}</time> {mission.hook.text}</p>}
       <div className="mission-rail">
-        <div className="lab-progress-rail" role="progressbar" aria-label="Görev ilerlemesi" aria-valuemin={0} aria-valuemax={total} aria-valuenow={step + (solvedStep ? 1 : 0)}>
+        <div className="lab-progress-rail" role="progressbar" aria-label={t("Görev ilerlemesi")} aria-valuemin={0} aria-valuemax={total} aria-valuenow={step + (solvedStep ? 1 : 0)}>
           <div className="lab-progress-fill" style={{ width: `${((step + (solvedStep ? 1 : 0)) / total) * 100}%` }} />
         </div>
-        <span className="lab-progress-label">Karar {step + 1}/{total}</span>
+        <span className="lab-progress-label">{t("Karar {v0}/{total}", { v0: step + 1, total })}</span>
       </div>
 
       {mail}
 
       {scene === "giris" && (
-        <div className="mission-scene" role="group" aria-label="Simülasyon giriş ekranı">
+        <div className="mission-scene" role="group" aria-label={t("Simülasyon giriş ekranı")}>
           <div className="sim-bar"><Lock size={13} aria-hidden /> {mission.mail.target ?? domain}</div>
           {/* Bilerek input yok: öğrenci gerçek parolasını yazamaz */}
           <div className="sim-form" aria-hidden>
-            <div className="sim-field">Öğrenci numarası</div>
-            <div className="sim-field">Şifre</div>
-            <div className="sim-submit">Giriş yap</div>
+            <div className="sim-field">{t("Öğrenci numarası")}</div>
+            <div className="sim-field">{t("Şifre")}</div>
+            <div className="sim-submit">{t("Giriş yap")}</div>
           </div>
-          <p>Sahte giriş sayfası gerçeğine çok benzeyebilir. Farkı adres çubuğunda: bu okulun adresi değil.</p>
-          <button type="button" className="btn" onClick={() => setScene(null)}><RotateCcw size={15} aria-hidden /> Tekrar bak</button>
+          <p>{t("Sahte giriş sayfası gerçeğine çok benzeyebilir. Farkı adres çubuğunda: bu okulun adresi değil.")}</p>
+          <button type="button" className="btn" onClick={() => setScene(null)}><RotateCcw size={15} aria-hidden />{" "}{t("Tekrar bak")}</button>
         </div>
       )}
 
       <div className="mission-step">
         <h3 className="mission-step-title">{s.title}</h3>
         <p className="mission-prompt">{s.prompt}</p>
-        {gated && <p className="mission-gate">Önce yukarıdaki <strong>Gönderene dokun</strong> çipine dokun, sonra karar ver.</p>}
+        {gated && <p className="mission-gate">{t("Önce yukarıdaki")}{" "}<strong>{t("Gönderene dokun")}</strong>{" "}{t("çipine dokun, sonra karar ver.")}</p>}
 
         {s.kind === "evidence" && !s.single ? (
           <>
@@ -306,7 +309,7 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
                 );
               })}
             </div>
-            {!solvedStep && <button type="button" className="btn btn-primary" disabled={busy || picked.length === 0} onClick={() => check(picked)}>Kanıtları gönder</button>}
+            {!solvedStep && <button type="button" className="btn btn-primary" disabled={busy || picked.length === 0} onClick={() => check(picked)}>{t("Kanıtları gönder")}</button>}
           </>
         ) : (
           <div className="mission-options" role="group" aria-label={s.prompt}>
@@ -332,7 +335,7 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
             </div>
           )}
           {result?.solution && !result.correct && (
-            <div className="mission-solution"><strong>Birlikte bakalım:</strong> {result.solution.replace(/^Birlikte bakalım:\s*/, "")}</div>
+            <div className="mission-solution"><strong>{t("Birlikte bakalım:")}</strong> {result.solution.replace(/^Birlikte bakalım:\s*/, "")}</div>
           )}
         </div>
 
@@ -344,11 +347,15 @@ export function MissionCard({ slug, mission, next, trackHref, readOnly = false }
 
         <div className="mission-actions">
           {!solvedStep && (wrong.size > 0 || result) && shown < s.hints.length && (
-            <button type="button" className="btn" onClick={revealHint}><Lightbulb size={15} aria-hidden /> {shown === 0 ? "Bir ipucu ver" : "Biraz daha"}</button>
+            <span className="stack-sm" style={{ gap: 2 }}>
+              {/* Aşamalı ipucu: önce küçük yönlendirme, sonra daha ayrıntılı; etkisi önceden yazılır */}
+              <button type="button" className="btn" onClick={revealHint}><Lightbulb size={15} aria-hidden /> {shown === 0 ? t("Küçük bir yönlendirme") : shown === s.hints.length - 1 ? t("Ayrıntılı ipucu") : t("Biraz daha")} ({shown + 1}/{s.hints.length})</button>
+              <span className="tiny faint">{t("İpucu XP’ni ve değerlendirmeni etkilemez; yalnız kaç ipucu kullandığın kaydedilir.")}</span>
+            </span>
           )}
           {solvedStep && (
             <button type="button" className="btn btn-primary" onClick={advance} disabled={busy}>
-              {busy ? <span className="spinner" aria-hidden /> : null} {step < total - 1 ? `Devam (${step + 2}/${total})` : "Dosyayı kapat"} <ArrowRight size={15} aria-hidden />
+              {busy ? <span className="spinner" aria-hidden /> : null} {step < total - 1 ? t("Devam ({v0}/{total})", { v0: step + 2, total }) : t("Dosyayı kapat")} <ArrowRight size={15} aria-hidden />
             </button>
           )}
         </div>
@@ -365,15 +372,16 @@ function ClosingCard({ closing, done, next, trackHref, reduced, onReplay }: {
   reduced: boolean;
   onReplay: () => void;
 }) {
+  const t = useT();
   const xp = useCountUp(done?.xp ?? 0, reduced);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (done) ref.current?.focus();
   }, [done]);
   return (
-    <section className="mission mission-closing" aria-label="Dosya kapandı">
+    <section className="mission mission-closing" aria-label={t("Dosya kapandı")}>
       <div ref={ref} tabIndex={-1} className="mission-closing-head">
-        <span className="mission-stamp">DOSYA KAPANDI</span>
+        <span className="mission-stamp">{t("DOSYA KAPANDI")}</span>
       </div>
       <div className="mission-closing-body">
         {closing.portrait && (
@@ -383,20 +391,20 @@ function ClosingCard({ closing, done, next, trackHref, reduced, onReplay }: {
         <div className="mission-closing-text">
           <p className="mission-reveal">{closing.reveal}</p>
           <p className="mission-xp" aria-live="polite">
-            {done && done.xp > 0 && <>+{xp} XP · Nedenini yakaladın. İlk denemede ya da ipucuyla, fark etmez.</>}
-            {done && done.xp === 0 && (done.alreadySolved ? "Bu görevi çözdün. XP bir kez verilir." : "Görev çözüldü.")}
-            {!done && "Bu görevi çözdün."}
+            {done && done.xp > 0 && <>{t("+{xp} XP · Nedenini yakaladın. İlk denemede ya da ipucuyla, fark etmez.", { xp })}</>}
+            {done && done.xp === 0 && (done.alreadySolved ? t("Bu görevi çözdün. XP bir kez verilir.") : t("Görev çözüldü."))}
+            {!done && t("Bu görevi çözdün.")}
           </p>
         </div>
       </div>
       <ol className="mission-rules">{closing.rules.map((r, i) => <li key={i}>{r}</li>)}</ol>
       {closing.next && <p className="mission-next">{closing.next}</p>}
       <div className="mission-actions">
-        {next && <Link className="btn btn-primary" href={next.href}>Sıradaki: {next.title} <ArrowRight size={15} aria-hidden /></Link>}
-        <Link className="btn btn-ghost" href="/dashboard">Bugünlük yeter</Link>
-        <button type="button" className="btn btn-ghost" onClick={onReplay}><RotateCcw size={15} aria-hidden /> Yeniden oyna</button>
+        {next && <Link className="btn btn-primary" href={next.href}>{t("Sıradaki: {title}", { title: next.title })}{" "}<ArrowRight size={15} aria-hidden /></Link>}
+        <Link className="btn btn-ghost" href="/dashboard">{t("Bugünlük yeter")}</Link>
+        <button type="button" className="btn btn-ghost" onClick={onReplay}><RotateCcw size={15} aria-hidden />{" "}{t("Yeniden oyna")}</button>
       </div>
-      {trackHref && <Link className="mission-story" href={trackHref}>Gölge Ağ hikâyesi →</Link>}
+      {trackHref && <Link className="mission-story" href={trackHref}>{t("Gölge Ağ hikâyesi →")}</Link>}
     </section>
   );
 }

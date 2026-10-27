@@ -8,15 +8,14 @@ hedefler:
   - MFA yöntemlerini güvenlik açısından sıralamak
   - Passkey kavramını ve güvenli oturum yönetimini anlamak
 gorseller:
-  - id: m08-04-a
-    tur: ai
-    karakter: kadir
-    alt: "Kasa Kıran Kadir, her kapıya ayrı anahtar dağıtan parlayan kasanın önünde çaresizce bakıyor"
-    prompt: "A long row of different doors, each opened by its own unique glowing key flying from a small vault on light trails. The villain stands in the middle with his rainbow notebook, scratching his head in despair because no single key opens more than one door."
   - id: m08-04-b
     tur: ekran
     alt: Bir parola yöneticisinin parola/parola cümlesi üretici ekranı
     nasil: "Bitwarden (ücretsiz, açık kaynak) veya kullandığınız parola yöneticisinde 'Oluşturucu / Generator' ekranını açın. 'Parola cümlesi' (passphrase) seçeneği seçili olsun, kelime sayısı 5. Üretilen örnek değeri ekranda bırakabilirsiniz (gerçek bir hesapta kullanmayın). Kasa içeriğinizi, e-postanızı ve kayıtlı hesap adlarınızı GÖSTERMEYİN; yalnızca üretici penceresini kırpın."
+  - id: m08-04-c
+    tur: ai
+    alt: "Bir kapıda iki kilit: biri parola anahtarı, diğeri sahibinin cebindeki küçük cihazla açılıyor; hırsız yalnız ilk anahtarla takılıyor"
+    prompt: "A sturdy door with two different locks: the owner opens the first with a key and the second with a small glowing device from their pocket; around the corner a thief holding a stolen copy of only the first key stands stuck in front of the second lock."
 ---
 
 # Parola yöneticisi, MFA ve passkey
@@ -24,7 +23,7 @@ gorseller:
 > İnsan beyni 80 farklı güçlü parolayı hatırlamak için yapılmadı.
 > Çözüm daha iyi hafıza değil, **daha iyi araçlar**.
 
-![Kasa Kıran Kadir, her kapıya ayrı anahtar dağıtan parlayan kasanın önünde çaresizce bakıyor](../../gorseller/m08-04-a.webp)
+::cizgi[m08-04-sahne]
 
 ## Parola yöneticisi
 
@@ -37,6 +36,8 @@ gorseller:
 Uzunluk karmaşıklıktan değerlidir: `kumda-yuruyen-mavi-ordek-sabah` hatırlanır ve `P@ssw0rd1!`'den çok daha güçlüdür.
 
 ## MFA: ikinci kilit
+
+![Bir kapıda iki kilit: biri parola anahtarı, diğeri sahibinin cebindeki küçük cihazla açılıyor; hırsız yalnız ilk anahtarla takılıyor](../../gorseller/m08-04-c.webp)
 
 Parolan çalınsa bile ikinci faktör olmadan giriş olmaz. Güçlüden zayıfa:
 

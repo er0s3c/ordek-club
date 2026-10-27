@@ -23,6 +23,17 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: { bodySizeLimit: "1mb" },
   },
+  webpack(config) {
+    // @motion-canvas/2d'nin derlenmiş bir dosyası TypeScript kaynağını içe aktarıyor; derlenmiş karşılığına yönlendirilir.
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@motion-canvas/2d/src/lib/jsx-runtime": path.resolve(__dirname, "node_modules/@motion-canvas/2d/lib/jsx-runtime.js"),
+    };
+    // Motion Canvas "sideEffects: false" bildiriyor ama döngüsel içe aktarmaları var; webpack'in modülleri
+    // atlayıp yeniden sıralaması "Cannot access 'SignalContext' before initialization" hatasına yol açıyor.
+    config.module.rules.push({ test: /[\\/]node_modules[\\/]@motion-canvas[\\/]/, sideEffects: true });
+    return config;
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

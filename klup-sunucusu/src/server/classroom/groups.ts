@@ -1,6 +1,7 @@
 // Sınıflar (şube) ve etkinlikler: görev ve dosyalar bir gruba hedeflenebilir.
 // Sınıf üyelerini personel belirler; etkinliğe "kendi kaydı açık" ise öğrenci kendisi katılır/ayrılır.
 import { z } from "zod";
+import { notifyWaitlist } from "@/server/club/events";
 import type { Prisma } from "@prisma/client";
 import { db } from "@/server/db";
 import { audit } from "@/server/audit";
@@ -101,7 +102,9 @@ export async function joinEvent(actor: Actor, id: string) {
 export async function leaveEvent(actor: Actor, id: string) {
   const g = await db.classGroup.findUnique({ where: { id } });
   if (!g || g.kind !== "EVENT" || !g.selfJoin) throw notFound("Etkinlik bulunamadı.");
-  await db.classGroupMember.deleteMany({ where: { groupId: id, userId: actor.id } });
+  const left = await db.classGroupMember.deleteMany({ where: { groupId: id, userId: actor.id } });
+  // Yer açıldıysa bekleme listesindeki sıradaki kişiye haber verilir.
+  if (left.count) await notifyWaitlist(id).catch(() => {});
 }
 
 // ── Okuma ───────────────────────────────────────────────────────────────────

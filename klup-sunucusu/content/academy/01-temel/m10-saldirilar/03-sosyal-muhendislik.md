@@ -8,11 +8,14 @@ hedefler:
   - Phishing türlerini ve savunmalarını açıklamak
 animasyonlar: [phishing]
 gorseller:
-  - id: m10-03-a
+  - id: m10-03-b
     tur: ai
-    karakter: ferhat
-    alt: "Kargocu kılığındaki Fidyeci Ferhat kucağında kutularla kartlı kapıyı tutmalarını istiyor"
-    prompt: "A glass office entrance with a card reader. Outside, the villain stands disguised in an ill-fitting delivery uniform and cap, his chains barely hidden, holding a tall stack of boxes and gesturing for someone inside to hold the door open."
+    alt: "Altı kukla ipiyle yönetilen bir insan; her ip ayrı bir duyguya bağlı: rozet, kum saati, korku gölgesi, gizemli kutu, yardım eli ve altın kese"
+    prompt: "A person drawn as a marionette with six glowing strings attached, each string ending at a different object above: an official badge, a racing hourglass, a looming scary shadow, a mysterious half-open box, a hand asking for help, and a bag of gold coins. The person breaks free by cutting the strings with small scissors."
+  - id: m10-03-c
+    tur: ai
+    alt: "Üç adım: avucunu kaldırıp duran öğrenci, ayrı bir telefondan arayarak doğrulayan öğrenci ve uyarı zilini çalan öğrenci"
+    prompt: "Three panels in a row: a student raising a hand to stop in front of a suspicious envelope, the same student calling the real office from a separate desk phone to check, and the student ringing a small brass warning bell to alert classmates."
 ---
 
 # İnsanı hacklemek
@@ -20,9 +23,11 @@ gorseller:
 > Bir sistemi kırmak zor olabilir; **birini ikna etmek** çoğu zaman daha kolaydır.
 > Sosyal mühendislik teknolojiyi değil, insan psikolojisini hedefler.
 
-![Kargocu kılığındaki Fidyeci Ferhat kucağında kutularla kartlı kapıyı tutmalarını istiyor](../../gorseller/m10-03-a.webp)
+::cizgi[m10-03-sahne]
 
 ## Altı tetikleyici
+
+![Altı kukla ipiyle yönetilen bir insan; her ip ayrı bir duyguya bağlı: rozet, kum saati, korku gölgesi, gizemli kutu, yardım eli ve altın kese](../../gorseller/m10-03-b.webp)
 
 | Tetikleyici | Örnek cümle |
 |---|---|
@@ -45,6 +50,8 @@ Bir phishing saldırısının baştan sona yaşam döngüsü:
 ::animasyon[phishing]
 
 ## Savunma: "dur, doğrula, bildir"
+
+![Üç adım: avucunu kaldırıp duran öğrenci, ayrı bir telefondan arayarak doğrulayan öğrenci ve uyarı zilini çalan öğrenci](../../gorseller/m10-03-c.webp)
 
 1. **Dur** — Aciliyet hissediyorsan bu bir işarettir.
 2. **Doğrula** — Bildiğin bir kanaldan (resmî site, bilinen telefon) teyit et; mesajdaki bağlantıyı/numarayı kullanma.

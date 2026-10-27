@@ -7,11 +7,10 @@ hedefler:
   - Kesin ve bulanık hash'lerle örnekleri kümelemek
   - Kod yeniden kullanımı ve sızdırılmış araçların atıfı nasıl yanılttığını açıklamak
 gorseller:
-  - id: d-09-a
+  - id: d-09-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri mekanik bir oyuncak robotun koluna başka bir kaptanın armasını dikiyor; büyüteç iç dişlilerdeki bambaşka bir ustanın işaretini gösteriyor"
-    prompt: "A cozy ship's workshop lit by a green desk lamp. The villain sits at a wooden bench carefully stitching a sewn patch with another captain's abstract emblem onto the arm of a small mechanical tin robot, while a large magnifying glass on a stand beside him reveals the robot's open chest, where the inner gears carry a completely different maker's abstract mark."
+    alt: "Saldırganın kolayca değiştirdiği şapka ve kaşe ile değiştiremediği yürüyüş biçimi; dedektif ayak izi desenine bakıyor"
+    prompt: "A shadowy figure tries on hats and fake mustaches in front of a mirror, changing disguises easily, while a detective ignores the disguises and studies the unique repeated pattern of their footprints across the floor."
 ---
 
 # Zararlı yazılım istihbaratı: aynı aile mi, aynı el mi?
@@ -19,7 +18,7 @@ gorseller:
 > Bir zararlı yazılımın üstündeki isim etikettir; içindeki yapı ise parmak izi.
 > 🚩 **Bayrak 9:** DLL'in içinde kocaman bir imza var: `MERCAN-7 was here`. Gerçek bir grup imzasını neden bu kadar kolay bulunur bıraksın?
 
-![Bayrakçı Bedri mekanik bir oyuncak robotun koluna başka bir kaptanın armasını dikiyor; büyüteç iç dişlilerdeki bambaşka bir ustanın işaretini gösteriyor](../../gorseller/d-09-a.webp)
+::cizgi[d-09-sahne]
 
 ## Hash türleri
 
@@ -40,6 +39,8 @@ strings -n 8 svc_update.dll | grep -i mercan
 Bulanık hash ve imphash ile örnekleri kümeler, kum havuzu (sandbox) raporlarıyla davranışlarını karşılaştırırsın.
 
 ## Ucuz izler, pahalı izler
+
+![Saldırganın kolayca değiştirdiği şapka ve kaşe ile değiştiremediği yürüyüş biçimi; dedektif ayak izi desenine bakıyor](../../gorseller/d-09-b.webp)
 
 | Taklidi kolay | Taklidi zor |
 |---|---|

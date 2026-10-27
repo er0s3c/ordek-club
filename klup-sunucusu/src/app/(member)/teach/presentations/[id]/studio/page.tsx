@@ -7,13 +7,18 @@ import { getStudio } from "@/server/presentations";
 import { HttpError } from "@/server/errors";
 import { getSettings } from "@/server/settings";
 import { ANIMATIONS } from "@/animations/registry";
-import { DECK_SCHEMA_VERSION, type Deck } from "@/lib/deck-schema";
+import { studioDeck } from "@/lib/deck-schema";
 import { missionOptions } from "@/server/academy/service";
+import { converterEnabled } from "@/server/slides/service";
 import { Studio } from "./Studio";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Club Studio" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Club Studio") };
+}
 
 export default async function StudioPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = await getT();
   const { user } = await requirePageSession(STAFF_ROLES);
   const { id } = await params;
   const st = await getStudio({ id: user.id, role: user.role, status: user.status }, id).catch((e) => {
@@ -22,21 +27,16 @@ export default async function StudioPage({ params }: { params: Promise<{ id: str
     throw e;
   });
   const [s, missions] = await Promise.all([getSettings(), missionOptions()]);
-  // Taslak kısmen geçersiz olabilir (düzenleme sürerken); editör eksik alanları varsayılanla tamamlar.
-  const raw = (st.deck ?? {}) as Partial<Deck>;
-  const deck: Deck = {
-    schema: DECK_SCHEMA_VERSION,
-    title: raw.title ?? "",
-    description: raw.description ?? "",
-    slides: Array.isArray(raw.slides) && raw.slides.length ? raw.slides.map((sl) => ({ title: sl.title ?? "", layout: sl.layout ?? "default", blocks: Array.isArray(sl.blocks) ? sl.blocks : [], notes: sl.notes ?? "" })) : [{ title: "Yeni slayt", layout: "default", blocks: [], notes: "" }],
-  };
+  const deck = studioDeck(st.deck);
+
   return (
     <div className="stack fade-up">
       <div className="page-head" style={{ marginBottom: 8 }}>
-        <div className="eyebrow"><Link href="/teach">Eğitmen paneli</Link> · <Link href={`/teach/presentations/${id}`}>Sunum</Link> · Club Studio</div>
+        <div className="eyebrow"><Link href="/teach">{t("Eğitmen paneli")}</Link> · <Link href={`/teach/presentations/${id}`}>{t("Sunum")}</Link>{" "}· Club Studio</div>
       </div>
       <Studio
         id={id}
+        me={{ name: user.displayName }}
         initial={deck}
         savedAt={st.draftUpdatedAt?.toISOString() ?? null}
         hasDraft={st.hasDraft}
@@ -45,6 +45,7 @@ export default async function StudioPage({ params }: { params: Promise<{ id: str
         anims={ANIMATIONS.map((a) => ({ id: a.id, title: a.title }))}
         missions={missions}
         timezone={s.timezone}
+        converterEnabled={converterEnabled()}
       />
     </div>
   );

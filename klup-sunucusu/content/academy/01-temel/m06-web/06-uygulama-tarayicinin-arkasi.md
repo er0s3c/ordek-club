@@ -11,11 +11,10 @@ gorseller:
     tur: ekran
     alt: Ördek Lab eğitim uygulamasının Network sekmesinde Fetch/XHR filtresi ve bir JSON yanıtının Preview görünümü
     nasil: "Yerel Ördek Lab (veya Ördek Club) uygulamasını açın, giriş yapın → F12 → Network → 'Fetch/XHR' filtresi → sayfada bir işlem yapın. JSON dönen bir isteği seçip sağdaki 'Preview' sekmesini açın. 'Fetch/XHR' düğmesini ve JSON önizlemesini kehribar (#C9953B) çerçeveyle işaretleyin. Gerçek kişisel veri görünmemeli; test hesabı kullanın."
-  - id: m06-06-b
+  - id: m06-06-c
     tur: ai
-    karakter: celal
-    alt: "Odaları açılmış dev tarayıcı evinde Çerezci Celal çerez kavanozuna uzanıyor; dışarıdan bir öğrenci büyüteçle izliyor"
-    prompt: "A giant web browser drawn as an open dollhouse with rooms: a network room full of flying envelopes, a storage room with a big glass cookie jar, and a console room with a glowing terminal. The villain tiptoes into the storage room reaching for the cookie jar, while outside a student with a magnifying glass inspects every room."
+    alt: "Öğrenci, cam duvarlı bir tarayıcı evinin odalarında akan mesaj tüplerini dürbünle dokunmadan izliyor"
+    prompt: "A student stands outside a dollhouse-like building with glass walls, watching through binoculars as small message tubes travel through pneumatic pipes between the rooms, a notebook in hand, careful not to touch anything."
 ---
 
 # Uygulama: Tarayıcının arkasında ne var?
@@ -23,7 +22,7 @@ gorseller:
 > Laboratuvardaki eğitim uygulamasını hiç dokunmadan, yalnızca **izleyerek** tanı.
 > Bu, her web güvenliği testinin ilk adımıdır: keşif.
 
-![Odaları açılmış dev tarayıcı evinde Çerezci Celal çerez kavanozuna uzanıyor; dışarıdan bir öğrenci büyüteçle izliyor](../../gorseller/m06-06-b.webp)
+::cizgi[m06-06-sahne]
 
 ## Ortam
 
@@ -33,6 +32,8 @@ Test hesabıyla giriş yap. **Bu görevde hiçbir isteği değiştirmiyorsun** �
 ![Fetch/XHR ve JSON önizlemesi](../../gorseller/m06-06-a.webp)
 
 ## Görev
+
+![Öğrenci, cam duvarlı bir tarayıcı evinin odalarında akan mesaj tüplerini dürbünle dokunmadan izliyor](../../gorseller/m06-06-c.webp)
 
 F12 → **Network** açıkken uygulamada gezin ve şu tabloyu doldur:
 

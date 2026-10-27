@@ -7,11 +7,10 @@ hedefler:
   - Farklı kaynaklardaki kayıtları karşılaştırıp tutarsızlık bulmak
   - Güven düzeyiyle kısa bir doğrulama raporu yazmak
 gorseller:
-  - id: m09-05-a
+  - id: m09-05-b
     tur: ai
-    karakter: mine
-    alt: "Karton bir ofis cephesini arkasından tutan Maskeli Mine'nin sahte şirketi ortaya çıkıyor"
-    prompt: "A shiny modern office building facade on a street at night, revealed from a side angle to be a flat cardboard film-set front propped up by wooden supports. Behind it, the villain holds the facade upright with one hand and a mask in the other."
+    alt: "Masada yan yana dizilen zararsız görünen kartlar birleşince sahte bir şirket binasının çizimini oluşturuyor"
+    prompt: "An investigator lines up several small innocent-looking cards on a desk, a phone, a stamp, a calendar page, a mailbox and a handshake, and as they are placed side by side their edges connect into a drawing of a hollow cardboard office building."
 ---
 
 # Uygulama: Sahte Şirketi Bul
@@ -20,7 +19,7 @@ gorseller:
 > Başvuru ücreti 50€."* Kulüp üyeleri senden ilanın güvenilir olup olmadığını soruyor.
 > Aşağıdaki kayıtların **hepsi kurgusaldır**.
 
-![Karton bir ofis cephesini arkasından tutan Maskeli Mine'nin sahte şirketi ortaya çıkıyor](../../gorseller/m09-05-a.webp)
+::cizgi[m09-05-sahne]
 
 ## Kanıt dosyası
 
@@ -39,6 +38,8 @@ gorseller:
 **K7 — Harita:** Verilen adres bir kafe.
 
 ## Görev
+
+![Masada yan yana dizilen zararsız görünen kartlar birleşince sahte bir şirket binasının çizimini oluşturuyor](../../gorseller/m09-05-b.webp)
 
 1. Her kanıtı **destekliyor / çelişiyor / belirsiz** olarak sınıflandır.
 2. İlanın iddiaları ile kanıtlar arasındaki **en az 5 tutarsızlığı** listele.

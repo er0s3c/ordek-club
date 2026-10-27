@@ -8,11 +8,14 @@ hedefler:
   - JSON ve CSV verisiyle çalışmak
   - Hataları try/except ile yönetmek
 gorseller:
-  - id: m07-03-a
+  - id: m07-03-b
     tur: ai
-    karakter: orhan
-    alt: "Postane ayrıştırma odasında Kuklacı Orhan'ın küçük robotları buruşuk bir zarfı kanala sokuyor"
-    prompt: "A tidy little post office sorting room where envelopes of three distinct shapes slide down a chute into matching bins. Two of the villain's tiny robots, dangling on his glowing strings, sneak a crumpled glowing envelope into the chute while he watches from the doorway."
+    alt: "Etiketli çekmecelerden oluşan iç içe bir dolap (JSON) ve yanında düz sıralı tablo rafı (CSV)"
+    prompt: "Two pieces of furniture side by side: on the left a small cabinet with labeled drawers where some drawers open to reveal even smaller boxes nested inside, on the right a long flat shelf divided into a neat grid of identical cubbies holding cards in rows and columns."
+  - id: m07-03-c
+    tur: ai
+    alt: "Tren yoldan çıkacakken bir güvenlik ağı vagonu nazikçe yakalıyor"
+    prompt: "A toy train wagon flies off a broken section of track and is gently caught by a safety net held by a calm small robot, which notes the problem on a clipboard, while the rest of the train keeps running."
 ---
 
 # Dosyalar, JSON, CSV ve hatalarla barışmak
@@ -20,7 +23,7 @@ gorseller:
 > Güvenlik verisi hep bir dosyadadır: log, rapor, dışa aktarım.
 > Onu okuyabilen program, onu anlayabilen programdır.
 
-![Postane ayrıştırma odasında Kuklacı Orhan'ın küçük robotları buruşuk bir zarfı kanala sokuyor](../../gorseller/m07-03-a.webp)
+::cizgi[m07-03-sahne]
 
 ## Dosya okuma ve yazma
 
@@ -36,6 +39,8 @@ with open("notlar.txt", encoding="utf-8") as f:
 `with` dosyayı iş bitince otomatik kapatır.
 
 ## JSON — API'lerin dili
+
+![Etiketli çekmecelerden oluşan iç içe bir dolap (JSON) ve yanında düz sıralı tablo rafı (CSV)](../../gorseller/m07-03-b.webp)
 
 ```python
 import json
@@ -57,6 +62,8 @@ with open("girisler.csv", newline="", encoding="utf-8") as f:
 ```
 
 ## Hatalar: programın çökmesin
+
+![Tren yoldan çıkacakken bir güvenlik ağı vagonu nazikçe yakalıyor](../../gorseller/m07-03-c.webp)
 
 ```python
 try:

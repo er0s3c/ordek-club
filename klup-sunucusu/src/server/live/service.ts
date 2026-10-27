@@ -96,6 +96,8 @@ export async function getSummary(actor: Actor, id: string) {
     },
   });
   if (!s || !(canHostSession(actor, s) || isAdmin(actor.role))) throw notFound("Oturum bulunamadı.");
+  const exitTickets = await db.livePoll.findMany({ where: { sessionId: s.id, purpose: "EXIT" }, include: { answers: { select: { choice: true } } }, orderBy: { openedAt: "asc" } });
+  const operation = await db.classroomOperation.findUnique({ where: { sessionId: s.id }, select: { id: true, history: true, status: true } });
   const end = s.endedAt ?? new Date();
   const durationMs = end.getTime() - s.startedAt.getTime();
   const participants = s.participants.map((p) => ({
@@ -123,6 +125,8 @@ export async function getSummary(actor: Actor, id: string) {
     questions: ev("QUESTION").map((e) => ({ id: e.id, text: e.text, by: e.user?.displayName ?? "—", at: e.createdAt, resolved: e.resolvedAt !== null })),
     announcements: ev("ANNOUNCEMENT").map((e) => ({ id: e.id, text: e.text, at: e.createdAt })),
     handRaises: ev("HAND").length,
+    operation,
+    exitTickets: exitTickets.map(p => ({ id: p.id, question: p.question, total: p.answers.length, correct: p.answers.filter(a => a.choice === p.correctIndex).length })),
   };
 }
 

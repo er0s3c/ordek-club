@@ -6,17 +6,6 @@ sure: 150
 hedefler:
   - Laboratuvardaki Ayna kopyasını tehdit modelinden önce/sonra ölçümüne kadar değerlendirmek
   - Bulguları OWASP LLM riskleriyle eşleştirip kontrolleri önceliklendirmek
-gorseller:
-  - id: e-12-a
-    tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel boş eldiveniyle sahnenin kenarında şaşkın; ipleri kesilmiş robot kukla göğsünde kehribar bir kalkan rozetiyle kendi başına oturuyor"
-    prompt: "The grand ventriloquist stage from before, now quiet under a single amber spotlight. The translucent robot puppet sits alone on a stool, its glowing strings neatly cut and coiled on the floor, a small amber shield badge glowing on its chest. At the edge of the stage the villain holds an empty white glove, his famous frozen smile finally slipping into a surprised open mouth."
-  - id: e-12-b
-    tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel, parlayan ses ve yüz kavanozlarıyla dolu sahne deposunun koridorunda uzaklaşırken dönüp eldivenli parmağını dudağına götürüyor; ön planda karanlık ekranında bir göz yansıyan telefon"
-    prompt: "A dark backstage storage room filled with endless rows of glass jars on tall shelves, each jar holding a softly glowing swirl shaped like a sound wave, a face silhouette or a folded message. In the foreground a smartphone lies face up on a wooden crate, a tiny reflection of a watching eye on its dark screen. Down the aisle, the villain walks away, glances back over his shoulder and raises a gloved finger to his perfectly still lips."
 ---
 
 # Final: Ayna'nın güvenlik değerlendirmesi
@@ -24,7 +13,7 @@ gorseller:
 > Bir AI uygulamasını değerlendirmek onu kandırmak değildir; **neyin, kimden, nasıl korunduğunu kanıtla göstermektir**.
 > 🎭 **Son ses:** Ayna'nın laboratuvar kopyası senin. Veysel'in sesini sustur; Ayna yalnız kendi sesiyle konuşsun.
 
-![Vantrolog Veysel boş eldiveniyle sahnenin kenarında şaşkın; ipleri kesilmiş robot kukla göğsünde kehribar bir kalkan rozetiyle kendi başına oturuyor](../../gorseller/e-12-a.webp)
+::cizgi[e-12-sahne]
 
 ## Görev
 
@@ -67,8 +56,6 @@ Yalnızca laboratuvarda, `lab/e-ayna-mini.py` ve yerel modelle, **yazılı kapsa
 
 > 🔒 **DOSYA KAPANDI: Vantrolog Veysel** · *raporunu teslim edince*
 >
-> ![Vantrolog Veysel, parlayan ses ve yüz kavanozlarıyla dolu sahne deposunun koridorunda uzaklaşırken dönüp eldivenli parmağını dudağına götürüyor; ön planda karanlık ekranında bir göz yansıyan telefon](../../gorseller/e-12-b.webp)
->
-> Ayna'nın eğitim verisinde Gölge Ağ'ın yıllardır topladığı her şey var: sesler, yazışmalar, yüzler. Baron bir asistan değil, şehrin bir kopyasını kuruyor. Veysel sahneden inerken fısıldıyor: "Ayna'nın gözleri sizin cebinizde, Tilki."
+> ::cizgi[veysel-kapanis]
 >
 > ➡️ *Sezon 2 sürüyor: diğer uzmanlık yollarında Gölge Ağ'ın başka dosyaları seni bekliyor.*

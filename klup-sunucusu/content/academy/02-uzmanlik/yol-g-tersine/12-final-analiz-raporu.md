@@ -7,16 +7,10 @@ hedefler:
   - Eğitmenin verdiği zararsız eğitim örneğini triage'dan dinamik analize kadar incelemek
   - Bulguları IOC listesi, YARA kuralı ve uygulanabilir önerilerle raporlamak
 gorseller:
-  - id: g-12-a
+  - id: g-12-c
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri durdurulmuş saat kulesinin önünde tabureye çökmüş; her dişli kehribar bir kıskaçla sabitlenmiş, böcekleri cam kavanozlarda sıra sıra dizilmiş"
-    prompt: "Inside a towering clockwork mechanism, every great gear has been gently held still by a small glowing amber clamp, and the giant clock hands are frozen just before the hour. Rows of glass jars on a shelf hold the clockwork beetles, neatly sorted and resting. The villain sits on a low stool at the foot of the mechanism, his loupe in his lap, nodding slowly as if quietly impressed."
-  - id: g-12-b
-    tur: ai
-    karakter: sabri
-    alt: "Kadife bir örtü üzerinde açılmış mekanik bir böceğin içinde parlayan eski bir altın anahtar; yanındaki küçük aynada uzaktan uyanan belirsiz bir ışık var"
-    prompt: "On a velvet cloth lies an opened clockwork beetle, its shell hinged back. Inside, among the tiny gears, rests a small old golden key glowing faintly. Next to it a little hand mirror reflects a dim, distant glow, as if something were slowly waking up inside the glass. In the shadows of the workshop behind, the villain's silhouette with his loupe turns away while the pendulum of a tall clock keeps swinging."
+    alt: "Parçalarına ayrılmış mekanik böceğin yanında bulguları sırayla gösteren dosya kartları ve mühürlü rapor"
+    prompt: "A finished analysis desk: a disassembled mechanical beetle on felt, a row of index cards laid out in order with small sketches of each finding, and a sealed report with an amber stamp beside a cup of tea."
 ---
 
 # Final: eğitim örneği için zararlı yazılım analiz raporu
@@ -24,7 +18,7 @@ gorseller:
 > Analiz, rapor olmadan bitmez: bulduğun her şey, başka bir savunmacının **dakikalar içinde kullanabileceği** bir şeye dönüşmeli.
 > ⚙️ **Son çark:** Saat kulesindeki son böcek kafeste. Onu güvenle aç, nasıl çalıştığını yaz ve saati durdur.
 
-![Saatçi Sabri durdurulmuş saat kulesinin önünde tabureye çökmüş; her dişli kehribar bir kıskaçla sabitlenmiş, böcekleri cam kavanozlarda sıra sıra dizilmiş](../../gorseller/g-12-a.webp)
+::cizgi[g-12-sahne]
 
 ## Görev
 
@@ -41,6 +35,8 @@ Eğitmenin verdiği **zararsız eğitim örneğini** (parola korumalı arşivde)
 Rapora yalnızca hash'ler, log satırları ve ekran görüntüleri girer.
 
 ## Rapor iskeleti
+
+![Parçalarına ayrılmış mekanik böceğin yanında bulguları sırayla gösteren dosya kartları ve mühürlü rapor](../../gorseller/g-12-c.webp)
 
 | Bölüm | İçerik |
 |---|---|
@@ -71,8 +67,6 @@ Rapora yalnızca hash'ler, log satırları ve ekran görüntüleri girer.
 
 > 🔒 **DOSYA KAPANDI: Saatçi Sabri** · *raporunu teslim edince*
 >
-> ![Kadife bir örtü üzerinde açılmış mekanik bir böceğin içinde parlayan eski bir altın anahtar; yanındaki küçük aynada uzaktan uyanan belirsiz bir ışık var](../../gorseller/g-12-b.webp)
->
-> Saat durdu. Böceğin içindeki imza anahtarı yirmi yıl öncesine gidiyor: o gece liman bankasında kullanılan anahtar. Ve son satır yeni bir geri sayım başlatıyor; bitişi, Ayna'nın uyanacağı gece. Sezon 3: Ayna.
+> ::cizgi[sabri-kapanis]
 >
 > ➡️ *Sezon 2 burada bitiyor. Sezon 3: Ayna yakında.*

@@ -7,11 +7,10 @@ hedefler:
   - Gelişmiş arama operatörleri ve web arşivleriyle bir bilginin ilk kaynağını bulmak
   - Kaynağı ve bilgiyi Admiralty koduyla ayrı ayrı derecelendirmek
 gorseller:
-  - id: d-02-a
+  - id: d-02-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri iskeledeki ilk megafona fısıldıyor; aynı parlayan simge bir megafondan diğerine geçerek büyüyor"
-    prompt: "A foggy harbor promenade with five old-fashioned brass megaphones mounted on tall poles, each one pointing at the next in a loose circle. The villain leans close and whispers into the first megaphone with a sly half-smile, and the same glowing green abstract symbol travels from megaphone to megaphone, growing bigger and brighter each time."
+    alt: "Birbirinin kopyasını yayan tellallar bir halka oluşturmuş; hepsinin kaynağı tek bir dedikodu kulağı"
+    prompt: "A ring of town criers standing in a circle, each one handing a copy of the same rolled scroll with a red ribbon to the next, all of their scrolls traced by thin threads back to a single whispering figure in the center."
 ---
 
 # Arama ve arşiv: bilgi nereden çıktı?
@@ -19,7 +18,7 @@ gorseller:
 > Beş site aynı şeyi söylüyorsa beş kaynağın mı var, yoksa bir kaynağın beş yankısı mı?
 > 🚩 **Bayrak 2:** İki haber sitesi "uzmanlara göre MERCAN-7" diyor. Bağlantıları takip ettiğinde hepsi aynı anonim bloğa çıkıyor.
 
-![Bayrakçı Bedri iskeledeki ilk megafona fısıldıyor; aynı parlayan simge bir megafondan diğerine geçerek büyüyor](../../gorseller/d-02-a.webp)
+::cizgi[d-02-sahne]
 
 ## Gelişmiş arama
 
@@ -39,6 +38,8 @@ bir blog yazısı sonradan düzeltilmiş mi, "eski" görünen bir site aslında 
 Kendi bulgunu da arşivle: kanıt, kaynak silinince kaybolmasın.
 
 ## Döngüsel raporlama (circular reporting)
+
+![Birbirinin kopyasını yayan tellallar bir halka oluşturmuş; hepsinin kaynağı tek bir dedikodu kulağı](../../gorseller/d-02-b.webp)
 
 A, B'yi; B, C'yi; C yine A'yı kaynak gösterir. Sonunda **tek** bir iddia, çok kaynaklıymış gibi görünür.
 Sahte bayrağın en ucuz yükselticisi budur. Her bağlantıyı geriye doğru izle, zaman damgalarını sırala.

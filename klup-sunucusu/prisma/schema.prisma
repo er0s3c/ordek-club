@@ -95,6 +95,68 @@ model User {
   groupMemberships    ClassGroupMember[]     @relation("GroupMember")
   teamMemberships     AssignmentTeamMember[] @relation("TeamMember")
   passwordResets      PasswordResetToken[]
+  activitySolutions   ActivitySolution[]
+  placementAttempts   PlacementAttempt[]
+  portfolioWorks      PortfolioWork[]
+  bankQuestions       BankQuestion[]
+  ctfMembership       CtfTeamMember?
+  captainOfTeams      CtfTeam[]
+  examAttempts        TrackExamAttempt[]
+  certificates        LearningCertificate[]
+  operationMemberships OperationParticipant[]
+  operationVotes OperationVote[]
+  reportDrafts ReportDraft[]
+  socAttempts SocAttempt[]
+  learningPreference  LearningPreference?
+  learningEvents      LearningEvent[]
+  learningPlans       LearningPlan[]
+  lessonPersonal      LessonPersonal[]
+  reviewCards         ReviewCard[]
+  reminderReceipts    LearningReminder[]
+  studySessions       StudySession[]
+  studyGoal           StudyGoal?
+  buddyPosts          BuddyPost[]
+  buddyReplies        BuddyReply[]
+  circlesOwned        StudyCircle[]
+  circleMemberships   StudyCircleMember[]
+  thanksGiven         Thanks[]               @relation("ThanksFrom")
+  thanksReceived      Thanks[]               @relation("ThanksTo")
+  lessonQuestions     LessonQuestion[]
+  lessonAnswers       LessonAnswer[]
+  lessonFeedback      LessonFeedback[]
+  issueReports        IssueReport[]          @relation("IssueReporter")
+  helpRequests        HelpRequest[]
+  peerReviews         PeerReview[]
+  extensionRequests   ExtensionRequest[]     @relation("ExtensionRequester")
+  extensionDecisions  ExtensionRequest[]     @relation("ExtensionDecider")
+  deadlineOverrides   DeadlineOverride[]
+  contentReviews      ContentReview[]
+  preClassAnswers     PreClassAnswer[]
+  preClassChecks      PreClassCheck[]
+  misconceptions      Misconception[]
+  challengeAttempts   ChallengeAttempt[]     @relation("ChallengeOwner")
+  workshopAttempts    WorkshopAttempt[]
+  ctfSolves           CtfSolve[]
+  ctfHints            CtfHintUnlock[]
+  socScenarios        SocScenario[]
+  radarInterventions  RadarIntervention[]
+  radarTargets        RadarInterventionTarget[]
+  commentSnippets     CommentSnippet[]
+  rubricTemplates     RubricTemplate[]
+  announcementReads   AnnouncementRead[]
+  coursePlans         CoursePlan[]
+  clubGoals           ClubGoal[]
+  clubPolls           ClubPoll[]
+  clubPollVotes       ClubPollVote[]
+  clubTasksCreated    ClubTask[]             @relation("ClubTaskCreator")
+  clubTasksClaimed    ClubTask[]             @relation("ClubTaskClaimer")
+  officeHourSlots     OfficeHourSlot[]
+  officeHourBookings  OfficeHourBooking[]
+  eventCheckIns       EventCheckIn[]
+  eventWaitlist       EventWaitlist[]
+  eventFeedback       EventFeedback[]
+  personalCards       PersonalCard[]
+  savedTerms          SavedTerm[]
 
   @@index([status, role])
   @@index([createdAt])
@@ -271,6 +333,8 @@ model LiveSession {
   events         LiveSessionEvent[]
   polls          LivePoll[]
   assignments    Assignment[]
+  operation ClassroomOperation?
+  helpRequests   HelpRequest[]
 
   @@index([status, startedAt])
 }
@@ -342,6 +406,9 @@ model Track {
   archivedAt DateTime? // içerikten kaldırılan yol (ilerleme korunur)
   updatedAt  DateTime  @updatedAt
   lessons    Lesson[]
+  exam       TrackExam?
+  examAttempts TrackExamAttempt[]
+  certificates LearningCertificate[]
 
   @@index([kind, position])
 }
@@ -370,6 +437,17 @@ model Lesson {
   progress        LessonProgress[]
   attempts        QuizAttempt[]
   missionAttempts MissionAttempt[]
+  activities      Json?
+  skills          String[] @default([])
+  translations    LessonTranslation[]
+  personalEntries LessonPersonal[]
+  reviewCards ReviewCard[]
+  activitySolutions ActivitySolution[]
+  questions       LessonQuestion[]
+  feedback        LessonFeedback[]
+  issueReports    IssueReport[]
+  contentReviews  ContentReview[]
+  changes         LessonChange[]
 
   @@index([trackId, position])
   @@index([trackId, archivedAt])
@@ -402,6 +480,8 @@ model QuizAttempt {
   lessonId  String
   lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   answers   Json // öğrencinin seçimleri (soru sırasıyla)
+  // Soru başına "emin" (true) / "tahmin" (false); eski denemelerde boş
+  confidence Json?
   correct   Int
   total     Int
   score     Int // yüzde
@@ -663,8 +743,17 @@ model Assignment {
   quiz          Json?
   passPercent   Int                @default(60)
   maxAttempts   Int?
+  // Teslim öncesi kontrol listesi maddeleri ve beceri etiketleri (beceri kanıtı)
+  checklist     String[]           @default([])
+  skills        String[]           @default([])
+  // Kontrollü akran değerlendirmesi: öğretmen açar, son not öğretmende kalır
+  peerReviewEnabled Boolean        @default(false)
+  peerReviewCount   Int            @default(2)
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
+  peerReviews   PeerReview[]
+  extensionRequests ExtensionRequest[]
+  deadlineOverrides DeadlineOverride[]
   teams         AssignmentTeam[]
   targets       AssignmentTarget[]
   submissions   Submission[]
@@ -712,7 +801,11 @@ model Submission {
   teamId       String?          @unique
   team         AssignmentTeam?  @relation(fields: [teamId], references: [id], onDelete: Cascade)
   answers      Json?
+  // İşaretlenen kontrol listesi maddeleri (gönderim anındaki liste kopyasıyla)
+  checklist    Json?
   files        FileAsset[]
+  versions     SubmissionVersion[]
+  peerReviews  PeerReview[]
 
   @@unique([assignmentId, userId])
   @@index([assignmentId, status])
@@ -732,9 +825,15 @@ model Announcement {
   createdById String?
   createdBy   User?                @relation("AnnouncementAuthor", fields: [createdById], references: [id], onDelete: SetNull)
   createdAt   DateTime             @default(now())
+  // Planlı duyuru: bu zamandan önce üyelere görünmez
+  publishAt   DateTime             @default(now())
+  // Planlı duyurunun bildirimi yayın zamanında bir kez gönderilir
+  notifiedAt  DateTime?
   expiresAt   DateTime?
+  reads       AnnouncementRead[]
 
   @@index([createdAt])
+  @@index([publishAt])
 }
 
 enum NotificationType {
@@ -774,6 +873,7 @@ model LivePoll {
   id           String           @id @default(cuid())
   sessionId    String
   session      LiveSession      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  purpose      String @default("LIVE")
   kind         PollKind
   question     String
   options      Json // string[]
@@ -824,6 +924,16 @@ model ClassGroup {
   members     ClassGroupMember[]
   assignments Assignment[]
   files       FileAsset[]
+  examProtections ExamProtection[]
+  // Etkinlik katılım kodu: ham kod yalnız öğretmen ekranında, burada SHA-256 hash'i
+  checkInCodeHash  String?
+  checkInExpiresAt DateTime?
+  checkIns        EventCheckIn[]
+  waitlist        EventWaitlist[]
+  eventFeedback   EventFeedback[]
+  preClassChecks  PreClassCheck[]
+  interventions   RadarIntervention[]
+  coursePlans     CoursePlan[]
 
   @@index([kind, archivedAt])
 }
@@ -895,4 +1005,895 @@ model EmailOutbox {
   sentAt        DateTime?
 
   @@index([status, nextAttemptAt])
+}
+
+// Academy expansion: additive models; existing identities and progress stay unchanged.
+model LearningPreference {
+  userId String @id
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyGoal Int @default(1)
+  reminderEnabled Boolean @default(false)
+  reminderTime String @default("19:00")
+  reminderEmail Boolean @default(false)
+  // Site ve ders dili: "auto" (tarayıcı/sistem dili), "tr" veya "en"
+  locale String @default("auto")
+  protectionStart String
+  // Okuma ve erişilebilirlik tercihleri
+  fontScale Int @default(100)
+  lineHeight String @default("normal")
+  readableFont Boolean @default(false)
+  highContrast Boolean @default(false)
+  reduceMotion Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LearningEvent {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key String
+  day String
+  kind String
+  createdAt DateTime @default(now())
+  @@unique([userId, key])
+  @@index([userId, day])
+}
+
+model ExamProtection {
+  id String @id @default(cuid())
+  groupId String
+  group ClassGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  startsOn String
+  endsOn String
+  memberIds String[] @default([])
+  createdAt DateTime @default(now())
+  @@index([groupId, startsOn])
+}
+
+model LearningPlan {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title String
+  day String
+  completed Boolean @default(false)
+  createdAt DateTime @default(now())
+  @@index([userId, day])
+}
+
+model LessonPersonal {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId String
+  lesson Lesson @relation(fields:[lessonId],references:[id],onDelete:Cascade)
+  note String @default("")
+  bookmarked Boolean @default(false)
+  // Kaldığın yerden devam: son okunan bölüm çapası
+  lastSection String @default("")
+  updatedAt DateTime @updatedAt
+  @@id([userId, lessonId])
+}
+
+model ReviewCard {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId String
+  lesson Lesson @relation(fields:[lessonId],references:[id],onDelete:Cascade)
+  questionIndex Int
+  contentHash String
+  question Json
+  consecutive Int @default(0)
+  dueAt DateTime
+  closed Boolean @default(false)
+  version Int @default(0)
+  updatedAt DateTime @updatedAt
+  @@unique([userId, lessonId, questionIndex])
+  @@index([userId, dueAt])
+}
+
+model LearningReminder {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  day String
+  createdAt DateTime @default(now())
+  @@id([userId, day])
+}
+
+model FeatureSwitch {
+  key String @id
+  enabled Boolean @default(false)
+  enabledAt DateTime?
+  updatedAt DateTime @updatedAt
+}
+
+
+model LessonTranslation {
+  lessonId String
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  locale String
+  title String
+  body String
+  goals String[]
+  activities Json?
+  contentHash String
+  updatedAt DateTime @updatedAt
+  @@id([lessonId, locale])
+}
+model ActivitySolution {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId String
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  activityId String
+  contentHash String
+  solvedAt DateTime @default(now())
+  @@id([userId, lessonId, activityId, contentHash])
+}
+
+model PlacementAttempt {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  answers Json
+  score Int
+  createdAt DateTime @default(now())
+  @@index([userId, createdAt])
+}
+model PortfolioWork {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submissionId String
+  visible Boolean @default(false)
+  // Gelişim hikâyesi
+  problem String @default("")
+  approach String @default("")
+  result String @default("")
+  learned String @default("")
+  updatedAt DateTime @updatedAt
+  @@id([userId, submissionId])
+}
+
+model BankQuestion {
+  id String @id @default(cuid())
+  ownerId String
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  skill String
+  difficulty String
+  createdAt DateTime @default(now())
+  revisions QuestionRevision[]
+}
+model QuestionRevision {
+  id String @id @default(cuid())
+  questionId String
+  question BankQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  number Int
+  content Json
+  createdAt DateTime @default(now())
+  @@unique([questionId, number])
+}
+
+model ClassroomOperation {
+  id String @id @default(cuid())
+  sessionId String @unique
+  session LiveSession @relation(fields:[sessionId],references:[id],onDelete:Cascade)
+  scenarioVersion Int @default(1)
+  status String @default("ACTIVE")
+  stage Int @default(0)
+  version Int @default(0)
+  history Json @default("[]")
+  createdAt DateTime @default(now())
+  participants OperationParticipant[]
+  votes OperationVote[]
+}
+model OperationParticipant {
+  operationId String
+  operation ClassroomOperation @relation(fields: [operationId], references: [id], onDelete: Cascade)
+  userId String
+  user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+  team Int
+  // Aşama başına üstlenilen rol: [{ stage, role }] (0 analiz, 1 iletişim, 2 müdahale)
+  roleHistory Json @default("[]")
+  @@id([operationId, userId])
+}
+model OperationVote {
+  operationId String
+  operation ClassroomOperation @relation(fields: [operationId], references: [id], onDelete: Cascade)
+  userId String
+  user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+  stage Int
+  choice Int
+  createdAt DateTime @default(now())
+  @@id([operationId, userId, stage])
+}
+
+model CtfTeam {
+  id String @id @default(cuid())
+  name String @unique
+  joinCodeHash String @unique
+  captainId String
+  captain User @relation(fields:[captainId],references:[id],onDelete:Restrict)
+  createdAt DateTime @default(now())
+  members CtfTeamMember[]
+}
+// CTF panosu: çözümler (kullanıcı başına görev başına bir kez) ve satın alınan ipuçları (puandan düşülür).
+model CtfSolve {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challengeKey String
+  teamId       String?
+  createdAt    DateTime @default(now())
+
+  @@unique([userId, challengeKey])
+  @@index([challengeKey, createdAt])
+  @@index([teamId])
+}
+model CtfHintUnlock {
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challengeKey String
+  hint         Int
+  createdAt    DateTime @default(now())
+
+  @@id([userId, challengeKey, hint])
+}
+model CtfTeamMember {
+  teamId String
+  team CtfTeam @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime @default(now())
+  @@id([teamId, userId])
+}
+model ReportDraft {
+  userId String
+  user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+  labKey String
+  title String
+  evidence String
+  impact String
+  recommendation String
+  // Rubrikli geri bildirim: DRAFT → SUBMITTED → REVIEWED
+  status String @default("DRAFT")
+  submittedAt DateTime?
+  rubricScores Json?
+  feedback String @default("")
+  reviewerId String?
+  reviewedAt DateTime?
+  updatedAt DateTime @updatedAt
+  @@id([userId, labKey])
+}
+model SocAttempt {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+  alertKey String
+  decision String
+  correct Boolean
+  createdAt DateTime @default(now())
+  @@unique([userId, alertKey])
+}
+
+model TrackExam {
+  trackId String @id
+  track Track @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  questions Json
+  version Int @default(1)
+  updatedAt DateTime @updatedAt
+}
+model TrackExamAttempt {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trackId String
+  track Track @relation(fields:[trackId],references:[id],onDelete:Cascade)
+  examVersion Int
+  questions Json
+  createdAt DateTime @default(now())
+  submittedAt DateTime?
+  score Int?
+  passed Boolean @default(false)
+  @@index([userId, trackId, createdAt])
+}
+model LearningCertificate {
+  id String @id @default(cuid())
+  token String @unique
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trackId String
+  track Track @relation(fields:[trackId],references:[id],onDelete:Cascade)
+  ownerName String
+  trackTitle String
+  shareName Boolean @default(false)
+  awardedAt DateTime @default(now())
+  @@unique([userId, trackId])
+}
+
+// ============================================================================
+//  Platform genişlemesi (101 özellik): çalışma, topluluk, değerlendirme, öğretmen içgörüsü,
+//  atölyeler ve kulüp işleri. Yalnız ekleme; durum alanları CHECK kısıtlarıyla sınırlanır.
+// ============================================================================
+
+// Çalışma oturumu: süre tek başına XP üretmez; bitişte kısa değerlendirme istenir.
+model StudySession {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  minutes    Int
+  topic      String
+  lessonSlug String?
+  skill      String?
+  status     String    @default("ACTIVE") // ACTIVE | DONE | ABANDONED
+  startedAt  DateTime  @default(now())
+  endsAt     DateTime
+  endedAt    DateTime?
+  reflection String    @default("")
+  // Öz-kontrol: { understood: 1-5, nextStep: string }
+  selfCheck  Json?
+
+  @@index([userId, startedAt])
+}
+
+model StudyGoal {
+  userId    String   @id
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  targetDay String // YYYY-MM-DD
+  trackKeys String[] @default([])
+  updatedAt DateTime @updatedAt
+}
+
+model BuddyPost {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic     String
+  body      String
+  skill     String?
+  status    String       @default("OPEN") // OPEN | CLOSED | HIDDEN
+  flags     Int          @default(0)
+  expiresAt DateTime
+  createdAt DateTime     @default(now())
+  replies   BuddyReply[]
+
+  @@index([status, createdAt])
+}
+
+model BuddyReply {
+  id        String    @id @default(cuid())
+  postId    String
+  post      BuddyPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  body      String
+  hiddenAt  DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([postId, createdAt])
+}
+
+model StudyCircle {
+  id        String              @id @default(cuid())
+  name      String
+  topic     String              @default("")
+  plan      String              @default("")
+  ownerId   String
+  owner     User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt DateTime            @default(now())
+  members   StudyCircleMember[]
+}
+
+model StudyCircleMember {
+  circleId String
+  circle   StudyCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime    @default(now())
+
+  @@id([circleId, userId])
+  @@index([userId])
+}
+
+// Teşekkür notu: XP üretmez; aynı bağlam için bir kez.
+model Thanks {
+  id        String   @id @default(cuid())
+  fromId    String
+  from      User     @relation("ThanksFrom", fields: [fromId], references: [id], onDelete: Cascade)
+  toId      String
+  to        User     @relation("ThanksTo", fields: [toId], references: [id], onDelete: Cascade)
+  message   String   @default("")
+  context   String // ör. "answer:<id>", "buddy:<id>"
+  createdAt DateTime @default(now())
+
+  @@unique([fromId, toId, context])
+  @@index([toId])
+}
+
+model LessonQuestion {
+  id        String         @id @default(cuid())
+  lessonId  String
+  lesson    Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sectionId String         @default("")
+  body      String
+  status    String         @default("OPEN") // OPEN | ANSWERED | HIDDEN
+  createdAt DateTime       @default(now())
+  answers   LessonAnswer[]
+
+  @@index([lessonId, status, createdAt])
+}
+
+model LessonAnswer {
+  id         String         @id @default(cuid())
+  questionId String
+  question   LessonQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  body       String
+  staff      Boolean        @default(false)
+  accepted   Boolean        @default(false)
+  createdAt  DateTime       @default(now())
+
+  @@index([questionId, createdAt])
+}
+
+// Ders değerlendirmesi (1-5) ve "en belirsiz nokta"
+model LessonFeedback {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  rating    Int?
+  comment   String   @default("")
+  unclear   String   @default("")
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, lessonId])
+  @@index([lessonId])
+}
+
+// Sorun bildirimi: görünen takip numarası HB-<number>
+model IssueReport {
+  id        String   @id @default(cuid())
+  number    Int      @unique @default(autoincrement())
+  userId    String?
+  user      User?    @relation("IssueReporter", fields: [userId], references: [id], onDelete: SetNull)
+  lessonId  String?
+  lesson    Lesson?  @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+  location  String   @default("") // uygulama içi yol veya bölüm
+  kind      String   @default("CONTENT") // CONTENT | TECHNICAL | TRANSLATION
+  body      String
+  status    String   @default("RECEIVED") // RECEIVED | REVIEWING | FIXED | REJECTED
+  // [{ status, note, at }]
+  history   Json     @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([userId])
+}
+
+// İçerik değişikliği: içe aktarıcı contentHash değiştiğinde yazar.
+model LessonChange {
+  id        String   @id @default(cuid())
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  oldHash   String
+  newHash   String
+  oldTitle  String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model HelpRequest {
+  id           String      @id @default(cuid())
+  sessionId    String
+  session      LiveSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  note         String      @default("")
+  taskRef      String      @default("")
+  createdAt    DateTime    @default(now())
+  resolvedAt   DateTime?
+  resolvedById String?
+
+  @@index([sessionId, resolvedAt])
+}
+
+model PeerReview {
+  id           String     @id @default(cuid())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  reviewerId   String
+  reviewer     User       @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  rubricScores Json?
+  comment      String     @default("")
+  status       String     @default("ASSIGNED") // ASSIGNED | DONE
+  createdAt    DateTime   @default(now())
+  submittedAt  DateTime?
+
+  @@unique([submissionId, reviewerId])
+  @@index([reviewerId, status])
+}
+
+model SubmissionVersion {
+  id           String     @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  number       Int
+  text         String
+  answers      Json?
+  fileIds      String[]   @default([])
+  createdAt    DateTime   @default(now())
+
+  @@unique([submissionId, number])
+}
+
+model ExtensionRequest {
+  id           String     @id @default(cuid())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User       @relation("ExtensionRequester", fields: [userId], references: [id], onDelete: Cascade)
+  reason       String
+  requestedDue DateTime
+  status       String     @default("PENDING") // PENDING | APPROVED | REJECTED
+  decidedById  String?
+  decidedBy    User?      @relation("ExtensionDecider", fields: [decidedById], references: [id], onDelete: SetNull)
+  decidedAt    DateTime?
+  decisionNote String     @default("")
+  createdAt    DateTime   @default(now())
+
+  @@index([assignmentId, status])
+  @@index([userId])
+}
+
+model DeadlineOverride {
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dueAt        DateTime
+  createdAt    DateTime   @default(now())
+
+  @@id([assignmentId, userId])
+}
+
+// İçerik onayı: aynı içerik sürümü (contentHash) için aşama başına son karar geçerlidir.
+model ContentReview {
+  id          String   @id @default(cuid())
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  contentHash String
+  stage       String // AUTHOR | TECH | LANGUAGE
+  decision    String // APPROVED | CHANGES
+  note        String   @default("")
+  reviewerId  String?
+  reviewer    User?    @relation(fields: [reviewerId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+
+  @@index([lessonId, contentHash])
+}
+
+// Ders öncesi yoklama: notlandırılmaz.
+model PreClassCheck {
+  id          String           @id @default(cuid())
+  groupId     String?
+  group       ClassGroup?      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  title       String
+  // [{ question, options: string[] }]
+  questions   Json
+  opensAt     DateTime         @default(now())
+  closesAt    DateTime
+  createdById String?
+  createdBy   User?            @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime         @default(now())
+  answers     PreClassAnswer[]
+
+  @@index([groupId, closesAt])
+}
+
+model PreClassAnswer {
+  checkId   String
+  check     PreClassCheck @relation(fields: [checkId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  answers   Json
+  createdAt DateTime      @default(now())
+
+  @@id([checkId, userId])
+}
+
+model Misconception {
+  id          String   @id @default(cuid())
+  title       String
+  belief      String
+  explanation String
+  skills      String[] @default([])
+  lessonSlugs String[] @default([])
+  authorId    String?
+  author      User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Yetkinlik gösterme: otomatik puan + öğretmen kararı; muafiyet ayrı alan.
+model ChallengeAttempt {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation("ChallengeOwner", fields: [userId], references: [id], onDelete: Cascade)
+  challengeKey String
+  answers      Json
+  evidence     String    @default("")
+  score        Int
+  status       String    @default("SUBMITTED") // SUBMITTED | ACCEPTED | REJECTED
+  exemption    Boolean   @default(false)
+  decidedById  String?
+  decidedAt    DateTime?
+  note         String    @default("")
+  createdAt    DateTime  @default(now())
+
+  @@index([userId, challengeKey])
+  @@index([status])
+}
+
+// Atölye denemesi: kind = secure-code | network | query | timeline | evidence-map
+model WorkshopAttempt {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind         String
+  key          String
+  payload      Json
+  score        Int
+  passed       Boolean
+  review       String    @default("")
+  reviewedById String?
+  reviewedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@index([userId, kind, key])
+  @@index([kind, key, createdAt])
+}
+
+// Nöbet Masası senaryosu: düzenleme sürümü artırır; denemeler sürüme bağlıdır.
+model SocScenario {
+  id        String   @id @default(cuid())
+  title     String
+  summary   String   @default("")
+  // { easy: Alert[], medium: Alert[], hard: Alert[] }
+  variants  Json
+  version   Int      @default(1)
+  status    String   @default("DRAFT") // DRAFT | PUBLISHED | ARCHIVED
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+model RadarIntervention {
+  id          String                    @id @default(cuid())
+  groupId     String
+  group       ClassGroup                @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  skill       String
+  lessonSlugs String[]                  @default([])
+  note        String                    @default("")
+  dueAt       DateTime?
+  // Atama anındaki hedef öğrencilerin beceri yüzdesi (önce/sonra karşılaştırması)
+  baseline    Int?
+  createdById String?
+  createdBy   User?                     @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime                  @default(now())
+  targets     RadarInterventionTarget[]
+
+  @@index([groupId, createdAt])
+}
+
+model RadarInterventionTarget {
+  interventionId String
+  intervention   RadarIntervention @relation(fields: [interventionId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  completedAt    DateTime?
+
+  @@id([interventionId, userId])
+  @@index([userId])
+}
+
+model CommentSnippet {
+  id        String   @id @default(cuid())
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  label     String
+  text      String
+  createdAt DateTime @default(now())
+
+  @@index([ownerId])
+}
+
+model RubricTemplate {
+  id        String   @id @default(cuid())
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name      String
+  rubric    Json // [{ criterion, points }]
+  shared    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([ownerId])
+}
+
+model AnnouncementRead {
+  announcementId String
+  announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  readAt         DateTime     @default(now())
+
+  @@id([announcementId, userId])
+}
+
+model CoursePlan {
+  id          String     @id @default(cuid())
+  groupId     String
+  group       ClassGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  week        Int
+  startsOn    String // YYYY-MM-DD
+  title       String
+  lessonSlugs String[]   @default([])
+  note        String     @default("")
+  createdById String?
+  createdBy   User?      @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@unique([groupId, week])
+}
+
+// Kulüp ortak hedefi: kooperatif, bireysel sıralama yok.
+model ClubGoal {
+  id          String   @id @default(cuid())
+  title       String
+  metric      String // LESSONS | LABS | STUDY_MINUTES
+  target      Int
+  startsOn    String
+  endsOn      String
+  createdById String?
+  createdBy   User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+
+  @@index([endsOn])
+}
+
+model ClubPoll {
+  id          String         @id @default(cuid())
+  question    String
+  options     Json // string[]
+  anonymous   Boolean        @default(true)
+  closesAt    DateTime?
+  createdById String?
+  createdBy   User?          @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime       @default(now())
+  votes       ClubPollVote[]
+}
+
+model ClubPollVote {
+  pollId    String
+  poll      ClubPoll @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  choice    Int
+  createdAt DateTime @default(now())
+
+  @@id([pollId, userId])
+}
+
+model ClubTask {
+  id          String    @id @default(cuid())
+  title       String
+  description String    @default("")
+  dueAt       DateTime?
+  status      String    @default("OPEN") // OPEN | CLAIMED | DONE
+  claimedById String?
+  claimedBy   User?     @relation("ClubTaskClaimer", fields: [claimedById], references: [id], onDelete: SetNull)
+  createdById String?
+  createdBy   User?     @relation("ClubTaskCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+  doneAt      DateTime?
+
+  @@index([status, createdAt])
+}
+
+model OfficeHourSlot {
+  id        String              @id @default(cuid())
+  hostId    String
+  host      User                @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  startsAt  DateTime
+  endsAt    DateTime
+  capacity  Int                 @default(1)
+  location  String              @default("")
+  createdAt DateTime            @default(now())
+  bookings  OfficeHourBooking[]
+
+  @@index([startsAt])
+}
+
+model OfficeHourBooking {
+  id        String         @id @default(cuid())
+  slotId    String
+  slot      OfficeHourSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic     String
+  status    String         @default("BOOKED") // BOOKED | CANCELLED | DONE
+  createdAt DateTime       @default(now())
+
+  @@unique([slotId, userId])
+}
+
+model EventCheckIn {
+  groupId String
+  group   ClassGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId  String
+  user    User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  method  String     @default("CODE") // CODE | MANUAL
+  at      DateTime   @default(now())
+
+  @@id([groupId, userId])
+  @@index([userId])
+}
+
+model EventWaitlist {
+  groupId    String
+  group      ClassGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime   @default(now())
+  notifiedAt DateTime?
+
+  @@id([groupId, userId])
+}
+
+model EventFeedback {
+  groupId   String
+  group     ClassGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int
+  comment   String     @default("")
+  createdAt DateTime   @default(now())
+
+  @@id([groupId, userId])
+}
+
+// Öğrencinin kendi oluşturduğu tekrar kartı (not veya terimden)
+model PersonalCard {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  front       String
+  back        String
+  source      String   @default("NOTE") // NOTE | TERM
+  ref         String   @default("")
+  consecutive Int      @default(0)
+  dueAt       DateTime @default(now())
+  closed      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([userId, dueAt])
+}
+
+model SavedTerm {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  termId    String
+  createdAt DateTime @default(now())
+
+  @@id([userId, termId])
 }

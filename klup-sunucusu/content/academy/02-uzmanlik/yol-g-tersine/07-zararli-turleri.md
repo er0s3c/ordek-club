@@ -7,11 +7,10 @@ hedefler:
   - Zararlı yazılım türlerini davranışlarına göre ayırt etmek
   - Windows'ta kalıcılık noktalarını kontrol etmek
 gorseller:
-  - id: g-07-a
+  - id: g-07-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri vitrinindeki böcek koleksiyonunu kuyumcu gibi sunuyor: biri hediye kutusunda saklanıyor, biri sıra sıra kopyalarına bölünüyor, biri bir sandığı zincirle kilitliyor, biri anahtar deliğinden gözetliyor"
-    prompt: "In an old watchmaker's shop window at night, a velvet display tray presents a lineup of clockwork beetles, each with its own quirk: one hiding inside an elegant ribboned gift box, one splitting into a line of tiny identical copies marching away, one wrapping a small treasure chest in chains with a padlock, and one peeking through a keyhole with a tiny spyglass. The villain presents them proudly with an open palm, like a jeweler showing his finest collection."
+    alt: "Bir evin zamanlanmış hatırlatıcıları: duvar saatine bağlı yay, kapının açılış zili ve servis girişindeki gizli kapı"
+    prompt: "A mansion hallway inspected with a flashlight: a wall clock with a hidden spring mechanism, a doorbell wired to start a music box whenever the door opens, and a small service hatch near the floor with fresh scratches around it."
 ---
 
 # Zararlı yazılım türleri ve kalıcılık göstergeleri
@@ -19,7 +18,7 @@ gorseller:
 > Zararlıyı adıyla değil **huyuyla** tanırsın: ne saklıyor, nasıl yayılıyor, nasıl geri geliyor?
 > ⚙️ **Çark 7:** Sabri'nin vitrininde her böceğin başka bir huyu var. Selim Hoca: "Bizimki hangisi? Kanıtla söyle."
 
-![Saatçi Sabri vitrinindeki böcek koleksiyonunu kuyumcu gibi sunuyor: biri hediye kutusunda saklanıyor, biri sıra sıra kopyalarına bölünüyor, biri bir sandığı zincirle kilitliyor, biri anahtar deliğinden gözetliyor](../../gorseller/g-07-a.webp)
+::cizgi[g-07-sahne]
 
 ## Davranışa göre türler
 
@@ -35,6 +34,8 @@ gorseller:
 Gerçek örnekler çoğunlukla birkaç türün karışımıdır.
 
 ## Kalıcılık: nereye bakılır?
+
+![Bir evin zamanlanmış hatırlatıcıları: duvar saatine bağlı yay, kapının açılış zili ve servis girişindeki gizli kapı](../../gorseller/g-07-b.webp)
 
 Kalıcılık (persistence), yeniden başlatmadan sonra geri gelmektir.
 

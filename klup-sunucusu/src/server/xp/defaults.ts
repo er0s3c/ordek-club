@@ -13,6 +13,11 @@ export const DEFAULT_RULES = [
   { key: "task.weekly", label: "Haftalık görev", amount: 75 },
   { key: "task.approved", label: "Eğitmen onaylı uygulama", amount: 120 },
   { key: "live.quiz", label: "Canlı quizde doğru cevap", amount: 10 },
+  { key: "study.reflect", label: "Çalışma oturumu değerlendirmesi (oturumda doğrulanmış çalışma varsa)", amount: 15 },
+  { key: "workshop.complete", label: "Atölye senaryosu tamamlama (her senaryo için bir kez)", amount: 50 },
+  { key: "challenge.accepted", label: "Öğretmen onaylı yetkinlik gösterimi", amount: 100 },
+  { key: "peer.review", label: "Rubrikli akran değerlendirmesi yapma", amount: 15 },
+  { key: "ctf.solve", label: "CTF görevi çözme (her görev için bir kez)", amount: 40 },
 ] as const;
 
 export type RuleKey = (typeof DEFAULT_RULES)[number]["key"];

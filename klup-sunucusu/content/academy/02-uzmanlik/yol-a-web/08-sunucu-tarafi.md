@@ -7,11 +7,10 @@ hedefler:
   - Dört sunucu tarafı açığın ortak nedenini açıklamak
   - Her biri için temel savunmayı söylemek
 gorseller:
-  - id: a-08-a
+  - id: a-08-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine bodrumdaki pnömatik posta borusuna bir mesaj fısıldıyor; binanın kendi uşak robotu iç kasadan mühürlü bir kutu alıp ona getiriyor"
-    prompt: "A brass pneumatic message tube system in the basement of a server building. The villain slips a small glowing capsule into a tube and whispers into its mouth. On the floors above, seen in a cutaway, the building's own trusted butler robot obediently walks into a private inner vault, fetches a sealed box and carries it back down to her."
+    alt: "Binanın kendi uşağına dışarıdan verilen bir mektup; uşak onu alıp içerideki kasa odasına götürüyor"
+    prompt: "A visitor at the gate hands a note to a trusted butler robot of a mansion; the butler, who has keys to every inner door, walks the note deep inside past guards who salute him, straight to an inner vault room the visitor could never reach."
 ---
 
 # Sunucu tarafı: komut enjeksiyonu, SSTI, SSRF, XXE
@@ -19,7 +18,7 @@ gorseller:
 > Dördünün ortak noktası: sunucu, kullanıcının verdiği şeyi **kendi yetkisiyle** çalıştırıyor ya da getiriyor.
 > 🗂️ **Çekmece 8:** Jasmine artık kapıları zorlamıyor. Binanın kendi uşağına iş yaptırıyor.
 
-![Tek Tırnak Jasmine bodrumdaki pnömatik posta borusuna bir mesaj fısıldıyor; binanın kendi uşak robotu iç kasadan mühürlü bir kutu alıp ona getiriyor](../../gorseller/a-08-a.webp)
+::cizgi[a-08-sahne]
 
 ## Dört açık, tek tabloda
 
@@ -43,6 +42,8 @@ subprocess.run(["ping", "-c", "1", adres], check=True, timeout=5)
 Yine de `adres`'in gerçekten bir IP ya da alan adı olduğunu **doğrula**.
 
 ## SSRF neden bu kadar ciddi?
+
+![Binanın kendi uşağına dışarıdan verilen bir mektup; uşak onu alıp içerideki kasa odasına götürüyor](../../gorseller/a-08-b.webp)
 
 Sunucu güvenlik duvarının **içindedir**. Saldırgan dışarıdan göremediği iç panellere,
 veritabanlarına ve bulut ortamlarının kimlik bilgisi veren meta veri servislerine sunucunun gözüyle bakar.

@@ -1,3 +1,4 @@
+import { featureEnabled } from "@/server/learning/features";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
@@ -8,8 +9,11 @@ import { getHostedSession, getJoinInfo } from "@/server/live/service";
 import { HttpError } from "@/server/errors";
 import { getSettings } from "@/server/settings";
 import { HostConsole } from "./HostConsole";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Canlı ders konsolu" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Canlı ders konsolu") };
+}
 
 export default async function HostConsolePage({ params }: { params: Promise<{ id: string }> }) {
   const { user } = await requirePageSession(STAFF_ROLES);
@@ -30,5 +34,5 @@ export default async function HostConsolePage({ params }: { params: Promise<{ id
   // QR sunucuda üretilir (data: URL); istemciye harici kaynak yüklenmez.
   const qr = await QRCode.toDataURL(joinUrl, { margin: 1, width: 264, color: { dark: "#2e2e2e", light: "#ffffff" } });
 
-  return <HostConsole sessionId={s.id} code={s.code} joinUrl={joinUrl} qr={qr} deck={info.deck} />;
+  return <HostConsole allowExit={await featureEnabled("teacher-tools")} sessionId={s.id} code={s.code} joinUrl={joinUrl} qr={qr} deck={info.deck} />;
 }

@@ -7,15 +7,14 @@ hedefler:
   - Kanıt imajının bütünlüğünü hash ile doğrulamak
   - Disk ve bellek analizinde ilk bakılacak yerleri bilmek
 gorseller:
-  - id: c-10-a
-    tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer yeraltı arşivindeki dev dönen disk plağını paspaslıyor; oluklar paspasın altında parlamaya devam ediyor, arkadaki rafta diskin mühürlü kopyaları duruyor"
-    prompt: "A vast underground archive where a hard drive is shown as a huge slowly spinning disc like an old vinyl record, its grooves glowing faintly green. The villain mops the surface of the disc with great effort, but beneath his mop the grooves keep glowing as before. Behind him, on a tall shelf, a stack of identical mirror copies of the disc rests sealed in amber evidence pouches, each tagged with a little brass label."
   - id: c-10-b
     tur: ekran
     alt: "Autopsy'de laboratuvar disk imajının Timeline görünümü; bir dosyanın oluşturma ve değiştirme zamanları yan yana"
     nasil: "Kulüp laboratuvarındaki sentetik disk imajını (eğitmenin verdiği ders imajı) Autopsy'de yeni bir vakaya ekleyin. Timeline aracını açın, 2026-03-14 gününe yakınlaştırın ve C:\\Users\\Public klasöründeki bir dosyanın satırını seçin. Dosyanın oluşturma ve değiştirme zaman sütunlarını kehribar (#C9953B) çerçeveyle işaretleyin. Vaka adı ve inceleyen adı alanlarında gerçek isim kullanmayın; ekranda kişisel yol veya kullanıcı adı varsa bulanıklaştırın."
+  - id: c-10-c
+    tur: ai
+    alt: "Masada buz gibi eriyen bir ipucu ile taşa kazınmış bir ipucu; dedektif önce eriyen buzu fotoğraflıyor"
+    prompt: "A detective's desk with two clues: a small ice sculpture already melting into a puddle and a stone tablet with carved marks; the detective urgently photographs the melting ice first while the stone waits calmly."
 ---
 
 # Disk ve bellek analizi: Autopsy, MFT ve Volatility 3
@@ -23,7 +22,7 @@ gorseller:
 > Log silinebilir, dosya silinebilir. Ama disk ve bellek, silinenin **gölgesini** taşır.
 > 🧹 **İz 10:** `bakim.exe` kendini bir yıl önce oluşturulmuş gibi gösteriyor. MFT'nin ikinci saati başka bir tarih söylüyor.
 
-![Temizlikçi Tamer yeraltı arşivindeki dev dönen disk plağını paspaslıyor; oluklar paspasın altında parlamaya devam ediyor, arkadaki rafta diskin mühürlü kopyaları duruyor](../../gorseller/c-10-a.webp)
+::cizgi[c-10-sahne]
 
 ## Önce bütünlük
 
@@ -37,6 +36,8 @@ sha256sum -c ws07-disk.E01.sha256
 İki hash aynıysa imaj değişmemiştir. Bu değer delil zinciri formuna yazılır (C11).
 
 ## Uçucu olandan başla
+
+![Masada buz gibi eriyen bir ipucu ile taşa kazınmış bir ipucu; dedektif önce eriyen buzu fotoğraflıyor](../../gorseller/c-10-c.webp)
 
 Kanıt toplama sırası (order of volatility): **bellek → ağ bağlantıları → disk → yedekler.** Cihazı kapatırsan bellek gider.
 Disk imajı alınırken **yazma engelleyici (write blocker)** kullanılır; böylece inceleme orijinal diske tek bir bayt bile yazmaz.

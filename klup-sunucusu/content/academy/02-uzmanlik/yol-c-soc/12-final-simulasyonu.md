@@ -7,16 +7,10 @@ hedefler:
   - Sentetik bir olayı alarmdan zaman çizelgesine kadar uçtan uca incelemek
   - Kanıta dayalı, delil zinciri tutulmuş bir olay raporu yazmak
 gorseller:
-  - id: c-12-a
+  - id: c-12-c
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer gece SOC'unun ortasında ters çevrilmiş kovasının üstüne oturmuş; sildiği bütün ayak izleri yerde kehribar bir iz hâlinde yeniden parlıyor"
-    prompt: "The night security operations center from before, now with every screen on the wall showing one long glowing timeline restored piece by piece. The villain sits on his upturned bucket in the middle of the floor, his mop resting against his shoulder, staring in comic disbelief as every footprint he wiped glows back to life across the floor in a neat amber trail leading straight to his shoes."
-  - id: c-12-b
-    tur: ai
-    karakter: tamer
-    alt: "Masa lambasının altında ayna gibi parlayan kurtarılmış bir kayıt şeridi, yansımasında dev bir aynanın silueti; kapıda Temizlikçi Tamer'in paspaslı silueti uzaklaşıyor"
-    prompt: "A recovered strip of paper log lying on a desk under a warm desk lamp, its surface polished and reflective like a small mirror. In its reflection glows the faint green outline of a huge ornate mirror that is not in the room. In the doorway behind the desk, the villain's silhouette with his mop and bucket turns away and fades into the dark corridor, his little flashlight beam disappearing last."
+    alt: "Tek bir alarm zilinden başlayan iplik, panodaki ipuçlarından geçerek mühürlü bir rapor dosyasında bitiyor"
+    prompt: "A red thread starts at a single ringing alarm bell on the left, winds across a cork board through photos, a door, a key and a laptop, and ends tied around a sealed report folder on the right, an analyst following it with a finger."
 ---
 
 # Final simülasyonu: alarmdan olay raporuna
@@ -24,9 +18,11 @@ gorseller:
 > Bir olayı çözmek tek bir log satırı bulmak değil; **bütün izleri tek bir hikâyede birleştirmektir**.
 > 🧹 **Son iz:** Altı saatlik boşluk senin masanda. Tamer'in sildiği her şeyi geri getir.
 
-![Temizlikçi Tamer gece SOC'unun ortasında ters çevrilmiş kovasının üstüne oturmuş; sildiği bütün ayak izleri yerde kehribar bir iz hâlinde yeniden parlıyor](../../gorseller/c-12-a.webp)
+::cizgi[c-12-sahne]
 
 ## Görev
+
+![Tek bir alarm zilinden başlayan iplik, panodaki ipuçlarından geçerek mühürlü bir rapor dosyasında bitiyor](../../gorseller/c-12-c.webp)
 
 Laboratuvar VM'inde `/opt/akademi/` altındaki **sentetik** dosyalarla, 14 Mart 2026 gecesi KLP-WS07'de olanları incele:
 
@@ -74,9 +70,6 @@ Laboratuvar VM'inde `/opt/akademi/` altındaki **sentetik** dosyalarla, 14 Mart 
 
 > 🔒 **DOSYA KAPANDI: Temizlikçi Tamer** · *raporunu teslim edince*
 >
-> ![Masa lambasının altında ayna gibi parlayan kurtarılmış bir kayıt şeridi, yansımasında dev bir aynanın silueti; kapıda Temizlikçi Tamer'in paspaslı silueti uzaklaşıyor](../../gorseller/c-12-b.webp)
->
-> Zaman çizelgesi tamamlandı; Tamer'in sildiği altı saat geri geldi. Kurtarılan son kayıtta tek bir kelime tekrar ediyor:
-> AYNA. Selim Hoca kâğıdı katlayıp cebine koyuyor: "Bunu daha önce duymuştum."
+> ::cizgi[tamer-kapanis]
 >
 > ➡️ *Sezon 2 sürüyor: diğer uzmanlık yollarında Gölge Ağ'ın başka dosyaları seni bekliyor.*

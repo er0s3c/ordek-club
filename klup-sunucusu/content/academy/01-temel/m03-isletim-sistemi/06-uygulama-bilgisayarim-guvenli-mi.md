@@ -7,11 +7,10 @@ hedefler:
   - Bir Windows sisteminin güvenlik yapılandırmasını incelemek
   - Riskleri önceliklendirip düzeltme önerisi yazmak
 gorseller:
-  - id: m03-06-a
+  - id: m03-06-b
     tur: ai
-    karakter: riza
-    alt: "Muayene masasındaki laptopa Anahtarcı Rıza'nın eldivenli eli masanın altından uzanıyor"
-    prompt: "A laptop lies on a small clinic examination table under a white sheet. From under the table, the villain's gloved hand creeps up toward the laptop holding a key, while a clipboard with abstract checkmarks lies nearby."
+    alt: "Öğrenci doktor önlüğüyle laptopu stetoskopla muayene ediyor; yanında işaretlenmiş bir kontrol listesi panosu"
+    prompt: "A student in a doctor's coat examines a laptop lying on a clinic table with a stethoscope, a clipboard checklist with green tick marks hanging beside the table, a small shield badge and an update arrow icon glowing on the laptop lid."
 ---
 
 # Uygulama: Bilgisayarım ne kadar güvenli?
@@ -19,9 +18,11 @@ gorseller:
 > Laboratuvardaki **"Yurt-PC"** adlı Windows sanal makinesi kasıtlı olarak bazı hatalarla kuruldu.
 > Muayene et, teşhis koy, tedavi öner.
 
-![Muayene masasındaki laptopa Anahtarcı Rıza'nın eldivenli eli masanın altından uzanıyor](../../gorseller/m03-06-a.webp)
+::cizgi[m03-06-sahne]
 
 ## Kontrol listesi
+
+![Öğrenci doktor önlüğüyle laptopu stetoskopla muayene ediyor; yanında işaretlenmiş bir kontrol listesi panosu](../../gorseller/m03-06-b.webp)
 
 | # | Kontrol | Nereden bakılır? |
 |---|---|---|

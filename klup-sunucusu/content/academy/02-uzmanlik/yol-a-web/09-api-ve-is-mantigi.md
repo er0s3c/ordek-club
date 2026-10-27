@@ -7,11 +7,14 @@ hedefler:
   - API'lere özgü tipik açıkları tanımak
   - İş mantığı hatalarını ve yarış durumunu açıklamak
 gorseller:
-  - id: a-09-a
+  - id: a-09-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine'in gönderdiği birbirinin aynısı kopyalar aynı parlayan kuponu aynı anda vezneye uzatıyor; kasiyer robot hepsini damgalıyor"
-    prompt: "A vintage ticket counter with a cashier robot behind the glass. A row of identical translucent green clones of the villain, all summoned from the tip of her fountain pen, reach the window at the exact same moment, each holding the same single glowing coupon. The confused robot stamps every one of them while the original watches calmly from the side."
+    alt: "Aynı anda vezneye uzanan beş aynı kupon; kasiyer hepsine aynı anda indirim damgası basıyor"
+    prompt: "Five identical twins reach a bank teller window at exactly the same instant, each holding the same single-use coupon, and the teller with five arms stamps all five coupons at once before anyone can check the logbook."
+  - id: a-09-c
+    tur: ai
+    alt: "Sipariş penceresinden kimlik sorulmadan dosya dosya veri taşıyan robot; hız sınırı olmayan kapıdan sınırsız istek geçiyor"
+    prompt: "A self-service window where a robot clerk hands out thick file folders to anyone who asks without checking any badge, and a long line of identical requesters streams through a turnstile that has no counter or barrier."
 ---
 
 # API ve iş mantığı: OAuth, hız sınırı, yarış durumu
@@ -19,9 +22,11 @@ gorseller:
 > Arayüz sadece bir vitrin. Asıl kapı arkadaki **API**'dir — ve bazen kuralları yanlış sayar.
 > 🗂️ **Çekmece 9:** Portalın yemek kartı kuponu bir gecede yüz kez kullanılmış.
 
-![Tek Tırnak Jasmine'in gönderdiği birbirinin aynısı kopyalar aynı parlayan kuponu aynı anda vezneye uzatıyor; kasiyer robot hepsini damgalıyor](../../gorseller/a-09-a.webp)
+::cizgi[a-09-sahne]
 
 ## API'lerin klasik hataları
+
+![Sipariş penceresinden kimlik sorulmadan dosya dosya veri taşıyan robot; hız sınırı olmayan kapıdan sınırsız istek geçiyor](../../gorseller/a-09-c.webp)
 
 | Hata | Örnek |
 |---|---|
@@ -39,6 +44,8 @@ Tarayıcı izin vermese de istek **değiştirilebilir**:
 - İndirim kodu iki kez, iade iki kez uygulanıyor.
 
 ## Yarış durumu (race condition)
+
+![Aynı anda vezneye uzanan beş aynı kupon; kasiyer hepsine aynı anda indirim damgası basıyor](../../gorseller/a-09-b.webp)
 
 Sunucu "kupon kullanıldı mı?" diye **kontrol eder**, sonra **işaretler**.
 Aynı anda gelen 20 istek kontrolü birlikte geçerse kupon 20 kez kullanılır.

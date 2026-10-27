@@ -7,11 +7,10 @@ hedefler:
   - SIEM'in log toplama, normalizasyon ve korelasyon adımlarını açıklamak
   - Olay zamanı ile alınma zamanı arasındaki farkı kullanmak
 gorseller:
-  - id: c-02-a
+  - id: c-02-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer dev pirinç huninin ağzında merdivene çıkmış, borulardan akan parlayan kâğıt şeritlerden birkaçını yakalayıp kovasında eritiyor"
-    prompt: "A huge funnel-shaped brass machine in a dim hall collects glowing paper strips that flow in from many pipes connected to servers, laptops and firewalls, then sorts them into neat tidy stacks at the bottom. The villain stands on a wobbly stepladder at the funnel's mouth, catching a few strips with his yellow gloves and dropping them into his bucket where they dissolve into green light, glancing nervously over his shoulder at a copy machine quietly duplicating every strip."
+    alt: "Farklı yerlerden gelen günlük defterlerinin sayfaları tek bir büyük panoda zamana göre diziliyor"
+    prompt: "Pages flying in from many different logbooks, a door log, a server log, a network log and a laptop diary, all landing in order on one huge timeline board on the wall, where an analyst connects matching pages with green threads."
 ---
 
 # SIEM: dağınık logları tek ekranda nasıl birleştiririz?
@@ -19,9 +18,11 @@ gorseller:
 > Tek bir log yalan söyleyebilir. On kaynaktan gelen loglar birbirini **doğrular**.
 > 🧹 **İz 2:** KLP-WS07'nin kendi logları silindi; ama silinmeden önce kopyaları SIEM'e çoktan ulaşmıştı.
 
-![Temizlikçi Tamer dev pirinç huninin ağzında merdivene çıkmış, borulardan akan parlayan kâğıt şeritlerden birkaçını yakalayıp kovasında eritiyor](../../gorseller/c-02-a.webp)
+::cizgi[c-02-sahne]
 
 ## SIEM ne yapar?
+
+![Farklı yerlerden gelen günlük defterlerinin sayfaları tek bir büyük panoda zamana göre diziliyor](../../gorseller/c-02-b.webp)
 
 **SIEM (Security Information and Event Management)**, logları merkezde toplayan ve ilişkilendiren sistemdir.
 

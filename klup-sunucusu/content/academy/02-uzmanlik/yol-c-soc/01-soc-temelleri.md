@@ -8,11 +8,14 @@ hedefler:
   - Olay (event), alarm (alert) ve vaka (incident) kavramlarını ayırt etmek
 animasyonlar: [soc-alert]
 gorseller:
-  - id: c-01-a
+  - id: c-01-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer gece nöbet masasındaki üç pirinç zilden en büyüğünün üstüne sessizce havlu örtüyor; masadaki oyuncak ördek tek gözüyle onu izliyor"
-    prompt: "A night-shift security desk under a single amber lamp with three brass service bells of increasing size lined up in a row. The villain leans over on tiptoe and gently drapes a soft folded towel over the biggest bell so it cannot ring, whistling innocently with his mop tucked under one arm, while a sleepy rubber duck on the desk watches him with one suspicious open eye."
+    alt: "Huni şeklinde bir süzgeç: üstte sayısız küçük olay kıvılcımı, ortada birkaç alarm zili, en altta tek bir kalın vaka dosyası"
+    prompt: "A large brass funnel on a desk: at the wide top thousands of tiny sparks pour in, in the middle a few small bells ring as some sparks get caught, and at the narrow bottom a single thick case folder drops out into an analyst's hands."
+  - id: c-01-c
+    tur: ai
+    alt: "Yüzlerce zilin aynı anda çaldığı odada kulaklarını tıkayan yorgun analist; gerçek tehlike zili ortada fark edilmiyor"
+    prompt: "An exhausted analyst covers their ears in a room where hundreds of alarm bells ring at once on every shelf, while one different bell glowing deep red in the middle goes unnoticed among them."
 ---
 
 # SOC nedir? Olay, alarm ve vaka arasındaki fark
@@ -20,7 +23,7 @@ gorseller:
 > Bir kampüs ağı her gün milyonlarca **iz** üretir. Hangisi önemli? Bunu ayıran yer SOC'tur.
 > 🧹 **İz 1:** Gece 02:00'de SOC ekranına 23 alarm düştü. Tamer, en önemlisini kalabalığın içine sakladı.
 
-![Temizlikçi Tamer gece nöbet masasındaki üç pirinç zilden en büyüğünün üstüne sessizce havlu örtüyor; masadaki oyuncak ördek tek gözüyle onu izliyor](../../gorseller/c-01-a.webp)
+::cizgi[c-01-sahne]
 
 ## SOC kimdir, ne yapar?
 
@@ -34,6 +37,8 @@ gorseller:
 
 ## Olay → alarm → vaka
 
+![Huni şeklinde bir süzgeç: üstte sayısız küçük olay kıvılcımı, ortada birkaç alarm zili, en altta tek bir kalın vaka dosyası](../../gorseller/c-01-b.webp)
+
 - **Olay (event):** Kaydedilen her şey. "deniz.kaya oturum açtı."
 - **Alarm (alert):** Bir kuralın şüpheli bulduğu olay. "10 dakikada 12 başarısız giriş."
 - **Vaka (incident):** Doğrulanmış, müdahale gerektiren durum. "Hesap ele geçirildi."
@@ -43,6 +48,8 @@ Her olay alarm değildir, her alarm vaka değildir. Tier 1'in işi bu süzgeçti
 ::animasyon[soc-alert]
 
 ## Alarm yorgunluğu
+
+![Yüzlerce zilin aynı anda çaldığı odada kulaklarını tıkayan yorgun analist; gerçek tehlike zili ortada fark edilmiyor](../../gorseller/c-01-c.webp)
 
 Yüzlerce düşük önemli alarm, analisti yorar ve kritik olanı gözden kaçırtır. Buna **alarm yorgunluğu (alert fatigue)** denir.
 Saldırgan bazen bilerek gürültü üretir: tarama yağmuru başlatır, asıl hamlesini arasına gizler.

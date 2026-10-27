@@ -1,3 +1,17 @@
+# Ördek Club
+
+Üniversite siber güvenlik kulüpleri için üyelik, canlı ders, akademi, görevler ve öğretmen araçları.
+
+| Başlangıç | Bağlantı |
+|---|---|
+| Club kurulumu | [klup-sunucusu/README.md](klup-sunucusu/README.md) |
+| Uygulama durumu ve yol haritası | [ROADMAP.md](klup-sunucusu/docs/ROADMAP.md) |
+| Ayrı Linux lab servisi | [lab-runner](klup-sunucusu/lab-runner/README.md) |
+
+Depoda ayrıca aşağıda belgelenen bağımsız **Ördek Lab** bulunur. Club kurulumu için yukarıdaki bağlantıyı kullanın.
+
+---
+
 <div align="center">
 
 <img src="public/ordek.png" alt="ördek-lab" width="480" height="480" />

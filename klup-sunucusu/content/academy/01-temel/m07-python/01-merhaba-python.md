@@ -7,11 +7,10 @@ hedefler:
   - Algoritma mantığını adım adım düşünmek
   - Python'u çalıştırmak ve değişken/veri tiplerini kullanmak
 gorseller:
-  - id: m07-01-a
+  - id: m07-01-b
     tur: ai
-    karakter: orhan
-    alt: "Fütüristik mutfakta Kuklacı Orhan robot kolu ipleriyle yönetip tarife yabancı bir malzeme ekletiyor"
-    prompt: "A small futuristic kitchen where a friendly robot arm follows a recipe card covered only with simple abstract shapes and dots. From above, the villain controls the robot arm with glowing marionette strings, making it pour a suspicious glowing green ingredient into the pot."
+    alt: "Mutfak tezgâhında adım adım tarif kartları ve onları sırayla uygulayan küçük bir robot aşçı"
+    prompt: "A cozy kitchen counter with a row of recipe cards pinned in order on a string above it, each card showing a simple picture step, and a small friendly robot chef following them one by one: cracking an egg, stirring, pouring into a pan, and serving."
 ---
 
 # Neden bir güvenlikçi kod yazar?
@@ -19,17 +18,19 @@ gorseller:
 > 10.000 satırlık bir logda başarısız girişleri elle sayarsan bir saat sürer.
 > 6 satırlık bir Python programı bunu **bir saniyede** yapar.
 
-![Fütüristik mutfakta Kuklacı Orhan robot kolu ipleriyle yönetip tarife yabancı bir malzeme ekletiyor](../../gorseller/m07-01-a.webp)
+::cizgi[m07-01-sahne]
 
 > 🕴️ **DOSYA: Kuklacı Orhan** · *Bot Ustası*
 >
 > ![Kuklacı Orhan — Bot Ustası](../../gorseller/karakter-orhan.webp)
 >
-> 📼 **Bölüm 7 — İpler.** Kampüs ağında binlerce küçük cihaz aynı anda aynı kapıyı yokluyor: Kuklacı Orhan'ın botları. Orhan kodu ustasından öğrendi; adı hiç anılmayan, tek bir tırnakla kapı açan birinden.
->
 > **Tehdit:** Botnet'ler, kötü niyetli script'ler, koda gömülü anahtarlar, eval/komut enjeksiyonu. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
 
+::cizgi[orhan-acilis]
+
 ## Algoritma = tarif
+
+![Mutfak tezgâhında adım adım tarif kartları ve onları sırayla uygulayan küçük bir robot aşçı](../../gorseller/m07-01-b.webp)
 
 Bilgisayar tahmin etmez; **adım adım** ne yapacağını söylersin.
 

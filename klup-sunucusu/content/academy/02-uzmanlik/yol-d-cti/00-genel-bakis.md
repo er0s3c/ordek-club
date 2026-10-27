@@ -4,31 +4,32 @@ tur: bilgi
 baslik: "Yol D — OSINT, Tehdit İstihbaratı ve Tehdit Avcılığı"
 sure: 3
 gorseller:
-  - id: d-00-a
+  - id: d-00-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri sisli bir limanda, her biri farklı soyut simgeli bayraklarla dolu bir direk rafının önünde hangi bayrağı çekeceğini seçiyor"
-    prompt: "A foggy harbor pier at night with a lighthouse sweeping its amber beam across the water. The villain stands beside a tall wooden rack holding dozens of small signal flags, each showing a different abstract geometric symbol, calmly choosing which one to hoist next, while behind him a large corkboard of abstract photos linked by red strings leans against a stack of crates."
+    alt: "Liman gecesinde istihbarat odası: harita masası, pusula, iplikli pano ve sis içindeki gemilere bakan dürbün"
+    prompt: "An intelligence room overlooking a foggy harbor at night: a map table with a brass compass, a pinboard with threads linking photos, and a telescope at the window pointing toward ships half hidden in the fog."
 ---
 
 # Yol D — OSINT, Tehdit İstihbaratı ve Tehdit Avcılığı
 
 > Bilgiyi doğrula, saldırganın **davranışını** anla, ağında henüz fark edilmemiş izleri ara.
 
-![Bayrakçı Bedri sisli bir limanda, her biri farklı soyut simgeli bayraklarla dolu bir direk rafının önünde hangi bayrağı çekeceğini seçiyor](../../gorseller/d-00-a.webp)
+::cizgi[d-00-sahne]
 
 > 🕴️ **DOSYA: Bayrakçı Bedri** · *Sahte İzlerin Ustası*
 >
 > ![Bayrakçı Bedri — Sahte İzlerin Ustası](../../gorseller/karakter-bedri.webp)
 >
-> 📼 **Bölüm — Sezon 2: Sahte Bayraklar.** Kampüse yapılan son saldırıyı bütün raporlar yabancı bir gruba yüklüyor. Fazla temiz, fazla kolay. Bayrakçı Bedri her operasyona başka bir grubun imzasını bırakır. Görevin istihbarat masasında; kanıtı topla, hipotezleri ayır, bayrakları gerçek sahibine bağla.
->
 > **Kim o?** Don'un babası zamanından kalma eski bir kaçakçılık kaptanı. Gölge Ağ'ın saldırılarını başkalarının üstüne yıkar.
 > [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[bedri-acilis]
 
 **Ön koşul:** OSINT temelleri (M09), ağ (M05), Linux (M04)
 
 ## 12 ders
+
+![Liman gecesinde istihbarat odası: harita masası, pusula, iplikli pano ve sis içindeki gemilere bakan dürbün](../../gorseller/d-00-b.webp)
 
 | # | Ders | Tek cümleyle |
 |---|---|---|

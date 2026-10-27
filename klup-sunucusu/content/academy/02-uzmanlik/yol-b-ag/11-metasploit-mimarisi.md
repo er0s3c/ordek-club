@@ -7,11 +7,10 @@ hedefler:
   - Metasploit'in modül yapısını açıklamak
   - Sızma testi aracının izole laboratuvarda nasıl güvenle kullanılacağını bilmek
 gorseller:
-  - id: b-11-a
+  - id: b-11-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık eski bir alet çantasını açmış; çekmecelerde etiketli anahtarlar, maymuncuklar ve dişliler duruyor, ama çanta cam bir laboratuvar kafesinin içinde"
-    prompt: "A large vintage multi-drawer toolbox opened on a workbench, its drawers neatly sorted: lockpicks, keys of many shapes, small glowing payload capsules and tiny gears. The whole workbench sits inside a sealed glass laboratory enclosure. The villain studies the tools with expert respect, his green headlamp lighting the drawers, his gloved hands resting on the glass from inside."
+    alt: "Çekmeceli bir alet dolabı: keşif büyüteçleri, kilit açma aletleri, küçük teslim kutuları ve iz temizleme fırçaları ayrı bölmelerde"
+    prompt: "A large wooden tool cabinet opened like a museum display, with separate drawers holding magnifying glasses and stethoscopes, lock-opening tools, small sealed delivery boxes, and cleaning brushes, each drawer lit by a small lamp, a small green lab tag hanging from one handle."
 ---
 
 # Kontrollü sızma testi araçları: Metasploit mimarisi
@@ -19,7 +18,7 @@ gorseller:
 > Aynı alet çantası bir çilingirin de, bir hırsızın da elinde olabilir. Farkı **izin ve kapsam** belirler.
 > 🕳️ **Tünel 11:** Tarık'ın kullandığı araçların çoğu herkese açık. Savunmacı onları tanımalı ki izlerini görebilsin.
 
-![Tünelci Tarık eski bir alet çantasını açmış; çekmecelerde etiketli anahtarlar, maymuncuklar ve dişliler duruyor, ama çanta cam bir laboratuvar kafesinin içinde](../../gorseller/b-11-a.webp)
+::cizgi[b-11-sahne]
 
 ## Metasploit nedir?
 
@@ -27,6 +26,8 @@ Bilinen zafiyetlerin test edilmesini standartlaştıran açık kaynak bir **çer
 Profesyonel sızma testlerinde, CTF'lerde ve savunma ekiplerinin tespit kurallarını sınamasında kullanılır.
 
 ## Modül türleri
+
+![Çekmeceli bir alet dolabı: keşif büyüteçleri, kilit açma aletleri, küçük teslim kutuları ve iz temizleme fırçaları ayrı bölmelerde](../../gorseller/b-11-b.webp)
 
 | Modül | Görevi |
 |---|---|

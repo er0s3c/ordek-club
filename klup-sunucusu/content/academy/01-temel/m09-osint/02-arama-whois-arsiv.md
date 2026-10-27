@@ -12,18 +12,17 @@ gorseller:
     tur: ekran
     alt: Web arşivinde (Wayback Machine) example.com için yıllara göre kayıt takvimi
     nasil: "https://web.archive.org adresine gidin, arama kutusuna example.com yazın. Üstte yıllara göre çubuk grafik, altta takvim görünümü çıksın. Grafik çubuğunu ve takvimdeki noktalı günlerden birini kehribar (#C9953B) çerçeveyle işaretleyin. Tarayıcıda oturum açmış hesap bilgisi görünmesin."
-  - id: m09-02-b
+  - id: m09-02-c
     tur: ai
-    karakter: mine
-    alt: "Sonsuz dosya dolaplı arşiv salonunda Maskeli Mine eski kayıt kartlarını karıştırıyor; elinde bir maske"
-    prompt: "A vast archive hall with endless rows of filing cabinets and a huge antique clock whose hands spin backwards. The villain flips through dusty old index cards and yellowed newspapers under a hanging lamp, a porcelain mask in her other hand, searching with a cold smile."
+    alt: "Bir alan adının nüfus cüzdanı; doğum tarihi yeni olduğu için kırmızı yanıp sönüyor"
+    prompt: "A clerk at a records office holds up an identity card attached to a small model house, the birth date area of the card glowing urgent red because the house appeared only days ago, while older model houses on the shelf have calm faded cards."
 ---
 
 # Arama motoru, WHOIS, DNS ve internetin hafızası
 
 > İnternette bir şey kaybolsa da çoğu zaman **izi** kalır. Doğru sorguyu bilen o izi bulur.
 
-![Sonsuz dosya dolaplı arşiv salonunda Maskeli Mine eski kayıt kartlarını karıştırıyor; elinde bir maske](../../gorseller/m09-02-b.webp)
+::cizgi[m09-02-sahne]
 
 ## Arama operatörleri
 
@@ -36,6 +35,8 @@ gorseller:
 | `before:` / `after:` | `after:2025-01-01` | Tarih aralığı |
 
 ## WHOIS: alan adının nüfus kaydı
+
+![Bir alan adının nüfus cüzdanı; doğum tarihi yeni olduğu için kırmızı yanıp sönüyor](../../gorseller/m09-02-c.webp)
 
 ```bash
 whois example.com

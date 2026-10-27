@@ -3,7 +3,7 @@
    Posta gövdesi gerçeğe yakın ve sade: marka moru/yeşili çerçevede kalır, maketin içine girmez (07 §1).
    B atmosferi yalnız kanca bandında ve kapanış kartında.
    ============================================================================ */
-.mission { --m-line: var(--lab-border, rgba(46, 46, 46, 0.16)); display: flex; flex-direction: column; gap: 16px; max-width: 640px; margin: 0 auto; padding: 24px; border-radius: 20px; background: var(--lab-bg, #fff); border: 1px solid var(--m-line); color: var(--lab-text, var(--ciu-ink)); font: 400 16px/1.6 var(--font-sans); letter-spacing: 0.01em; scroll-margin-top: 90px; }
+.mission { --m-line: var(--lab-border, rgba(46, 46, 46, 0.16)); display: flex; flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto; padding: 24px; border-radius: 20px; background: var(--lab-bg, #fff); border: 1px solid var(--m-line); color: var(--lab-text, var(--ciu-ink)); font: 400 16px/1.6 var(--font-sans); letter-spacing: 0.01em; scroll-margin-top: 90px; }
 .mission:focus-within { outline: none; }
 
 .mission-sim { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 5px 12px; border-radius: 30px; background: var(--lab-surface-2, #f4effd); color: var(--lab-text, var(--ciu-ink)); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em; }

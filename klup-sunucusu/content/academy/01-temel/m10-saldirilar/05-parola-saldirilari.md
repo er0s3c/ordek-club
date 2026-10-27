@@ -7,20 +7,21 @@ hedefler:
   - Brute-force, password spraying ve credential stuffing kavramlarını ayırt etmek
   - Her birine karşı savunmayı eşleştirmek
 gorseller:
-  - id: m10-05-a
+  - id: m10-05-b
     tur: ai
-    karakter: ferhat
-    alt: "Fidyeci Ferhat'ın robotu yüzlerce kapıda aynı anahtarı deniyor, kalkanlı kapıda takılıyor"
-    prompt: "A long corridor with hundreds of identical doors. A clumsy robot carrying a huge keyring tries the same key on every door while the villain directs it from behind with crossed arms. At the far end, a door with a glowing shield emblem firmly blocks the robot."
+    alt: "Üç kapı sahnesi: bir kapıda yüzlerce anahtar deneyen robot, birçok kapıda aynı tek anahtarı deneyen robot ve çalıntı anahtar demetiyle kapı kapı gezen robot"
+    prompt: "Three side-by-side scenes in a hallway: a robot frantically trying hundreds of keys on a single door, a robot walking down a long row of doors trying the same one key on each, and a robot carrying a ring of stolen keys with tags from another building, trying each on matching doors."
 ---
 
 # Parolalara yönelik saldırılar
 
 > Saldırganların en sevdiği giriş kapısı hâlâ **parola**dır. Üç farklı yöntemle denerler.
 
-![Fidyeci Ferhat'ın robotu yüzlerce kapıda aynı anahtarı deniyor, kalkanlı kapıda takılıyor](../../gorseller/m10-05-a.webp)
+::cizgi[m10-05-sahne]
 
 ## Üç yöntem
+
+![Üç kapı sahnesi: bir kapıda yüzlerce anahtar deneyen robot, birçok kapıda aynı tek anahtarı deneyen robot ve çalıntı anahtar demetiyle kapı kapı gezen robot](../../gorseller/m10-05-b.webp)
 
 | Yöntem | Nasıl? | Logda nasıl görünür? |
 |---|---|---|

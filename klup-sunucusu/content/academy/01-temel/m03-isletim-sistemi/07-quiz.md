@@ -54,12 +54,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: Disk şifreleme esas olarak cihaz kapalıyken veya çalındığında veriyi korur.
-gorseller:
-  - id: m03-07-a
-    tur: ai
-    karakter: riza
-    alt: "Anahtarcı Rıza havalandırma boşluğunda anahtarlığıyla sıkışmış; arkadaki bilgisayarlarda yeşil kalkanlar parlıyor"
-    prompt: "The villain is stuck halfway through a narrow air vent in a computer lab at night, his giant keyring snagged on the vent edge, legs kicking in the air. Behind him a row of laptops glow with calm green shield icons."
 ---
 
 # M03 Quiz: İşletim sistemi güvenliği
@@ -68,8 +62,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Anahtarcı Rıza** · *quiz'i %70 ile geçince*
 >
-> ![Anahtarcı Rıza havalandırma boşluğunda anahtarlığıyla sıkışmış; arkadaki bilgisayarlarda yeşil kalkanlar parlıyor](../../gorseller/m03-07-a.webp)
->
-> Arka kapı kapandı; makineler güncel ve kilitli. Rıza'nın düşürdüğü anahtarlıkta bir etiket var: "Sadri Usta'ya — sunucu odası."
+> ::cizgi[riza-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Süper Kullanıcı Sadri** (M04)*

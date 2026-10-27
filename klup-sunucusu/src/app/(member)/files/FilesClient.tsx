@@ -6,8 +6,10 @@ import { Download, Trash2, Upload } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { ApiError, api } from "@/lib/api-client";
 import { FILE_ACCEPT } from "@/components/classroom/labels";
+import { useT } from "@/i18n/client";
 
 export function UploadForm({ maxMb, groups }: { maxMb: number; groups: { id: string; name: string; kind: "CLASS" | "EVENT" }[] }) {
+  const t = useT();
   const toast = useToast();
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
@@ -20,9 +22,9 @@ export function UploadForm({ maxMb, groups }: { maxMb: number; groups: { id: str
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const files = Array.from(fileRef.current?.files ?? []);
-    if (!files.length) return toast("error", "Dosya seç.");
+    if (!files.length) return toast("error", t("Dosya seç."));
     const big = files.find((f) => f.size > maxMb * 1024 * 1024);
-    if (big) return toast("error", `${big.name} ${maxMb} MB sınırını aşıyor.`);
+    if (big) return toast("error", t("{name} {maxMb} MB sınırını aşıyor.", { name: big.name, maxMb }));
     setBusy(true);
     let done = 0;
     try {
@@ -36,12 +38,12 @@ export function UploadForm({ maxMb, groups }: { maxMb: number; groups: { id: str
         await api("/api/files", { method: "POST", form });
         done++;
       }
-      toast("ok", `${done} dosya paylaşıldı.`);
+      toast("ok", t("{done} dosya paylaşıldı.", { done }));
       if (fileRef.current) fileRef.current.value = "";
       setDescription("");
       router.refresh();
     } catch (err) {
-      toast("error", `${done ? `${done} dosya yüklendi; ` : ""}${err instanceof ApiError ? err.message : "Yükleme başarısız."}`);
+      toast("error", `${done ? t("{done} dosya yüklendi; ", { done }) : ""}${err instanceof ApiError ? err.message : t("Yükleme başarısız.")}`);
       if (done) router.refresh();
     } finally {
       setBusy(false);
@@ -50,58 +52,59 @@ export function UploadForm({ maxMb, groups }: { maxMb: number; groups: { id: str
 
   return (
     <section className="card" aria-labelledby="up-h">
-      <div className="card-h"><h2 id="up-h"><Upload size={15} aria-hidden /> Dosya paylaş</h2><span className="tiny faint">dosya başına en fazla {maxMb} MB</span></div>
+      <div className="card-h"><h2 id="up-h"><Upload size={15} aria-hidden />{" "}{t("Dosya paylaş")}</h2><span className="tiny faint">{t("dosya başına en fazla {maxMb} MB", { maxMb })}</span></div>
       <form className="card-b stack-sm" onSubmit={submit}>
-        <div className="seg" role="group" aria-label="Kimler görsün">
-          <button type="button" aria-pressed={scope === "CLUB"} onClick={() => setScope("CLUB")}>Tüm kulüp</button>
-          <button type="button" aria-pressed={scope === "USERS"} onClick={() => setScope("USERS")}>Seçili üyeler</button>
-          <button type="button" aria-pressed={scope === "GROUP"} disabled={!groups.length} onClick={() => setScope("GROUP")}>Sınıf / etkinlik</button>
+        <div className="seg" role="group" aria-label={t("Kimler görsün")}>
+          <button type="button" aria-pressed={scope === "CLUB"} onClick={() => setScope("CLUB")}>{t("Tüm kulüp")}</button>
+          <button type="button" aria-pressed={scope === "USERS"} onClick={() => setScope("USERS")}>{t("Seçili üyeler")}</button>
+          <button type="button" aria-pressed={scope === "GROUP"} disabled={!groups.length} onClick={() => setScope("GROUP")}>{t("Sınıf / etkinlik")}</button>
         </div>
         {scope === "GROUP" && (
           <div className="field">
-            <label htmlFor="up-group">Sınıf ya da etkinlik</label>
+            <label htmlFor="up-group">{t("Sınıf ya da etkinlik")}</label>
             <select id="up-group" className="input select" value={groupId} onChange={(e) => setGroupId(e.target.value)}>
-              <option value="">— seç —</option>
-              {groups.map((g) => <option key={g.id} value={g.id}>{g.kind === "CLASS" ? "Sınıf" : "Etkinlik"}: {g.name}</option>)}
+              <option value="">{t("— seç —")}</option>
+              {groups.map((g) => <option key={g.id} value={g.id}>{g.kind === "CLASS" ? t("Sınıf") : t("Etkinlik")}: {g.name}</option>)}
             </select>
           </div>
         )}
         {scope === "USERS" && (
           <div className="field">
-            <label htmlFor="up-users">Kullanıcı adları</label>
+            <label htmlFor="up-users">{t("Kullanıcı adları")}</label>
             <input id="up-users" className="input" value={usernames} onChange={(e) => setUsernames(e.target.value)} placeholder="ogrenci.ali, ogrenci.ayse" />
           </div>
         )}
         <div className="form-grid">
           <div className="field">
-            <label htmlFor="up-file">Dosyalar</label>
+            <label htmlFor="up-file">{t("Dosyalar")}</label>
             <input id="up-file" ref={fileRef} type="file" multiple className="input" accept={FILE_ACCEPT} />
-            <span className="hint">PDF, görsel, metin/log, PCAP, ZIP. Çalıştırılabilir dosyalar reddedilir.</span>
+            <span className="hint">{t("PDF, görsel, metin/log, PCAP, ZIP. Çalıştırılabilir dosyalar reddedilir.")}</span>
           </div>
           <div className="field">
-            <label htmlFor="up-desc">Açıklama (isteğe bağlı)</label>
+            <label htmlFor="up-desc">{t("Açıklama (isteğe bağlı)")}</label>
             <input id="up-desc" className="input" maxLength={300} value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
         </div>
-        <button className="btn btn-primary btn-sm" style={{ alignSelf: "flex-start" }} disabled={busy}>{busy ? "Yükleniyor…" : "Paylaş"}</button>
-        <p className="tiny faint" style={{ margin: 0 }}>Görev ekleri görev sayfasından yüklenir ve yalnız o görevi görenlere açılır.</p>
+        <button className="btn btn-primary btn-sm" style={{ alignSelf: "flex-start" }} disabled={busy}>{busy ? t("Yükleniyor…") : t("Paylaş")}</button>
+        <p className="tiny faint" style={{ margin: 0 }}>{t("Görev ekleri görev sayfasından yüklenir ve yalnız o görevi görenlere açılır.")}</p>
       </form>
     </section>
   );
 }
 
 export function FileActions({ id, name, canDelete }: { id: string; name: string; canDelete: boolean }) {
+  const t = useT();
   const toast = useToast();
   const router = useRouter();
   return (
     <div className="row" style={{ gap: 4, justifyContent: "flex-end" }}>
-      <a className="btn btn-sm btn-ghost" href={`/api/files/${id}`} download aria-label={`${name} indir`}><Download size={14} aria-hidden /></a>
+      <a className="btn btn-sm btn-ghost" href={`/api/files/${id}`} download aria-label={t("{name} indir", { name })}><Download size={14} aria-hidden /></a>
       {canDelete && (
-        <button className="btn btn-sm btn-ghost" aria-label={`${name} sil`} onClick={async () => {
-          if (!window.confirm(`"${name}" silinsin mi? İçerik diskten kaldırılır.`)) return;
+        <button className="btn btn-sm btn-ghost" aria-label={t("{name} sil", { name })} onClick={async () => {
+          if (!window.confirm(t("\"{name}\" silinsin mi? İçerik diskten kaldırılır.", { name }))) return;
           try {
             await api(`/api/files/${id}`, { method: "DELETE" });
-            toast("ok", "Dosya silindi.");
+            toast("ok", t("Dosya silindi."));
             router.refresh();
           } catch (e) {
             toast("error", (e as Error).message);

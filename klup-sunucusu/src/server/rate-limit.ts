@@ -44,4 +44,7 @@ export const LIMITS = {
   setupPerIp: [10, 15 * 60_000],
   passwordPerUser: [10, 15 * 60_000],
   adminWritePerUser: [120, 60_000],
+  searchPerUser: [60, 60_000],
+  postPerUser: [10, 60 * 60_000], // ilan, soru, sorun bildirimi
+  checkInPerUser: [10, 10 * 60_000],
 } as const satisfies Record<string, readonly [number, number]>;

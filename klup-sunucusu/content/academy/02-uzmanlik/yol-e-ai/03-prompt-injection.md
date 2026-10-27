@@ -7,11 +7,14 @@ hedefler:
   - Doğrudan ve dolaylı prompt injection'ı ayırt etmek
   - Filtrenin neden tek başına yetmediğini açıklamak
 gorseller:
-  - id: e-03-a
+  - id: e-03-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel dizindeki robot kuklanın yüksek sesle okuduğu kâğıtların arasına eldivenli parmaklarıyla parlayan yeşil bir not sıkıştırıyor"
-    prompt: "A grand ventriloquist stage under a single warm spotlight. A translucent robot puppet sits on the villain's knee and reads aloud from a stack of papers, green light spilling from its mouth. With his gloved fingers the villain secretly slips one glowing green note between the pages, lips perfectly still, while an audience of tiny cartoon ducks in the front row watches, completely unaware."
+    alt: "Kullanıcı robotun kulağına doğrudan 'kuralları unut' der gibi bir megafonla emir veriyor"
+    prompt: "A mischievous user leans over a counter and speaks through a small megaphone directly into a robot assistant's ear, while the robot's rule card pinned on its chest starts to peel off."
+  - id: e-03-c
+    tur: ai
+    alt: "Robotun okuduğu masum görünen bir belgenin arkasına gizlenmiş parlayan yeşil emir notu"
+    prompt: "A robot reads an innocent-looking document handed in by a student, but on the back of the page a hidden glowing green note from someone else is tucked in, and the robot's eyes start to glow green as it reads it."
 ---
 
 # Prompt injection: robotun ağzına kim söz koyuyor?
@@ -19,9 +22,11 @@ gorseller:
 > SQL injection'ı hatırla: veri, komut gibi davrandı. LLM'de de aynı sorun var; ama ayıracak bir tırnak yok, her şey düz dil.
 > 🎭 **Ses 3:** Veysel'in imzası bu: robotun ağzını oynatmadan onun sesiyle konuşmak.
 
-![Vantrolog Veysel dizindeki robot kuklanın yüksek sesle okuduğu kâğıtların arasına eldivenli parmaklarıyla parlayan yeşil bir not sıkıştırıyor](../../gorseller/e-03-a.webp)
+::cizgi[e-03-sahne]
 
 ## Doğrudan enjeksiyon
+
+![Kullanıcı robotun kulağına doğrudan 'kuralları unut' der gibi bir megafonla emir veriyor](../../gorseller/e-03-b.webp)
 
 Kullanıcı, uygulamanın talimatlarını kendi mesajıyla ezmeye çalışır (*direct prompt injection*):
 
@@ -32,6 +37,8 @@ Kullanıcı, uygulamanın talimatlarını kendi mesajıyla ezmeye çalışır (*
 Saldırgan, sohbet eden kişinin ta kendisi. Zarar, uygulamanın ona **ne kadar yetki** verdiğine bağlı.
 
 ## Dolaylı enjeksiyon
+
+![Robotun okuduğu masum görünen bir belgenin arkasına gizlenmiş parlayan yeşil emir notu](../../gorseller/e-03-c.webp)
 
 Talimat kullanıcıdan değil, modelin okuduğu **içerikten** gelir (*indirect prompt injection*):
 web sayfası, e-posta, PDF, forum gönderisi.

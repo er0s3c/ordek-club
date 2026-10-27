@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
-import { Check, Copy, WrapText } from "lucide-react";
+import { WrapText } from "lucide-react";
+import { CopyMark } from "@/components/motion/CopyMark";
 import type { TermLine } from "./terminal-parse";
+import { useT } from "@/i18n/client";
 
 // Terminal bloğu (docs/TASARIM-SISTEMI.md §5.14): koyu pencere, üç noktalı başlık çubuğu, hover'da beliren
 // kopyala / satır kaydır kontrolleri. Bu projeye özgü yazılmıştır; ikonlar Lucide (ISC).
@@ -52,6 +54,7 @@ export function Terminal({ lines, title = "Terminal", variant = "default", class
   className?: string;
   controls?: boolean;
 }) {
+  const t = useT();
   const [wrapped, setWrapped] = useState(false);
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -76,15 +79,15 @@ export function Terminal({ lines, title = "Terminal", variant = "default", class
         <figcaption className="ciu-terminal__title">{title}</figcaption>
         {controls && (
           <div className="ciu-terminal__controls">
-            <button type="button" className={`ciu-terminal__btn${copied ? " is-copied" : ""}`} onClick={copy} aria-label={copied ? "Kopyalandı" : "Kopyala"} title={copied ? "Kopyalandı" : "Kopyala"}>
-              {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+            <button type="button" className={`ciu-terminal__btn${copied ? " is-copied" : ""}`} onClick={copy} aria-label={copied ? t("Kopyalandı") : t("Kopyala")} title={copied ? t("Kopyalandı") : t("Kopyala")}>
+              <CopyMark copied={copied} />
             </button>
-            <button type="button" className="ciu-terminal__btn" onClick={() => setWrapped((w) => !w)} aria-pressed={wrapped} aria-label="Satırları kaydır" title="Satırları kaydır">
+            <button type="button" className="ciu-terminal__btn" onClick={() => setWrapped((w) => !w)} aria-pressed={wrapped} aria-label={t("Satırları kaydır")} title={t("Satırları kaydır")}>
               <WrapText aria-hidden />
             </button>
           </div>
         )}
-        {copied && <span className="sr-only" role="status">Panoya kopyalandı</span>}
+        {copied && <span className="sr-only" role="status">{t("Panoya kopyalandı")}</span>}
       </div>
       <pre className="ciu-terminal__body" tabIndex={0}>
         <code>

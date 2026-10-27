@@ -7,6 +7,7 @@ import { db } from "@/server/db";
 import { getSettings } from "@/server/settings";
 import { ensureGamificationDefaults, type RuleKey } from "./defaults";
 import { dayKey } from "./time";
+import { recordLearning } from "@/server/learning/events";
 
 type Tx = Prisma.TransactionClient;
 
@@ -73,13 +74,15 @@ export async function onLessonCompleted(tx: Tx, userId: string, lesson: { id: st
   const gained =
     (await award(tx, { userId, ruleKey, key: `lesson:${userId}:${lesson.id}`, source: "LESSON", refType: "Lesson", refId: lesson.id, reason: lesson.title })) +
     (await maybeTrack(tx, userId, lesson.trackId));
-  await recordActivity(tx, userId);
+  const completed = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId, lessonId: lesson.id } }, select: { completedAt: true } });
+  await recordLearning(tx, userId, `lesson:${lesson.id}`, "lesson", completed?.completedAt ?? new Date());
   return gained;
 }
 
 export async function onQuizAttempt(tx: Tx, userId: string, lesson: { id: string; trackId: string; title: string }, passed: boolean) {
-  await recordActivity(tx, userId);
   if (!passed) return 0;
+  const firstPass = await tx.quizAttempt.findFirst({ where: { userId, lessonId: lesson.id, passed: true }, orderBy: { createdAt: "asc" }, select: { createdAt: true } });
+  await recordLearning(tx, userId, `quiz:${lesson.id}`, "quiz", firstPass?.createdAt ?? new Date());
   // Anahtar ders başına sabit: quiz tekrarları ek XP üretmez.
   return (
     (await award(tx, { userId, ruleKey: "quiz.pass", key: `quiz:${userId}:${lesson.id}`, source: "QUIZ", refType: "Lesson", refId: lesson.id, reason: lesson.title })) +
@@ -93,7 +96,8 @@ export async function onMissionCompleted(tx: Tx, userId: string, lesson: { id: s
   const gained =
     (await award(tx, { userId, ruleKey: "mission.complete", key: `mission:${userId}:${lesson.id}:${missionId}`, source: "LESSON", refType: "Mission", refId: lesson.id, reason: lesson.title })) +
     (lessonDone ? await maybeTrack(tx, userId, lesson.trackId) : 0);
-  await recordActivity(tx, userId);
+  const firstSolve = await tx.missionAttempt.findFirst({ where: { userId, lessonId: lesson.id, missionId, correct: true, step: null }, orderBy: { createdAt: "asc" }, select: { createdAt: true } });
+  await recordLearning(tx, userId, `mission:${lesson.id}:${missionId}`, "mission", firstSolve?.createdAt ?? new Date());
   return gained;
 }
 
@@ -133,7 +137,7 @@ export async function onLiveSessionEnded(sessionId: string) {
   for (const p of s.participants) {
     await db.$transaction(async (tx) => {
       const n = await award(tx, { userId: p.userId, ruleKey: "live.attend", key: `live:${p.userId}:${sessionId}`, source: "LIVE", refType: "LiveSession", refId: sessionId, reason: s.title });
-      await recordActivity(tx, p.userId, s.startedAt);
+      // Attendance XP is retained; passive presence does not create a learning day.
       if (n) rewarded.push(p.userId);
     }, XP_TX);
   }

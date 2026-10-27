@@ -8,11 +8,10 @@ hedefler:
   - Bir JWT'nin yapısını çözüp neyin gizli olmadığını açıklamak
 animasyonlar: [authentication]
 gorseller:
-  - id: a-04-a
+  - id: a-04-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine bir mühür kalıbını kalemiyle kopyalayıp parlayan sahte bir giriş bileti hazırlıyor; kapının altından sıfırlama mektubu kayıyor"
-    prompt: "A cramped craftsman's workbench lit by a green banker's lamp: the villain carefully copies a wax seal onto a glowing ticket-shaped token with the tip of her fountain pen, comparing it to an original under a loupe. Behind her, a sealed envelope slowly slides in under the door of the room."
+    alt: "Cam zarflı bir giriş bileti: içi herkes tarafından okunabiliyor ama altındaki mühür sahteciliği ele veriyor"
+    prompt: "An event ticket sealed inside a transparent glass envelope so anyone can see the details printed inside, with a heavy wax seal at the bottom; a doorman compares the seal with a master stamp, and a forged ticket with a smudged fake seal is rejected beside it."
 ---
 
 # Hesap ve oturum: parola sıfırlama, JWT ve MFA
@@ -20,7 +19,7 @@ gorseller:
 > Kapıyı kırmak zordur. **Yedek anahtarı istemek** çoğu zaman daha kolaydır.
 > 🗂️ **Çekmece 4:** Jasmine portalın "Şifremi unuttum" sayfasıyla ilgileniyor. Neden?
 
-![Tek Tırnak Jasmine bir mühür kalıbını kalemiyle kopyalayıp parlayan sahte bir giriş bileti hazırlıyor; kapının altından sıfırlama mektubu kayıyor](../../gorseller/a-04-a.webp)
+::cizgi[a-04-sahne]
 
 ::animasyon[authentication]
 
@@ -36,6 +35,8 @@ gorseller:
 | Çıkış | Sunucu oturumu silmiyor | Eski çerez hâlâ geçerli |
 
 ## JWT: herkesin okuyabildiği imzalı bilet
+
+![Cam zarflı bir giriş bileti: içi herkes tarafından okunabiliyor ama altındaki mühür sahteciliği ele veriyor](../../gorseller/a-04-b.webp)
 
 `xxxxx.yyyyy.zzzzz` → **başlık . içerik . imza**. İlk iki parça yalnızca Base64; şifreli değildir.
 

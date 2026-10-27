@@ -12,11 +12,10 @@ gorseller:
     tur: ekran
     alt: Tarayıcı geliştirici araçlarında Application sekmesinde bir sitenin çerezleri; HttpOnly, Secure ve SameSite sütunları
     nasil: "Chrome/Edge'de giriş yaptığınız herhangi bir test sitesinde (veya yerel Ördek Club'da) F12 → 'Application' → sol menüde 'Storage' → 'Cookies' → site adresi. Tablo görünsün; 'HttpOnly', 'Secure' ve 'SameSite' sütunlarını kehribar (#C9953B) çerçeveyle işaretleyin. ÇEREZ DEĞERLERİNİ (Value sütunu) MUTLAKA bulanıklaştırın — bunlar oturum anahtarınızdır."
-  - id: m06-04-b
+  - id: m06-04-c
     tur: ai
-    karakter: celal
-    alt: "Çerezci Celal çaldığı parlayan bileklikle kulüp kapısından geçmeye çalışıyor; kapıdaki robot görevli listeyi kontrol ediyor"
-    prompt: "A velvet-rope doorway of a noir club where a sturdy bouncer robot checks glowing cookie-shaped wristbands against a clipboard. The villain holds up a borrowed wristband with an innocent smile, but the robot raises one hand to stop him while comparing his face to the list."
+    alt: "Kulüp kapısında iki kontrol: ilk görevli kimlik kartına bakıyor, içerideki ikinci görevli VIP odasının listesine bakıyor"
+    prompt: "A jazz club entrance with two checkpoints: at the front door a bouncer compares a guest's face with their photo ID card, and inside, at a velvet rope before a private back room, a second host checks a short guest list and politely stops the same guest from entering."
 ---
 
 # Sunucu seni nasıl hatırlıyor? Cookie, oturum, token
@@ -24,7 +23,7 @@ gorseller:
 > HTTP unutkandır: her istekte seni ilk kez görür. Seni hatırlatan şey tarayıcının
 > her istekte gösterdiği küçük bir **bilet**tir.
 
-![Çerezci Celal çaldığı parlayan bileklikle kulüp kapısından geçmeye çalışıyor; kapıdaki robot görevli listeyi kontrol ediyor](../../gorseller/m06-04-b.webp)
+::cizgi[m06-04-sahne]
 
 ## Üç kavram
 
@@ -49,6 +48,8 @@ Bilet kimin elindeyse sunucu onu **sen** sanır. Bu yüzden oturum çerezi bir p
 | `SameSite` | Başka sitelerden gelen isteklere eklenmez → CSRF'e karşı |
 
 ## İki farklı soru
+
+![Kulüp kapısında iki kontrol: ilk görevli kimlik kartına bakıyor, içerideki ikinci görevli VIP odasının listesine bakıyor](../../gorseller/m06-04-c.webp)
 
 | | Kimlik doğrulama (authentication) | Yetkilendirme (authorization) |
 |---|---|---|

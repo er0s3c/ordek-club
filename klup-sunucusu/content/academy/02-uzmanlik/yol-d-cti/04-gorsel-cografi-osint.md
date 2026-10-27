@@ -7,11 +7,10 @@ hedefler:
   - EXIF verisini okuyup bir görselin iddiasıyla karşılaştırmak
   - Tersine görsel arama ve gölge/yer işaretleriyle görsel doğrulamak
 gorseller:
-  - id: d-04-a
+  - id: d-04-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri gemi güvertesinde boyalı bir şehir manzarası dekorunun önüne fotoğraf makinesi kuruyor; gerçek sisli liman çerçevenin hemen dışında görünüyor"
-    prompt: "A ship deck at dusk turned into a tiny photo studio: a painted backdrop of a sunny modern office skyline on a wooden frame and a vintage camera on a tripod. The villain carefully adjusts the backdrop and places a potted palm tree in front of it, while the real foggy harbor, the ship's mast and a lighthouse are clearly visible just outside the backdrop, and the shadows on the backdrop fall in the opposite direction from the real ones."
+    alt: "Fotoğraftaki gölgenin açısı, tabela biçimi ve dağ silüeti bir haritada üç ipucu olarak işaretleniyor"
+    prompt: "An investigator compares a street photo with a large map: a protractor measures the angle of a shadow, a sketch matches the shape of a distant mountain ridge, and a small model of a lamp post style is held beside the photo, three threads converging on one spot on the map."
 ---
 
 # Görsel ve coğrafi OSINT: bu fotoğraf ne zaman, nerede çekildi?
@@ -19,7 +18,7 @@ gorseller:
 > Bir fotoğraf bin kelimeye bedel; sahte bir fotoğraf bin yanlış rapora.
 > 🚩 **Bayrak 4:** "Mercan Kolektifi" sorumluluğu üstlenip bir de fotoğraf paylaşmış: "İşte ofisimiz." Fazla cömert değil mi?
 
-![Bayrakçı Bedri gemi güvertesinde boyalı bir şehir manzarası dekorunun önüne fotoğraf makinesi kuruyor; gerçek sisli liman çerçevenin hemen dışında görünüyor](../../gorseller/d-04-a.webp)
+::cizgi[d-04-sahne]
 
 ## EXIF: dosyanın kendi ifadesi
 
@@ -39,6 +38,8 @@ Görseli birden çok arama motorunda ara. Aynı fotoğraf yıllar önce başka b
 Kırpılmış veya aynalanmış kopyalar için görselin bir parçasıyla da ara.
 
 ## Doğrulama soruları
+
+![Fotoğraftaki gölgenin açısı, tabela biçimi ve dağ silüeti bir haritada üç ipucu olarak işaretleniyor](../../gorseller/d-04-b.webp)
 
 | Soru | Neye bakılır? |
 |---|---|

@@ -1,3 +1,6 @@
+import { activitiesSchema } from "@/lib/academy-activities";
+import { activityHash } from "./activities";
+import { seedReviews } from "@/server/learning/service";
 // Akademi okuma ve ilerleme işlemleri. Arşivlenmiş yol/ders öğrenciye görünmez.
 // Quiz doğru cevapları hiçbir zaman istemciye gönderilmez; puanlama sunucuda yapılır.
 import { Prisma, type LessonKind, type ProgressStatus, type TrackKind } from "@prisma/client";
@@ -10,6 +13,10 @@ import { gradeMission, gradeStep, missionClosing, publicMission, solutionOf, typ
 import { availableImages, portraitUrl } from "./images";
 import { onLessonCompleted, onMissionCompleted, onQuizAttempt, XP_TX } from "@/server/xp/engine";
 import { evaluateBadges } from "@/server/xp/badges";
+import { readStoredTranslation } from "./translation";
+import { trackText, villainText } from "./content-i18n";
+
+export type ContentLang = "tr" | "en";
 
 export type PublicQuestion = { kind: "choice"; text: string; options: string[] } | { kind: "truefalse"; text: string };
 export type QuizAnswer = number | boolean | null;
@@ -50,7 +57,7 @@ export type TrackCard = {
   minutes: number;
 };
 
-export async function listTracks(actor: Actor): Promise<TrackCard[]> {
+export async function listTracks(actor: Actor, lang: ContentLang = "tr"): Promise<TrackCard[]> {
   requireMember(actor);
   const tracks = await db.track.findMany({
     where: { archivedAt: null },
@@ -66,9 +73,8 @@ export async function listTracks(actor: Actor): Promise<TrackCard[]> {
     key: t.key,
     code: t.code,
     kind: t.kind,
-    title: t.title,
-    summary: t.summary,
-    villain: villainOf(t.villain),
+    ...trackText(t.key, t.title, t.summary, lang),
+    villain: villainText(villainOf(t.villain), lang),
     lessons: t.lessons.length,
     completed: t.lessons.filter((l) => doneSet.has(l.id)).length,
     minutes: t.lessons.reduce((a, l) => a + l.minutes, 0),
@@ -77,7 +83,7 @@ export async function listTracks(actor: Actor): Promise<TrackCard[]> {
 
 export type LessonRow = { slug: string; title: string; kind: LessonKind; minutes: number; status: ProgressStatus | null };
 
-export async function getTrack(actor: Actor, key: string) {
+export async function getTrack(actor: Actor, key: string, lang: ContentLang = "tr") {
   requireMember(actor);
   const t = await db.track.findFirst({
     where: { key, archivedAt: null },
@@ -85,26 +91,43 @@ export async function getTrack(actor: Actor, key: string) {
       lessons: {
         where: { archivedAt: null },
         orderBy: { position: "asc" },
-        select: { id: true, slug: true, title: true, kind: true, minutes: true, progress: { where: { userId: actor.id }, select: { status: true } } },
+        select: { id: true, slug: true, title: true, kind: true, minutes: true, progress: { where: { userId: actor.id }, select: { status: true } }, translations: { where: { locale: lang }, select: { title: true } } },
       },
     },
   });
   if (!t) throw notFound("Yol bulunamadı.");
-  const lessons: LessonRow[] = t.lessons.map((l) => ({ slug: l.slug, title: l.title, kind: l.kind, minutes: l.minutes, status: l.progress[0]?.status ?? null }));
-  return { key: t.key, code: t.code, kind: t.kind, title: t.title, summary: t.summary, villain: villainOf(t.villain), lessons };
+  const lessons: LessonRow[] = t.lessons.map((l) => ({ slug: l.slug, title: l.translations[0]?.title ?? l.title, kind: l.kind, minutes: l.minutes, status: l.progress[0]?.status ?? null }));
+  return { key: t.key, code: t.code, kind: t.kind, ...trackText(t.key, t.title, t.summary, lang), villain: villainText(villainOf(t.villain), lang), lessons };
 }
 
 // ── Ders ────────────────────────────────────────────────────────────────────
 async function findLesson(slug: string) {
-  const l = await db.lesson.findFirst({ where: { slug, archivedAt: null, track: { archivedAt: null } }, include: { track: true } });
+  const l = await db.lesson.findFirst({ where: { slug, archivedAt: null, track: { archivedAt: null } }, include: { track: true, translations: { where: { locale: "en" } } } });
   if (!l) throw notFound("Ders bulunamadı.");
   return l;
 }
 
+// Gösterilecek içerik: İngilizce istenmiş ve çeviri varsa çeviri. Çevrilen quiz/görevler özgünle aynı
+// yapıdadır (importer denetler); bu yüzden puanlama dilden bağımsızdır, yalnız metinler değişir.
+function localized(l: Awaited<ReturnType<typeof findLesson>>, lang: ContentLang) {
+  const tr = lang === "en" ? l.translations[0] : undefined;
+  const stored = tr ? readStoredTranslation(tr.activities) : null;
+  return {
+    lang: tr ? ("en" as const) : ("tr" as const),
+    reviewed: stored?.reviewed ?? true,
+    title: tr?.title ?? l.title,
+    goals: tr?.goals ?? l.goals,
+    body: tr?.body ?? l.body,
+    quiz: (stored?.quiz ?? l.quiz) as unknown as QuizQuestion[] | null,
+    missions: (stored?.missions ?? l.missions) as unknown as Mission[] | null,
+  };
+}
+
 // Dersi getirir ve görüntülemeyi kaydeder (ilk görüntüleme STARTED; tamamlanmış ders geri düşmez).
-export async function openLesson(actor: Actor, slug: string) {
+export async function openLesson(actor: Actor, slug: string, lang: ContentLang = "tr") {
   requireMember(actor);
   const l = await findLesson(slug);
+  const c = localized(l, lang);
   const now = new Date();
   const progress = await db.lessonProgress.upsert({
     where: { userId_lessonId: { userId: actor.id, lessonId: l.id } },
@@ -114,10 +137,10 @@ export async function openLesson(actor: Actor, slug: string) {
   const siblings = await db.lesson.findMany({
     where: { trackId: l.trackId, archivedAt: null },
     orderBy: { position: "asc" },
-    select: { slug: true, title: true },
-  });
+    select: { slug: true, title: true, translations: { where: { locale: lang }, select: { title: true } } },
+  }).then((rows) => rows.map((r) => ({ slug: r.slug, title: r.translations[0]?.title ?? r.title })));
   const i = siblings.findIndex((s) => s.slug === l.slug);
-  const missions = (l.missions as unknown as Mission[] | null) ?? [];
+  const missions = c.missions ?? [];
   const solved = missions.length ? await solvedMissions(actor.id, l.id) : new Set<string>();
   const trackDone = await db.lessonProgress.count({ where: { userId: actor.id, status: "COMPLETED", lesson: { trackId: l.trackId, archivedAt: null } } });
   const lastAttempt =
@@ -127,15 +150,17 @@ export async function openLesson(actor: Actor, slug: string) {
   return {
     slug: l.slug,
     kind: l.kind,
-    title: l.title,
+    lang: c.lang,
+    reviewed: c.reviewed,
+    title: c.title,
     minutes: l.minutes,
-    goals: l.goals,
-    body: l.body,
+    goals: c.goals,
+    body: c.body,
     passPercent: l.passPercent,
-    questions: l.quiz ? publicQuestions(l.quiz as unknown as QuizQuestion[]) : null,
+    questions: c.quiz ? publicQuestions(c.quiz) : null,
     // Çözülen görevin kapanışı (özet + sonraki merak) yalnızca çözümden sonra gönderilir.
     missions: missions.map((m) => ({ ...publicMission(m), solved: solved.has(m.id), closing: solved.has(m.id) ? closingOf(m, l.track.villain) : null })),
-    track: { key: l.track.key, code: l.track.code, title: l.track.title, villain: villainOf(l.track.villain) },
+    track: { key: l.track.key, code: l.track.code, title: trackText(l.track.key, l.track.title, l.track.summary, lang).title, villain: villainText(villainOf(l.track.villain), lang) },
     index: i,
     count: siblings.length,
     trackDone,
@@ -160,6 +185,11 @@ export async function completeLesson(actor: Actor, slug: string) {
     const p = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId: actor.id, lessonId: l.id } } });
     if (!p) throw badRequest("Önce dersi aç.", "NOT_OPENED");
     if (p.status === "COMPLETED") return 0;
+    const activities = activitiesSchema.parse(l.activities ?? []);
+    if (activities.length) {
+      const solutions = await tx.activitySolution.findMany({ where: { userId: actor.id, lessonId: l.id, contentHash: activityHash(activities) }, select: { activityId: true } });
+      if (activities.some(a => !solutions.some(s => s.activityId === a.id))) throw badRequest("Önce ders etkinliklerini tamamla.", "ACTIVITY_PENDING");
+    }
     if (now.getTime() - p.startedAt.getTime() < MIN_READ_MS) throw badRequest("Sayfayı okumak için biraz daha zaman ayır.", "TOO_FAST");
     await tx.lessonProgress.update({ where: { id: p.id }, data: { status: "COMPLETED", completedAt: now, lastViewAt: now } });
     return onLessonCompleted(tx, actor.id, l);
@@ -168,16 +198,16 @@ export async function completeLesson(actor: Actor, slug: string) {
   return { status: "COMPLETED" as const, xp, badges };
 }
 
-export async function submitQuiz(actor: Actor, slug: string, answers: QuizAnswer[]) {
+export async function submitQuiz(actor: Actor, slug: string, answers: QuizAnswer[], confidence: (boolean | null)[] = [], lang: ContentLang = "tr") {
   requireMember(actor);
   const r = hit(`quiz:${actor.id}`, 20, 10 * 60_000);
   if (!r.ok) throw tooMany(r.retryAfterSec);
   const l = await findLesson(slug);
   if (l.kind !== "QUIZ" || !l.quiz) throw badRequest("Bu sayfa bir quiz değil.", "NOT_QUIZ");
-  const g = gradeQuiz(l.quiz as unknown as QuizQuestion[], answers, l.passPercent ?? 70);
+  const g = gradeQuiz(localized(l, lang).quiz ?? (l.quiz as unknown as QuizQuestion[]), answers, l.passPercent ?? 70);
   const now = new Date();
   const xp = await db.$transaction(async (tx) => {
-    await tx.quizAttempt.create({ data: { userId: actor.id, lessonId: l.id, answers, correct: g.correct, total: g.total, score: g.score, passed: g.passed } });
+    await tx.quizAttempt.create({ data: { userId: actor.id, lessonId: l.id, answers, correct: g.correct, total: g.total, score: g.score, passed: g.passed, ...(confidence.length ? { confidence } : {}) } });
     const prev = await tx.lessonProgress.findUnique({ where: { userId_lessonId: { userId: actor.id, lessonId: l.id } }, select: { status: true } });
     await tx.lessonProgress.upsert({
       where: { userId_lessonId: { userId: actor.id, lessonId: l.id } },
@@ -185,6 +215,8 @@ export async function submitQuiz(actor: Actor, slug: string, answers: QuizAnswer
       // Geçilmiş bir quiz sonradan düşük puanla "tamamlanmamış"a dönmez; tamamlanma tarihi de ilk geçişte kalır.
       update: { lastViewAt: now, ...(g.passed && prev?.status !== "COMPLETED" ? { status: "COMPLETED", completedAt: now } : {}) },
     });
+    // "Tahmin ettim" denip doğru bilinen sorular da tekrar kartına girer (güven işareti).
+    await seedReviews(tx, actor.id, l.id, l.quiz as unknown as QuizQuestion[], g.results.map((r, i) => ({ correct: r.correct && confidence[i] !== false })));
     return onQuizAttempt(tx, actor.id, l, g.passed);
   }, XP_TX);
   const badges = g.passed ? await evaluateBadges(actor.id) : [];
@@ -205,20 +237,20 @@ async function solvedMissions(userId: string, lessonId: string) {
   return new Set(rows.map((r) => r.missionId));
 }
 
-async function findMission(slug: string, missionId: string) {
+async function findMission(slug: string, missionId: string, lang: ContentLang = "tr") {
   const l = await findLesson(slug);
-  const m = ((l.missions as unknown as Mission[] | null) ?? []).find((x) => x.id === missionId);
+  const m = (localized(l, lang).missions ?? []).find((x) => x.id === missionId);
   if (!m) throw notFound("Görev bulunamadı.");
   return { l, m };
 }
 
 // Adım kontrolü: doğru/yanlış ve o seçeneğe özgü geri bildirim. Durumsuz puanlama, hız sınırlı; deneme kaydedilir.
 // Aynı adımda 2. yanlıştan sonra çözümlü örnek açılır (learning-scientist, şart 2).
-export async function checkMissionStep(actor: Actor, slug: string, missionId: string, step: number, answer: StepAnswer, hintsUsed: number) {
+export async function checkMissionStep(actor: Actor, slug: string, missionId: string, step: number, answer: StepAnswer, hintsUsed: number, lang: ContentLang = "tr") {
   requireMember(actor);
   const r = hit(`mission:${actor.id}`, 60, 10 * 60_000);
   if (!r.ok) throw tooMany(r.retryAfterSec);
-  const { l, m } = await findMission(slug, missionId);
+  const { l, m } = await findMission(slug, missionId, lang);
   const s = m.adimlar[step];
   if (!s) throw badRequest("Geçersiz adım.", "BAD_STEP");
   const g = gradeStep(s, answer);
@@ -233,11 +265,11 @@ export async function checkMissionStep(actor: Actor, slug: string, missionId: st
 
 // Görevi tamamla: istemcinin "doğru" demesine güvenilmez, bütün cevaplar işlem içinde yeniden puanlanır.
 // XP ders kimliği + görev id'siyle idempotent; kural kapalıysa XP 0 olur ama ders yine tamamlanır.
-export async function completeMission(actor: Actor, slug: string, missionId: string, answers: StepAnswer[], hintsUsed: number) {
+export async function completeMission(actor: Actor, slug: string, missionId: string, answers: StepAnswer[], hintsUsed: number, lang: ContentLang = "tr") {
   requireMember(actor);
   const r = hit(`mission:${actor.id}`, 60, 10 * 60_000);
   if (!r.ok) throw tooMany(r.retryAfterSec);
-  const { l, m } = await findMission(slug, missionId);
+  const { l, m } = await findMission(slug, missionId, lang);
   if (answers.length !== m.adimlar.length) throw badRequest("Her adım için bir cevap gönderilmeli.", "ANSWER_COUNT");
   if (!gradeMission(m, answers)) throw badRequest("Görev henüz çözülmedi.", "MISSION_PENDING");
   const all = (l.missions as unknown as Mission[]).map((x) => x.id);
@@ -275,31 +307,33 @@ export async function missionOptions() {
 // ders yoksa ya da arşivlendiyse null döner ve panel continueTarget'a düşer.
 export const FIRST_MISSION_SLUG = "m01-05";
 
-export async function firstMission(actor: Actor) {
+export async function firstMission(actor: Actor, lang: ContentLang = "tr") {
   requireMember(actor);
   const l = await db.lesson.findFirst({
     where: { slug: FIRST_MISSION_SLUG, archivedAt: null, track: { archivedAt: null } },
-    select: { slug: true, title: true, minutes: true, missions: true },
+    select: { slug: true, title: true, minutes: true, missions: true, translations: { where: { locale: lang }, select: { title: true } } },
   });
-  return l?.missions ? { slug: l.slug, title: l.title, minutes: l.minutes } : null;
+  return l?.missions ? { slug: l.slug, title: l.translations[0]?.title ?? l.title, minutes: l.minutes } : null;
 }
 
 // Panel için: kaldığın yer. Önce yarım kalan en son ders; yoksa müfredat sırasında tamamlanmamış ilk ders.
 // PROGRAM yolu (akademi tanıtımı) "devam et" hedefi olmaz: yeni öğrenci broşüre değil ilk derse gitmeli.
-export async function continueTarget(actor: Actor) {
+export async function continueTarget(actor: Actor, lang: ContentLang = "tr") {
   requireMember(actor);
+  const select = { slug: true, title: true, track: { select: { code: true } }, translations: { where: { locale: lang }, select: { title: true } } } as const;
+  const shape = (l: { slug: string; title: string; track: { code: string }; translations: { title: string }[] }) => ({ slug: l.slug, title: l.translations[0]?.title ?? l.title, track: l.track });
   const open = await db.lessonProgress.findFirst({
     where: { userId: actor.id, status: "STARTED", lesson: { archivedAt: null, track: { archivedAt: null, kind: { not: "PROGRAM" } } } },
     orderBy: { lastViewAt: "desc" },
-    select: { lesson: { select: { slug: true, title: true, track: { select: { code: true } } } } },
+    select: { lesson: { select } },
   });
-  if (open) return { ...open.lesson, resume: true };
+  if (open) return { ...shape(open.lesson), resume: true };
   const next = await db.lesson.findFirst({
     where: { archivedAt: null, track: { archivedAt: null, kind: { not: "PROGRAM" } }, progress: { none: { userId: actor.id, status: "COMPLETED" } } },
     orderBy: [{ track: { position: "asc" } }, { position: "asc" }],
-    select: { slug: true, title: true, track: { select: { code: true } } },
+    select,
   });
-  return next ? { ...next, resume: false } : null;
+  return next ? { ...shape(next), resume: false } : null;
 }
 
 export async function progressSummary(actor: Actor) {

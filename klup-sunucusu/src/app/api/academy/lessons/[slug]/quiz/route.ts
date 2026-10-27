@@ -8,10 +8,10 @@ export const dynamic = "force-dynamic";
 
 type Ctx = { params: Promise<{ slug: string }> };
 
-const bodySchema = z.object({ answers: z.array(z.union([z.number().int().min(0).max(10), z.boolean(), z.null()])).max(50) });
+const bodySchema = z.object({ answers: z.array(z.union([z.number().int().min(0).max(10), z.boolean(), z.null()])).max(50), confidence: z.array(z.boolean().nullable()).max(50).default([]), lang: z.enum(["tr", "en"]).default("tr") });
 
 export const POST = route<Ctx>(async (req, { params }) => {
   const { actor } = await memberContext(req, { write: true });
-  const { answers } = await readJson(req, bodySchema, 8 * 1024);
-  return json(await submitQuiz(actor, slugParam.parse((await params).slug), answers));
+  const { answers, confidence, lang } = await readJson(req, bodySchema, 8 * 1024);
+  return json(await submitQuiz(actor, slugParam.parse((await params).slug), answers, confidence, lang));
 });

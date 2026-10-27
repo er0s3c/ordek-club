@@ -1,0 +1,14 @@
+# Club host only: docker compose -f compose.yaml -f compose.lab-client.yaml up -d --build app
+# Copy ONLY ca.pem, club-client.pem, club-client-key.pem into storage/lab-pki on this host.
+services:
+  app:
+    environment:
+      CLUB_LAB_URL: ${CLUB_LAB_URL:?Set the private HTTPS address of the dedicated lab host}
+      CLUB_LAB_CA: /run/secrets/lab_ca
+      CLUB_LAB_CERT: /run/secrets/lab_club_cert
+      CLUB_LAB_KEY: /run/secrets/lab_club_key
+    secrets: [lab_ca, lab_club_cert, lab_club_key]
+secrets:
+  lab_ca: { file: ./storage/lab-pki/ca.pem }
+  lab_club_cert: { file: ./storage/lab-pki/club-client.pem }
+  lab_club_key: { file: ./storage/lab-pki/club-client-key.pem }

@@ -7,11 +7,10 @@ hedefler:
   - Bir dosyanın .NET olduğunu tanımak ve decompiler ile okumak
   - Gizleme (obfuscation) ve ikinci aşama yükleme izlerini fark etmek
 gorseller:
-  - id: g-06-a
+  - id: g-06-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri cam kabuklu böceğinin bütün dişlilerinin dışarıdan görünmesine bozuluyor ve üstünü minik bir bezle örtmeye çalışıyor; arkadaki perdeye böceğin düzgün montaj şeması yansıyor"
-    prompt: "On the workbench stands a clockwork beetle with a fully transparent glass shell, every gear and spring inside clearly visible. Behind it a projector casts a neat, perfectly readable assembly diagram of the same beetle onto a hanging screen, drawn with abstract symbols and arrows. The villain, dismayed, hurriedly tries to cover the glass shell with a tiny embroidered cloth that is far too small."
+    alt: "Kilitli gibi görünen bir kutunun aslında cam olduğu ve içindeki tarif kartlarının açıkça okunabildiği sahne"
+    prompt: "A box that looks like a sturdy locked chest from a distance, but up close it is made of clear glass, and an analyst can easily see the neatly arranged recipe cards and diagrams inside without opening it."
 ---
 
 # .NET analizi: IL ve decompile edilmiş kod
@@ -19,9 +18,11 @@ gorseller:
 > Bazı programlar makine koduna değil, ara bir dile derlenir. Onları okumak neredeyse kaynak kodu okumak gibidir.
 > ⚙️ **Çark 6:** Böceklerden biri farklı tıkırdıyor: .NET ile yapılmış. Selim Hoca: "Bu kez dişliler cam kabuğun ardında."
 
-![Saatçi Sabri cam kabuklu böceğinin bütün dişlilerinin dışarıdan görünmesine bozuluyor ve üstünü minik bir bezle örtmeye çalışıyor; arkadaki perdeye böceğin düzgün montaj şeması yansıyor](../../gorseller/g-06-a.webp)
+::cizgi[g-06-sahne]
 
 ## Neden bu kadar okunaklı?
+
+![Kilitli gibi görünen bir kutunun aslında cam olduğu ve içindeki tarif kartlarının açıkça okunabildiği sahne](../../gorseller/g-06-b.webp)
 
 .NET derleyicisi makine kodu yerine **IL** (Intermediate Language) üretir. Sınıf, metot ve alan adları
 dosyadaki metadata'da kalır. Decompiler, IL'yi neredeyse orijinal C# koduna geri çevirir.

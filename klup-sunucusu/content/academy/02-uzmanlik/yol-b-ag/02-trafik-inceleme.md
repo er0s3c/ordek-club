@@ -8,15 +8,14 @@ hedefler:
   - Filtrelerle şüpheli trafiği ayıklamak
 animasyonlar: [packet-journey]
 gorseller:
-  - id: b-02-a
-    tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık yeraltı kanalında fenerinin ışığıyla, üstünden akan parlayan paket nehrini izleyip bazılarını işaretliyor"
-    prompt: "An underground canal beneath a city where a river of small glowing packets of different colors flows past on the water. The villain kneels on the stone ledge, his green headlamp scanning the stream, quietly tagging a few passing packets with tiny glowing markers using his cable pliers."
   - id: b-02-b
     tur: ekran
     alt: "Wireshark'ta Statistics → Conversations penceresi; IPv4 sekmesinde en çok veri aktaran konuşmalar"
     nasil: "Laboratuvar VM'inde birkaç dakikalık kendi trafiğinizi yakalayın (veya ders için verilen örnek pcap'i açın). Wireshark'ta Statistics → Conversations → IPv4 sekmesini açın, 'Bytes' sütununa göre büyükten küçüğe sıralayın. En üstteki iki satırı ve Bytes sütununu kehribar (#C9953B) çerçeveyle işaretleyin. Gerçek ev/okul IP'leri görünüyorsa bulanıklaştırın."
+  - id: b-02-c
+    tur: ai
+    alt: "Şehir trafiğinin kuşbakışı haritası; en kalın akış çizgisi tek bir binaya gidiyor"
+    prompt: "A bird's-eye night map of city traffic drawn as glowing flow lines between buildings, most lines thin and calm, but one unusually thick bright line running steadily from one house to one far-away building, an analyst circling it with chalk."
 ---
 
 # Trafik inceleme: Wireshark ve tcpdump
@@ -24,7 +23,7 @@ gorseller:
 > Ağda olan her şey bir **iz** bırakır. Tarık'ı görmek için önce trafiği okuyabilmen gerekiyor.
 > 🕳️ **Tünel 2:** Laboratuvar ağında gece 03:00'te bir sunucu tanımadığı bir adresle konuşuyor.
 
-![Tünelci Tarık yeraltı kanalında fenerinin ışığıyla, üstünden akan parlayan paket nehrini izleyip bazılarını işaretliyor](../../gorseller/b-02-a.webp)
+::cizgi[b-02-sahne]
 
 ## Yakala: tcpdump
 
@@ -49,6 +48,8 @@ sudo tcpdump -r yakalama.pcap host 10.66.0.20     # dosyadan oku, tek host
 | `!(ip.addr == 10.66.0.0/24)` | Ağ dışına giden her şey |
 
 ## Büyük resim
+
+![Şehir trafiğinin kuşbakışı haritası; en kalın akış çizgisi tek bir binaya gidiyor](../../gorseller/b-02-c.webp)
 
 ![Wireshark Conversations penceresi](../../gorseller/b-02-b.webp)
 

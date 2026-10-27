@@ -8,11 +8,10 @@ hedefler:
   - OSI ve TCP/IP katmanlarını eşleştirmek
 animasyonlar: [packet-journey]
 gorseller:
-  - id: m05-02-a
+  - id: m05-02-b
     tur: ai
-    karakter: nuri
-    alt: "Dinleyici Nuri iç içe zarfların en dıştakini çaydanlık buharıyla açmaya çalışıyor"
-    prompt: "Four nested envelopes of different colors drawn slightly exploded on a desk, a small folded note with abstract scribbles at the center. The villain holds the outermost envelope over the steam of a whistling kettle, trying to peel it open without being noticed."
+    alt: "İç içe geçmiş beş zarf açılmış hâlde: her zarf bir öncekini sarıyor, en içte küçük bir mesaj kartı"
+    prompt: "A neat row on a dark desk showing nested envelopes being unpacked from left to right: a large outer envelope, then a slightly smaller one that was inside it, then smaller and smaller, five layers in total, each a different muted color with its own wax seal, and in the very center a small glowing message card. A small brass opening knife rests beside them."
 ---
 
 # Mektup zarf içinde zarf — OSI ve TCP/IP
@@ -20,9 +19,11 @@ gorseller:
 > Bir mesaj ağda yolculuğa çıkmadan önce **kat kat paketlenir**.
 > Her katman kendi zarfını ekler, karşı tarafta aynı katman o zarfı açar.
 
-![Dinleyici Nuri iç içe zarfların en dıştakini çaydanlık buharıyla açmaya çalışıyor](../../gorseller/m05-02-a.webp)
+::cizgi[m05-02-sahne]
 
 ## Neden katman?
+
+![İç içe geçmiş beş zarf açılmış hâlde: her zarf bir öncekini sarıyor, en içte küçük bir mesaj kartı](../../gorseller/m05-02-b.webp)
 
 Her katman tek bir işe odaklanır. Wi-Fi'den Ethernet'e geçtiğinde web tarayıcının değişmesi gerekmez —
 alt katman değişir, üstü aynı kalır.

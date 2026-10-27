@@ -1,3 +1,4 @@
+import { featureEnabled } from "@/server/learning/features";
 // ============================================================================
 //  Canlı sınıf merkezi (hub) — sunucu otoritesinde senkron durum.
 //  • Durum yalnızca sunucuda değişir; her değişiklik sürümü (v) 1 artırır ve tam anlık
@@ -15,11 +16,12 @@ import { canHostSession } from "@/server/auth/policy";
 import { validateSessionToken } from "@/server/auth/session";
 import {
   WS_CLOSE, clientMessageSchema, initialLiveState,
-  type ClientMessage, type ControlAction, type LiveState, type ParticipantView, type PollStats, type PollView, type QuestionView, type ServerMessage,
+  type ClientMessage, type ControlAction, type HelpView, type LiveState, type ParticipantView, type PollStats, type PollView, type PulseStats, type QuestionView, type ServerMessage,
 } from "@/lib/live-protocol";
 import type { Block } from "@/lib/deck-schema";
 import { ensurePracticalAssignment, type PracticalBlock } from "@/server/classroom/practical";
-import { award, recordActivity, XP_TX } from "@/server/xp/engine";
+import { recordLearning } from "@/server/learning/events";
+import { award, XP_TX } from "@/server/xp/engine";
 
 export interface Conn {
   send(data: string): void;
@@ -39,9 +41,10 @@ type Client = {
   strikes: number;
 };
 
-type Participant = { displayName: string; username: string; role: Role; conns: number; handRaised: boolean; connectedMs: number; since: number | null };
+type Participant = { displayName: string; username: string; role: Role; conns: number; handRaised: boolean; handAt: number | null; connectedMs: number; since: number | null };
 
 type PollRuntime = {
+  purpose: string;
   id: string;
   kind: "QUIZ" | "POLL";
   question: string;
@@ -72,6 +75,8 @@ type Room = {
   poll: PollRuntime | null;
   pollTimer: NodeJS.Timeout | null;
   practicals: (PracticalInfo | null)[]; // slayt indeksine göre uygulama molası bloğu
+  help: HelpView[]; // çözülmemiş yardım talepleri (en eski önce)
+  pulse: Map<string, "ok" | "slow" | "repeat">; // geçerli slayt için anlama göstergesi
 };
 
 export const LIMITS = {
@@ -83,6 +88,8 @@ export const LIMITS = {
   handPerMin: 12,
   announcePerMin: 10,
   pollsPerMin: 10,
+  helpPerMin: 6,
+  pulsePerMin: 20,
   autoplayBaseMs: 4000,
   persistDebounceMs: 250,
   revalidateMs: 30_000,
@@ -115,6 +122,7 @@ export class LiveHub {
           version: { select: { slides: { select: { id: true, steps: true, blocks: true }, orderBy: { position: "asc" } } } },
           polls: { orderBy: { openedAt: "desc" }, take: 1, include: { answers: { select: { userId: true, choice: true } } } },
           participants: { include: { user: { select: { displayName: true, username: true, role: true } } } },
+          helpRequests: { where: { resolvedAt: null }, orderBy: { createdAt: "asc" }, include: { user: { select: { displayName: true } } } },
           events: { where: { type: "QUESTION" }, orderBy: { createdAt: "asc" }, include: { user: { select: { displayName: true } } } },
         },
       });
@@ -131,10 +139,12 @@ export class LiveHub {
         participants: new Map(
           s.participants.map((p) => [
             p.userId,
-            { displayName: p.user.displayName, username: p.user.username, role: p.user.role, conns: 0, handRaised: p.handRaisedAt !== null, connectedMs: p.connectedMs, since: null },
+            { displayName: p.user.displayName, username: p.user.username, role: p.user.role, conns: 0, handRaised: p.handRaisedAt !== null, handAt: p.handRaisedAt?.getTime() ?? null, connectedMs: p.connectedMs, since: null },
           ]),
         ),
         questions: s.events.map((e) => ({ id: e.id, userId: e.userId, displayName: e.user?.displayName ?? "—", text: e.text, at: e.createdAt.getTime(), resolved: e.resolvedAt !== null })),
+        help: s.helpRequests.map((h) => ({ id: h.id, userId: h.userId, displayName: h.user.displayName, note: h.note, taskRef: h.taskRef, at: h.createdAt.getTime() })),
+        pulse: new Map(),
         persistTimer: null,
         autoplayTimer: null,
         poll: null,
@@ -150,6 +160,7 @@ export class LiveHub {
         room.poll = {
           id: last.id,
           kind: last.kind,
+          purpose: last.purpose,
           question: last.question,
           options: last.options as string[],
           correctIndex: last.correctIndex,
@@ -192,7 +203,7 @@ export class LiveHub {
     };
     room.clients.add(client);
 
-    const p = room.participants.get(user.id) ?? { displayName: user.displayName, username: user.username, role: user.role, conns: 0, handRaised: false, connectedMs: 0, since: null };
+    const p = room.participants.get(user.id) ?? { displayName: user.displayName, username: user.username, role: user.role, conns: 0, handRaised: false, handAt: null, connectedMs: 0, since: null };
     p.conns += 1;
     if (p.since === null) p.since = Date.now();
     room.participants.set(user.id, p);
@@ -205,11 +216,19 @@ export class LiveHub {
 
     this.send(client, { t: "welcome", you: { userId: user.id, isHost: client.isHost }, session: { id: room.id, code: room.code, title: room.title, slideCount: room.slideSteps.length }, serverNow: Date.now() });
     this.send(client, { t: "state", v: room.v, state: room.state, serverTime: Date.now() });
-    if (client.isHost) this.send(client, { t: "questions", items: room.questions });
-    else this.send(client, { t: "you", handRaised: p.handRaised });
+    if (client.isHost) {
+      this.send(client, { t: "questions", items: room.questions });
+      this.send(client, { t: "help.queue", items: room.help });
+      this.send(client, { t: "pulse.stats", stats: this.pulseStats(room) });
+    } else {
+      this.send(client, { t: "you", handRaised: p.handRaised });
+      this.sendHelpYou(room, client);
+      this.send(client, { t: "pulse.you", value: room.pulse.get(user.id) ?? null });
+    }
     this.send(client, { t: "poll", poll: this.pollView(room, client.user.id, client.isHost) });
     if (client.isHost && room.poll) this.send(client, { t: "poll.stats", stats: this.pollStats(room) });
     this.broadcastPresence(room);
+    this.send(client, { t: "operation.changed", revision: Date.now() });
     return client;
   }
 
@@ -292,6 +311,24 @@ export class LiveHub {
       case "poll.answer":
         if (client.isHost) return this.reject(client, "FORBIDDEN", "Eğitmen cevap veremez.");
         return this.answerPoll(room, client, msg.pollId, msg.choice);
+      case "help":
+        if (client.isHost) return this.reject(client, "FORBIDDEN", "Eğitmen yardım kuyruğuna giremez.");
+        if (!hit(`live:help:${room.id}:${client.user.id}`, LIMITS.helpPerMin, 60_000).ok) return this.reject(client, "RATE_LIMITED", "Biraz bekle.");
+        return this.requestHelp(room, client, msg.note, msg.taskRef);
+      case "help.cancel":
+        return this.closeHelp(room, room.help.find((h) => h.userId === client.user.id)?.id, client.user.id);
+      case "help.resolve":
+        if (!client.isHost) return this.reject(client, "FORBIDDEN", "Yetkin yok.");
+        return this.closeHelp(room, msg.id, client.user.id);
+      case "pulse":
+        if (client.isHost) return;
+        if (!hit(`live:pulse:${room.id}:${client.user.id}`, LIMITS.pulsePerMin, 60_000).ok) return this.reject(client, "RATE_LIMITED", "Biraz bekle.");
+        if (msg.value) room.pulse.set(client.user.id, msg.value); else room.pulse.delete(client.user.id);
+        for (const c of room.clients) if (c.user.id === client.user.id) this.send(c, { t: "pulse.you", value: msg.value });
+        return this.toHosts(room, { t: "pulse.stats", stats: this.pulseStats(room) });
+      case "speaker.next":
+        if (!client.isHost) return this.reject(client, "FORBIDDEN", "Yetkin yok.");
+        return this.nextSpeaker(room, client.user.id);
     }
   }
 
@@ -334,6 +371,11 @@ export class LiveHub {
     }
     if (stepChanged) s.stepAt = Date.now();
     const slideChanged = s.slide !== room.state.slide;
+    if (slideChanged && room.pulse.size) {
+      // Anlama göstergesi her slaytta yeniden toplanır.
+      room.pulse.clear();
+      for (const cl of room.clients) this.send(cl, cl.isHost ? { t: "pulse.stats", stats: this.pulseStats(room) } : { t: "pulse.you", value: null });
+    }
     this.commit(room, s);
     if (slideChanged || c.action === "goto") void this.ensurePractical(room);
   }
@@ -387,12 +429,55 @@ export class LiveHub {
     const p = room.participants.get(userId);
     if (!p || p.handRaised === raised) return;
     p.handRaised = raised;
+    p.handAt = raised ? Date.now() : null;
     for (const c of room.clients) if (c.user.id === userId) this.send(c, { t: "you", handRaised: raised });
     this.broadcastPresence(room);
     await db.sessionParticipant
       .update({ where: { sessionId_userId: { sessionId: room.id, userId } }, data: { handRaisedAt: raised ? new Date() : null } })
       .catch(() => {});
     if (raised) await db.liveSessionEvent.create({ data: { sessionId: room.id, userId: byUserId, type: "HAND" } }).catch(() => {});
+  }
+
+  // ── yardım kuyruğu, anlama göstergesi, söz sırası ─────────────────────────
+
+  private sendHelpYou(room: Room, client: Client) {
+    const i = room.help.findIndex((h) => h.userId === client.user.id);
+    this.send(client, { t: "help.you", pending: i >= 0, position: i >= 0 ? i + 1 : null });
+  }
+
+  private broadcastHelp(room: Room) {
+    this.toHosts(room, { t: "help.queue", items: room.help });
+    for (const c of room.clients) if (!c.isHost) this.sendHelpYou(room, c);
+  }
+
+  private async requestHelp(room: Room, client: Client, note: string, taskRef: string) {
+    if (room.help.some((h) => h.userId === client.user.id)) return this.sendHelpYou(room, client);
+    const h = await db.helpRequest.create({ data: { sessionId: room.id, userId: client.user.id, note, taskRef } });
+    room.help.push({ id: h.id, userId: client.user.id, displayName: client.user.displayName, note, taskRef, at: h.createdAt.getTime() });
+    this.send(client, { t: "ack", what: "hand" });
+    this.broadcastHelp(room);
+  }
+
+  private async closeHelp(room: Room, id: string | undefined, byUserId: string) {
+    const i = room.help.findIndex((h) => h.id === id);
+    if (i < 0 || !id) return;
+    room.help.splice(i, 1);
+    await db.helpRequest.updateMany({ where: { id, sessionId: room.id }, data: { resolvedAt: new Date(), resolvedById: byUserId } }).catch(() => {});
+    this.broadcastHelp(room);
+  }
+
+  private pulseStats(room: Room): PulseStats {
+    const counts = { ok: 0, slow: 0, repeat: 0 };
+    for (const v of room.pulse.values()) counts[v]++;
+    return { ...counts, online: [...room.participants.values()].filter((p) => p.conns > 0 && p.role === "STUDENT").length };
+  }
+
+  private async nextSpeaker(room: Room, hostId: string) {
+    const next = [...room.participants.entries()].filter(([, p]) => p.handRaised).sort((a, b) => (a[1].handAt ?? 0) - (b[1].handAt ?? 0))[0];
+    if (!next) return;
+    await this.setHand(room, next[0], false, hostId);
+    for (const c of room.clients) if (c.user.id === next[0]) this.send(c, { t: "turn", at: Date.now() });
+    this.broadcast(room, { t: "announcement", text: `Söz sırası: ${next[1].displayName}`, at: Date.now() });
   }
 
   private async addQuestion(room: Room, client: Client, text: string) {
@@ -426,6 +511,7 @@ export class LiveHub {
     const revealed = p.status === "REVEALED";
     return {
       id: p.id,
+      purpose: p.purpose === "EXIT" ? "EXIT" : "LIVE",
       kind: p.kind,
       question: p.question,
       options: p.options,
@@ -473,6 +559,7 @@ export class LiveHub {
   }
 
   private async openPoll(room: Room, client: Client, msg: Extract<ClientMessage, { t: "poll.open" }>) {
+    if (msg.purpose === "EXIT" && (msg.kind !== "QUIZ" || !await featureEnabled("teacher-tools"))) return this.reject(client, "BAD_POLL", "Çıkış bileti kullanılamıyor.");
     if (msg.kind === "QUIZ" && (msg.correctIndex === undefined || msg.correctIndex >= msg.options.length))
       return this.reject(client, "BAD_POLL", "Quiz için doğru seçeneği işaretle.");
     if (room.poll?.status === "OPEN") await this.closePoll(room);
@@ -480,6 +567,7 @@ export class LiveHub {
     const row = await db.livePoll.create({
       data: {
         sessionId: room.id,
+        purpose: msg.purpose ?? "LIVE",
         kind: msg.kind,
         question: msg.question,
         options: msg.options,
@@ -491,6 +579,7 @@ export class LiveHub {
     });
     room.poll = {
       id: row.id,
+      purpose: row.purpose,
       kind: row.kind,
       question: row.question,
       options: msg.options,
@@ -529,7 +618,7 @@ export class LiveHub {
       await db
         .$transaction(async (tx) => {
           await award(tx, { userId, ruleKey: "live.quiz", key: `livequiz:${userId}:${p.id}`, source: "LIVE", refType: "LivePoll", refId: p.id, reason: p.question.slice(0, 120) });
-          await recordActivity(tx, userId);
+          await recordLearning(tx, userId, `livequiz:${p.id}`, "quiz");
         }, XP_TX)
         .catch((err) => console.error("[live] quiz XP'si verilemedi", err));
     }
@@ -588,6 +677,11 @@ export class LiveHub {
     return [...room.participants.values()].filter((p) => p.conns > 0).length;
   }
 
+  notifyOperation(sessionId: string) {
+    const room = this.rooms.get(sessionId);
+    if (room) this.broadcast(room, { t: "operation.changed", revision: Date.now() });
+  }
+
   stateOf(sessionId: string): { v: number; state: LiveState } | null {
     const r = this.rooms.get(sessionId);
     return r ? { v: r.v, state: r.state } : null;
@@ -622,6 +716,7 @@ export class LiveHub {
         role: p.role,
         online: p.conns > 0,
         handRaised: p.handRaised,
+        handAt: p.handAt,
         connectedMs: p.connectedMs + (p.since ? now - p.since : 0),
       }))
       .sort((a, b) => Number(b.handRaised) - Number(a.handRaised) || Number(b.online) - Number(a.online) || a.displayName.localeCompare(b.displayName, "tr"));

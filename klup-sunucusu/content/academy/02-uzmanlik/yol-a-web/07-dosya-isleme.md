@@ -7,11 +7,10 @@ hedefler:
   - Dosya yükleme açıklarının nedenlerini sıralamak
   - Path traversal ve dosya dahil etme (LFI/RFI) açıklarını açıklamak
 gorseller:
-  - id: a-07-a
+  - id: a-07-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine posta odasındaki robota fotoğraf diye paketlenmiş, içinde dişliler tıkırdayan bir kutu veriyor; arkada yasak bodrum arşivine inen merdiven"
-    prompt: "A tidy mailroom: the villain hands a gift-wrapped box with a small picture-frame sticker to a mailroom robot, but through a gap in the wrapping a tiny glowing clockwork mechanism is ticking inside. Behind her, a narrow spiral staircase leads down from the mailroom into a forbidden basement archive glowing faintly green."
+    alt: "Bir arşiv labirentinde ok işaretlerini takip edip bir üst kata, oradan da kilitli yönetici dairesine çıkan merdivenler"
+    prompt: "An archive building cutaway where a visitor meant to stay in a small public reading room climbs a hidden staircase up, and up again, past several floors to a locked private vault room at the top, the path traced with a glowing dotted line."
 ---
 
 # Dosya işleme: yükleme, path traversal, LFI/RFI
@@ -19,7 +18,7 @@ gorseller:
 > "Profil fotoğrafını yükle" düğmesi, sunucuya **bir dosya bırakma** iznidir. Peki o dosya fotoğraf değilse?
 > 🗂️ **Çekmece 7:** Portalın belge yükleme sayfasına "ödev.pdf" adında bir paket geldi.
 
-![Tek Tırnak Jasmine posta odasındaki robota fotoğraf diye paketlenmiş, içinde dişliler tıkırdayan bir kutu veriyor; arkada yasak bodrum arşivine inen merdiven](../../gorseller/a-07-a.webp)
+::cizgi[a-07-sahne]
 
 ## Dosya yükleme
 
@@ -31,6 +30,8 @@ gorseller:
 | Görsel/PDF içeriğini işlemeden yayınlamak | Gömülü script, meta veri sızıntısı |
 
 ## Path traversal
+
+![Bir arşiv labirentinde ok işaretlerini takip edip bir üst kata, oradan da kilitli yönetici dairesine çıkan merdivenler](../../gorseller/a-07-b.webp)
 
 Dosya adı bir yola eklenirken `../` temizlenmezse, kullanıcı klasörden **yukarı** çıkar:
 

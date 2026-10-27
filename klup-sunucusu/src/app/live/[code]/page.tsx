@@ -4,10 +4,14 @@ import { requirePageSession } from "@/server/auth/page-guard";
 import { getJoinInfo } from "@/server/live/service";
 import { HttpError } from "@/server/errors";
 import { LiveViewer } from "./LiveViewer";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Canlı ders" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Canlı ders") };
+}
 
 export default async function LiveViewerPage({ params, searchParams }: { params: Promise<{ code: string }>; searchParams: Promise<Record<string, string | undefined>> }) {
+  const t = await getT();
   const { user } = await requirePageSession();
   const { code } = await params;
   const present = (await searchParams).present === "1";
@@ -19,10 +23,10 @@ export default async function LiveViewerPage({ params, searchParams }: { params:
     return (
       <div className="auth-wrap">
         <div className="card auth-card"><div className="card-b stack">
-          <div className="eyebrow">Canlı ders</div>
-          <h1 className="page-title">Ders bulunamadı</h1>
-          <p className="muted">Bu kodla devam eden bir canlı ders yok; ders bitmiş olabilir.</p>
-          <Link className="btn" href="/live">Başka bir koda katıl</Link>
+          <div className="eyebrow">{t("Canlı ders")}</div>
+          <h1 className="page-title">{t("Ders bulunamadı")}</h1>
+          <p className="muted">{t("Bu kodla devam eden bir canlı ders yok; ders bitmiş olabilir.")}</p>
+          <Link className="btn" href="/live">{t("Başka bir koda katıl")}</Link>
         </div></div>
       </div>
     );

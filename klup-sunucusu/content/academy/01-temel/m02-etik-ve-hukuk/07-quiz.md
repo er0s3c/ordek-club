@@ -49,12 +49,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: Veri üçüncü bir tarafa gönderilmiş olur; önce maskelenmeli ve kurum politikası kontrol edilmelidir.
-gorseller:
-  - id: m02-07-a
-    tur: ai
-    karakter: kemal
-    alt: "Mahkeme salonunda Avukat Kemal kendi uzun sözleşmesine dolanıp düşüyor; savunma masasında yeşil mühürlü izin belgesi"
-    prompt: "A dim wood-paneled courtroom: the villain's endless contract scroll has unrolled across the floor and tangled around his own legs, and he topples over as his briefcase flies open. On the defense table, a neat signed permission document with a green wax seal glows calmly under a lamp."
 ---
 
 # M02 Quiz: Etik ve hukuk
@@ -63,8 +57,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Avukat "Boşluk" Kemal** · *quiz'i %80 ile geçince*
 >
-> ![Mahkeme salonunda Avukat Kemal kendi uzun sözleşmesine dolanıp düşüyor; savunma masasında yeşil mühürlü izin belgesi](../../gorseller/m02-07-a.webp)
->
-> Tuzağa düşmedin; dosyandaki her delil imzalı ve izinli. Kemal masasındaki eski fotoğrafı çeviriyor: aynı koğuştan iki adam — bir çilingir ve bir kasa hırsızı.
+> ::cizgi[kemal-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Anahtarcı Rıza** (M03)*

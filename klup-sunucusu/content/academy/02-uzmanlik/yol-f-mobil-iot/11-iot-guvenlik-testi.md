@@ -7,11 +7,10 @@ hedefler:
   - Bir IoT cihazı için saldırı yüzeyi haritası ve tehdit modeli çıkarmak
   - Bulguları OWASP IoT Top 10 ile eşleştirip firmware bileşen envanteri hazırlamak
 gorseller:
-  - id: f-11-a
+  - id: f-11-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman tezgâha bir akıllı kameranın dev planını sermiş; plandaki her giriş noktasını yeşil havyasıyla daire içine alıyor"
-    prompt: "A large blueprint of a smart security camera spread across a workbench, held flat by a coffee mug and a spool of solder. The blueprint shows the camera's insides, its antenna, a small companion phone and a cloud drawn as a puffy shape. The villain leans over the blueprint drawing glowing green circles around little doorways on the drawing with the tip of her soldering iron, each circled doorway marked with a tiny abstract symbol, while her tiny drone counts them on its little fingers."
+    alt: "Bir akıllı cihazın çevresinde işaretlenmiş giriş noktaları: mobil uygulama, bulut, kablosuz bağlantı ve fiziksel pimler"
+    prompt: "A smart doorbell device placed on a large map table, with glowing chalk circles around its entry points connected by arrows: a phone app, a cloud server, radio waves and a row of physical pins on its back."
 ---
 
 # IoT güvenlik testi: tehdit modeli ve firmware envanteri
@@ -19,9 +18,11 @@ gorseller:
 > Test, rastgele açık aramak değildir. Önce **haritayı** çizersin, sonra her kapıyı tek tek denetlersin.
 > 🔧 **Devre 11:** Leman her cihazın kapılarını bir planda işaretlemiş. Aynı planı sen savunma için çiz.
 
-![Lehimci Leman tezgâha bir akıllı kameranın dev planını sermiş; plandaki her giriş noktasını yeşil havyasıyla daire içine alıyor](../../gorseller/f-11-a.webp)
+::cizgi[f-11-sahne]
 
 ## Saldırı yüzeyi haritası
+
+![Bir akıllı cihazın çevresinde işaretlenmiş giriş noktaları: mobil uygulama, bulut, kablosuz bağlantı ve fiziksel pimler](../../gorseller/f-11-b.webp)
 
 Bir cihazı yedi katmanda düşün: **donanım** (UART, flash) · **firmware** · **yerel ağ servisleri** · **radyo** (Wi-Fi, BLE) ·
 **mobil uygulama** · **bulut API** · **güncelleme kanalı**. Her katman için sor: kim erişir, ne korur, ne olursa ne kaybederiz?

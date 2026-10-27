@@ -1,0 +1,11 @@
+import{z}from"zod";
+import{memberContext}from"@/server/api-auth";
+import{json,readJson,route}from"@/server/http";
+import{db}from"@/server/db";
+import{notFound}from"@/server/errors";
+import{requireFeature}from"@/server/learning/features";
+import{env}from"@/server/env";
+import{certificatePdf}from"@/server/academy/certificate-pdf";
+type Context={params:Promise<{id:string}>};
+export const GET=route<Context>(async(req,ctx)=>{const{actor}=await memberContext(req);await requireFeature("academy-v2");const cert=await db.learningCertificate.findFirst({where:{id:(await ctx.params).id,userId:actor.id}});if(!cert)throw notFound();const pdf=await certificatePdf({name:cert.ownerName,track:cert.trackTitle,date:cert.awardedAt.toISOString().slice(0,10),code:cert.token,verificationUrl:new URL(`/dogrula/${cert.token}`,env().APP_URL).toString()});return new Response(new Uint8Array(pdf),{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=ordek-yol-belgesi.pdf","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"}});});
+export const PATCH=route<Context>(async(req,ctx)=>{const{actor}=await memberContext(req,{write:true});await requireFeature("academy-v2");const{shareName}=await readJson(req,z.object({shareName:z.boolean()}));const r=await db.learningCertificate.updateMany({where:{id:(await ctx.params).id,userId:actor.id},data:{shareName}});if(!r.count)throw notFound();return json({ok:true});});

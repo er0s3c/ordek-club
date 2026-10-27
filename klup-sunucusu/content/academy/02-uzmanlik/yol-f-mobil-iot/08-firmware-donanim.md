@@ -7,11 +7,14 @@ hedefler:
   - Bir laboratuvar firmware imajını binwalk ile açıp içinde risk aramak
   - Donanım hata ayıklama arayüzlerini ve güvenli önyükleme/güncelleme ilkelerini açıklamak
 gorseller:
-  - id: f-08-a
+  - id: f-08-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman bir akıllı kilidin arka kapağını açmış; içeride dört parlayan pin ve çengele asılı, üzerinde soyut bir varsayılan simgesi olan bir anahtar buluyor"
-    prompt: "Close-up of a smart door lock on a workbench with its back panel unscrewed and lifted away. Inside the casing, a small circuit board shows a row of four glowing pins and a tiny memory chip, and hanging from a little hook beside them is a brass key with a tag marked by an abstract default symbol. The villain, goggles down, clips a tiny probe onto the pins with a satisfied smirk, her glowing green soldering iron resting safely in its stand and her tiny drone holding the unscrewed panel."
+    alt: "Devre kartının kenarında açıkta kalmış dört küçük pim; araştırmacı onlara ince problarla bağlanıyor"
+    prompt: "A close-up of a small green circuit board on a workbench with a row of four bare pins at its edge, a researcher's careful hands attaching fine probe clips to them, a magnifying lamp casting warm light."
+  - id: f-08-c
+    tur: ai
+    alt: "Güncelleme paketi cihazın kapısında mühür kontrolünden geçiyor; mühürsüz paket geri dönüyor"
+    prompt: "A small smart device with a door in its housing receives update parcels: a guard checks each parcel's wax seal against a reference, accepts the genuine one and sends back a parcel with a broken seal."
 ---
 
 # Firmware ve donanım: binwalk, UART ve güvenli güncelleme
@@ -19,7 +22,7 @@ gorseller:
 > Firmware, cihazın içindeki **küçük işletim sistemidir**. Kapağı açan, çoğu zaman anahtarı da içeride bulur.
 > 🔧 **Devre 8:** Laboratuvar kamerasının firmware imajı elimizde. Leman'ın bıraktığı kapılar içinde mi?
 
-![Lehimci Leman bir akıllı kilidin arka kapağını açmış; içeride dört parlayan pin ve çengele asılı, üzerinde soyut bir varsayılan simgesi olan bir anahtar buluyor](../../gorseller/f-08-a.webp)
+::cizgi[f-08-sahne]
 
 ## binwalk ile firmware
 
@@ -33,6 +36,8 @@ Aranacaklar: `/etc/shadow` (boş parola), başlangıç betikleri (`rcS`), özel 
 
 ## Donanım arayüzleri
 
+![Devre kartının kenarında açıkta kalmış dört küçük pim; araştırmacı onlara ince problarla bağlanıyor](../../gorseller/f-08-b.webp)
+
 | Arayüz | Ne işe yarar? | Risk |
 |---|---|---|
 | **UART** | Seri konsol (TX, RX, GND) | Açık bırakılırsa parolasız kök kabuk |
@@ -41,6 +46,8 @@ Aranacaklar: `/etc/shadow` (boş parola), başlangıç betikleri (`rcS`), özel 
 | **I2C** | Küçük EEPROM, sensörler | Ayar ve anahtarlar okunur |
 
 ## Güvenli tasarım
+
+![Güncelleme paketi cihazın kapısında mühür kontrolünden geçiyor; mühürsüz paket geri dönüyor](../../gorseller/f-08-c.webp)
 
 - **Secure boot:** her aşama bir sonrakinin imzasını doğrular.
 - **İmzalı güncelleme** HTTPS üzerinden, sürüm geri alma (rollback) korumasıyla.

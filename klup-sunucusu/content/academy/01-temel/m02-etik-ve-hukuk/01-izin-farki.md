@@ -7,11 +7,10 @@ hedefler:
   - Güvenlik testi ile siber suç arasındaki farkı açıklamak
   - Yetkilendirmenin neden teknik bilgiden önce geldiğini anlamak
 gorseller:
-  - id: m02-01-a
+  - id: m02-01-b
     tur: ai
-    karakter: kemal
-    alt: "Avukat Kemal, izin belgeli kapı yerine kırmızı yasak bariyerli kapıyı gösteriyor"
-    prompt: "Two identical doors side by side in a marble corridor: the left door has a signed scroll with a green wax seal on its handle and soft green light, the right door has a glowing red barrier. The villain stands between them pointing slyly toward the red door, his long contract dragging on the floor."
+    alt: "Üç ayaklı bir tabure: imzalı izin belgesi, çizgileri belli bir harita ve özenle tutulan bir kalkan; bir ayağı eksik olunca devriliyor"
+    prompt: "Split scene on a dark stage: on the left a sturdy three-legged wooden stool where one leg is a rolled signed permission scroll with a wax seal, one leg is a folded map with a clearly outlined boundary, and one leg is a small careful shield, a student sits on it confidently; on the right the same stool with one leg missing, tipping over as a startled student falls off."
 ---
 
 # Aynı komut, iki farklı sonuç
@@ -19,17 +18,19 @@ gorseller:
 > Bir web sitesinde açık aramak için yazdığın komut, **izinle** çalıştırılırsa bir iş,
 > **izinsiz** çalıştırılırsa bir suçtur. Komut aynı; fark yetkide.
 
-![Avukat Kemal, izin belgeli kapı yerine kırmızı yasak bariyerli kapıyı gösteriyor](../../gorseller/m02-01-a.webp)
+::cizgi[m02-01-sahne]
 
 > 🕴️ **DOSYA: Avukat "Boşluk" Kemal** · *Çarpık Avukat*
 >
 > ![Avukat "Boşluk" Kemal — Çarpık Avukat](../../gorseller/karakter-kemal.webp)
 >
-> 📼 **Bölüm 2 — Yetki Belgesi.** Avukat "Boşluk" Kemal'in planı basit: seni kışkırtıp izinsiz bir sisteme sokmak. Bir kez kuralı çiğnersen topladığın bütün deliller çöpe gider, suçlu sen olursun. Bu bölümde silahın kod değil, izin.
->
 > **Tehdit:** İzinsiz "test", kapsam dışına çıkmak, "sadece baktım" bahaneleri. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
 
+::cizgi[kemal-acilis]
+
 ## Etik hackerlığın üç şartı
+
+![Üç ayaklı bir tabure: imzalı izin belgesi, çizgileri belli bir harita ve özenle tutulan bir kalkan; bir ayağı eksik olunca devriliyor](../../gorseller/m02-01-b.webp)
 
 1. **Yazılı izin** — Sistemin sahibinden, imzalı ve tarihli.
 2. **Net kapsam** — Hangi sistemler, hangi tarihler, hangi yöntemler.

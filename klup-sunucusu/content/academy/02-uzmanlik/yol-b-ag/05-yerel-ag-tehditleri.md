@@ -8,11 +8,10 @@ hedefler:
   - Her biri için switch ve istemci tarafı savunmaları sıralamak
 animasyonlar: [mitm]
 gorseller:
-  - id: b-05-a
+  - id: b-05-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık ağ santralinde iki kablonun arasına kendi kablosunu ekliyor; iki taraftaki cihazlar birbirleriyle konuştuğunu sanıyor"
-    prompt: "A dim wiring closet with a patch panel. Two glowing cables lead to two devices, a laptop and a router, drawn as little characters chatting happily. The villain has unplugged the cable between them and spliced in his own loop of glowing fiber-optic cable that runs through his hands, so every message passes him first, his headlamp glowing."
+    alt: "Mahallede üç yalancı: sahte kapıcı, sahte rehber ve sahte resepsiyonist; her biri gelenleri kendi kapısına yönlendiriyor"
+    prompt: "A neighborhood street at night with three impostors: a fake doorman shouting that he lives at every address, a fake directory clerk handing out wrong maps from a booth, and a fake receptionist giving newcomers keys to a trap room; confused travelers follow them while the real helpers stand ignored."
 ---
 
 # Yerel ağ tehditleri: ARP, DNS ve DHCP sahteciliği
@@ -20,9 +19,11 @@ gorseller:
 > Yerel ağ **güvene dayalıdır**: biri "ağ geçidi benim" derse cihazlar çoğu zaman inanır.
 > 🕳️ **Tünel 5:** Laboratuvardaki iki bilgisayarın ARP tablosunda aynı MAC adresi iki farklı IP için görünüyor.
 
-![Tünelci Tarık ağ santralinde iki kablonun arasına kendi kablosunu ekliyor; iki taraftaki cihazlar birbirleriyle konuştuğunu sanıyor](../../gorseller/b-05-a.webp)
+::cizgi[b-05-sahne]
 
 ## Üç yalan
+
+![Mahallede üç yalancı: sahte kapıcı, sahte rehber ve sahte resepsiyonist; her biri gelenleri kendi kapısına yönlendiriyor](../../gorseller/b-05-b.webp)
 
 | Saldırı | Yalan | Sonuç |
 |---|---|---|

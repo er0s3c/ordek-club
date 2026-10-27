@@ -7,11 +7,10 @@ hedefler:
   - HTML, CSS ve JavaScript'in rollerini ayırt etmek
   - Frontend, backend, API ve veritabanı ilişkisini açıklamak
 gorseller:
-  - id: m06-03-a
+  - id: m06-03-b
     tur: ai
-    karakter: celal
-    alt: "Tiyatronun perde arkasında Çerezci Celal servis penceresinden sızıp kontrol paneline uzanıyor"
-    prompt: "A theater cutaway: a bright front stage with colorful set pieces, behind the curtain a backstage full of ropes, gears and a control panel, and below a basement archive of boxes. The villain climbs through the small service window between stage and backstage, reaching for the control levers."
+    alt: "Tiyatro sahnesi ile perde arkası arasında küçük bir servis penceresi; sipariş kartları içeri gidiyor, düzenli kutular dışarı çıkıyor"
+    prompt: "A theater cutaway: on the front stage actors in costume perform under spotlights, behind the curtain a busy backstage with a manager checking a guest list and a big archive of filing cabinets, and between them a small service hatch where neat order cards go in and tidy labeled boxes come out."
 ---
 
 # Ön yüz, arka yüz ve API
@@ -19,7 +18,7 @@ gorseller:
 > Gördüğün sayfa bir tiyatro sahnesidir. Asıl iş **perde arkasında** döner —
 > ve güvenlik kararları da orada verilmelidir.
 
-![Tiyatronun perde arkasında Çerezci Celal servis penceresinden sızıp kontrol paneline uzanıyor](../../gorseller/m06-03-a.webp)
+::cizgi[m06-03-sahne]
 
 ## Sahne: frontend
 
@@ -37,6 +36,8 @@ Frontend **senin bilgisayarında** çalışır. Yani kullanıcı onu görebilir,
 - **Veritabanı** — Verilerin tablolarda saklandığı yer (öğrenciler, notlar, ödevler).
 
 ## Aradaki pencere: API ve JSON
+
+![Tiyatro sahnesi ile perde arkası arasında küçük bir servis penceresi; sipariş kartları içeri gidiyor, düzenli kutular dışarı çıkıyor](../../gorseller/m06-03-b.webp)
 
 Modern uygulamalarda frontend, backend ile **API** üzerinden konuşur. Veriler genelde **JSON** biçimindedir:
 

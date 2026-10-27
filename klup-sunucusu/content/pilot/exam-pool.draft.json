@@ -1,0 +1,671 @@
+{
+  "schema": 1,
+  "track": "SK-101",
+  "review": {
+    "approved": false,
+    "technicalReviewer": "",
+    "languageReviewer": ""
+  },
+  "tr": [
+    {
+      "kind": "choice",
+      "text": "Neyi korumaya çalışıyoruz?\nOriginal: container=MF-14 destination=North\nObserved: container=MF-14 destination=South\nFile remains readable.\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Gözlenen değişiklik bütünlüğü ilgilendirir."
+      ],
+      "answer": 2,
+      "explanation": "Gözlenen değişiklik bütünlüğü ilgilendirir."
+    },
+    {
+      "kind": "choice",
+      "text": "Tehdit, zafiyet ve risk aynı şey mi?\nAsset: customer delivery report\nControl: authentication disabled\nExposure: shared training network\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Varlık, olasılık ve etki birlikte değerlendirilmelidir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Varlık, olasılık ve etki birlikte değerlendirilmelidir."
+    },
+    {
+      "kind": "choice",
+      "text": "Bir olayın aşamalarını nasıl bağlarız?\n08:40 message received\n08:43 account=events login=success\n08:44 account=events share created\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Olaylar zaman ve kimlik bağlamıyla ilişkilendirilmelidir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Olaylar zaman ve kimlik bağlamıyla ilişkilendirilmelidir."
+    },
+    {
+      "kind": "choice",
+      "text": "İzin nerede başlar, nerede biter?\nAllowed: lab.mavifener.example\nWindow: 10:00-11:00\nExcluded: production systems\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Yalnız yazılı kapsam içindeki işlemler yürütülmelidir."
+      ],
+      "answer": 2,
+      "explanation": "Yalnız yazılı kapsam içindeki işlemler yürütülmelidir."
+    },
+    {
+      "kind": "choice",
+      "text": "Paketin katmanlarında ne değişir?\nNetwork destination: 192.0.2.40\nTransport: TCP port 443\nApplication: HTTPS\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Ağ ve uygulama kimlikleri ayrı bağlamlarda değerlendirilir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Ağ ve uygulama kimlikleri ayrı bağlamlarda değerlendirilir."
+    },
+    {
+      "kind": "choice",
+      "text": "Adres ve port hangi soruyu cevaplar?\nSource: 192.0.2.12:51000\nDestination: 192.0.2.40:443\nTCP established\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Port numarası tek başına güvenli servis kanıtı değildir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Port numarası tek başına güvenli servis kanıtı değildir."
+    },
+    {
+      "kind": "choice",
+      "text": "DNS yanıtından ne öğrenebiliriz?\nQuestion: portal.mavifener.example A\nAnswer: 192.0.2.40\nTTL: 300\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Bu kayıt ad çözümlemesini gösterir; uygulama yetkisini göstermez."
+      ],
+      "answer": 2,
+      "explanation": "Bu kayıt ad çözümlemesini gösterir; uygulama yetkisini göstermez."
+    },
+    {
+      "kind": "choice",
+      "text": "Keşif yapmadan önce hangi sınırı kontrol ederiz?\nTarget: 192.0.2.40\nObservation: no response\nScope: offline training evidence only\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Yanıtsızlık için birden fazla açıklama araştırılmalıdır.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Yanıtsızlık için birden fazla açıklama araştırılmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "HTTP isteğinde hangi alan gerekli?\nGET /events HTTP/1.1\nHost: portal.mavifener.example\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Yöntem, hedef ve Host başlığı birlikte okunmalıdır.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Yöntem, hedef ve Host başlığı birlikte okunmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "Oturum kimliği neden sır gibi korunur?\nSet-Cookie: session=synthetic; HttpOnly; Secure; SameSite=Lax\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Çerez korumaları sunucu yetkilendirmesini tamamlar."
+      ],
+      "answer": 2,
+      "explanation": "Çerez korumaları sunucu yetkilendirmesini tamamlar."
+    },
+    {
+      "kind": "choice",
+      "text": "403 yanıtı neyi kanıtlar?\nHTTP/1.1 403 Forbidden\nContent-Type: application/json\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Sunucudan HTTP yanıtı alınmış, erişim reddedilmiştir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Sunucudan HTTP yanıtı alınmış, erişim reddedilmiştir."
+    },
+    {
+      "kind": "choice",
+      "text": "Tarayıcı ağ panelinde neye bakarız?\nNetwork panel\nGET /events -> 200\nGET /admin -> 403\nCookie: [redacted]\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "İstemci görünümü sunucu erişim kontrolünü kanıtlamaz.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "İstemci görünümü sunucu erişim kontrolünü kanıtlamaz."
+    },
+    {
+      "kind": "choice",
+      "text": "Linux'ta bulunduğun dizin neden önemlidir?\n$ pwd\n/home/student\n$ ls\nincident.txt notes/\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Göreli yolun anlamı çalışma dizinine bağlıdır."
+      ],
+      "answer": 2,
+      "explanation": "Göreli yolun anlamı çalışma dizinine bağlıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "600 izni kimin erişimini sınırlar?\nBefore: -rw-r--r-- student student incident.txt\nRequired: owner read/write only\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Temel dosya modu 600 olmalıdır.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Temel dosya modu 600 olmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "Bir süreç adından ne çıkaramayız?\nPID=421 USER=service COMMAND=worker\nParent=system service\nPath=/opt/training/worker\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Süreç kimliği ve çalışma bağlamı birlikte incelenmelidir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Süreç kimliği ve çalışma bağlamı birlikte incelenmelidir."
+    },
+    {
+      "kind": "choice",
+      "text": "Log aramasında bağlamı nasıl koruruz?\n09:01 login failed\n09:02 login success\n09:03 file shared\nFilter: failed\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Filtre sonucu kaynak kaydın tamamı değildir."
+      ],
+      "answer": 2,
+      "explanation": "Filtre sonucu kaynak kaydın tamamı değildir."
+    },
+    {
+      "kind": "choice",
+      "text": "Windows'ta hesap ve grup neyi belirler?\nAccount: lab-reader\nLocal groups: Users\nTask: read synthetic reports\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Görevin gerektirdiği en düşük haklar esas alınmalıdır.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Görevin gerektirdiği en düşük haklar esas alınmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "PowerShell sorgusuyla değişikliği nasıl ayırırız?\nRead-only example: Get-LocalUser\nSynthetic output: lab-reader Enabled=True\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bir sorgunun çıktısı değişiklik yapma izni değildir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Bir sorgunun çıktısı değişiklik yapma izni değildir."
+    },
+    {
+      "kind": "choice",
+      "text": "Windows olay numarasına hangi bağlam eşlik eder?\n02:10 EventID=4625 Account=lab-admin\n02:12 EventID=4624 Account=lab-admin\n02:13 EventID=4720 Target=lab-temp\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "02:10 EventID=4625 Account=lab-admin",
+        "02:12 EventID=4624 Account=lab-admin",
+        "02:13 EventID=4720 Target=lab-temp"
+      ],
+      "answer": 2,
+      "explanation": "4720 satırı hesap oluşturma gözlemidir; yetki bağlamı ayrıca doğrulanır."
+    },
+    {
+      "kind": "choice",
+      "text": "Bir servis kaydı tek başına ne söyler?\nService: CampusReport\nImagePath: C:\\Training\\report.exe\nStart: automatic\nChange ticket: not yet checked\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Yol, hesap ve değişiklik kaydı birlikte değerlendirilmelidir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Yol, hesap ve değişiklik kaydı birlikte değerlendirilmelidir."
+    },
+    {
+      "kind": "choice",
+      "text": "Kodlama, özetleme ve şifrelemeyi ayırabilir misin?\nRepresentation: Base64\nIntegrity check: SHA-256 digest\nConfidentiality: encryption with managed keys\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Base64 gizlilik kontrolü değildir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Base64 gizlilik kontrolü değildir."
+    },
+    {
+      "kind": "choice",
+      "text": "Simetrik ve asimetrik anahtarlar nasıl ayrılır?\nPublic key: shareable after identity verification\nPrivate key: restricted access\nTraining data only\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Özel anahtar korunmalı; kimlik bağı ayrıca doğrulanmalıdır."
+      ],
+      "answer": 2,
+      "explanation": "Özel anahtar korunmalı; kimlik bağı ayrıca doğrulanmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "TLS sertifikası hangi soruyu cevaplamaz?\nExpected: mavifener.example\nVisited: mavifener-help.example\nCertificate valid for visited name\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Alan adının kuruma ait olduğu bağımsız doğrulanmalıdır.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "Alan adının kuruma ait olduğu bağımsız doğrulanmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "Parola saklamada neden hızlı özet yetmez?\nOption A: sha256(password)\nOption B: approved_password_kdf(password, unique_salt, tuned_cost)\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "sha256(password)",
+        "approved_password_kdf(password, unique_salt, tuned_cost)"
+      ],
+      "answer": 1,
+      "explanation": "Parolaya uygun türetme yöntemi, benzersiz salt ve ölçülmüş maliyet gerekir."
+    },
+    {
+      "kind": "choice",
+      "text": "Savunma katmanları neden birbirini tamamlar?\nAuthentication: enabled\nObject authorization: missing\nAudit log: enabled\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Bir katmanın varlığı diğerindeki eksiği gidermez."
+      ],
+      "answer": 2,
+      "explanation": "Bir katmanın varlığı diğerindeki eksiği gidermez."
+    },
+    {
+      "kind": "choice",
+      "text": "En az ayrıcalık günlük işte nasıl uygulanır?\nTask: read report\nCurrent permissions: read, write, create-user\nRequired permission: read\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "İş ihtiyacının dışındaki yetkiler gözden geçirilmelidir.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar."
+      ],
+      "answer": 1,
+      "explanation": "İş ihtiyacının dışındaki yetkiler gözden geçirilmelidir."
+    },
+    {
+      "kind": "choice",
+      "text": "İlk müdahalede hangi kanıtı koruruz?\n09:10 attachment opened\n09:12 unexpected login confirmed\n09:14 incident owner notified\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Sınırlama ile kanıt koruma birlikte planlanmalıdır.",
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez."
+      ],
+      "answer": 0,
+      "explanation": "Sınırlama ile kanıt koruma birlikte planlanmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "Bulguyu kime, nasıl aktarırız?\nObserved: unauthorized share confirmed\nUnknown: access to other files\nContact: designated incident owner\nBu kanıttan hangi yorum desteklenir?",
+      "options": [
+        "Bu gözlem bütün sistemin güvenli olduğunu kanıtlar.",
+        "Bu sonuca başka hiçbir bağlam etki etmez.",
+        "Doğrulanmış bulgu ve belirsizlik ayrı yazılmalıdır."
+      ],
+      "answer": 2,
+      "explanation": "Doğrulanmış bulgu ve belirsizlik ayrı yazılmalıdır."
+    },
+    {
+      "kind": "choice",
+      "text": "Bir öğrenciye yalnız lab.example için yazılı test izni verilmiştir. Üretim adresini görürse ne yapmalıdır?",
+      "options": [
+        "Aynı kuruma ait diye test eder",
+        "Kapsam sahibinden açıklama ister ve izinsiz test yapmaz",
+        "Gerçek hesap parolalarını dener"
+      ],
+      "answer": 1,
+      "explanation": "Kapsam bir kurumun bütün sistemlerine otomatik genişlemez."
+    },
+    {
+      "kind": "choice",
+      "text": "Bir dosyanın okunabildiğini görmek, dosyanın değiştirilmediğini kanıtlar mı?",
+      "options": [
+        "Evet",
+        "Yalnız uzantısı .txt ise",
+        "Hayır; erişilebilirlik ve bütünlük ayrı hedeflerdir"
+      ],
+      "answer": 2,
+      "explanation": "İçeriğin bütünlüğü ayrıca doğrulanmalıdır."
+    }
+  ],
+  "en": [
+    {
+      "kind": "choice",
+      "text": "What are we protecting?\nOriginal: container=MF-14 destination=North\nObserved: container=MF-14 destination=South\nFile remains readable.\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "The observed change concerns integrity."
+      ],
+      "answer": 2,
+      "explanation": "The observed change concerns integrity."
+    },
+    {
+      "kind": "choice",
+      "text": "Are threats, vulnerabilities, and risks the same?\nAsset: customer delivery report\nControl: authentication disabled\nExposure: shared training network\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "The asset, likelihood, and impact should be evaluated together.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "The asset, likelihood, and impact should be evaluated together."
+    },
+    {
+      "kind": "choice",
+      "text": "How do we connect the stages of an incident?\n08:40 message received\n08:43 account=events login=success\n08:44 account=events share created\nWhich interpretation does this evidence support?",
+      "options": [
+        "Events should be correlated using time and identity context.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "Events should be correlated using time and identity context."
+    },
+    {
+      "kind": "choice",
+      "text": "Where does authorization begin and end?\nAllowed: lab.mavifener.example\nWindow: 10:00-11:00\nExcluded: production systems\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "Only actions within the written authorization should proceed."
+      ],
+      "answer": 2,
+      "explanation": "Only actions within the written authorization should proceed."
+    },
+    {
+      "kind": "choice",
+      "text": "What changes across a packet's layers?\nNetwork destination: 192.0.2.40\nTransport: TCP port 443\nApplication: HTTPS\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "Network and application identities belong to different contexts.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "Network and application identities belong to different contexts."
+    },
+    {
+      "kind": "choice",
+      "text": "What do addresses and ports describe?\nSource: 192.0.2.12:51000\nDestination: 192.0.2.40:443\nTCP established\nWhich interpretation does this evidence support?",
+      "options": [
+        "A port number alone does not establish service security.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "A port number alone does not establish service security."
+    },
+    {
+      "kind": "choice",
+      "text": "What can a DNS answer tell us?\nQuestion: portal.mavifener.example A\nAnswer: 192.0.2.40\nTTL: 300\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "This record shows name resolution, not application authorization."
+      ],
+      "answer": 2,
+      "explanation": "This record shows name resolution, not application authorization."
+    },
+    {
+      "kind": "choice",
+      "text": "What boundary do we check before reconnaissance?\nTarget: 192.0.2.40\nObservation: no response\nScope: offline training evidence only\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "Several explanations for no response should be investigated.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "Several explanations for no response should be investigated."
+    },
+    {
+      "kind": "choice",
+      "text": "Which fields belong in an HTTP request?\nGET /events HTTP/1.1\nHost: portal.mavifener.example\nWhich interpretation does this evidence support?",
+      "options": [
+        "Read the method, target, and Host header together.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "Read the method, target, and Host header together."
+    },
+    {
+      "kind": "choice",
+      "text": "Why protect a session identifier?\nSet-Cookie: session=synthetic; HttpOnly; Secure; SameSite=Lax\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "Cookie protections complement server-side authorization."
+      ],
+      "answer": 2,
+      "explanation": "Cookie protections complement server-side authorization."
+    },
+    {
+      "kind": "choice",
+      "text": "What does a 403 response prove?\nHTTP/1.1 403 Forbidden\nContent-Type: application/json\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "An HTTP response was received and access was refused.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "An HTTP response was received and access was refused."
+    },
+    {
+      "kind": "choice",
+      "text": "What do we inspect in a browser network panel?\nNetwork panel\nGET /events -> 200\nGET /admin -> 403\nCookie: [redacted]\nWhich interpretation does this evidence support?",
+      "options": [
+        "Client-side visibility does not establish server access control.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "Client-side visibility does not establish server access control."
+    },
+    {
+      "kind": "choice",
+      "text": "Why does the current directory matter in Linux?\n$ pwd\n/home/student\n$ ls\nincident.txt notes/\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "A relative path depends on the working directory."
+      ],
+      "answer": 2,
+      "explanation": "A relative path depends on the working directory."
+    },
+    {
+      "kind": "choice",
+      "text": "Whose access does mode 600 restrict?\nBefore: -rw-r--r-- student student incident.txt\nRequired: owner read/write only\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "The required basic file mode is 600.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "The required basic file mode is 600."
+    },
+    {
+      "kind": "choice",
+      "text": "What cannot be inferred from a process name?\nPID=421 USER=service COMMAND=worker\nParent=system service\nPath=/opt/training/worker\nWhich interpretation does this evidence support?",
+      "options": [
+        "Process identity and execution context must be considered together.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "Process identity and execution context must be considered together."
+    },
+    {
+      "kind": "choice",
+      "text": "How do we preserve context when searching logs?\n09:01 login failed\n09:02 login success\n09:03 file shared\nFilter: failed\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "Filtered output is not the complete source log."
+      ],
+      "answer": 2,
+      "explanation": "Filtered output is not the complete source log."
+    },
+    {
+      "kind": "choice",
+      "text": "What do Windows accounts and groups determine?\nAccount: lab-reader\nLocal groups: Users\nTask: read synthetic reports\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "The task should determine the minimum necessary rights.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "The task should determine the minimum necessary rights."
+    },
+    {
+      "kind": "choice",
+      "text": "How do we distinguish PowerShell queries from changes?\nRead-only example: Get-LocalUser\nSynthetic output: lab-reader Enabled=True\nWhich interpretation does this evidence support?",
+      "options": [
+        "A query result does not authorize a configuration change.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "A query result does not authorize a configuration change."
+    },
+    {
+      "kind": "choice",
+      "text": "What context accompanies a Windows event ID?\n02:10 EventID=4625 Account=lab-admin\n02:12 EventID=4624 Account=lab-admin\n02:13 EventID=4720 Target=lab-temp\nWhich interpretation does this evidence support?",
+      "options": [
+        "02:10 EventID=4625 Account=lab-admin",
+        "02:12 EventID=4624 Account=lab-admin",
+        "02:13 EventID=4720 Target=lab-temp"
+      ],
+      "answer": 2,
+      "explanation": "The 4720 record is an account-creation observation; authorization requires separate context."
+    },
+    {
+      "kind": "choice",
+      "text": "What does a service entry tell us on its own?\nService: CampusReport\nImagePath: C:\\Training\\report.exe\nStart: automatic\nChange ticket: not yet checked\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "Path, account, and change history should be evaluated together.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "Path, account, and change history should be evaluated together."
+    },
+    {
+      "kind": "choice",
+      "text": "Can you distinguish encoding, hashing, and encryption?\nRepresentation: Base64\nIntegrity check: SHA-256 digest\nConfidentiality: encryption with managed keys\nWhich interpretation does this evidence support?",
+      "options": [
+        "Base64 is not a confidentiality control.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "Base64 is not a confidentiality control."
+    },
+    {
+      "kind": "choice",
+      "text": "How do symmetric and asymmetric keys differ?\nPublic key: shareable after identity verification\nPrivate key: restricted access\nTraining data only\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "Protect the private key and verify the identity binding separately."
+      ],
+      "answer": 2,
+      "explanation": "Protect the private key and verify the identity binding separately."
+    },
+    {
+      "kind": "choice",
+      "text": "Which question does a TLS certificate not answer?\nExpected: mavifener.example\nVisited: mavifener-help.example\nCertificate valid for visited name\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "Verify independently that the domain belongs to the intended organization.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "Verify independently that the domain belongs to the intended organization."
+    },
+    {
+      "kind": "choice",
+      "text": "Why is a fast hash insufficient for password storage?\nOption A: sha256(password)\nOption B: approved_password_kdf(password, unique_salt, tuned_cost)\nWhich interpretation does this evidence support?",
+      "options": [
+        "sha256(password)",
+        "approved_password_kdf(password, unique_salt, tuned_cost)"
+      ],
+      "answer": 1,
+      "explanation": "Use a password-specific derivation method, unique salt, and measured cost."
+    },
+    {
+      "kind": "choice",
+      "text": "Why do defense layers complement each other?\nAuthentication: enabled\nObject authorization: missing\nAudit log: enabled\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "The presence of one layer does not repair a missing control in another."
+      ],
+      "answer": 2,
+      "explanation": "The presence of one layer does not repair a missing control in another."
+    },
+    {
+      "kind": "choice",
+      "text": "How does least privilege apply to routine work?\nTask: read report\nCurrent permissions: read, write, create-user\nRequired permission: read\nWhich interpretation does this evidence support?",
+      "options": [
+        "No additional context can affect this conclusion.",
+        "Permissions beyond the task's needs should be reviewed.",
+        "This observation proves the entire system is secure."
+      ],
+      "answer": 1,
+      "explanation": "Permissions beyond the task's needs should be reviewed."
+    },
+    {
+      "kind": "choice",
+      "text": "Which evidence do we preserve during initial response?\n09:10 attachment opened\n09:12 unexpected login confirmed\n09:14 incident owner notified\nWhich interpretation does this evidence support?",
+      "options": [
+        "Containment and evidence preservation should be planned together.",
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion."
+      ],
+      "answer": 0,
+      "explanation": "Containment and evidence preservation should be planned together."
+    },
+    {
+      "kind": "choice",
+      "text": "How do we communicate a finding?\nObserved: unauthorized share confirmed\nUnknown: access to other files\nContact: designated incident owner\nWhich interpretation does this evidence support?",
+      "options": [
+        "This observation proves the entire system is secure.",
+        "No additional context can affect this conclusion.",
+        "Write confirmed findings and uncertainties separately."
+      ],
+      "answer": 2,
+      "explanation": "Write confirmed findings and uncertainties separately."
+    },
+    {
+      "kind": "choice",
+      "text": "A student has written authorization only for lab.example. What should they do on finding a production address?",
+      "options": [
+        "Test it because it belongs to the same organization",
+        "Ask the scope owner and do not test without authorization",
+        "Try real account passwords"
+      ],
+      "answer": 1,
+      "explanation": "Authorization does not automatically extend to every system in an organization."
+    },
+    {
+      "kind": "choice",
+      "text": "Does being able to read a file establish that its contents were not changed?",
+      "options": [
+        "Yes",
+        "Only if the extension is .txt",
+        "No; availability and integrity are separate goals"
+      ],
+      "answer": 2,
+      "explanation": "Content integrity requires a separate check."
+    }
+  ]
+}

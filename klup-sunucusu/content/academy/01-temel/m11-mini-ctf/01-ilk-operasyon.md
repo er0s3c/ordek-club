@@ -4,11 +4,10 @@ tur: bilgi
 baslik: İlk Siber Güvenlik Operasyonu — mini CTF
 sure: 4
 gorseller:
-  - id: m11-01-a
+  - id: m11-01-b
     tur: ai
-    karakter: don
-    alt: "CTF salonunda öğrenci takımları çalışırken Don Gölge karanlık balkondan purosuyla izliyor"
-    prompt: "A lively university lab room set up for a friendly competition: small student teams huddle around laptops at round tables and a big screen shows a scoreboard of colored bars and small flag icons (no text). From a dark mezzanine above, the villain watches, cigar smoke curling, one eyebrow raised."
+    alt: "Sekiz istasyonlu bir yarışma salonu; her istasyonda farklı bir alanın simgesi ve masasında çalışan takımlar"
+    prompt: "A competition hall at night with eight glowing stations in a circle, each marked by a large symbol: a fishing hook, a terminal with a blinking cursor, a cable knot, a padlock, a photo with a magnifier, a browser window, a logbook, and a speaking microphone; small teams of students work at each, a scoreboard of colored lights above."
 ---
 
 # İlk Siber Güvenlik Operasyonu — mini CTF
@@ -16,15 +15,15 @@ gorseller:
 > 12. hafta: 11 haftada öğrendiklerini **takım** olarak ilk kez gerçek bir görevde kullanıyorsun.
 > CTF (*Capture The Flag*): her çözülen görev bir "bayrak" verir.
 
-![CTF salonunda öğrenci takımları çalışırken Don Gölge karanlık balkondan purosuyla izliyor](../../gorseller/m11-01-a.webp)
+::cizgi[m11-01-sahne]
 
 > 🕴️ **DOSYA: Don Gölge** · *Ailenin Başı*
 >
 > ![Don Gölge — Ailenin Başı](../../gorseller/karakter-don.webp)
 >
-> 📼 **Bölüm 11 — Son Masa.** Ailenin bütün dosyaları masanda. Don Gölge son bir oyun hazırladı: sekiz kilitli kapı, her birinde bir üyesinin hilesi. Öğrendiğin her şey tek gecede sınanacak.
->
 > **Tehdit:** Final — tüm tekniklerin birleştiği mini CTF. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[don-acilis]
 
 ## Format
 
@@ -35,6 +34,8 @@ gorseller:
   Ördek Club bayrak doğrulamaz; Akademi'de yalnızca çözüm raporunu teslim edersin.
 
 ## 8 görev alanı
+
+![Sekiz istasyonlu bir yarışma salonu; her istasyonda farklı bir alanın simgesi ve masasında çalışan takımlar](../../gorseller/m11-01-b.webp)
 
 | # | Alan | Hangi modül? |
 |---|---|---|

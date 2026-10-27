@@ -5,15 +5,17 @@ import { AuthCard } from "../AuthCard";
 import { RegisterForm } from "./RegisterForm";
 import { currentSession, requireSetupDone } from "@/server/auth/page-guard";
 import { getSettings } from "@/server/settings";
-import { getMessages } from "@/i18n";
+import { getT, getServerMessages } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Kayıt" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Kayıt") };
+}
 
 export default async function RegisterPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   await requireSetupDone();
   if (await currentSession()) redirect("/dashboard");
   const s = await getSettings();
-  const m = getMessages(s.locale);
+  const m = await getServerMessages();
   const policy = s.registrationPolicy;
   const code = (await searchParams).code;
 

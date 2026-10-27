@@ -7,11 +7,10 @@ hedefler:
   - Emülatörde adb ve logcat ile bir uygulamanın çalışırken ne yaptığını izlemek
   - Uygulamanın veri klasöründe ve loglarda hassas veri aramak
 gorseller:
-  - id: f-04-a
+  - id: f-04-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman cam bir fanusun içindeki telefonu stetoskopla dinliyor; telefondan dışarı parlayan bir log şeridi akıyor"
-    prompt: "A smartphone sits inside a large glass terrarium on a workbench like a specimen under study, its screen glowing. The villain presses a stethoscope against the glass, listening intently with one eyebrow raised, while a long glowing paper tape of abstract symbols spools out of a small slot in the terrarium and curls across the bench. Her tiny drone hovers above, reading the tape with a tiny magnifier."
+    alt: "Solda kapalı bir kutunun planını okuyan analist, sağda aynı kutuyu cam bir test odasında çalışırken izleyen analist"
+    prompt: "Split scene: on the left an analyst studies the blueprint of a closed mechanical box at a drafting table, on the right the same analyst watches the box running inside a glass test chamber with gauges and wires attached."
 ---
 
 # Mobil dinamik analiz: emülatör, logcat ve trafik
@@ -19,9 +18,11 @@ gorseller:
 > Statik analiz planı okur. Dinamik analiz (dynamic analysis) uygulamayı **çalıştırıp** ne yaptığını izler.
 > 🔧 **Devre 4:** Kilit uygulamasına giriş yaptığında bir şey sessizce kayda geçiyor. Ne?
 
-![Lehimci Leman cam bir fanusun içindeki telefonu stetoskopla dinliyor; telefondan dışarı parlayan bir log şeridi akıyor](../../gorseller/f-04-a.webp)
+::cizgi[f-04-sahne]
 
 ## Statik mi, dinamik mi?
+
+![Solda kapalı bir kutunun planını okuyan analist, sağda aynı kutuyu cam bir test odasında çalışırken izleyen analist](../../gorseller/f-04-b.webp)
 
 | | Statik | Dinamik |
 |---|---|---|

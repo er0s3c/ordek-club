@@ -4,27 +4,26 @@ tur: bilgi
 baslik: "Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik"
 sure: 3
 gorseller:
-  - id: g-00-a
+  - id: g-00-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri, açık bir dev cep saatinin içinden sıra sıra çıkan kurmalı böceklerini gururla izliyor; böceklerden biri tezgâhtaki cam fanusun altına alınmış, büyüteçle inceleniyor"
-    prompt: "In a dim old watchmaker's workshop, a giant pocket watch lies open on the workbench like a doorway, and a parade of glowing clockwork beetles marches out of it in a neat line toward a faintly glowing server rack in the corner. The villain watches the procession with a proud, patient smile, a tiny screwdriver in hand. At the edge of the bench, one beetle has been separated from the line and sits under a sealed glass bell jar beneath a large magnifying lens on an arm, calmly being examined."
+    alt: "Saatçi atölyesinde mekanik böceklerin parçalarına ayrıldığı cam kubbeli bir çalışma masası"
+    prompt: "A watchmaker's workshop bench with a glass dome, under which a mechanical beetle has been carefully taken apart into labeled trays of gears and springs, analysts examining pieces with tweezers and loupes."
 ---
 
 # Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik
 
 > Bir program **gerçekte** ne yapıyor? Kaynak kodu olmadan öğrenmenin sanatı.
 
-![Saatçi Sabri, açık bir dev cep saatinin içinden sıra sıra çıkan kurmalı böceklerini gururla izliyor; böceklerden biri tezgâhtaki cam fanusun altına alınmış, büyüteçle inceleniyor](../../gorseller/g-00-a.webp)
+::cizgi[g-00-sahne]
 
 > 🕴️ **DOSYA: Saatçi Sabri** · *Mekanik Böceklerin Ustası*
 >
 > ![Saatçi Sabri — Mekanik Böceklerin Ustası](../../gorseller/karakter-sabri.webp)
 >
-> 📼 **Bölüm — Sezon 2: Saat İşliyor.** Kampüs ağında uyuyan bir şey var: belirli bir saatte uyanacak, kendini kopyalayacak ve Ayna'yı besleyecek. Saatçi Sabri'nin mekanik böcekleri. Görevin izole analiz laboratuvarında; böceği güvenle aç, nasıl çalıştığını anla, saati durdur.
->
 > **Kim o?** Ailenin en yaşlı ustası. Ayna'yı besleyen mekanik böcekleri yapar; yirmi yıl önce genç Eren'in boynundaki altın anahtarı da o yapmıştı.
 > [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[sabri-acilis]
 
 **Ön koşul:** Linux (M04), Windows (M03), Python (M07)
 
@@ -37,6 +36,8 @@ gorseller:
 5. Bu yol zararlıyı **tanımayı ve durdurmayı** öğretir; zararlı yazmak, paketlemek ya da tespitten kaçırmak kapsam dışıdır.
 
 ## 12 ders
+
+![Saatçi atölyesinde mekanik böceklerin parçalarına ayrıldığı cam kubbeli bir çalışma masası](../../gorseller/g-00-b.webp)
 
 | # | Ders | Tek cümleyle |
 |---|---|---|

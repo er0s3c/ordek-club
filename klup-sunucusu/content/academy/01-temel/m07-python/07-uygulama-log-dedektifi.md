@@ -7,11 +7,10 @@ hedefler:
   - Örnek log dosyasındaki başarısız oturum açma kayıtlarını sayan bir program yazmak
   - Bulguyu bir saldırı hikâyesine dönüştürmek
 gorseller:
-  - id: m07-07-a
+  - id: m07-07-b
     tur: ai
-    karakter: orhan
-    alt: "Dedektif ofisinde ekranda tek noktadan gelen yoğun ok yağmuru; camda Kuklacı Orhan'ın yansıması"
-    prompt: "A noir detective office at night: a large monitor on the desk shows an abstract timeline where one bright red point emits a dense burst of arrows toward a server icon, followed by a single green check icon. In the rain-streaked window, the villain's reflection watches from outside."
+    alt: "Duvara asılmış uzun bir zaman şeridi; sayısız kırmızı başarısız deneme işaretinin ardından tek bir yeşil başarılı giriş işareti"
+    prompt: "A detective pins a long horizontal paper timeline across an office wall: a dense cluster of many small red cross marks all coming from the same arrow, followed at the very end by a single green tick mark circled in chalk, the detective pointing at it with a pencil."
 ---
 
 # Uygulama: Güvenlik Günlüğü Dedektifi
@@ -19,7 +18,7 @@ gorseller:
 > Kurgusal **kulup-srv** sunucusunun yöneticisi bir sabah şunu soruyor:
 > *"Dün bir şey oldu mu? Loglara bakar mısın?"* Elinde `/opt/akademi/auth.log` var.
 
-![Dedektif ofisinde ekranda tek noktadan gelen yoğun ok yağmuru; camda Kuklacı Orhan'ın yansıması](../../gorseller/m07-07-a.webp)
+::cizgi[m07-07-sahne]
 
 ## Görev 1 — Program (zorunlu)
 
@@ -30,6 +29,8 @@ gorseller:
 3. **Var olmayan** kullanıcı adlarıyla yapılan denemeler (`invalid user`)
 
 ## Görev 2 — Hikâye (zorunlu)
+
+![Duvara asılmış uzun bir zaman şeridi; sayısız kırmızı başarısız deneme işaretinin ardından tek bir yeşil başarılı giriş işareti](../../gorseller/m07-07-b.webp)
 
 Programının çıktısına bakarak şu soruları cevapla:
 

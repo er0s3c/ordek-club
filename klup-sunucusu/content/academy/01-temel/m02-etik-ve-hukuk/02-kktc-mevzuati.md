@@ -7,11 +7,10 @@ hedefler:
   - KKTC'de bilişim suçlarını ve kişisel veri korumasını düzenleyen mevzuatın varlığını bilmek
   - Üniversitelerin öğrenci verisi konusundaki sorumluluklarını açıklamak
 gorseller:
-  - id: m02-02-a
+  - id: m02-02-b
     tur: ai
-    karakter: kemal
-    alt: "Avukat Kemal, veri küpü ile kanun kitabını tartan terazinin kefesine gizlice parmağıyla bastırıyor"
-    prompt: "A brass scale on a stone pedestal with a glowing locked data cube on one pan and a thick closed law book on the other. The villain leans in with a sly smile, secretly pressing one finger on the pan to tip the balance, glancing around to see if anyone notices."
+    alt: "Kapısında kırmızı yasak işareti olan bir sunucu odasının önünde dört yasak eylem: kapıyı zorlamak, kabloları kesmek, mektup okumak ve maymuncuk dağıtmak"
+    prompt: "Four small vignettes arranged around a locked server room door with a bold red prohibition sign: a shadowy figure forcing the door open with a crowbar, a figure cutting glowing data cables with scissors, a figure secretly opening someone else's sealed envelope under a lamp, and a figure handing out lock picks from an open trench coat. Each vignette framed by a thin red warning border."
 ---
 
 # KKTC'de bilişim suçları ve kişisel veriler
@@ -19,12 +18,14 @@ gorseller:
 > Siber güvenlik çalışırken iki soruyu hep sorarsın: **"Bunu yapmaya yetkim var mı?"** ve
 > **"Bu veriyi korumakla yükümlü müyüm?"** Hukuk ikisine de cevap verir.
 
-![Avukat Kemal, veri küpü ile kanun kitabını tartan terazinin kefesine gizlice parmağıyla bastırıyor](../../gorseller/m02-02-a.webp)
+::cizgi[m02-02-sahne]
 
 > ⚖️ **Eğitmen notu:** Bu sayfa genel bir özettir, hukuki danışmanlık değildir.
 > Ders öncesi yürürlükteki yasa metinlerini ve yasa numaralarını Resmî Gazete'den kontrol edin.
 
 ## Bilişim suçları
+
+![Kapısında kırmızı yasak işareti olan bir sunucu odasının önünde dört yasak eylem: kapıyı zorlamak, kabloları kesmek, mektup okumak ve maymuncuk dağıtmak](../../gorseller/m02-02-b.webp)
 
 KKTC mevzuatı (müfredatta: *Bilişim Suçları Yasası*) genel olarak şunları suç sayar:
 

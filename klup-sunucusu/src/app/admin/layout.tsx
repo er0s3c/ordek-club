@@ -4,13 +4,16 @@ import { requirePageSession } from "@/server/auth/page-guard";
 import { ADMIN_ROLES } from "@/server/auth/guard";
 import { db } from "@/server/db";
 import { getSettings, publicSettings } from "@/server/settings";
-import { getMessages } from "@/i18n";
+import { A11yPrefs } from "@/components/shell/A11yPrefs";
+import { getT, getServerMessages } from "@/i18n/server";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const t = await getT();
   const { user } = await requirePageSession(ADMIN_ROLES);
   const s = publicSettings(await getSettings());
-  const m = getMessages(s.locale);
+  const m = await getServerMessages();
   const pending = await db.user.count({ where: { status: "PENDING" } });
+  const prefs = await db.learningPreference.findUnique({ where: { userId: user.id }, select: { fontScale: true, lineHeight: true, readableFont: true, highContrast: true, reduceMotion: true } });
   // Yalnızca çalışan ekranlar menüde: sonraki fazların ekranları hazır olduklarında eklenir.
   const groups: NavGroup[] = [
     {
@@ -31,6 +34,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     {
       label: m.nav.systemGroup,
       items: [
+        { href: "/admin/features", label: t("Özellik yönetimi"), icon: "Settings" },
+        { href: "/admin/usage", label: t("Özellik kullanımı"), icon: "BarChart3" },
         { href: "/admin/settings", label: m.nav.settings, icon: "Settings" },
         { href: "/admin/audit", label: m.nav.audit, icon: "ScrollText" },
         { href: "/admin/system", label: m.nav.system, icon: "Activity" },
@@ -48,12 +53,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <BrandMark settings={s} />
           <div>
             <div className="brand-name">{s.clubName}</div>
-            <div className="brand-sub">Yönetim paneli</div>
+            <div className="brand-sub">{t("Yönetim paneli")}</div>
           </div>
         </>
       }
     >
-      {children}
+      <A11yPrefs prefs={prefs} />{children}
     </AppShell>
   );
 }

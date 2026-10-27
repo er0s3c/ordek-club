@@ -3,19 +3,13 @@ id: p-03
 tur: bilgi
 baslik: Seviyeler, değerlendirme ve belge
 sure: 3
-gorseller:
-  - id: p-03-a
-    tur: ai
-    karakter: don
-    alt: "Don Gölge, mantar panoda giderek parlayan dört rozeti öfkeyle inceliyor"
-    prompt: "In a dim back room, the villain glares at a corkboard where four hexagonal badges are pinned in a rising row (a shield, a terminal window, a magnifying glass over a circuit, a trophy), each glowing brighter than the last. Cigar smoke curls around him; he loosens his tie in irritation."
 ---
 
 # Seviyeler, değerlendirme ve belge
 
 > İlerlemen dört seviyede görünür. Notun yalnızca sınavdan değil, **yaptıklarından** gelir.
 
-![Don Gölge, mantar panoda giderek parlayan dört rozeti öfkeyle inceliyor](../gorseller/p-03-a.webp)
+::cizgi[p-03-sahne]
 
 ## Dört seviye
 

@@ -132,6 +132,14 @@ npx prisma migrate deploy
 npm run dev                                  # http://localhost:3100 (kurulum anahtarı konsolda)
 ```
 
+`npm run dev`, önce Prisma istemcisini güncel şemadan üretir, ardından bekleyen migration'ları
+`prisma migrate deploy` ile uygular. `npm start` migration'ları uygular; üretim istemcisi
+`npm run build` sırasında üretilir. Bu hazırlıklardan biri başarısız olursa sunucu başlamaz.
+Doğrudan `tsx server.ts` kullanıldığında önce `npm run db:generate` ve `npm run db:migrate`
+çalıştırılmalıdır. Şema değiştiğinde geliştirme sunucusu yeniden başlatılmalıdır; Windows'ta
+çalışan sunucu Prisma motor dosyasını kilitleyebilir. Doğrudan `node dist/server.js` için
+güncel üretim derlemesi ve `npm run db:migrate` gerekir.
+
 | Komut | |
 |---|---|
 | `npm test` | Birim + entegrasyon testleri (ayrı `ordek_club_test` veritabanında) |
@@ -141,6 +149,10 @@ npm run dev                                  # http://localhost:3100 (kurulum an
 | `node scripts/smoke.mjs <url>` | Çalışan sunucuya HTTP smoke testi; `SETUP_TOKEN=…` ile boş kurulumda tam uçtan uca akış |
 
 ### Mimari
+
+Gerçek Linux labı Docker kurulumu: [lab-runner/README.md](lab-runner/README.md#docker-ile-kurulum).
+Çalıştırıcı ayrı Linux Docker hostunda/VM'de, Club istemcisi `compose.lab-client.yaml` ile çalışır.
+Öğrenciler mevcut üyelik hesaplarıyla bağlanır; lab için ayrı parola gerekmez.
 
 ```
 server.ts            Özel Node sunucusu: Next.js + (Faz 2) WebSocket, tek port

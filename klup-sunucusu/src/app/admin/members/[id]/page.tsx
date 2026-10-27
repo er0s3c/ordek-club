@@ -8,14 +8,17 @@ import { assignableRoles, canManageMember, nextStatus, type MemberAction } from 
 import { getMemberDetail } from "@/server/members";
 import { HttpError } from "@/server/errors";
 import { getSettings } from "@/server/settings";
-import { getMessages } from "@/i18n";
 import { formatDateTime } from "@/components/ui/format";
 import { actionLabel } from "@/components/admin/audit-labels";
 import { MemberActions } from "./MemberActions";
+import { getT, getServerMessages } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Üye ayrıntısı" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Üye ayrıntısı") };
+}
 
 export default async function MemberDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = await getT();
   const { user: me } = await requirePageSession(ADMIN_ROLES);
   const { id } = await params;
   if (!/^[a-z0-9]{1,64}$/i.test(id)) notFound();
@@ -26,7 +29,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
   if (!detail) notFound();
   const { user, activity } = detail;
   const s = await getSettings();
-  const m = getMessages(s.locale);
+  const m = await getServerMessages();
 
   // Aynı politika fonksiyonları API'de de uygulanır; burada yalnızca hangi düğmelerin gösterileceğini belirler.
   const actor = { id: me.id, role: me.role, status: me.status };
@@ -38,7 +41,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
 
   return (
     <div className="stack fade-up">
-      <Link href="/admin/members" className="small row" style={{ gap: 6 }}><ArrowLeft size={14} aria-hidden /> Üyeler</Link>
+      <Link href="/admin/members" className="small row" style={{ gap: 6 }}><ArrowLeft size={14} aria-hidden />{" "}{t("Üyeler")}</Link>
       <div className="page-head row-between">
         <div>
           <div className="eyebrow">{m.roles[user.role]} · {m.statuses[user.status]}</div>
@@ -48,23 +51,23 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
       </div>
       <div className="grid-2">
         <section className="card" aria-labelledby="info-h">
-          <div className="card-h"><h2 id="info-h">Bilgiler</h2></div>
+          <div className="card-h"><h2 id="info-h">{t("Bilgiler")}</h2></div>
           <div className="card-b stack">
             <dl className="kv">
-              <dt>E-posta</dt><dd>{user.email}</dd>
-              <dt>Öğrenci no</dt><dd>{user.studentNumber ?? "—"}</dd>
-              <dt>Bölüm</dt><dd>{user.department ?? "—"}</dd>
-              <dt>Kayıt</dt><dd>{formatDateTime(user.createdAt, s.timezone)}</dd>
-              <dt>Katılım (onay)</dt><dd>{formatDateTime(user.joinedAt, s.timezone)}</dd>
-              <dt>Son giriş</dt><dd>{user.lastLoginAt ? formatDateTime(user.lastLoginAt, s.timezone) : m.common.never}</dd>
-              <dt>Açık oturum</dt><dd>{user._count.sessions}</dd>
-              <dt>Davet</dt><dd>{user.invitation ? <>{user.invitation.label} <span className="mono faint">({user.invitation.codePrefix}…)</span></> : "—"}</dd>
-              {user.reviewedBy && <><dt>İnceleyen</dt><dd>@{user.reviewedBy.username} · {formatDateTime(user.reviewedAt, s.timezone)}</dd></>}
-              {user.reviewNote && <><dt>İnceleme notu</dt><dd>{user.reviewNote}</dd></>}
+              <dt>{t("E-posta")}</dt><dd>{user.email}</dd>
+              <dt>{t("Öğrenci no")}</dt><dd>{user.studentNumber ?? "—"}</dd>
+              <dt>{t("Bölüm")}</dt><dd>{user.department ?? "—"}</dd>
+              <dt>{t("Kayıt")}</dt><dd>{formatDateTime(user.createdAt, s.timezone, t.intl)}</dd>
+              <dt>{t("Katılım (onay)")}</dt><dd>{formatDateTime(user.joinedAt, s.timezone, t.intl)}</dd>
+              <dt>{t("Son giriş")}</dt><dd>{user.lastLoginAt ? formatDateTime(user.lastLoginAt, s.timezone, t.intl) : m.common.never}</dd>
+              <dt>{t("Açık oturum")}</dt><dd>{user._count.sessions}</dd>
+              <dt>{t("Davet")}</dt><dd>{user.invitation ? <>{user.invitation.label} <span className="mono faint">({user.invitation.codePrefix}…)</span></> : "—"}</dd>
+              {user.reviewedBy && <><dt>{t("İnceleyen")}</dt><dd>@{user.reviewedBy.username} · {formatDateTime(user.reviewedAt, s.timezone, t.intl)}</dd></>}
+              {user.reviewNote && <><dt>{t("İnceleme notu")}</dt><dd>{user.reviewNote}</dd></>}
             </dl>
             {user.applicationNote && (
               <div>
-                <div className="tiny faint" style={{ marginBottom: 4 }}>Başvuru notu</div>
+                <div className="tiny faint" style={{ marginBottom: 4 }}>{t("Başvuru notu")}</div>
                 {/* React metni otomatik kaçışlar; kullanıcı girdisi HTML olarak yorumlanmaz. */}
                 <blockquote className="alert" style={{ margin: 0, whiteSpace: "pre-wrap" }}>{user.applicationNote}</blockquote>
               </div>
@@ -72,26 +75,26 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
           </div>
         </section>
         <section className="card" aria-labelledby="act-h">
-          <div className="card-h"><h2 id="act-h">İşlemler</h2></div>
+          <div className="card-h"><h2 id="act-h">{t("İşlemler")}</h2></div>
           <div className="card-b">
             {manageable ? (
               <MemberActions memberId={user.id} name={user.displayName} actions={actions} roles={roles} currentRole={user.role} />
             ) : (
               <p className="muted" style={{ margin: 0 }}>
-                {user.id === me.id ? "Kendi hesabını buradan yönetemezsin." : "Bu üyeyi yönetme yetkin yok (kurucu ya da senden yüksek/eşit rol)."}
+                {user.id === me.id ? t("Kendi hesabını buradan yönetemezsin.") : t("Bu üyeyi yönetme yetkin yok (kurucu ya da senden yüksek/eşit rol).")}
               </p>
             )}
           </div>
         </section>
       </div>
       <section className="card" aria-labelledby="hist-h">
-        <div className="card-h"><h2 id="hist-h">Geçmiş</h2></div>
+        <div className="card-h"><h2 id="hist-h">{t("Geçmiş")}</h2></div>
         <div className="card-b">
-          {activity.length === 0 ? <div className="empty">Kayıt yok.</div> : (
+          {activity.length === 0 ? <div className="empty">{t("Kayıt yok.")}</div> : (
             <ul className="timeline">
               {activity.map((a) => (
                 <li key={a.id}>
-                  <time dateTime={a.createdAt.toISOString()}>{formatDateTime(a.createdAt, s.timezone)}</time>
+                  <time dateTime={a.createdAt.toISOString()}>{formatDateTime(a.createdAt, s.timezone, t.intl)}</time>
                   <span>{actionLabel(a.action)}{a.actor ? <span className="faint"> · @{a.actor.username}</span> : null}</span>
                 </li>
               ))}

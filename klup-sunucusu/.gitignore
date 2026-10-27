@@ -17,3 +17,6 @@ coverage
 # Playwright
 test-results/
 playwright-report/
+
+# Tarayıcı kütüphanelerinin kopyalanan çalışma zamanı dosyaları (npm run vendor:assets)
+public/vendor/

@@ -7,20 +7,21 @@ hedefler:
   - Parola gücünü uzunluk ve karakter kümesiyle hesaplamak
   - Kimlik doğrulama yöntemlerini senaryoya göre karşılaştırmak
 gorseller:
-  - id: m08-05-a
+  - id: m08-05-b
     tur: ai
-    karakter: kadir
-    alt: "Kasa Kıran Kadir, kilit akan dev kum saatinin yanında esneyerek yaşlanıp bekliyor"
-    prompt: "A tall elegant hourglass where tiny glowing padlocks fall slowly from an enormous, still nearly full top chamber. The villain sits beside it on a stool, yawning, his beard grown absurdly long, cobwebs on his beanie, waiting forever."
+    alt: "Kısa bir kombinasyon kilidi birkaç saniyede açılırken uzun bir kombinasyon kilidinin karşısında robot yaşlanıp beklemekte"
+    prompt: "Split scene: on the left a small combination lock with only a few wheels being cracked open instantly by a busy little robot, on the right a very long combination lock with many wheels and the same robot, now old with a white beard and cobwebs, still spinning the wheels."
 ---
 
 # Uygulama: Parolan ne kadar güvenli?
 
 > ⚠️ Bu uygulamada **gerçek parolanı asla** yazma — sadece aşağıdaki kurgusal örneklerle çalış.
 
-![Kasa Kıran Kadir, kilit akan dev kum saatinin yanında esneyerek yaşlanıp bekliyor](../../gorseller/m08-05-a.webp)
+::cizgi[m08-05-sahne]
 
 ## Bölüm 1 — Hesapla
+
+![Kısa bir kombinasyon kilidi birkaç saniyede açılırken uzun bir kombinasyon kilidinin karşısında robot yaşlanıp beklemekte](../../gorseller/m08-05-b.webp)
 
 Bir parolanın olası kombinasyon sayısı: **(karakter kümesi büyüklüğü) ^ (uzunluk)**
 

@@ -7,11 +7,10 @@ hedefler:
   - IDOR açığını ve yatay/dikey yetki yükseltmeyi açıklamak
   - İki hesapla erişim kontrolünü test etmek
 gorseller:
-  - id: a-03-a
+  - id: a-03-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine otel koridorunda anahtar etiketindeki numarayı kalemiyle değiştirip yan odanın kapısını açıyor"
-    prompt: "A long dim hotel corridor with numbered brass doors. The villain stands in front of a door holding a room key tag, calmly redrawing the number on the tag with her fountain pen, and the neighboring door swings open by itself revealing shelves of glowing student files inside."
+    alt: "Otel koridorunda yatay geçiş (yan odaya girmek) ve dikey geçiş (asansörle yönetici katına çıkmak)"
+    prompt: "A hotel cross-section: on one floor a guest uses their key on the neighbor's door and it opens, shown with a sideways arrow of light; in the center an elevator carries the same guest up to a penthouse manager office marked by a golden crown, shown with an upward arrow of light. Both doors should have stayed locked."
 ---
 
 # Erişim kontrolü ve IDOR: başkasının verisini görebiliyor muyum?
@@ -19,7 +18,7 @@ gorseller:
 > Giriş doğru olabilir; asıl soru **"bu veri senin mi?"** sorusunun sorulup sorulmadığıdır.
 > 🗂️ **Çekmece 3:** Portalda not kartı adresi `/notlar/1001`. Jasmine'in aklındaki sayı: 1002.
 
-![Tek Tırnak Jasmine otel koridorunda anahtar etiketindeki numarayı kalemiyle değiştirip yan odanın kapısını açıyor](../../gorseller/a-03-a.webp)
+::cizgi[a-03-sahne]
 
 ## IDOR nedir?
 
@@ -32,6 +31,8 @@ GET /api/notlar/1002   → başkasının notları ❌ (ama sunucu veriyor)
 ```
 
 ## İki yön
+
+![Otel koridorunda yatay geçiş (yan odaya girmek) ve dikey geçiş (asansörle yönetici katına çıkmak)](../../gorseller/a-03-b.webp)
 
 | Tür | Örnek |
 |---|---|

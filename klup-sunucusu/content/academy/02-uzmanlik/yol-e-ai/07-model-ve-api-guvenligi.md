@@ -7,11 +7,14 @@ hedefler:
   - API anahtarını güvenle saklamak ve sınırsız tüketimi önlemek
   - Model dosyalarını bir tedarik zinciri bağımlılığı olarak değerlendirmek
 gorseller:
-  - id: e-07-a
+  - id: e-07-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel bilet gişesinin açık çekmecesinden iple altın bir anahtar çekerken, içerideki robot kukla durmadan bilet basıyor"
-    prompt: "A small theater ticket booth at night. Inside, a translucent robot puppet prints an endless ribbon of glowing tickets that piles up into a small mountain, while a brass meter on the wall spins wildly. Outside the booth, the villain dangles a golden key on a string that he has just fished out of an open drawer, beaming a frozen theatrical smile."
+    alt: "Robot sonu gelmeyen bir sipariş kuyruğuna yanıt verirken yanındaki sayaç ve fatura rulosu tavana uzanıyor"
+    prompt: "A robot frantically answering an endless line of identical requesters while beside it a long receipt roll spills out of a cash register and piles up to the ceiling, a manager running in to install a turnstile."
+  - id: e-07-c
+    tur: ai
+    alt: "Teslim edilen bir beyin kavanozunun içinde gizli dişliler ve küçük bir yeşil böcek görünüyor"
+    prompt: "A delivery crate opened in a lab reveals a glowing glass jar containing a model brain, and a technician holding a lens notices tiny hidden gears and a small green bug tucked inside it."
 ---
 
 # Model ve API güvenliği: anahtar, fatura ve model dosyası
@@ -19,7 +22,7 @@ gorseller:
 > AI uygulamasının arkasında bir **model** ve bir **API anahtarı** var. İkisi de ele geçirilebilir, zehirlenebilir, faturayı kabartabilir.
 > 🎭 **Ses 7:** Ayna'nın kodunda bir anahtar duruyor, kapıda da sıra yok. Veysel'in gece gönderdiği binlerce istek kulübün faturasına yazılıyor.
 
-![Vantrolog Veysel bilet gişesinin açık çekmecesinden iple altın bir anahtar çekerken, içerideki robot kukla durmadan bilet basıyor](../../gorseller/e-07-a.webp)
+::cizgi[e-07-sahne]
 
 ## API anahtarı yönetimi
 
@@ -35,6 +38,8 @@ API_ANAHTARI = os.environ["AYNA_API_ANAHTARI"]   # kodda değil, ortamda
 
 ## Sınırsız tüketim (*unbounded consumption*, LLM10)
 
+![Robot sonu gelmeyen bir sipariş kuyruğuna yanıt verirken yanındaki sayaç ve fatura rulosu tavana uzanıyor](../../gorseller/e-07-b.webp)
+
 Tek bir uzun istek bile pahalıdır; binlercesi servisi durdurur.
 
 | Kontrol | Örnek değer |
@@ -45,6 +50,8 @@ Tek bir uzun istek bile pahalıdır; binlercesi servisi durdurur.
 | Bütçe alarmı | Aylık bütçenin %80'inde |
 
 ## Tedarik zinciri: model dosyası da yazılımdır (LLM03)
+
+![Teslim edilen bir beyin kavanozunun içinde gizli dişliler ve küçük bir yeşil böcek görünüyor](../../gorseller/e-07-c.webp)
 
 - Bazı model biçimleri (Python *pickle*) yüklenirken **kod çalıştırabilir**; yalnız veri taşıyan
   `safetensors` gibi biçimler tercih edilir.

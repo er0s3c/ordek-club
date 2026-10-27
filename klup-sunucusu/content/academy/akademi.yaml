@@ -3,26 +3,276 @@
 #  Her yol bir klasördür; klasördeki sayfalar dosya adı sırasıyla ders olur.
 #  tur: program (akademi hakkında) · temel (Kısım I, Sezon 1) · uzmanlik (Kısım II, Sezon 2)
 #  Kötü adam bilgisi karakterler.yaml'dan (modul alanı = bu dosyadaki kod) gelir.
+#
+#  kapak: modül kapak görseli (oda kartı). Prompt `npm run academy:gorseller` ile KAPAKLAR.md'ye üretilir;
+#    sembol → ortadaki tek simge (İngilizce, Midjourney'ye gider) · sahne → simgenin çevresi (İngilizce)
+#    alt → Türkçe alt metin · karakter → (isteğe bağlı) kötü adam modul kodundan bulunamıyorsa karakter id'si
+#  Kapakta yazı, maskot veya ördek olmaz; dosya adı kapak-<anahtar>.webp.
 # ============================================================================
 yollar:
-  - { anahtar: program, kod: Program, klasor: 00-program, tur: program, baslik: "Akademi hakkında", ozet: "Program, seviyeler, laboratuvar kuralları ve Gölge Ağ'ın hikâyesi." }
+  - anahtar: program
+    kod: Program
+    klasor: 00-program
+    tur: program
+    baslik: "Akademi hakkında"
+    ozet: "Program, seviyeler, laboratuvar kuralları ve Gölge Ağ'ın hikâyesi."
+    en:
+      baslik: "About the academy"
+      ozet: "The programme, levels, lab rules and the story of the Shadow Network."
+    kapak:
+      sembol: "a vintage gold pocket watch lying open, its dial replaced by a tiny glowing green terminal screen, its long chain unspooling into a loose web of connected nodes like a family tree"
+      sahne: "the watch floats above a dark polished desk, faint green circuit lines fanning out behind it into the shadows"
+      alt: "Kadranı yeşil terminal ekranı olan açık bir cep saati, zinciri bir aile ağacı gibi dallanıyor; sağda gölgede Baron Eren."
+      karakter: eren
 
-  - { anahtar: m01, kod: M01, klasor: 01-temel/m01-dijital-tehlikeler, tur: temel, baslik: "Dijital tehlikeler", ozet: "Siber güvenlik neden seni ilgilendirir; dolandırıcılıklar ve dijital ayak izi." }
-  - { anahtar: m02, kod: M02, klasor: 01-temel/m02-etik-ve-hukuk, tur: temel, baslik: "Etik ve hukuk", ozet: "İzin, kapsam, KKTC mevzuatı, sorumlu bildirim ve kişisel veriler." }
-  - { anahtar: m03, kod: M03, klasor: 01-temel/m03-isletim-sistemi, tur: temel, baslik: "İşletim sistemi", ozet: "Hesaplar, yetkiler, süreçler, güncelleme, sanal makine ve yedek." }
-  - { anahtar: m04, kod: M04, klasor: 01-temel/m04-linux, tur: temel, baslik: "Linux ve terminal", ozet: "Dosya sistemi, arama, izinler, sudo, süreçler ve paketler." }
-  - { anahtar: m05, kod: M05, klasor: 01-temel/m05-aglar, tur: temel, baslik: "Ağlar", ozet: "İnternet nasıl çalışır: katmanlar, adresler, portlar, DNS, TLS ve paket yakalama." }
-  - { anahtar: m06, kod: M06, klasor: 01-temel/m06-web, tur: temel, baslik: "Web", ozet: "HTTP, frontend/backend, oturum ve yetki, bulut ve CDN." }
-  - { anahtar: m07, kod: M07, klasor: 01-temel/m07-python, tur: temel, baslik: "Python ile otomasyon", ozet: "Karar ve döngü, dosyalar, regex, hash, log analizi ve güvenli kod." }
-  - { anahtar: m08, kod: M08, klasor: 01-temel/m08-kriptografi, tur: temel, baslik: "Kriptografi ve dijital kimlik", ozet: "Şifreleme, hash ve salt, imza ve sertifika, parola, MFA ve passkey." }
-  - { anahtar: m09, kod: M09, klasor: 01-temel/m09-osint, tur: temel, baslik: "OSINT", ozet: "Etik açık kaynak araştırması, doğrulama ve raporlama." }
-  - { anahtar: m10, kod: M10, klasor: 01-temel/m10-saldirilar, tur: temel, baslik: "Saldırılar ve savunma", ozet: "Tehdit, zafiyet, risk; sosyal mühendislik, zararlılar ve saldırı zinciri." }
-  - { anahtar: m11, kod: M11, klasor: 01-temel/m11-mini-ctf, tur: temel, baslik: "Mini CTF", ozet: "Öğrendiklerinin tek gecede sınandığı ilk operasyon." }
+  - anahtar: m01
+    kod: M01
+    klasor: 01-temel/m01-dijital-tehlikeler
+    tur: temel
+    baslik: "Dijital tehlikeler"
+    ozet: "Siber güvenlik neden seni ilgilendirir; dolandırıcılıklar ve dijital ayak izi."
+    en:
+      baslik: "Digital dangers"
+      ozet: "Why cyber security matters to you; scams and your digital footprint."
+    kapak:
+      sembol: "a large fishing hook folded from a glowing envelope, baited with a shiny gold coin"
+      sahne: "the hook dangles on a thin line from above into the dark, a few glowing message cards drifting around it like bait"
+      alt: "Zarftan yapılmış, ucunda altın para takılı bir olta iğnesi; sağda sırıtan Tatlı Dil Tevfik."
 
-  - { anahtar: yol-a, kod: Yol A, klasor: 02-uzmanlik/yol-a-web, tur: uzmanlik, baslik: "Yol A — Web Uygulaması ve API Güvenliği", ozet: "Web pentest ve uygulama güvenliği." }
-  - { anahtar: yol-b, kod: Yol B, klasor: 02-uzmanlik/yol-b-ag, tur: uzmanlik, baslik: "Yol B — Ağ ve Sistem Güvenliği", ozet: "Trafik, tarama, Wi-Fi, firewall, Windows ve Linux sunucular." }
-  - { anahtar: yol-c, kod: Yol C, klasor: 02-uzmanlik/yol-c-soc, tur: uzmanlik, baslik: "Yol C — SOC, Olay Müdahalesi ve Dijital Adli Bilişim", ozet: "Alarm, olay müdahalesi ve adli inceleme." }
-  - { anahtar: yol-d, kod: Yol D, klasor: 02-uzmanlik/yol-d-cti, tur: uzmanlik, baslik: "Yol D — OSINT, Tehdit İstihbaratı ve Tehdit Avcılığı", ozet: "İstihbarat döngüsü ve tehdit avcılığı." }
-  - { anahtar: yol-e, kod: Yol E, klasor: 02-uzmanlik/yol-e-ai, tur: uzmanlik, baslik: "Yol E — Yapay Zekâ ve LLM Güvenliği", ozet: "LLM uygulamalarının saldırı yüzeyi ve savunması." }
-  - { anahtar: yol-f, kod: Yol F, klasor: 02-uzmanlik/yol-f-mobil-iot, tur: uzmanlik, baslik: "Yol F — Mobil, IoT ve Gömülü Sistem Güvenliği", ozet: "Mobil uygulamalar, akıllı cihazlar ve donanım." }
-  - { anahtar: yol-g, kod: Yol G, klasor: 02-uzmanlik/yol-g-tersine, tur: uzmanlik, baslik: "Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik", ozet: "Zararlı yazılımları güvenle incelemek." }
+  - anahtar: m02
+    kod: M02
+    klasor: 01-temel/m02-etik-ve-hukuk
+    tur: temel
+    baslik: "Etik ve hukuk"
+    ozet: "İzin, kapsam, KKTC mevzuatı, sorumlu bildirim ve kişisel veriler."
+    en:
+      baslik: "Ethics and law"
+      ozet: "Permission, scope, TRNC legislation, responsible disclosure and personal data."
+    kapak:
+      sembol: "a balanced brass scale of justice, one pan holding a small glowing key and the other a rolled permission scroll closed with a wax seal"
+      sahne: "a velvet rope barrier runs in front of the scale, marking a clear boundary line with a single tempting gap in it"
+      alt: "Bir kefesinde anahtar, öbüründe mühürlü izin belgesi duran dengeli terazi; sağda Avukat Boşluk Kemal."
+
+  - anahtar: m03
+    kod: M03
+    klasor: 01-temel/m03-isletim-sistemi
+    tur: temel
+    baslik: "İşletim sistemi"
+    ozet: "Hesaplar, yetkiler, süreçler, güncelleme, sanal makine ve yedek."
+    en:
+      baslik: "Operating systems"
+      ozet: "Accounts, permissions, processes, updates, virtual machines and backups."
+    kapak:
+      sembol: "a big ornate keyhole shaped like a four-pane computer window, warm amber light leaking through it"
+      sahne: "a single golden master key hovers just in front of the keyhole, a few ordinary keys lying on the floor below"
+      alt: "Dört bölmeli pencere biçiminde bir anahtar deliği ve önünde süzülen altın ana anahtar; sağda Anahtarcı Rıza."
+
+  - anahtar: m04
+    kod: M04
+    klasor: 01-temel/m04-linux
+    tur: temel
+    baslik: "Linux ve terminal"
+    ozet: "Dosya sistemi, arama, izinler, sudo, süreçler ve paketler."
+    en:
+      baslik: "Linux and the terminal"
+      ozet: "The file system, searching, permissions, sudo, processes and packages."
+    kapak:
+      sembol: "a heavy gold crown resting on a glowing green blinking cursor block"
+      sahne: "the cursor block sits on top of a pedestal of stacked server racks with tiny blinking green lights, thin cables coiling down its sides"
+      alt: "Sunucu kaidesinin üstünde, yanıp sönen yeşil imlecin üzerinde duran altın taç; sağda monokllü Süper Kullanıcı Sadri."
+
+  - anahtar: m05
+    kod: M05
+    klasor: 01-temel/m05-aglar
+    tur: temel
+    baslik: "Ağlar"
+    ozet: "İnternet nasıl çalışır: katmanlar, adresler, portlar, DNS, TLS ve paket yakalama."
+    en:
+      baslik: "Networks"
+      ozet: "How the internet works: layers, addresses, ports, DNS, TLS and packet capture."
+    kapak:
+      sembol: "an old telephone switchboard woven entirely from knotted cables, its plugs glowing green"
+      sahne: "cables loop out of the switchboard into the dark like a spider web, one cable clipped by a tiny eavesdropping clamp"
+      alt: "Kablo düğümlerinden örülmüş, fişleri yeşil parlayan eski bir telefon santrali; sağda kulaklıklı Dinleyici Nuri."
+
+  - anahtar: m06
+    kod: M06
+    klasor: 01-temel/m06-web
+    tur: temel
+    baslik: "Web"
+    ozet: "HTTP, frontend/backend, oturum ve yetki, bulut ve CDN."
+    en:
+      baslik: "The web"
+      ozet: "HTTP, frontend/backend, sessions and authorisation, cloud and CDN."
+    kapak:
+      sembol: "a single round cookie with a glowing keyhole pattern stamped in its center and one bite missing"
+      sahne: "the cookie rests inside a thin glowing frame shaped like an empty browser window, crumbs falling out of its bottom edge"
+      alt: "Ortasında anahtar deliği deseni olan, bir ısırığı eksik kurabiye; sağda Çerezci Celal."
+
+  - anahtar: m07
+    kod: M07
+    klasor: 01-temel/m07-python
+    tur: temel
+    baslik: "Python ile otomasyon"
+    ozet: "Karar ve döngü, dosyalar, regex, hash, log analizi ve güvenli kod."
+    en:
+      baslik: "Automation with Python"
+      ozet: "Decisions and loops, files, regex, hashing, log analysis and secure code."
+    kapak:
+      sembol: "a friendly coiled snake built from glowing green cable segments, held up by marionette strings from above"
+      sahne: "the strings rise off into the darkness, a few tiny boxy robots below mimicking the snake's coil"
+      alt: "Kukla iplerine asılı, yeşil kablo parçalarından bir yılan; sağda Kuklacı Orhan."
+
+  - anahtar: m08
+    kod: M08
+    klasor: 01-temel/m08-kriptografi
+    tur: temel
+    baslik: "Kriptografi ve dijital kimlik"
+    ozet: "Şifreleme, hash ve salt, imza ve sertifika, parola, MFA ve passkey."
+    en:
+      baslik: "Cryptography and digital identity"
+      ozet: "Encryption, hashing and salt, signatures and certificates, passwords, MFA and passkeys."
+    kapak:
+      sembol: "an antique round vault door dial whose outer ring is made of small interlocking padlocks"
+      sahne: "a single salt crystal glints on the dial's center knob, faint green light leaking around the edge of the vault door"
+      alt: "Dış halkası iç içe küçük asma kilitlerden oluşan kasa kadranı; sağda stetoskoplu Kasa Kıran Kadir."
+
+  - anahtar: m09
+    kod: M09
+    klasor: 01-temel/m09-osint
+    tur: temel
+    baslik: "OSINT"
+    ozet: "Etik açık kaynak araştırması, doğrulama ve raporlama."
+    en:
+      baslik: "OSINT"
+      ozet: "Ethical open-source research, verification and reporting."
+    kapak:
+      sembol: "a large magnifying glass whose lens reveals a web of thin red threads connecting small pins"
+      sahne: "blank porcelain masks lie scattered in the shadows behind the lens, only the threads visible through the glass"
+      alt: "Merceğinde iğne ve ipliklerden bir bağlantı ağı görünen büyüteç; sağda Maskeli Mine."
+
+  - anahtar: m10
+    kod: M10
+    klasor: 01-temel/m10-saldirilar
+    tur: temel
+    baslik: "Saldırılar ve savunma"
+    ozet: "Tehdit, zafiyet, risk; sosyal mühendislik, zararlılar ve saldırı zinciri."
+    en:
+      baslik: "Attacks and defence"
+      ozet: "Threats, vulnerabilities, risk; social engineering, malware and the attack chain."
+    kapak:
+      sembol: "a heavy iron chain of seven links, each link a slightly different shape, with the middle link cracked open by a green spark"
+      sahne: "the chain hangs in a gentle arc across the dark, a small padlock dangling from one end"
+      alt: "Ortadaki halkası yeşil bir kıvılcımla kırılmış yedi halkalı zincir; sağda Fidyeci Ferhat."
+
+  - anahtar: m11
+    kod: M11
+    klasor: 01-temel/m11-mini-ctf
+    tur: temel
+    baslik: "Mini CTF"
+    ozet: "Öğrendiklerinin tek gecede sınandığı ilk operasyon."
+    en:
+      baslik: "Mini CTF"
+      ozet: "The first operation, where everything you've learned is tested in a single night."
+    kapak:
+      sembol: "a small blank pennant flag on a thin pole planted on top of a chess king piece carved from green circuit board"
+      sahne: "a ribbon of cigar smoke curls around the flag, the chessboard beneath fading into darkness"
+      alt: "Devre kartından oyulmuş satranç şahının tepesine dikilmiş boş bayrak; sağda puro dumanı içinde Don Gölge."
+
+  - anahtar: yol-a
+    kod: Yol A
+    klasor: 02-uzmanlik/yol-a-web
+    tur: uzmanlik
+    baslik: "Yol A — Web Uygulaması ve API Güvenliği"
+    ozet: "Web pentest ve uygulama güvenliği."
+    en:
+      baslik: "Track A — Web Application and API Security"
+      ozet: "Web pentesting and application security."
+    kapak:
+      sembol: "a padlock shaped like a single quote mark, its shackle slightly open"
+      sahne: "a single glowing green drop falls from the open shackle onto a stack of cylindrical database drums below"
+      alt: "Tek tırnak işareti biçiminde, kilidi hafifçe açık bir asma kilit; sağda Tek Tırnak Jasmine."
+
+  - anahtar: yol-b
+    kod: Yol B
+    klasor: 02-uzmanlik/yol-b-ag
+    tur: uzmanlik
+    baslik: "Yol B — Ağ ve Sistem Güvenliği"
+    ozet: "Trafik, tarama, Wi-Fi, firewall, Windows ve Linux sunucular."
+    en:
+      baslik: "Track B — Network and System Security"
+      ozet: "Traffic, scanning, Wi-Fi, firewalls, Windows and Linux servers."
+    kapak:
+      sembol: "an arched tunnel entrance carved into a brick wall built from stacked network switches, a glowing green fiber cable running into it"
+      sahne: "a miner's lamp beam cuts into the tunnel, small iron gates dividing the wall into separate segments"
+      alt: "Ağ anahtarlarından örülmüş duvara açılmış tünel ve içine uzanan yeşil fiber kablo; sağda Tünelci Tarık."
+
+  - anahtar: yol-c
+    kod: Yol C
+    klasor: 02-uzmanlik/yol-c-soc
+    tur: uzmanlik
+    baslik: "Yol C — SOC, Olay Müdahalesi ve Dijital Adli Bilişim"
+    ozet: "Alarm, olay müdahalesi ve adli inceleme."
+    en:
+      baslik: "Track C — SOC, Incident Response and Digital Forensics"
+      ozet: "Alerts, incident response and forensic investigation."
+    kapak:
+      sembol: "a single bright footprint glowing green on a freshly mopped floor, a blank triangular evidence marker beside it"
+      sahne: "a clean wet mop trail sweeps across the floor but stops just short of the glowing footprint"
+      alt: "Yeni silinmiş zeminde parlayan tek ayak izi ve yanında delil işareti; sağda paspaslı Temizlikçi Tamer."
+
+  - anahtar: yol-d
+    kod: Yol D
+    klasor: 02-uzmanlik/yol-d-cti
+    tur: uzmanlik
+    baslik: "Yol D — OSINT, Tehdit İstihbaratı ve Tehdit Avcılığı"
+    ozet: "İstihbarat döngüsü ve tehdit avcılığı."
+    en:
+      baslik: "Track D — OSINT, Threat Intelligence and Threat Hunting"
+      ozet: "The intelligence cycle and threat hunting."
+    kapak:
+      sembol: "a brass navigator's compass whose needle points straight through a bundle of fluttering abstract signal flags"
+      sahne: "a faint pinboard map behind the compass, many threads converging on a single point"
+      alt: "İğnesi sahte bayrak demetinin arasından tek bir noktayı gösteren pusula; sağda Bayrakçı Bedri."
+
+  - anahtar: yol-e
+    kod: Yol E
+    klasor: 02-uzmanlik/yol-e-ai
+    tur: uzmanlik
+    baslik: "Yol E — Yapay Zekâ ve LLM Güvenliği"
+    ozet: "LLM uygulamalarının saldırı yüzeyi ve savunması."
+    en:
+      baslik: "Track E — AI and LLM Security"
+      ozet: "The attack surface of LLM applications and how to defend it."
+    kapak:
+      sembol: "a translucent robot puppet head with a hinged jaw hanging open, green light spilling from its mouth"
+      sahne: "a single thin string tied to the jaw leads off into the shadows, a hollow empty speech-bubble outline glowing above the head"
+      alt: "Çenesine ince bir ip bağlı, ağzından yeşil ışık taşan saydam robot kukla kafası; sağda Vantrolog Veysel."
+
+  - anahtar: yol-f
+    kod: Yol F
+    klasor: 02-uzmanlik/yol-f-mobil-iot
+    tur: uzmanlik
+    baslik: "Yol F — Mobil, IoT ve Gömülü Sistem Güvenliği"
+    ozet: "Mobil uygulamalar, akıllı cihazlar ve donanım."
+    en:
+      baslik: "Track F — Mobile, IoT and Embedded Security"
+      ozet: "Mobile apps, smart devices and hardware."
+    kapak:
+      sembol: "a small green circuit board shaped like a little house with a smartphone-shaped door, one row of debug pins left uncovered and glowing"
+      sahne: "a tiny drone hovers above the roof, a thin curl of soldering smoke rising beside it"
+      alt: "Ev biçiminde, hata ayıklama pimleri açıkta kalmış bir devre kartı; sağda havyalı Lehimci Leman."
+
+  - anahtar: yol-g
+    kod: Yol G
+    klasor: 02-uzmanlik/yol-g-tersine
+    tur: uzmanlik
+    baslik: "Yol G — Zararlı Yazılım Analizi ve Tersine Mühendislik"
+    ozet: "Zararlı yazılımları güvenle incelemek."
+    en:
+      baslik: "Track G — Malware Analysis and Reverse Engineering"
+      ozet: "Examining malware safely."
+    kapak:
+      sembol: "a mechanical clockwork beetle opened up like a pocket watch, revealing tiny glowing green gears inside"
+      sahne: "a jeweler's loupe hangs above it, a few loose gears and screws laid out neatly on dark felt"
+      alt: "Cep saati gibi açılmış, içinde yeşil dişliler görünen mekanik böcek; sağda Saatçi Sabri."

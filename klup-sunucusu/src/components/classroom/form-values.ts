@@ -53,10 +53,14 @@ export type TaskValues = {
   quiz: unknown[];
   passPercent: number;
   maxAttempts: string;
+  checklist: string; // satır başına bir madde
+  skills: string[];
+  peerReviewEnabled: boolean;
+  peerReviewCount: number;
 };
 
 export const EMPTY_TASK: TaskValues = {
   title: "", description: "", kind: "TEXT", difficulty: "MEDIUM", audience: "ALL", targetUsernames: "", groupId: "", startsAt: "", dueAt: "",
   allowLate: false, allowResubmit: true, requireText: true, requireFile: false, maxScore: 100, rubric: [], xpRuleKey: "task.approved", xpAmount: "",
-  teamMode: false, teams: "", quiz: [], passPercent: 60, maxAttempts: "",
+  teamMode: false, teams: "", quiz: [], passPercent: 60, maxAttempts: "", checklist: "", skills: [], peerReviewEnabled: false, peerReviewCount: 2,
 };

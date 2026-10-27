@@ -46,12 +46,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: Doğrulama kodu hiçbir koşulda paylaşılmaz; meşru kurumlar bunu istemez.
-gorseller:
-  - id: m08-06-a
-    tur: ai
-    karakter: kadir
-    alt: "Tuz kristalleriyle kaplı dev kasa kapısının önünde Kasa Kıran Kadir; stetoskobu dolanmış, gökkuşağı defteri sayfa sayfa sönüyor"
-    prompt: "The villain kneels before an enormous round vault door crusted with sparkling salt crystals, his stethoscope tangled around his arm, sweat pouring down. His rainbow notebook lies open beside him, its pages fading to gray one by one as the vault refuses to budge."
 ---
 
 # M08 Quiz: Kriptografi ve dijital kimlik
@@ -60,8 +54,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Kasa Kıran Kadir** · *quiz'i %70 ile geçince*
 >
-> ![Tuz kristalleriyle kaplı dev kasa kapısının önünde Kasa Kıran Kadir; stetoskobu dolanmış, gökkuşağı defteri sayfa sayfa sönüyor](../../gorseller/m08-06-a.webp)
->
-> Kadir'in açamadığı tek kasa güçlü, tuzlu parolalardı. Teslim olmadan önce tek bir isim veriyor: "Ben sadece açarım. Kime açtığımı Mine Hanım bilir."
+> ::cizgi[kadir-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Maskeli Mine** (M09)*

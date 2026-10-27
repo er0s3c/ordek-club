@@ -7,11 +7,10 @@ hedefler:
   - OSINT'in ne olduğunu ve nerede kullanıldığını açıklamak
   - Etik sınırları ve veri minimizasyonunu uygulamak
 gorseller:
-  - id: m09-01-a
+  - id: m09-01-b
     tur: ai
-    karakter: mine
-    alt: "Kütüphanede Maskeli Mine kadife ipin altından özel günlüklerin bulunduğu kapalı bölüme sızıyor"
-    prompt: "A grand library at dusk: open public shelves warmly lit, and behind a velvet rope and a closed gate a private section with personal diaries. The villain slips under the velvet rope with a mask held up to her face, reaching toward the private diaries."
+    alt: "Açık bir kitap rafından kitapları kucak dolusu toplayan biri ile yalnızca ihtiyacı olan tek kitabı alan öğrenci"
+    prompt: "In a public library with open shelves, a greedy figure stuffs armfuls of personal diaries and photo albums into a sack, while next to them a student calmly takes only one book they need, writes the purpose in a notebook and leaves the rest untouched."
 ---
 
 # Herkese açık bilgi, herkes için serbest mi?
@@ -19,15 +18,15 @@ gorseller:
 > **OSINT** (Açık Kaynak İstihbaratı), herkese açık kaynaklardan bilgi toplayıp **doğrulama** sanatıdır.
 > Güçlü bir araçtır — ve tam da bu yüzden sınırları vardır.
 
-![Kütüphanede Maskeli Mine kadife ipin altından özel günlüklerin bulunduğu kapalı bölüme sızıyor](../../gorseller/m09-01-a.webp)
+::cizgi[m09-01-sahne]
 
 > 🕴️ **DOSYA: Maskeli Mine** · *Bilgi Tüccarı*
 >
 > ![Maskeli Mine — Bilgi Tüccarı](../../gorseller/karakter-mine.webp)
 >
-> 📼 **Bölüm 9 — Maskeler.** Don'un kızı Mine babasının tahtına göz dikmiş. Herkes hakkında her şeyi bilir, çünkü herkes her şeyi paylaşır. Elinde yüz maske var: sahte şirketler, sahte ilanlar, sahte profiller.
->
 > **Tehdit:** Kişisel bilgi toplama (doxxing), sahte profiller, sahte ilanlar. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[mine-acilis]
 
 ## Nerede kullanılır?
 
@@ -37,6 +36,8 @@ gorseller:
 - Tehdit istihbaratı (Yol D)
 
 ## Açık ≠ serbest
+
+![Açık bir kitap rafından kitapları kucak dolusu toplayan biri ile yalnızca ihtiyacı olan tek kitabı alan öğrenci](../../gorseller/m09-01-b.webp)
 
 Bir bilginin bulunabilir olması, onu **toplamanın, birleştirmenin ve paylaşmanın** doğru olduğu anlamına gelmez.
 

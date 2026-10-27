@@ -7,11 +7,14 @@ hedefler:
   - Düzenli ifadelerle metinden bilgi çıkarmak
   - Bir dosyanın hash değerini hesaplamak
 gorseller:
-  - id: m07-04-a
+  - id: m07-04-b
     tur: ai
-    karakter: orhan
-    alt: "Kuklacı Orhan parmak izi tarayıcısına sahte parmak izli bir eldiven tutuyor"
-    prompt: "A sleek glowing fingerprint scanner device on a lab table, a unique fingerprint pattern shown on a floating screen above it. The villain holds up a rubber glove with a fake glowing fingerprint toward the scanner, while a large sieve nearby filters falling glowing shapes."
+    alt: "Uzun bir kâğıt şeridin üzerinde kayan şablon bir kartın deliklerinden yalnızca eşleşen parçalar parlıyor"
+    prompt: "A long paper scroll covered with tiny colored shapes passes under a stencil card with cut-out holes; wherever the shapes match the holes, they light up green and are lifted into a small tray by tweezers."
+  - id: m07-04-c
+    tur: ai
+    alt: "İki neredeyse aynı belge parmak izi makinesinden geçiyor; çıkan parmak izleri tamamen farklı"
+    prompt: "Two nearly identical documents enter a brass fingerprint machine side by side, one with a single tiny extra ink dot, and out of the machine come two fingerprint cards with completely different swirling patterns, one glowing green and one glowing amber."
 ---
 
 # Desen yakala, parmak izi al — regex ve hash
@@ -19,9 +22,11 @@ gorseller:
 > Bir logdan IP adreslerini çekmek ve bir dosyanın değiştirilip değiştirilmediğini anlamak:
 > iki küçük süper güç.
 
-![Kuklacı Orhan parmak izi tarayıcısına sahte parmak izli bir eldiven tutuyor](../../gorseller/m07-04-a.webp)
+::cizgi[m07-04-sahne]
 
 ## Regex: metinde desen bulmak
+
+![Uzun bir kâğıt şeridin üzerinde kayan şablon bir kartın deliklerinden yalnızca eşleşen parçalar parlıyor](../../gorseller/m07-04-b.webp)
 
 ```python
 import re
@@ -47,6 +52,8 @@ print(kullanici.group(1))       # deploy
 Regex yazarken [regex101.com](https://regex101.com) gibi bir denemede test et.
 
 ## Hash: dosyanın parmak izi
+
+![İki neredeyse aynı belge parmak izi makinesinden geçiyor; çıkan parmak izleri tamamen farklı](../../gorseller/m07-04-c.webp)
 
 Hash fonksiyonu herhangi bir veriden **sabit uzunlukta** bir özet çıkarır. Tek bir bit değişse özet tamamen değişir.
 

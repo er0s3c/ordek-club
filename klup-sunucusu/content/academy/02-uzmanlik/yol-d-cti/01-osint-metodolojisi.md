@@ -7,11 +7,10 @@ hedefler:
   - Bir OSINT çalışmasını araştırma sorusu ve yazılı kapsamla başlatmak
   - Bulguları kaynak, tarih ve kanıtla kayda geçirmek
 gorseller:
-  - id: d-01-a
+  - id: d-01-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri bir harita masasına onlarca sahte bayrak iğnesi saçıyor; masanın kenarında pergel ve tek bir düzgün rota bekliyor"
-    prompt: "A captain's chart table under a hanging brass lamp, covered with a wide sea map. The villain leans over it with a sly half-smile, scattering dozens of tiny decoy flag pins across the map in every direction, while at the edge of the table a neat compass, a ruler and one carefully drawn route lie untouched, waiting to be used."
+    alt: "Beş durağı olan dairesel bir yol: soru işaretli fener, toplanan kartlar, büyüteç, iplikli pano ve paylaşılan rapor"
+    prompt: "A circular path drawn on a dark map table with five stops: a lantern shaped like a question mark, a basket of collected cards, a magnifying glass, a pinboard with threads, and a sealed report being handed over, arrows leading back to the lantern."
 ---
 
 # OSINT metodolojisi: önce soru, sonra arama
@@ -19,7 +18,7 @@ gorseller:
 > Sorusu olmayan araştırmacı, her bayrağın peşinden koşar. Bedri tam olarak bunu ister.
 > 🚩 **Bayrak 1:** Kampüse yapılan saldırıdan bir gün sonra herkes aynı ismi söylüyor: MERCAN-7. Selim Hoca sadece soruyor: "Sorun ne, Tilki?"
 
-![Bayrakçı Bedri bir harita masasına onlarca sahte bayrak iğnesi saçıyor; masanın kenarında pergel ve tek bir düzgün rota bekliyor](../../gorseller/d-01-a.webp)
+::cizgi[d-01-sahne]
 
 ## Araştırma sorusu
 
@@ -43,6 +42,8 @@ Süre     : 2 gün, sonra Selim Hoca'ya ara rapor
 ```
 
 ## OSINT döngüsü
+
+![Beş durağı olan dairesel bir yol: soru işaretli fener, toplanan kartlar, büyüteç, iplikli pano ve paylaşılan rapor](../../gorseller/d-01-b.webp)
 
 1. **Planla** — soru, kapsam, olası kaynaklar
 2. **Topla** — pasif yöntemler önce (arama, arşiv, kayıtlar)

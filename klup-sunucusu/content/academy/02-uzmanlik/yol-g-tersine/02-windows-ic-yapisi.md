@@ -7,11 +7,10 @@ hedefler:
   - Process, thread, DLL ve API kavramlarını ayırt etmek
   - Bir PE dosyasının başlık, bölüm ve import tablosunu okumak
 gorseller:
-  - id: g-02-a
+  - id: g-02-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri dev bir cep saatinin arka kapağını dolap gibi açmış; içi başlık plakası, dişli çekmecesi, kavanoz rafı ve ödünç alet listesi gibi bölmelere ayrılmış, bir çekmecede kurmalı böcek kıvrılmış yatıyor"
-    prompt: "The villain swings open the hinged back of a giant pocket watch as if it were a cabinet. Inside are neatly stacked compartments: a small brass header plate at the top engraved with abstract symbols, a drawer full of turning gears, a shelf of tiny glass jars, and a rolled-up scroll listing borrowed tools. In one drawer a clockwork beetle lies curled up, pretending to be an ordinary gear. The villain looks proud of his tidy hiding place."
+    alt: "Bir kitap gibi açılmış program dosyası: kapak sayfası, içindekiler, bölümler ve ekler"
+    prompt: "A large program file drawn as an old book opened on a desk, with a decorated cover plate, silk ribbon bookmarks pointing to chapters, separate thick sections tied with different colored strings, and an appendix of borrowed pages clipped at the back."
 ---
 
 # Windows iç yapısı: process, DLL ve PE biçimi
@@ -19,7 +18,7 @@ gorseller:
 > Bir `.exe` dosyası rastgele baytlar değildir; düzenli bir **dolaptır**. Hangi çekmecede ne olduğunu bilen, nereye bakacağını bilir.
 > ⚙️ **Çark 2:** USB'deki böcek bir kampüs güncellemesi kılığında. Selim Hoca: "Kabuğunu tanımadan içini açamazsın."
 
-![Saatçi Sabri dev bir cep saatinin arka kapağını dolap gibi açmış; içi başlık plakası, dişli çekmecesi, kavanoz rafı ve ödünç alet listesi gibi bölmelere ayrılmış, bir çekmecede kurmalı böcek kıvrılmış yatıyor](../../gorseller/g-02-a.webp)
+::cizgi[g-02-sahne]
 
 ## Dört kavram
 
@@ -29,6 +28,8 @@ gorseller:
 - **API**: programın Windows'tan iş istemesi — dosya aç, registry'ye yaz, internete bağlan.
 
 ## PE biçimi
+
+![Bir kitap gibi açılmış program dosyası: kapak sayfası, içindekiler, bölümler ve ekler](../../gorseller/g-02-b.webp)
 
 PE (Portable Executable), `.exe`, `.dll` ve `.sys` dosyalarının yapısıdır.
 

@@ -9,10 +9,18 @@ import { getSettings } from "@/server/settings";
 import { formatDateTime } from "@/components/ui/format";
 import { ASSIGNMENT_STATUS, DIFFICULTY_LABEL, KIND_LABEL } from "@/components/classroom/labels";
 import { TaskAdmin } from "./TaskAdmin";
+import { db } from "@/server/db";
+import { listExtensions, peerReviewsForStaff } from "@/server/classroom/extensions";
+import { ExtensionDecisions } from "@/components/classroom/TaskExtras";
+import { TeacherTaskTools } from "@/components/classroom/TeacherTaskTools";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Görev" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Görev") };
+}
 
 export default async function TeachTaskPage({ params }: { params: Promise<{ id: string }> }) {
+  const tl = await getT();
   const { user } = await requirePageSession(STAFF_ROLES);
   const { id } = await params;
   const a = await getAssignmentForStaff({ id: user.id, role: user.role, status: user.status }, id).catch((e) => {
@@ -21,14 +29,15 @@ export default async function TeachTaskPage({ params }: { params: Promise<{ id: 
   });
   const s = await getSettings();
   const rubric = (Array.isArray(a.rubric) ? a.rubric : []) as { criterion: string; points: number }[];
+  const [extensions, peers, groups] = await Promise.all([listExtensions(a.id), peerReviewsForStaff(a.id), db.classGroup.findMany({ where: { archivedAt: null }, select: { id: true, name: true }, orderBy: { name: "asc" } })]);
   return (
     <div className="stack fade-up">
       <div className="page-head">
-        <div className="eyebrow"><Link href="/teach/tasks">Görev yönetimi</Link> · {KIND_LABEL[a.kind]} · {DIFFICULTY_LABEL[a.difficulty]}</div>
-        <h1 className="page-title">{a.title} <span className={ASSIGNMENT_STATUS[a.status]!.cls} style={{ verticalAlign: "middle" }}>{ASSIGNMENT_STATUS[a.status]!.label}</span></h1>
+        <div className="eyebrow"><Link href="/teach/tasks">{tl("Görev yönetimi")}</Link> · {tl(KIND_LABEL[a.kind])} · {tl(DIFFICULTY_LABEL[a.difficulty])}</div>
+        <h1 className="page-title">{a.title} <span className={ASSIGNMENT_STATUS[a.status]!.cls} style={{ verticalAlign: "middle" }}>{tl(ASSIGNMENT_STATUS[a.status]!.label)}</span></h1>
         <p className="page-sub">
-          {a.createdBy?.displayName ?? "—"} · {a.audience === "ALL" ? "tüm öğrenciler" : a.audience === "GROUP" ? <Link href={`/groups/${a.group?.id}`}>{a.group?.name ?? "silinmiş grup"} ({a.group?._count.members ?? 0} üye)</Link> : a.teamMode ? `${a.teams.length} takım` : `${a.targets.length} öğrenci`} · son teslim {a.dueAt ? formatDateTime(a.dueAt, s.timezone) : "yok"}
-          {a.liveSessionId && " · canlı ders uygulama molası"}
+          {a.createdBy?.displayName ?? "—"} · {a.audience === "ALL" ? tl("tüm öğrenciler") : a.audience === "GROUP" ? <Link href={`/groups/${a.group?.id}`}>{a.group?.name ?? tl("silinmiş grup")}{" "}{tl("({v0} üye)", { v0: a.group?._count.members ?? 0 })}</Link> : a.teamMode ? tl("{length} takım", { length: a.teams.length }) : tl("{length} öğrenci", { length: a.targets.length })}{" "}{tl("· son teslim")}{" "}{a.dueAt ? formatDateTime(a.dueAt, s.timezone, tl.intl) : "yok"}
+          {a.liveSessionId && tl(" · canlı ders uygulama molası")}
         </p>
       </div>
       <TaskAdmin
@@ -61,6 +70,11 @@ export default async function TeachTaskPage({ params }: { params: Promise<{ id: 
           })),
         }}
       />
+      <TeacherTaskTools taskId={a.id} canEdit={a.canEdit} peerEnabled={a.peerReviewEnabled} peerCount={a.peerReviewCount} groups={groups} peers={peers} />
+      <section id="extensions" className="card" aria-labelledby="ext-h">
+        <div className="card-h"><h2 id="ext-h">{tl("Ek süre talepleri")}</h2><span className="tiny faint">{extensions.filter((e) => e.status === "PENDING").length}{" "}{tl("bekliyor")}</span></div>
+        <div className="card-b"><ExtensionDecisions rows={extensions.map((e) => ({ id: e.id, reason: e.reason, requestedDue: e.requestedDue.toISOString(), status: e.status, decisionNote: e.decisionNote, createdAt: e.createdAt.toISOString(), user: e.user.displayName }))} /></div>
+      </section>
     </div>
   );
 }

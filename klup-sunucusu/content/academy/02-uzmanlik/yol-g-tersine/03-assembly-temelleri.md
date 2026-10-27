@@ -7,11 +7,14 @@ hedefler:
   - Temel x86/x64 register'larını ve stack'i açıklamak
   - Kısa bir assembly parçasındaki koşul ve döngüyü okumak
 gorseller:
-  - id: g-03-a
+  - id: g-03-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri bir mile dişlileri üst üste diziyor; minik böcekler tezgâhtaki pirinç kaplar arasında dişli taşıyor, arkada makaslı bir oyuncak ray ikiye ayrılıyor"
-    prompt: "At a long workbench the villain carefully stacks brass gears onto a tall vertical spindle one by one, last on and first off. A few tiny clockwork beetles hop between eight small brass cups lined up on the bench, each beetle carrying a single glowing gear from cup to cup. Behind him a toy railway track splits at a junction with a lever, and a little beetle-driven train waits for him to decide which way to switch it."
+    alt: "Üst üste konmuş tabaklar: son konan ilk alınıyor; bir garson tabakları tek tek ekleyip çıkarıyor"
+    prompt: "A waiter in a noir diner stacks plates one on top of another and takes them off again from the top only, the last plate placed being the first one removed, a cook watching the stack grow and shrink."
+  - id: g-03-c
+    tur: ai
+    alt: "Raylı bir yol haritası: makaslar ve dönüşlerle program akışını gösteren tren hattı"
+    prompt: "A model railway layout on a large table with switches, loops and branching tracks, a small glowing train moving along one route while an analyst traces the path with a pencil on a matching paper map."
 ---
 
 # Assembly temelleri: register, stack ve kontrol akışı
@@ -19,7 +22,7 @@ gorseller:
 > Kaynak kod gitmiş olabilir ama işlemcinin okuduğu komutlar duruyor. Assembly, o komutların insan okuyabilen hâlidir.
 > ⚙️ **Çark 3:** Böceğin dişlileri makine dilinde dönüyor. Selim Hoca gülümsüyor: "Sabri'nin sabrına sabırla cevap vereceksin."
 
-![Saatçi Sabri bir mile dişlileri üst üste diziyor; minik böcekler tezgâhtaki pirinç kaplar arasında dişli taşıyor, arkada makaslı bir oyuncak ray ikiye ayrılıyor](../../gorseller/g-03-a.webp)
+::cizgi[g-03-sahne]
 
 ## Register'lar: işlemcinin cep defteri
 
@@ -31,6 +34,8 @@ gorseller:
 | `RIP` | `EIP` | Sıradaki komutun adresi |
 
 ## Stack
+
+![Üst üste konmuş tabaklar: son konan ilk alınıyor; bir garson tabakları tek tek ekleyip çıkarıyor](../../gorseller/g-03-b.webp)
 
 Stack (yığın) üst üste dizilen tabaklar gibidir (LIFO): `push` koyar, `pop` alır.
 `call` dönüş adresini stack'e iter ve fonksiyona atlar; `ret` o adresi alıp geri döner.
@@ -47,6 +52,8 @@ xor  eax, eax      ; eax = 0 (kısa yol)
 ```
 
 ## Kontrol akışını okumak
+
+![Raylı bir yol haritası: makaslar ve dönüşlerle program akışını gösteren tren hattı](../../gorseller/g-03-c.webp)
 
 - `cmp` / `test` + koşullu atlama (`je`, `jne`, `jg`, `jl`) = bir **if**.
 - Geriye doğru atlayan bir atlama çoğu zaman **döngüdür**.

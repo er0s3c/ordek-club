@@ -7,15 +7,14 @@ hedefler:
   - Bir örnek için ilk 10 dakikalık triage'ı yapmak
   - Paketleme işaretlerini tanımak ve Ghidra'da import'lardan koda gitmek
 gorseller:
-  - id: g-04-a
-    tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri kurmalı böceğini kat kat buruşuk kâğıda sarıyor; yanındaki pirinç terazi paketin şüpheli ağırlığıyla bir yana yatmış"
-    prompt: "At his workbench the villain wraps a small clockwork beetle in layer after layer of crumpled paper and twine, like a gift that never ends, sweating with comic effort. A growing pile of paper scraps surrounds him, and a hanging brass scale beside the bench tips heavily under the tiny bundle, hinting at its suspicious density. A faint glow of the beetle still leaks through one torn corner."
   - id: g-04-b
     tur: ekran
     alt: "Ghidra'da eğitim crackme'sinin import listesi ve parola karşılaştırmasını gösteren Decompile penceresi"
     nasil: "Analiz VM'inde herkese açık, zararsız bir eğitim crackme'sini Ghidra'da aç ve otomatik analizi çalıştır. Solda Symbol Tree → Imports açık, sağda main fonksiyonunun Decompile görünümü olsun. Parola karşılaştırmasını kehribar (#C9953B) dikdörtgenle işaretle. Yalnızca Ghidra penceresini kırp; kullanıcı adı ve dosya yolları görünmesin. 1600×900, koyu tema."
+  - id: g-04-c
+    tur: ai
+    alt: "Sıkıca sarılmış, içi görünmeyen bir paket ile açık duran düzenli bir kutu; paketin dokusu rastgele parazit gibi"
+    prompt: "Two parcels side by side on an inspection table: one open box with neatly arranged items, and one tightly wrapped bundle whose surface looks like dense random static, an analyst holding a measuring device that buzzes over the wrapped one."
 ---
 
 # Statik analiz: hash, strings, entropi ve Ghidra
@@ -23,7 +22,7 @@ gorseller:
 > Böceği çalıştırmadan konuşturabilirsin: dosyanın kendisi, sorulursa çok şey anlatır.
 > ⚙️ **Çark 4:** Sabri böceklerini kat kat sarar. Selim Hoca: "Ambalajı say, sonra içine bak."
 
-![Saatçi Sabri kurmalı böceğini kat kat buruşuk kâğıda sarıyor; yanındaki pirinç terazi paketin şüpheli ağırlığıyla bir yana yatmış](../../gorseller/g-04-a.webp)
+::cizgi[g-04-sahne]
 
 ## Triage: ilk 10 dakika
 
@@ -42,6 +41,8 @@ Alan adları, IP'ler, URL'ler, registry yolları, dosya adları, mutex adları, 
 Okunabilir dize neredeyse hiç yoksa dosya **paketlenmiş** olabilir.
 
 ## Paketleme ve entropi
+
+![Sıkıca sarılmış, içi görünmeyen bir paket ile açık duran düzenli bir kutu; paketin dokusu rastgele parazit gibi](../../gorseller/g-04-c.webp)
 
 Paketleyici (packer) kodu sıkıştırır ya da şifreler, çalışınca bellekte açar. Analistin işi onu **tanımaktır**:
 

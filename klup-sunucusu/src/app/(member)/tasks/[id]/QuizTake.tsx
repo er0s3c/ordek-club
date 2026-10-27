@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 type PQ =
   | { kind: "choice" | "multi"; text: string; options: string[] }
@@ -19,6 +20,7 @@ const answered = (q: PQ, a: A) =>
 
 // Cevaplar sunucuda puanlanır; doğru cevaplar istemciye hiç gelmez.
 export function QuizTake({ id, questions, attemptsLeft }: { id: string; questions: PQ[]; attemptsLeft: number | null }) {
+  const t = useT();
   const toast = useToast();
   const router = useRouter();
   const [answers, setAnswers] = useState<A[]>(() => questions.map(initial));
@@ -28,7 +30,7 @@ export function QuizTake({ id, questions, attemptsLeft }: { id: string; question
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!window.confirm(`Cevaplar gönderilsin mi?${attemptsLeft !== null ? ` (${attemptsLeft} hakkın var)` : ""}`)) return;
+    if (!window.confirm(t("Cevaplar gönderilsin mi?{v0}", { v0: attemptsLeft !== null ? ` (${attemptsLeft} hakkın var)` : "" }))) return;
     const form = new FormData();
     form.set("answers", JSON.stringify(answers));
     setBusy(true);
@@ -47,7 +49,7 @@ export function QuizTake({ id, questions, attemptsLeft }: { id: string; question
     <form className="stack" onSubmit={submit}>
       {questions.map((q, i) => (
         <fieldset key={i} className="quiz-q">
-          <legend className="eyebrow">Soru {i + 1}</legend>
+          <legend className="eyebrow">{t("Soru {v0}", { v0: i + 1 })}</legend>
           <div className="prose-plain">{q.text}</div>
           {(q.kind === "choice" || q.kind === "multi") && (
             <div className="stack-sm">
@@ -64,25 +66,25 @@ export function QuizTake({ id, questions, attemptsLeft }: { id: string; question
                   <span>{o}</span>
                 </label>
               ))}
-              {q.kind === "multi" && <span className="hint">Birden çok doğru olabilir; hepsini işaretle.</span>}
+              {q.kind === "multi" && <span className="hint">{t("Birden çok doğru olabilir; hepsini işaretle.")}</span>}
             </div>
           )}
           {q.kind === "truefalse" && (
             <div className="row">
-              <label className="check"><input type="radio" name={`a${i}`} checked={answers[i] === true} onChange={() => set(i, true)} /> Doğru</label>
-              <label className="check"><input type="radio" name={`a${i}`} checked={answers[i] === false} onChange={() => set(i, false)} /> Yanlış</label>
+              <label className="check"><input type="radio" name={`a${i}`} checked={answers[i] === true} onChange={() => set(i, true)} />{" "}{t("Doğru")}</label>
+              <label className="check"><input type="radio" name={`a${i}`} checked={answers[i] === false} onChange={() => set(i, false)} />{" "}{t("Yanlış")}</label>
             </div>
           )}
           {q.kind === "short" && (
-            <input className="input" maxLength={200} aria-label={`Soru ${i + 1} cevabı`} value={answers[i] as string} onChange={(e) => set(i, e.target.value)} />
+            <input className="input" maxLength={200} aria-label={t("Soru {v0} cevabı", { v0: i + 1 })} value={answers[i] as string} onChange={(e) => set(i, e.target.value)} />
           )}
           {q.kind === "matching" && (
             <div className="stack-sm">
               {q.left.map((l, k) => (
                 <div key={k} className="row" style={{ gap: 8, flexWrap: "wrap" }}>
                   <span style={{ flex: "1 1 140px", minWidth: 0 }}>{l}</span>
-                  <select className="input select" style={{ flex: "1 1 160px", width: "auto" }} aria-label={`${l} eşleşmesi`} value={(answers[i] as number[])[k]} onChange={(e) => set(i, (answers[i] as number[]).map((x, j) => (j === k ? Number(e.target.value) : x)))}>
-                    <option value={-1}>— seç —</option>
+                  <select className="input select" style={{ flex: "1 1 160px", width: "auto" }} aria-label={t("{l} eşleşmesi", { l })} value={(answers[i] as number[])[k]} onChange={(e) => set(i, (answers[i] as number[]).map((x, j) => (j === k ? Number(e.target.value) : x)))}>
+                    <option value={-1}>{t("— seç —")}</option>
                     {q.right.map((r, j) => <option key={j} value={j}>{r}</option>)}
                   </select>
                 </div>
@@ -91,8 +93,8 @@ export function QuizTake({ id, questions, attemptsLeft }: { id: string; question
           )}
         </fieldset>
       ))}
-      <button className="btn btn-primary" style={{ alignSelf: "flex-start" }} disabled={busy || !done}><Send size={15} aria-hidden /> {busy ? "Gönderiliyor…" : "Cevapları gönder"}</button>
-      {!done && <span className="hint">Göndermek için her soruyu cevapla.</span>}
+      <button className="btn btn-primary" style={{ alignSelf: "flex-start" }} disabled={busy || !done}><Send size={15} aria-hidden /> {busy ? t("Gönderiliyor…") : t("Cevapları gönder")}</button>
+      {!done && <span className="hint">{t("Göndermek için her soruyu cevapla.")}</span>}
     </form>
   );
 }

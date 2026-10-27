@@ -12,11 +12,10 @@ gorseller:
     tur: ekran
     alt: Tarayıcıda example.com için sertifika ayrıntıları penceresi; verilen kişi, veren ve geçerlilik tarihleri
     nasil: "Chrome veya Edge'de https://example.com adresini açın → adres çubuğundaki ayar/kilit simgesi → 'Bağlantı güvenli' → 'Sertifika geçerli'. Açılan pencerede 'Verilen' (Issued to), 'Veren' (Issued by) ve 'Geçerlilik' bölümleri görünsün. Bu üç alanı kehribar (#C9953B) çerçeveyle işaretleyin. Tarayıcı profil resmi veya yer imleri görünmesin."
-  - id: m05-06-b
+  - id: m05-06-c
     tur: ai
-    karakter: nuri
-    alt: "Dinleyici Nuri kabloyu dinliyor ama içinden geçen paketler kilitli kapsüllerde; kulaklığından yalnızca parazit geliyor"
-    prompt: "The villain clamps his headphones to a glowing cable, but every packet sliding through it is sealed inside a small glowing capsule with a padlock. Only static squiggles come out of his headphones and he scowls in frustration."
+    alt: "Mükemmel kilitli zırhlı bir araç, ama şoförü sahte bir bankanın kapısına park ediyor"
+    prompt: "A perfectly armored delivery truck with a gleaming lock on its doors parks in front of a shabby fake bank storefront with painted-on windows and a cardboard door, while the real bank stands lit across the street. The lock is flawless, the destination is wrong."
 ---
 
 # Adres çubuğundaki kilit ne anlatıyor?
@@ -24,7 +23,7 @@ gorseller:
 > 🔒 kilit "bu site güvenli" demek **değildir**. "Bu siteyle aranızdaki yol şifreli ve
 > bu site gerçekten iddia ettiği alan adı" demektir. Fark büyük.
 
-![Dinleyici Nuri kabloyu dinliyor ama içinden geçen paketler kilitli kapsüllerde; kulaklığından yalnızca parazit geliyor](../../gorseller/m05-06-b.webp)
+::cizgi[m05-06-sahne]
 
 ## HTTPS = HTTP + TLS
 
@@ -50,6 +49,8 @@ Tarayıcı bunları zaten kontrol eder ve sorun varsa **büyük kırmızı bir u
 O uyarıyı "devam et" diyerek geçmek, kilidin bütün anlamını çöpe atmaktır.
 
 ## Kilit neyi garanti etmez?
+
+![Mükemmel kilitli zırhlı bir araç, ama şoförü sahte bir bankanın kapısına park ediyor](../../gorseller/m05-06-c.webp)
 
 Bir dolandırıcı da `kku-burs-onay.example` için geçerli bir sertifika alabilir.
 Kilit **"doğru adrese şifreli bağlandın"** der; **"bu adres dürüst"** demez. Alan adını yine sen okursun.

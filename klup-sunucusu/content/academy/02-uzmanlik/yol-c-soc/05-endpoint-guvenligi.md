@@ -7,11 +7,10 @@ hedefler:
   - EDR'ın antivirüsten farkını açıklamak
   - Bir olay kaydından IOC çıkarıp IOA ile karşılaştırmak
 gorseller:
-  - id: c-05-a
+  - id: c-05-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer cam fanus altındaki dizüstü bilgisayarın camını paspaslıyor; arkasındaki mekanik kollu büyüteç kaçırdığı parlayan parmak izlerini ve ayak izlerini gösteriyor"
-    prompt: "A tidy office desk at night where a laptop sits under a tall glass dome like a museum exhibit. The villain carefully polishes the glass with his glowing mop, looking pleased, but a large magnifying lens on a mechanical brass arm hovers right behind him, revealing a trail of glowing green fingerprints and little footprints across the desk that his mop has completely missed."
+    alt: "Solda olay yerinde bırakılmış ayak izi ve parmak izi (IOC), sağda gece pencereden tırmanan figürün hareketi (IOA)"
+    prompt: "Split scene: on the left a detective photographs a muddy footprint and a fingerprint left behind on a window sill after the fact; on the right a security camera view shows a silhouette in the act of climbing through the same window, its movement traced by glowing lines."
 ---
 
 # Uç nokta güvenliği: EDR, IOC ve IOA
@@ -19,7 +18,7 @@ gorseller:
 > Saldırgan ağdan girer ama işini **uç noktada** (endpoint) yapar: dizüstü, masaüstü, sunucu.
 > 🧹 **İz 5:** Tamer betiğini sildi. Ama betiğin çalıştırdığı her işlem, Sysmon'da bir satır bıraktı.
 
-![Temizlikçi Tamer cam fanus altındaki dizüstü bilgisayarın camını paspaslıyor; arkasındaki mekanik kollu büyüteç kaçırdığı parlayan parmak izlerini ve ayak izlerini gösteriyor](../../gorseller/c-05-a.webp)
+::cizgi[c-05-sahne]
 
 ## Antivirüs ile EDR farkı
 
@@ -32,6 +31,8 @@ gorseller:
 Laboratuvarda EDR'ın ücretsiz karşılığı: **Sysmon** (Windows) + Wazuh ajanı.
 
 ## IOC ve IOA
+
+![Solda olay yerinde bırakılmış ayak izi ve parmak izi (IOC), sağda gece pencereden tırmanan figürün hareketi (IOA)](../../gorseller/c-05-b.webp)
 
 - **IOC (Indicator of Compromise):** ele geçirilmenin kalıntısı. IP, alan adı, dosya hash'i, dosya yolu.
   Kolay paylaşılır, kolay değişir.

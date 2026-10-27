@@ -9,11 +9,14 @@ hedefler:
   - TCP üçlü el sıkışmasını adım adım anlatmak
 animasyonlar: [tcp-handshake]
 gorseller:
-  - id: m05-04-a
+  - id: m05-04-b
     tur: ai
-    karakter: nuri
-    alt: "Numaralı kapıları olan bir binanın önünde Dinleyici Nuri kulağını bir kapıya dayamış dinliyor"
-    prompt: "A long futuristic building facade with dozens of small doors, each with a different abstract symbol, most closed and dark, a few open with warm light. The villain presses his ear and his parabolic dish against one closed door, listening intently."
+    alt: "Solda imza karşılığı teslim edilen numaralı koliler (TCP), sağda kalabalığa havadan atılan broşürler (UDP)"
+    prompt: "Split scene: on the left a careful courier hands over parcels one by one in order and waits for the recipient to sign a receipt for each, a missing parcel being resent; on the right a fast delivery person on a bicycle tosses a stream of paper flyers into a crowd without stopping, some flyers fluttering away and nobody signing anything."
+  - id: m05-04-c
+    tur: ai
+    alt: "Bir binanın cephesinde farklı renkli birçok kapı; bazıları ışıklı ve açık, çoğu kapalı ve tuğlayla örülmüş"
+    prompt: "The front of a tall building with many doors in a grid, each door a different color with its own small lamp: only a few doors are open and lit with a doorkeeper standing in each, the rest are firmly closed and some are bricked up, a lone visitor walking along checking which doors answer."
 ---
 
 # TCP, UDP ve portlar
@@ -21,9 +24,11 @@ gorseller:
 > IP adresi seni binaya getirir; **port** hangi kapıyı çalacağını söyler.
 > TCP ve UDP ise kapıdan nasıl konuşacağını.
 
-![Numaralı kapıları olan bir binanın önünde Dinleyici Nuri kulağını bir kapıya dayamış dinliyor](../../gorseller/m05-04-a.webp)
+::cizgi[m05-04-sahne]
 
 ## TCP mi, UDP mi?
+
+![Solda imza karşılığı teslim edilen numaralı koliler (TCP), sağda kalabalığa havadan atılan broşürler (UDP)](../../gorseller/m05-04-b.webp)
 
 | | TCP | UDP |
 |---|---|---|
@@ -39,6 +44,8 @@ TCP konuşmaya başlamadan önce iki taraf "hazır mısın?" diye sözleşir:
 ::animasyon[tcp-handshake]
 
 ## Bilmen gereken portlar
+
+![Bir binanın cephesinde farklı renkli birçok kapı; bazıları ışıklı ve açık, çoğu kapalı ve tuğlayla örülmüş](../../gorseller/m05-04-c.webp)
 
 | Port | Servis | Not |
 |---|---|---|

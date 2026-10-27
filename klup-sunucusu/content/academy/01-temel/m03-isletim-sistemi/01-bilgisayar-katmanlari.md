@@ -7,15 +7,14 @@ hedefler:
   - Donanım, işletim sistemi ve uygulama katmanlarını ayırt etmek
   - Dosya uzantısı hilesini tanımak
 gorseller:
-  - id: m03-01-a
-    tur: ai
-    karakter: riza
-    alt: "Katmanlı pasta gibi kesilmiş bir laptopun orta katmanına Anahtarcı Rıza gizlice bir anahtar sokuyor"
-    prompt: "A laptop drawn as a sliced layered cake seen from the side: a bottom layer of chips and circuit boards, a glowing middle layer with tiny gears, a top layer decorated with floating app tiles. The villain sneaks in from the side, slipping a glowing key into the middle layer."
   - id: m03-01-b
     tur: ekran
     alt: Windows Dosya Gezgini'nde Görünüm menüsünde "Dosya adı uzantıları" seçeneğinin açık olması
     nasil: "Windows 11'de Dosya Gezgini'ni açın → üst çubuktaki 'Görünüm' → 'Göster' → 'Dosya adı uzantıları' işaretli olsun. Menünün açık hâlini ve arkada örnek dosyaları gösterin: 'odev.pdf' ile 'odev.pdf.exe' adlı iki boş test dosyası oluşturun. Menü seçeneğini kehribar (#C9953B) çerçeveyle işaretleyin. Masaüstünüzde kişisel klasör adı görünmesin."
+  - id: m03-01-c
+    tur: ai
+    alt: "PDF belgesi kostümü giymiş küçük bir robot; kostümün arkasından fermuar ve dişliler görünüyor"
+    prompt: "A tiny mischievous robot wearing a costume shaped like a harmless paper document with a folded corner, the costume zipper half open at the back revealing whirring gears and a glowing red core, standing innocently in a file folder among real paper documents."
 ---
 
 # Bilgisayarının katmanları ve dosyaların gerçek adı
@@ -23,15 +22,15 @@ gorseller:
 > Bir saldırgan seni "uygulama" katmanında kandırır, ama asıl hedefi alttaki katmandır.
 > Katmanları bilen, hilenin nerede olduğunu görür.
 
-![Katmanlı pasta gibi kesilmiş bir laptopun orta katmanına Anahtarcı Rıza gizlice bir anahtar sokuyor](../../gorseller/m03-01-a.webp)
+::cizgi[m03-01-sahne]
 
 > 🕴️ **DOSYA: Anahtarcı Rıza** · *Çilingir*
 >
 > ![Anahtarcı Rıza — Çilingir](../../gorseller/karakter-riza.webp)
 >
-> 📼 **Bölüm 3 — Ana Anahtar.** Kulübün laboratuvar bilgisayarları geceleri kendi kendine açılıyor. Biri yönetici yetkisini kapmış ve başlangıca saklanmış. Anahtarcı Rıza'nın imzası: hiçbir şeyi kırmaz, hep birinin unuttuğu anahtarı kullanır.
->
 > **Tehdit:** Yönetici yetkisi ele geçirme, başlangıca saklanma (kalıcılık), sahte dosya uzantıları. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[riza-acilis]
 
 ## Dört katman
 
@@ -51,6 +50,8 @@ gorseller:
 Güvenlikçi **ikisini de** tanır; saldırılar ve savunmalar ikisinde de farklı görünür.
 
 ## Uzantı hilesi
+
+![PDF belgesi kostümü giymiş küçük bir robot; kostümün arkasından fermuar ve dişliler görünüyor](../../gorseller/m03-01-c.webp)
 
 Windows varsayılan olarak bilinen uzantıları **gizler**. Bu yüzden `odev.pdf.exe` sana `odev.pdf` gibi görünür —
 ama açtığında bir program çalışır.

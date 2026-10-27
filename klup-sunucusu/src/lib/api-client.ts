@@ -1,5 +1,7 @@
 // Tarayıcı tarafı API istemcisi. Tüm istekler aynı origin'e, JSON ile gider;
 // sunucunun hata biçimi ({ error: { code, message, fields } }) ApiError'a dönüştürülür.
+import { translateClient } from "@/i18n/client";
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -34,7 +36,7 @@ export async function api<T = unknown>(path: string, opts: Opts = {}): Promise<T
     });
   } catch (err) {
     if ((err as Error).name === "AbortError") throw err;
-    throw new ApiError(0, "NETWORK", "Sunucuya ulaşılamadı. Bağlantını kontrol edip tekrar dene.");
+    throw new ApiError(0, "NETWORK", translateClient("Sunucuya ulaşılamadı. Bağlantını kontrol edip tekrar dene."));
   }
   const text = await res.text();
   let data: unknown = null;
@@ -45,7 +47,7 @@ export async function api<T = unknown>(path: string, opts: Opts = {}): Promise<T
   }
   if (!res.ok) {
     const e = (data as { error?: { code?: string; message?: string; fields?: Record<string, string>; retryAfterSec?: number } } | null)?.error;
-    throw new ApiError(res.status, e?.code ?? "HTTP_" + res.status, e?.message ?? "Beklenmeyen bir hata oluştu.", e?.fields ?? {}, e?.retryAfterSec);
+    throw new ApiError(res.status, e?.code ?? "HTTP_" + res.status, e?.message ?? translateClient("Beklenmeyen bir hata oluştu."), e?.fields ?? {}, e?.retryAfterSec);
   }
   return data as T;
 }

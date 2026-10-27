@@ -6,6 +6,7 @@ import { db } from "@/server/db";
 import { audit } from "@/server/audit";
 import { env } from "@/server/env";
 import { loadAcademy } from "./content";
+import { readStoredTranslation } from "./translation";
 
 export type ImportSummary = {
   tracks: number;
@@ -53,6 +54,8 @@ export async function importAcademy(opts: { dir?: string; actorId?: string | nul
             goals: l.goals,
             body: l.body,
             quiz: l.quiz ? (l.quiz as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+            activities: l.activities.length ? (l.activities as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+            skills: l.skills,
             missions: l.missions ? (l.missions as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
             passPercent: l.passPercent,
             sourcePath: l.sourcePath,
@@ -63,10 +66,29 @@ export async function importAcademy(opts: { dir?: string; actorId?: string | nul
             await tx.lesson.create({ data: { slug: l.slug, ...data } });
             summary.created++;
           } else if (prev.contentHash !== l.contentHash || prev.trackId !== row.id || prev.position !== l.position || prev.archivedAt) {
-            await tx.lesson.update({ where: { slug: l.slug }, data });
+            const updated = await tx.lesson.update({ where: { slug: l.slug }, data });
+            // İçerik değişiklik notu: öğretmen içerik merkezinde "bu ders güncellendi" olarak görür.
+            if (prev.contentHash !== l.contentHash) await tx.lessonChange.create({ data: { lessonId: updated.id, oldHash: prev.contentHash, newHash: l.contentHash } });
             summary.updated++;
           } else {
             summary.unchanged++;
+          }
+          const lessonRow = await tx.lesson.findUniqueOrThrow({ where: { slug: l.slug }, select: { id: true } });
+          if (l.english) {
+            // Etkinlik, quiz ve görev çevirileri tek JSON sütununda (bkz. readStoredTranslation).
+            const { activities, quiz, missions, reviewed, ...translated } = l.english;
+            // Öğretmen çeviriyi onayladıysa ve İngilizce metin değişmediyse karar korunur. Metin değişince
+            // (contentHash farklı) onay düşer: inceleme her sürüm için yeniden yapılmalıdır.
+            const prevTr = await tx.lessonTranslation.findUnique({
+              where: { lessonId_locale: { lessonId: lessonRow.id, locale: "en" } },
+              select: { contentHash: true, activities: true },
+            });
+            const prevReview = prevTr?.contentHash === translated.contentHash ? readStoredTranslation(prevTr.activities).review : null;
+            const keepReview = prevReview?.decision === "APPROVED" ? prevReview : null;
+            const value = { ...translated, activities: { activities, quiz, missions, reviewed: reviewed || !!keepReview, ...(keepReview ? { review: keepReview } : {}) } as unknown as Prisma.InputJsonValue };
+            await tx.lessonTranslation.upsert({ where: { lessonId_locale: { lessonId: lessonRow.id, locale: "en" } }, create: { lessonId: lessonRow.id, locale: "en", ...value }, update: value });
+          } else {
+            await tx.lessonTranslation.deleteMany({ where: { lessonId: lessonRow.id, locale: "en" } });
           }
         }
       }

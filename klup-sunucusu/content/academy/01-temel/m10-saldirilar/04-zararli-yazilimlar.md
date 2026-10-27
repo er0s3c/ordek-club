@@ -7,20 +7,25 @@ hedefler:
   - Trojan, worm ve ransomware'i ayırt etmek
   - Zararlı yazılımların bulaşma yollarını ve savunmayı açıklamak
 gorseller:
-  - id: m10-04-a
+  - id: m10-04-b
     tur: ai
-    karakter: ferhat
-    alt: "Fidyeci Ferhat içinden gölge yaratıklar çıkan bir hediye kutusunu sırıtarak uzatıyor"
-    prompt: "The villain holds out a cheerful gift box with a bow, grinning menacingly. Out of the slightly opened box climb three small mischievous shadow creatures: one in a gift-box costume, one splitting into copies of itself, and one wrapping glowing file folders in chains with a padlock."
+    alt: "Zararlı yazılım ailesi portresi: tahta at, kendini kopyalayan solucan, kilitli zincirli kutu, dürbünlü casus ve parola cebe atan yankesici"
+    prompt: "A family portrait of mischievous creatures standing on a stage: a wooden horse with a secret hatch open, a worm splitting into copies of itself, a box wrapped in chains and padlocks, a tiny spy peering through binoculars, and a pickpocket slipping glowing keys into a coat pocket."
+  - id: m10-04-c
+    tur: ai
+    alt: "Öğrenci laptopun ağ kablosunu çekiyor ve Wi-Fi anahtarını kapatıyor; arkadan BT görevlisi koşarak geliyor"
+    prompt: "A student quickly unplugs the network cable from a laptop glowing with an infected red aura and flips its wireless switch off, while a helpful technician with a toolbox runs toward them through the door."
 ---
 
 # Zararlı yazılımlar ailesi
 
 > Hepsine "virüs" deriz ama aile kalabalıktır. Her üyenin **bulaşma yolu** ve **amacı** farklıdır.
 
-![Fidyeci Ferhat içinden gölge yaratıklar çıkan bir hediye kutusunu sırıtarak uzatıyor](../../gorseller/m10-04-a.webp)
+::cizgi[m10-04-sahne]
 
 ## Aile üyeleri
+
+![Zararlı yazılım ailesi portresi: tahta at, kendini kopyalayan solucan, kilitli zincirli kutu, dürbünlü casus ve parola cebe atan yankesici](../../gorseller/m10-04-b.webp)
 
 | Tür | Nasıl yayılır? | Ne yapar? |
 |---|---|---|
@@ -44,6 +49,8 @@ Fidye ödemek dosyaları geri getireceğini **garanti etmez**. Asıl çare:
 **bağlantısız, test edilmiş yedek** (M03-05'teki 3-2-1 kuralı).
 
 ## Bulaştıysa?
+
+![Öğrenci laptopun ağ kablosunu çekiyor ve Wi-Fi anahtarını kapatıyor; arkadan BT görevlisi koşarak geliyor](../../gorseller/m10-04-c.webp)
 
 - Cihazı ağdan **ayır** (Wi-Fi'yi kapat, kabloyu çek).
 - Kapatıp açma; delilleri ve geri kurtarma şansını korumak için **uzmana** veya BT birimine haber ver.

@@ -7,11 +7,10 @@ hedefler:
   - Statik ve dinamik analiz farkını açıklamak
   - İzole analiz sanal makinesini güvenle hazırlamak
 gorseller:
-  - id: g-01-a
+  - id: g-01-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri kurmalı böceğini minyatür bir şehre bırakıyor; şehrin cam bir fanusun içinde olduğunu, kablosunun çekildiğini ve yanında dev bir geri sarma düğmesi bulunduğunu fark etmiyor"
-    prompt: "On a laboratory bench sits a sealed glass terrarium holding a tiny model city of miniature houses and glowing server towers. The villain, peering through his jeweler's loupe, lowers a glowing clockwork beetle into it through a small hatch, smiling as if the city were real. He does not notice the glass walls, the unplugged cable lying on the bench outside, or the big brass rewind knob on the side of the terrarium."
+    alt: "Kablolarla dış dünyaya bağlı olmayan, kalın camlı ve kilitli bir analiz odası; içinde bir bilgisayar ve geri alma düğmesi"
+    prompt: "A thick-walled glass analysis room in a basement lab, no cables leading outside, a single computer inside next to a big rewind lever that resets the room to a clean state, an analyst observing through the glass."
 ---
 
 # Tersine mühendislik nedir? Güvenli analiz laboratuvarı
@@ -19,7 +18,7 @@ gorseller:
 > Kaynak kodu yok, elinde yalnızca bir dosya var. Tersine mühendislik (reverse engineering), o dosyanın **gerçekte** ne yaptığını ortaya çıkarır.
 > ⚙️ **Çark 1:** Selim Hoca masana mühürlü bir USB bırakıyor: "Kampüs ağında Sabri'nin böceklerinden birini yakaladık. Açmadan önce kafesini kur, Tilki."
 
-![Saatçi Sabri kurmalı böceğini minyatür bir şehre bırakıyor; şehrin cam bir fanusun içinde olduğunu, kablosunun çekildiğini ve yanında dev bir geri sarma düğmesi bulunduğunu fark etmiyor](../../gorseller/g-01-a.webp)
+::cizgi[g-01-sahne]
 
 ## İki bakış
 
@@ -31,6 +30,8 @@ gorseller:
 İyi analist ikisini birlikte kullanır: statik analiz ipucu verir, dinamik analiz doğrular.
 
 ## Analiz laboratuvarı
+
+![Kablolarla dış dünyaya bağlı olmayan, kalın camlı ve kilitli bir analiz odası; içinde bir bilgisayar ve geri alma düğmesi](../../gorseller/g-01-b.webp)
 
 - **Windows analiz VM'i** — FLARE-VM fikri: analiz araçlarıyla donatılmış bir Windows. Örnek burada açılır.
 - **Linux yardımcı VM** — REMnux fikri: strings, YARA, sahte DNS/HTTP servisleri.

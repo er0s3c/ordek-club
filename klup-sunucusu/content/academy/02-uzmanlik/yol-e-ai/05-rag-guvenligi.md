@@ -7,11 +7,10 @@ hedefler:
   - Zehirli belge türlerini ve veri zehirlemeyi tanımak
   - Belge künyesi, erişim filtresi ve kaynak doğrulamayla RAG'i korumak
 gorseller:
-  - id: e-05-a
+  - id: e-05-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel tekerlekli kütüphane merdiveninde, robot kuklanın kulağına akan dosya rafına yeşil mühürlü tek bir dosya sıkıştırıyor"
-    prompt: "A vast archive hall with towering shelves of identical glowing folders; a brass funnel collects folders from the shelves and pours them into the ear of a translucent robot puppet sitting at the bottom. High up on a rolling library ladder, the villain carefully slips one single folder with a faint glowing green seal between the identical ones, while a large magnifying glass lies forgotten on the floor below."
+    alt: "Kütüphanenin giriş kapısında belgeleri tek tek kontrol eden görevli; zehirli yeşil sızan bir belge geri çevriliyor"
+    prompt: "A librarian guard stands at the delivery door of a library, inspecting each incoming document with a magnifying lens and checking a source stamp, rejecting one that drips with glowing green ink while clean documents go onto the shelves."
 ---
 
 # RAG güvenliği: zehirli belge bilgi tabanına nasıl girer?
@@ -19,7 +18,7 @@ gorseller:
 > RAG'de saldırganın modelle konuşması bile gerekmez; **bilgi tabanına bir belge sokması** yeter.
 > 🎭 **Ses 5:** Kampüs forumuna yazılan duyurular gece kendiliğinden Ayna'nın bilgi tabanına giriyor. Kimse kontrol etmiyor.
 
-![Vantrolog Veysel tekerlekli kütüphane merdiveninde, robot kuklanın kulağına akan dosya rafına yeşil mühürlü tek bir dosya sıkıştırıyor](../../gorseller/e-05-a.webp)
+::cizgi[e-05-sahne]
 
 ## Zehirli belge türleri
 
@@ -43,6 +42,8 @@ Her belgeye bir **künye** (*metadata*) ekle ve getirirken kullan:
 Kullanıcı içeriğini ve resmi içeriği **ayrı koleksiyonlarda** tut. Cevapta kaynağı göster ki kullanıcı kontrol edebilsin.
 
 ## Bilgi tabanının giriş kapısı
+
+![Kütüphanenin giriş kapısında belgeleri tek tek kontrol eden görevli; zehirli yeşil sızan bir belge geri çevriliyor](../../gorseller/e-05-b.webp)
 
 ```text
 yükleme → temizle (HTML yorumu, gizli stil, görünmez karakter) → tara (talimat kalıbı) → onay → indeksle

@@ -1,12 +1,13 @@
 // Tarih/sayı biçimlendirme — kulübün saat dilimine göre (sunucu ve istemcide aynı sonuç).
-export function formatDateTime(d: Date | string | null | undefined, timeZone = "Europe/Istanbul"): string {
+// intl: çevirmenin dili (t.intl); verilmezse Türkçe.
+export function formatDateTime(d: Date | string | null | undefined, timeZone = "Europe/Istanbul", intl = "tr-TR"): string {
   if (!d) return "—";
-  return new Intl.DateTimeFormat("tr-TR", { dateStyle: "medium", timeStyle: "short", timeZone }).format(new Date(d));
+  return new Intl.DateTimeFormat(intl, { dateStyle: "medium", timeStyle: "short", timeZone }).format(new Date(d));
 }
 
-export function formatDate(d: Date | string | null | undefined, timeZone = "Europe/Istanbul"): string {
+export function formatDate(d: Date | string | null | undefined, timeZone = "Europe/Istanbul", intl = "tr-TR"): string {
   if (!d) return "—";
-  return new Intl.DateTimeFormat("tr-TR", { dateStyle: "medium", timeZone }).format(new Date(d));
+  return new Intl.DateTimeFormat(intl, { dateStyle: "medium", timeZone }).format(new Date(d));
 }
 
 export function formatBytes(n: number | null | undefined): string {

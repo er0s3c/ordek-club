@@ -1,0 +1,8 @@
+*
+!Dockerfile
+!package.json
+!package-lock.json
+!server.mjs
+!start.mjs
+!policy.mjs
+!healthcheck.mjs

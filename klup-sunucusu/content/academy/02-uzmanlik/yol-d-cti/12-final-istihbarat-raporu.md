@@ -7,16 +7,10 @@ hedefler:
   - Kurgusal bir kampanya için kanıta dayalı, güven düzeyi belirtilmiş bir istihbarat raporu yazmak
   - Sahte bayrakları ayırıp eyleme dönük savunma önerileri vermek
 gorseller:
-  - id: d-12-a
+  - id: d-12-c
     tur: ai
-    karakter: bedri
-    alt: "Şafakta sisli limanda bütün sahte bayraklar indirilip açık bir rapor dosyasının yanına katlanmış; Bayrakçı Bedri iskele babasının üstünde oturup omuz silkiyor"
-    prompt: "The foggy harbor at dawn with soft amber light breaking through. All the small flags have been taken down from a tall flagpole rack and lie neatly folded on a wooden table beside an open report folder; only one plain flag remains on the pole, showing a single simple abstract symbol. The villain sits on a mooring bollard nearby, empty hands raised in a theatrical shrug, with a reluctant grin."
-  - id: d-12-b
-    tur: ai
-    karakter: bedri
-    alt: "Karanlık bir ofiste gece yarısında durmuş bir duvar saatinin altında aynı ayna simgesini taşıyan kayıt kartları; masadaki el aynasında Kapüşonlular'ın eski fotoğrafı yansıyor, kapıda Bayrakçı Bedri'nin silüeti kasketini çıkarıyor"
-    prompt: "A dark empty office at night. On the wall a round clock has stopped at an hour deep in the night, and beneath it a row of glowing green index cards is pinned up, every card carrying the same small abstract mirror symbol. On the desk lies an oval hand mirror reflecting a faded instant photo of hooded teenagers in a basement lab. In the doorway, the villain's silhouette tips his captain's cap and steps back into the fog."
+    alt: "Sisli bir limanda üç fener: biri parlak, biri loş, biri titreyen; her biri farklı güven düzeyini gösteriyor"
+    prompt: "Three lighthouses along a foggy harbor coast at night: one shining a strong steady beam, one with a dimmer light, and one flickering weakly, a ship's captain choosing a course by comparing them."
 ---
 
 # Final: Sis Düdüğü istihbarat raporu
@@ -24,7 +18,7 @@ gorseller:
 > İyi bir rapor kimin yaptığını bağırmaz; neyi bildiğini, neyi bilmediğini ve ne kadar emin olduğunu söyler.
 > 🚩 **Son bayrak:** Bütün dosyalar masanda. Rektörlük yarın sabah soracak: "Saldırıyı MERCAN-7 mi yaptı, ne yapmalıyız?"
 
-![Şafakta sisli limanda bütün sahte bayraklar indirilip açık bir rapor dosyasının yanına katlanmış; Bayrakçı Bedri iskele babasının üstünde oturup omuz silkiyor](../../gorseller/d-12-a.webp)
+::cizgi[d-12-sahne]
 
 ## Görev
 
@@ -41,6 +35,8 @@ Laboratuvardaki vaka dosyalarını (`lab/d-tehdit-raporlari.md`, `d-altyapi-kayi
 Yalnızca laboratuvar dosyalarını kullan; gerçek bir grubu veya kişiyi araştırma, rapora gerçek isim yazma.
 
 ## Güven dili
+
+![Sisli bir limanda üç fener: biri parlak, biri loş, biri titreyen; her biri farklı güven düzeyini gösteriyor](../../gorseller/d-12-c.webp)
 
 | İfade | Olasılık |
 |---|---|
@@ -85,8 +81,6 @@ Yalnızca laboratuvar dosyalarını kullan; gerçek bir grubu veya kişiyi araş
 
 > 🔒 **DOSYA KAPANDI: Bayrakçı Bedri** · *raporunu teslim edince*
 >
-> ![Karanlık bir ofiste gece yarısında durmuş bir duvar saatinin altında aynı ayna simgesini taşıyan kayıt kartları; masadaki el aynasında Kapüşonlular'ın eski fotoğrafı yansıyor, kapıda Bayrakçı Bedri'nin silüeti kasketini çıkarıyor](../../gorseller/d-12-b.webp)
->
-> Bayraklar söküldü; bütün altyapı tek bir şirkete çıkıyor: Ayna Teknoloji. Kâğıt üstünde kimse yok, ama bütün alan adları aynı gece, aynı saatte kaydedilmiş: Kapüşonlular'ın yirmi yıl önce buluştuğu saatte.
+> ::cizgi[bedri-kapanis]
 >
 > ➡️ *Sezon 2 sürüyor: diğer uzmanlık yollarında Gölge Ağ'ın başka dosyaları seni bekliyor.*

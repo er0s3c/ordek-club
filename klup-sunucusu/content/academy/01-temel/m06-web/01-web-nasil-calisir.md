@@ -8,11 +8,10 @@ hedefler:
   - İstemci-sunucu modelini ve URL yapısını açıklamak
 animasyonlar: [http-request]
 gorseller:
-  - id: m06-01-a
+  - id: m06-01-b
     tur: ai
-    karakter: celal
-    alt: "Restoran mutfağında Çerezci Celal müşterinin sipariş fişini gizlice değiştiriyor"
-    prompt: "A cozy restaurant cutaway: on the left a customer at a table hands an order slip to a waiter, in the middle a swinging kitchen door, on the right a kitchen with a pantry of jars. Inside the kitchen, the villain intercepts the order slip and swaps it for his own, grinning under his chef hat."
+    alt: "Bir posta zarfının üstündeki adres bloğu büyüteçle sağdan sola okunuyor; en sağdaki gerçek bina parlıyor"
+    prompt: "A student holds a magnifying glass over a long shipping label on a parcel, reading it from right to left, the glass following a glowing arrow that leads to a small model of a real building at the far right end, while decoy building models on the left side look fake and hollow."
 ---
 
 # Bir web sayfası nasıl açılır?
@@ -20,15 +19,15 @@ gorseller:
 > Bir web uygulaması restoran gibidir: sen (tarayıcı) sipariş verirsin,
 > mutfak (sunucu) hazırlar, depo (veritabanı) malzemeyi verir.
 
-![Restoran mutfağında Çerezci Celal müşterinin sipariş fişini gizlice değiştiriyor](../../gorseller/m06-01-a.webp)
+::cizgi[m06-01-sahne]
 
 > 🕴️ **DOSYA: Çerezci Celal** · *Oturum Hırsızı*
 >
 > ![Çerezci Celal — Oturum Hırsızı](../../gorseller/karakter-celal.webp)
 >
-> 📼 **Bölüm 6 — Taze Çerezler.** Celal'in fırınından çıkan şey kurabiye değil, oturum. Bir çerez ve başkasının hesabıyla içeridesin. Celal'in arkasında ise kimsenin görmediği biri var: veritabanlarına fısıldayan bir kadın.
->
 > **Tehdit:** Oturum çerezi çalma, yetki kontrolü eksik API'ler (IDOR), sahte alan adları. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[celal-acilis]
 
 ## Site mi, uygulama mı?
 
@@ -42,6 +41,8 @@ Güvenlik açısından ikincisi çok daha ilginçtir: girdi, oturum ve veri vard
 ::animasyon[http-request]
 
 ## URL'yi okumayı öğren
+
+![Bir posta zarfının üstündeki adres bloğu büyüteçle sağdan sola okunuyor; en sağdaki gerçek bina parlıyor](../../gorseller/m06-01-b.webp)
 
 ```text
 https://portal.kuzeykiyi.edu.example:443/notlar?donem=2026-guz#ozet

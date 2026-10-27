@@ -7,11 +7,10 @@ hedefler:
   - Domain, Kerberos ve Group Policy kavramlarını açıklamak
   - Active Directory'deki tipik yanlış yapılandırmaları tanımak
 gorseller:
-  - id: b-08-a
+  - id: b-08-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık bir şatonun anahtar odasında, her kapıyı açan altın ana anahtarın asılı olduğu panoya uzanıyor"
-    prompt: "Inside a castle keep, a grand key room with a huge wall board holding hundreds of small keys for every room of the castle, and at the very top one ornate golden master key glowing softly. The villain climbs a rolling library ladder toward the golden key, his green headlamp reflecting on the brass hooks."
+    alt: "Şatoda bilet sistemi: muhafız önce genel giriş bileti veriyor, sonra her oda için ayrı oda bileti alınıyor"
+    prompt: "A castle ticket office with a three-headed guard dog statue at the gate: a visitor first receives a general entry pass from a clerk, then exchanges it at a second window for small room-specific tickets, and finally shows a room ticket at a single door to enter."
 ---
 
 # Windows Server ve Active Directory: krallığın anahtarları
@@ -19,7 +18,7 @@ gorseller:
 > Bir kurumda kim kimdir, kim neye erişir — hepsi **Active Directory**'de yazar. Onu ele geçiren her şeyi ele geçirir.
 > 🕳️ **Tünel 8:** Laboratuvar domain'inde 14 kişi "Domain Admins" grubunda. Bunlardan biri bir servis hesabı.
 
-![Tünelci Tarık bir şatonun anahtar odasında, her kapıyı açan altın ana anahtarın asılı olduğu panoya uzanıyor](../../gorseller/b-08-a.webp)
+::cizgi[b-08-sahne]
 
 ## Temel kavramlar
 
@@ -32,6 +31,8 @@ gorseller:
 | **Kerberos** | Parolayı ağda göndermeden **bilet** ile kimlik doğrulama |
 
 ## Kerberos kısaca
+
+![Şatoda bilet sistemi: muhafız önce genel giriş bileti veriyor, sonra her oda için ayrı oda bileti alınıyor](../../gorseller/b-08-b.webp)
 
 Kullanıcı giriş yapınca DC'den bir **bilet çıkaran bilet** (TGT) alır. Bir servise erişmek isteyince
 TGT'yi gösterip o servise özel bilet alır. Parola ağda dolaşmaz — ama biletler ve servis hesapları **değerli hedeflerdir**.

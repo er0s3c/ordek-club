@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useT } from "@/i18n/client";
 
 const KEY = "ciu-lab-theme";
 
 // Ders odası varsayılan açık (C dili); koyu oda (§5A) kişisel tercih olarak açılır ve bu tarayıcıda hatırlanır.
 export function LabThemeToggle() {
+  const t = useT();
   const ref = useRef<HTMLButtonElement>(null);
   const [dark, setDark] = useState(false);
 
@@ -37,7 +39,7 @@ export function LabThemeToggle() {
 
   return (
     <button ref={ref} type="button" className="lab-theme" aria-pressed={dark} onClick={toggle}>
-      {dark ? <Sun size={14} aria-hidden /> : <Moon size={14} aria-hidden />} {dark ? "Açık oda" : "Koyu oda"}
+      {dark ? <Sun size={14} aria-hidden /> : <Moon size={14} aria-hidden />} {dark ? t("Açık oda") : t("Koyu oda")}
     </button>
   );
 }

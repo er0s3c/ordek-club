@@ -7,11 +7,10 @@ hedefler:
   - Bir log dosyasını Python ile özetlemek
   - Basit bir Bash otomasyonu yazmak
 gorseller:
-  - id: m07-05-a
+  - id: m07-05-b
     tur: ai
-    karakter: orhan
-    alt: "Log özetleme makinesinden çıkan grafikte tek bir uzun kırmızı çubuk; Kuklacı Orhan makinenin arkasından bakıyor"
-    prompt: "A whimsical copper machine with pipes and gauges eats a very long curling paper ribbon of faint abstract lines and outputs a single neat card with a simple bar chart where one bar towers glowing red. The villain peeks from behind the machine, realizing his bot swarm has been exposed."
+    alt: "Duvardaki çalar saat her sabah aynı saatte çalıyor ve küçük bir robot log defterlerini okuyup rapor hazırlıyor"
+    prompt: "A vintage alarm clock on the wall rings at dawn and a small boxy robot wakes up on its own, opens a stack of logbooks, sorts the pages, and drops a tidy one-page report into an inbox tray, while the student is still asleep in the background."
 ---
 
 # Logları okuyan ve işini otomatik yapan program
@@ -19,7 +18,7 @@ gorseller:
 > Loglar bir sistemin günlüğüdür. Ama kimse 100.000 satırlık günlüğü okumaz —
 > **özetini** okur. O özeti sen çıkaracaksın.
 
-![Log özetleme makinesinden çıkan grafikte tek bir uzun kırmızı çubuk; Kuklacı Orhan makinenin arkasından bakıyor](../../gorseller/m07-05-a.webp)
+::cizgi[m07-05-sahne]
 
 ## Bir log satırını tanı
 
@@ -57,6 +56,8 @@ grep "Failed password" /opt/akademi/auth.log | grep -oE "from [0-9.]+" | sort | 
 Kısa işler için Bash, mantık büyüyünce Python.
 
 ## Otomatikleştir
+
+![Duvardaki çalar saat her sabah aynı saatte çalıyor ve küçük bir robot log defterlerini okuyup rapor hazırlıyor](../../gorseller/m07-05-b.webp)
 
 Her sabah raporu kendiliğinden üretmek için Linux'ta `cron` kullanılır:
 

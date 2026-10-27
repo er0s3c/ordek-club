@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Check, CheckCircle2, CircleX, RotateCcw, Send, Stamp } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 type Question = { kind: "choice"; text: string; options: string[] } | { kind: "truefalse"; text: string };
 type Answer = number | boolean | null;
@@ -17,19 +18,20 @@ function rewardText(r: Reward) {
 }
 
 export function CompleteButton({ slug, done }: { slug: string; done: boolean }) {
+  const t = useT();
   const router = useRouter();
   const toast = useToast();
   const [busy, setBusy] = useState(false);
   if (done)
     return (
-      <span className="lab-done"><CheckCircle2 size={16} aria-hidden /> Tamamlandı</span>
+      <span className="lab-done"><CheckCircle2 size={16} aria-hidden />{" "}{t("Tamamlandı")}</span>
     );
   async function complete() {
     setBusy(true);
     try {
       const r = await api<Reward>(`/api/academy/lessons/${slug}/complete`, { method: "POST" });
       const extra = rewardText(r);
-      toast("ok", `Ders tamamlandı.${extra ? ` ${extra}` : ""}`);
+      toast("ok", t("Ders tamamlandı.{v0}", { v0: extra ? ` ${extra}` : "" }));
       router.refresh();
     } catch (e) {
       toast("error", (e as Error).message);
@@ -39,7 +41,7 @@ export function CompleteButton({ slug, done }: { slug: string; done: boolean }) 
   }
   return (
     <button className="btn btn-primary" onClick={complete} disabled={busy}>
-      {busy ? <span className="spinner" aria-hidden /> : <Stamp size={16} aria-hidden />} Okudum, tamamla
+      {busy ? <span className="spinner" aria-hidden /> : <Stamp size={16} aria-hidden />}{" "}{t("Okudum, tamamla")}
     </button>
   );
 }
@@ -47,29 +49,33 @@ export function CompleteButton({ slug, done }: { slug: string; done: boolean }) 
 // Görevli derste "Okudum, tamamla" yok: ders görev çözülünce kendiliğinden tamamlanır. Kilidin nedeni yazılır
 // (sessiz kilit yok — 04 §6.6); bağlantı göreve kaydırır.
 export function MissionLock({ done, left, target }: { done: boolean; left: number; target: string }) {
-  if (done) return <span className="lab-done"><CheckCircle2 size={16} aria-hidden /> Tamamlandı</span>;
+  const t = useT();
+  if (done) return <span className="lab-done"><CheckCircle2 size={16} aria-hidden />{" "}{t("Tamamlandı")}</span>;
   return (
     <div className="lab-lock">
-      <span className="btn" aria-disabled="true"><Stamp size={16} aria-hidden /> Dersi bitir</span>
-      <a href={`#gorev-${target}`}>{left > 1 ? `${left} görev kaldı` : "1 görev kaldı"} — görevi çöz, ders kendiliğinden tamamlanır ↑</a>
+      <span className="btn" aria-disabled="true"><Stamp size={16} aria-hidden />{" "}{t("Dersi bitir")}</span>
+      <a href={`#gorev-${target}`}>{left > 1 ? t("{left} görev kaldı", { left }) : t("1 görev kaldı")}{" "}{t("— görevi çöz, ders kendiliğinden tamamlanır ↑")}</a>
     </div>
   );
 }
 
-export function QuizForm({ slug, questions, passPercent, note }: { slug: string; questions: Question[]; passPercent: number; note?: string }) {
+export function QuizForm({ slug, questions, passPercent, note, lang }: { slug: string; questions: Question[]; passPercent: number; note?: string; lang?: "tr" | "en" }) {
+  const t = useT();
   const router = useRouter();
   const toast = useToast();
   const [answers, setAnswers] = useState<Answer[]>(() => questions.map(() => null));
+  // Güven işareti: true = eminim, false = tahmin ettim; tahminle doğru bilinenler de tekrar kartına girer.
+  const [sure, setSure] = useState<(boolean | null)[]>(() => questions.map(() => null));
   const [result, setResult] = useState<Result | null>(null);
   const [busy, setBusy] = useState(false);
   const missing = answers.filter((a) => a === null).length;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (missing) return toast("error", `${missing} soru cevapsız.`);
+    if (missing) return toast("error", t("{missing} soru cevapsız.", { missing }));
     setBusy(true);
     try {
-      const r = await api<Result>(`/api/academy/lessons/${slug}/quiz`, { body: { answers } });
+      const r = await api<Result>(`/api/academy/lessons/${slug}/quiz`, { body: { answers, confidence: sure, lang } });
       setResult(r);
       if (r.passed) router.refresh();
       document.getElementById("quiz-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -82,6 +88,7 @@ export function QuizForm({ slug, questions, passPercent, note }: { slug: string;
 
   function retry() {
     setAnswers(questions.map(() => null));
+    setSure(questions.map(() => null));
     setResult(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -90,7 +97,7 @@ export function QuizForm({ slug, questions, passPercent, note }: { slug: string;
 
   return (
     <form className="quiz lab-qa" onSubmit={submit} noValidate aria-labelledby="qa-title">
-      <h2 id="qa-title" className="lab-qa-title">Soruları cevaplayın</h2>
+      <h2 id="qa-title" className="lab-qa-title">{t("Soruları cevaplayın")}</h2>
       {note && <p className="lab-qa-note">{note}</p>}
       {/* Sonuç bölgesi her zaman DOM'da: ekran okuyucu yeni sonucu duyurur */}
       <div id="quiz-result" aria-live="polite">
@@ -98,8 +105,8 @@ export function QuizForm({ slug, questions, passPercent, note }: { slug: string;
           <div className={`lab-qa-result ${result.passed ? "is-ok" : "is-bad"}`}>
             {result.passed ? <CheckCircle2 size={18} aria-hidden /> : <CircleX size={18} aria-hidden />}
             <div>
-              <strong>%{result.score}</strong> · {result.correct}/{result.total} doğru ·{" "}
-              {result.passed ? "Geçtin, dosya kapandı." : `Geçme notu %${passPercent}. Açıklamaları oku, tekrar dene.`}
+              <strong>%{result.score}</strong>{" "}{t("· {correct}/{total} doğru ·{v0}", { correct: result.correct, total: result.total, v0: " " })}
+              {result.passed ? t("Geçtin, dosya kapandı.") : t("Geçme notu %{passPercent}. Açıklamaları oku, tekrar dene.", { passPercent })}
               {rewardText(result) && <div className="xp-gain">{rewardText(result)}</div>}
             </div>
           </div>
@@ -108,7 +115,7 @@ export function QuizForm({ slug, questions, passPercent, note }: { slug: string;
       {questions.map((q, i) => {
         const r = result?.results[i];
         const options: { label: string; value: Answer }[] =
-          q.kind === "choice" ? q.options.map((o, j) => ({ label: o, value: j })) : [{ label: "Doğru", value: true }, { label: "Yanlış", value: false }];
+          q.kind === "choice" ? q.options.map((o, j) => ({ label: o, value: j })) : [{ label: t("Doğru"), value: true }, { label: t("Yanlış"), value: false }];
         return (
           <fieldset key={i} className={`quiz-q card${r ? (r.correct ? " is-correct" : " is-wrong") : ""}`}>
             <legend className="quiz-legend"><span className="quiz-no">{String(i + 1).padStart(2, "0")}</span> {q.text}</legend>
@@ -120,9 +127,17 @@ export function QuizForm({ slug, questions, passPercent, note }: { slug: string;
                 </label>
               ))}
             </div>
+            {!result && answers[i] !== null && (
+              <div className="row quiz-sure" role="radiogroup" aria-label={t("Cevabından ne kadar eminsin?")}>
+                <span className="tiny faint">{t("Ne kadar eminsin?")}</span>
+                <button type="button" className="chip" role="radio" aria-checked={sure[i] === true} onClick={() => setSure((c) => c.map((x, j) => (j === i ? true : x)))}>{t("Eminim")}</button>
+                <button type="button" className="chip" role="radio" aria-checked={sure[i] === false} onClick={() => setSure((c) => c.map((x, j) => (j === i ? false : x)))}>{t("Tahmin ettim")}</button>
+              </div>
+            )}
+            {r && sure[i] === false && r.correct && <p className="tiny faint">{t("Tahminle doğru bildin; bu soru tekrar kartlarına eklendi.")}</p>}
             {r && (
               <div className={`lab-qa-verdict ${r.correct ? "is-ok" : "is-bad"}`}>
-                {r.correct ? <><Check size={15} aria-hidden /> Doğru cevap</> : <><CircleX size={15} aria-hidden /> Tekrar dene</>}
+                {r.correct ? <><Check size={15} aria-hidden />{" "}{t("Doğru cevap")}</> : <><CircleX size={15} aria-hidden />{" "}{t("Tekrar dene")}</>}
               </div>
             )}
             {r && (
@@ -135,13 +150,13 @@ export function QuizForm({ slug, questions, passPercent, note }: { slug: string;
       })}
       <div className="row">
         {result ? (
-          <button type="button" className="btn" onClick={retry}><RotateCcw size={16} aria-hidden /> Tekrar dene</button>
+          <button type="button" className="btn" onClick={retry}><RotateCcw size={16} aria-hidden />{" "}{t("Tekrar dene")}</button>
         ) : (
           <button type="submit" className="btn btn-primary" disabled={busy}>
-            {busy ? <span className="spinner" aria-hidden /> : <Send size={16} aria-hidden />} Cevapları gönder
+            {busy ? <span className="spinner" aria-hidden /> : <Send size={16} aria-hidden />}{" "}{t("Cevapları gönder")}
           </button>
         )}
-        {!result && missing > 0 && <span className="tiny faint">{missing} soru cevapsız</span>}
+        {!result && missing > 0 && <span className="tiny faint">{t("{missing} soru cevapsız", { missing })}</span>}
       </div>
     </form>
   );

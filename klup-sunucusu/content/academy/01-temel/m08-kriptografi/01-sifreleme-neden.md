@@ -7,11 +7,14 @@ hedefler:
   - Kriptografi ve kriptoanalizi ayırt etmek
   - Simetrik ve asimetrik şifrelemeyi karşılaştırmak
 gorseller:
-  - id: m08-01-a
+  - id: m08-01-b
     tur: ai
-    karakter: kadir
-    alt: "Kasa Kıran Kadir tek anahtarlı sandığa stetoskop dayamış; yanında herkese açık asma kilitler"
-    prompt: "Split scene: on the left a sturdy wooden chest locked with one brass key, the villain pressing his stethoscope against it; on the right a tray of open glowing padlocks offered freely, with a single ornate private key safely locked in a glass case. The villain eyes the glass case greedily."
+    alt: "İki arkadaş aynı anahtarın iki kopyasıyla aynı sandığı kilitleyip açıyor; anahtarı taşıyan kurye yolda gözetleniyor"
+    prompt: "Two friends at opposite ends of a long table each hold an identical copy of the same brass key, locking and unlocking the same small chest that slides between them, while in the middle a courier carrying a spare key copy is being watched by shadowy eyes from a dark doorway."
+  - id: m08-01-c
+    tur: ai
+    alt: "Herkese dağıtılan açık asma kilitler ve yalnızca sahibinin boynunda duran tek bir anahtar"
+    prompt: "A person stands beside a basket full of open padlocks, handing them out freely to a line of people, each of whom snaps one shut on their own box and sends it back; only the person wears the single key that opens them all on a chain around their neck."
 ---
 
 # Bir sırrı herkesin önünde nasıl saklarsın?
@@ -19,15 +22,15 @@ gorseller:
 > İnternetteki her mesaj, onlarca bilgisayarın üzerinden geçer.
 > **Şifreleme**, mesajı görenlerin onu okuyamamasını sağlar.
 
-![Kasa Kıran Kadir tek anahtarlı sandığa stetoskop dayamış; yanında herkese açık asma kilitler](../../gorseller/m08-01-a.webp)
+::cizgi[m08-01-sahne]
 
 > 🕴️ **DOSYA: Kasa Kıran Kadir** · *Kasa Hırsızı*
 >
 > ![Kasa Kıran Kadir — Kasa Hırsızı](../../gorseller/karakter-kadir.webp)
 >
-> 📼 **Bölüm 8 — Kasa.** Kasa Kıran Kadir otuz yıl çelik kasa açtı; şimdi parola açıyor. Elinde milyonlarca sızmış parola ve sonsuz sabır var. Ama tuzlu bir özetin karşısında en usta eller bile titrer.
->
 > **Tehdit:** Parola kırma, zayıf hash'ler, tuzsuz parolalar, sızmış parola listeleri. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[kadir-acilis]
 
 ## İki taraf
 
@@ -37,6 +40,8 @@ gorseller:
 Kural: **Kendi şifreleme algoritmanı icat etme.** Yıllarca analiz edilmiş standartları kullan (AES, RSA, ECC).
 
 ## Simetrik şifreleme: tek anahtar
+
+![İki arkadaş aynı anahtarın iki kopyasıyla aynı sandığı kilitleyip açıyor; anahtarı taşıyan kurye yolda gözetleniyor](../../gorseller/m08-01-b.webp)
 
 Kilitleyen ve açan **aynı** anahtar.
 
@@ -50,6 +55,8 @@ Kilitleyen ve açan **aynı** anahtar.
 - Örnek: **AES**
 
 ## Asimetrik şifreleme: anahtar çifti
+
+![Herkese dağıtılan açık asma kilitler ve yalnızca sahibinin boynunda duran tek bir anahtar](../../gorseller/m08-01-c.webp)
 
 - **Açık anahtar** (public) — herkese verilir; mesajı **kilitler**.
 - **Özel anahtar** (private) — yalnızca sende; kilidi **açar**.

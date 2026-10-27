@@ -8,11 +8,14 @@ hedefler:
   - CORS ve CSP'nin hangi soruya cevap verdiğini ayırt etmek
 animasyonlar: [xss]
 gorseller:
-  - id: a-06-a
+  - id: a-06-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine kalabalık bir salondaki ilan panosuna masum görünen bir not iğneliyor; notu okuyanların bileğine yeşil kukla ipi bağlanıyor"
-    prompt: "A busy university hall with a large public corkboard. The villain pins an innocent-looking glowing note onto the board with a smile. Passing students who glance at the note get a thin glowing green puppet string attached to their wrists, the strings trailing back to the villain's pen."
+    alt: "Uyuyan bir kullanıcının elini kukla ipleriyle tutup banka formunu imzalatan gölge"
+    prompt: "A person dozing at a desk with a browser window open, while a shadowy hand from a different window holds puppet strings tied to the sleeping person's wrist, guiding their pen to sign a bank transfer form in front of a trusting bank clerk."
+  - id: a-06-c
+    tur: ai
+    alt: "İki ayrı kapı görevlisi: biri hangi komşunun mektup alabileceğine, diğeri sayfaya hangi sanatçının çizim yapabileceğine bakıyor"
+    prompt: "Two separate guards at a theater: one stands at the side door checking which neighboring buildings are allowed to receive copies of the program, the other stands at the stage checking a short approved list before letting any performer onto the stage."
 ---
 
 # Tarayıcı tarafı: XSS, CSRF, CORS ve CSP
@@ -20,7 +23,7 @@ gorseller:
 > Bazen saldırı sunucuda değil, **kurbanın tarayıcısında** çalışır — onun oturumuyla, onun adına.
 > 🗂️ **Çekmece 6:** Portalın duyuru panosuna biri tuhaf bir not bırakmış.
 
-![Tek Tırnak Jasmine kalabalık bir salondaki ilan panosuna masum görünen bir not iğneliyor; notu okuyanların bileğine yeşil kukla ipi bağlanıyor](../../gorseller/a-06-a.webp)
+::cizgi[a-06-sahne]
 
 ## XSS: sayfaya sızan script
 
@@ -36,10 +39,14 @@ Kullanıcı girdisi sayfaya **kaçışlanmadan** basılırsa tarayıcı onu kod 
 
 ## CSRF: senin adına istek
 
+![Uyuyan bir kullanıcının elini kukla ipleriyle tutup banka formunu imzalatan gölge](../../gorseller/a-06-b.webp)
+
 Başka bir site, tarayıcının **otomatik eklediği çerezlerle** senin adına istek tetikler
 ("şifreni değiştir", "parayı gönder"). Savunma: `SameSite` çerezler ve istek başına **CSRF token**.
 
 ## CORS ve CSP: iki ayrı soru
+
+![İki ayrı kapı görevlisi: biri hangi komşunun mektup alabileceğine, diğeri sayfaya hangi sanatçının çizim yapabileceğine bakıyor](../../gorseller/a-06-c.webp)
 
 | | Sorduğu soru | Tipik hata |
 |---|---|---|

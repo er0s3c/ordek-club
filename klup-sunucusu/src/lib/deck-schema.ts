@@ -3,6 +3,11 @@
 import { z } from "zod";
 import { ANIMATION_IDS, getAnimation } from "@/animations/registry";
 import { animationStepCount } from "@/animations/types";
+import { LOTTIE_IDS } from "@/animations/lottie";
+import { SCENE_IDS } from "@/animations/scenes";
+
+// Sıra diyagramındaki mesaj sayısı (adım adım açılım için): "A->>B", "A-->>B", "A->B" ve "A-xB" satırları.
+export const diagramMessages = (source: string) => source.split("\n").filter((l) => /^\s*[\w"' -]+?\s*(-{1,2}>>|-{1,2}>|-{1,2}[x)])\s*[\w"' -]+\s*:/.test(l)).length;
 
 export const DECK_SCHEMA_VERSION = 1;
 
@@ -27,6 +32,8 @@ export const blockSchema = z.discriminatedUnion("type", [
     code: text(4000),
     // adım başına vurgulanacak satırlar (1 tabanlı); boşsa vurgu yok
     highlightSteps: z.array(z.array(z.number().int().min(1).max(200)).max(50)).max(20).default([]),
+    // Kodun sonraki hâlleri: adım k'da morphs[k-1] gösterilir; geçiş magic-move ile canlandırılır.
+    morphs: z.array(text(4000)).max(10).default([]),
   }),
   z.object({
     type: z.literal("terminal"),
@@ -36,7 +43,17 @@ export const blockSchema = z.discriminatedUnion("type", [
       .max(20),
     // true → her adımda bir satır çalışır
     reveal: z.boolean().default(true),
+    // true → komutlar harf harf yazılan gerçekçi terminal kaydı (asciinema-player); adım adım açılımla birlikte kullanılmaz
+    cast: z.boolean().default(false),
   }),
+  // Mermaid diyagramı (sıra/akış/durum). reveal → sıra diyagramında mesajlar adım adım görünür.
+  z.object({ type: z.literal("diagram"), source: text(4000).pipe(z.string().min(3, "Diyagram metni gerekli.")), reveal: z.boolean().default(false) }),
+  // Excalidraw çizimi: sahne JSON'u (yalnız çizim öğeleri; görsel dosya eklenmez).
+  z.object({ type: z.literal("sketch"), scene: z.string().max(150_000, "Çizim çok büyük."), alt: text(200).pipe(z.string().min(1, "Çizim için kısa bir açıklama yaz.")) }),
+  // Özgün Lottie animasyonu (kayıt defterinden kimlikle).
+  z.object({ type: z.literal("lottie"), animation: z.enum(LOTTIE_IDS), caption: text(200).default("") }),
+  // Motion Canvas anlatım sahnesi (kayıt defterinden kimlikle).
+  z.object({ type: z.literal("scene"), scene: z.enum(SCENE_IDS) }),
   z.object({
     type: z.literal("callout"),
     tone: z.enum(["info", "warn", "success", "danger"]).default("info"),
@@ -87,6 +104,8 @@ export const slideSchema = z.object({
   layout: z.enum(["default", "title", "section"]).default("default"),
   blocks: z.array(blockSchema).max(12, "Bir slaytta en fazla 12 blok olabilir.").default([]),
   notes: text(5000).default(""),
+  // Theatre.js giriş koreografisi (proje durumu JSON'u; yalnız sayısal anahtar kareler). Boşsa varsayılan geçişler.
+  motion: z.string().max(60_000, "Hareket zaman çizelgesi çok büyük.").default(""),
 });
 export type SlideInput = z.output<typeof slideSchema>;
 
@@ -104,9 +123,11 @@ export function blockSteps(b: Block): number {
     case "bullets":
       return b.reveal ? b.items.length : 1;
     case "terminal":
-      return b.reveal ? b.lines.length : 1;
+      return b.reveal && !b.cast ? b.lines.length : 1;
+    case "diagram":
+      return b.reveal ? diagramMessages(b.source) + 1 : 1;
     case "code":
-      return Math.max(1, b.highlightSteps.length + 1);
+      return Math.max(1, Math.max(b.highlightSteps.length, b.morphs.length) + 1);
     case "animation": {
       const a = getAnimation(b.animation);
       return a ? animationStepCount(a) : 1;
@@ -121,5 +142,18 @@ export function slideSteps(blocks: Block[]): number {
 }
 
 // İstemciye giden slayt biçimi (DB satırından). notes yalnızca sunucu yetkili kişiye eklendiğinde dolu.
-export type ClientSlide = { id: string; position: number; title: string; layout: SlideInput["layout"]; blocks: Block[]; steps: number; notes?: string };
+export type ClientSlide = { id: string; position: number; title: string; layout: SlideInput["layout"]; blocks: Block[]; steps: number; notes?: string; motion?: string };
+
+// Studio'nun düzenleyebileceği biçim: kısmen geçersiz taslakta eksik alanlar varsayılanla tamamlanır.
+export function studioDeck(raw: unknown): Deck {
+  const r = (raw ?? {}) as Partial<Deck>;
+  return {
+    schema: DECK_SCHEMA_VERSION,
+    title: typeof r.title === "string" ? r.title : "",
+    description: typeof r.description === "string" ? r.description : "",
+    slides: Array.isArray(r.slides) && r.slides.length
+      ? r.slides.map((sl) => ({ title: sl?.title ?? "", layout: sl?.layout ?? "default", blocks: Array.isArray(sl?.blocks) ? sl.blocks : [], notes: sl?.notes ?? "", motion: typeof sl?.motion === "string" ? sl.motion : "" }))
+      : [{ title: "Yeni slayt", layout: "default", blocks: [], notes: "", motion: "" }],
+  };
+}
 export type ClientDeck = { title: string; description: string; slides: ClientSlide[] };

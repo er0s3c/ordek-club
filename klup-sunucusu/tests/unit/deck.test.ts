@@ -87,7 +87,8 @@ describe("sunum şeması", () => {
     const anim = getAnimation("tcp-handshake")!;
     expect(blockSteps({ type: "bullets", items: ["a", "b", "c"], reveal: true })).toBe(3);
     expect(blockSteps({ type: "bullets", items: ["a", "b", "c"], reveal: false })).toBe(1);
-    expect(blockSteps({ type: "code", language: "", code: "x", highlightSteps: [[1], [2]] })).toBe(3);
+    expect(blockSteps({ type: "code", language: "", code: "x", highlightSteps: [[1], [2]], morphs: [] })).toBe(3);
+    expect(blockSteps({ type: "code", language: "python", code: "x", highlightSteps: [], morphs: ["y", "z", "w"] })).toBe(4);
     expect(blockSteps({ type: "animation", animation: "tcp-handshake" })).toBe(animationStepCount(anim));
     expect(slideSteps([])).toBe(1);
     expect(slideSteps([{ type: "bullets", items: ["a", "b"], reveal: true }, { type: "animation", animation: "tcp-handshake" }])).toBe(animationStepCount(anim));

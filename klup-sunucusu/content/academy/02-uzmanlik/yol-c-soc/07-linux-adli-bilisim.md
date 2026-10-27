@@ -7,11 +7,10 @@ hedefler:
   - Linux'ta oturum ve yetki loglarını incelemek
   - Yaygın kalıcılık noktalarını kontrol etmek
 gorseller:
-  - id: c-07-a
+  - id: c-07-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer bodrum sunucu koridorunda yere serilmiş kâğıt şerit defteri paspaslıyor; yüksek raftaki gizli ikinci defter adımlarını yeniden yazmaya devam ediyor"
-    prompt: "A long dim basement server hallway where a paper-tape logbook unrolls along the floor like a carpet, covered in tiny glowing abstract symbols. The villain mops the tape clean behind him step by step, looking satisfied, but on a high shelf above, a second hidden brass journal machine with a little spinning reel keeps printing fresh glowing marks of his every footstep."
+    alt: "Bir evin dört gizli köşesi: kapıya asılmış yedek anahtar, takvime eklenmiş tekrar eden randevu, açılışta çalan müzik kutusu ve misafir defterine eklenmiş yabancı isim"
+    prompt: "A cozy house interior inspected by a detective with a flashlight, revealing four hidden spots: a spare key taped under the doormat, a wall calendar with the same small mark on every day, a music box that plays whenever the front door opens, and a guest book with an extra stranger's signature glowing green."
 ---
 
 # Linux adli bilişim: auth.log, journald, auditd ve kalıcılık
@@ -19,7 +18,7 @@ gorseller:
 > Linux sunucular sessizdir ama unutkan değildir. Doğru dosyayı açan, kimin **ne zaman** girdiğini görür.
 > 🧹 **İz 7:** Kulüp sunucusunda `deploy` hesabı bir gün parolayla girdi. Oysa o hesap hep anahtar kullanır.
 
-![Temizlikçi Tamer bodrum sunucu koridorunda yere serilmiş kâğıt şerit defteri paspaslıyor; yüksek raftaki gizli ikinci defter adımlarını yeniden yazmaya devam ediyor](../../gorseller/c-07-a.webp)
+::cizgi[c-07-sahne]
 
 ## Nereye bakılır?
 
@@ -41,6 +40,8 @@ Canlı bir sunucuda inceleme yaparken önce logların **kopyasını** al ve hash
 Komutlarını ve saatini not et: senin yaptığın her şey de bir iz bırakır.
 
 ## Kalıcılık (persistence) noktaları
+
+![Bir evin dört gizli köşesi: kapıya asılmış yedek anahtar, takvime eklenmiş tekrar eden randevu, açılışta çalan müzik kutusu ve misafir defterine eklenmiş yabancı isim](../../gorseller/c-07-b.webp)
 
 Saldırgan geri dönmek ister. Kontrol listesi:
 

@@ -8,11 +8,14 @@ hedefler:
   - Paket yöneticisiyle güvenli kurulum yapmak
   - Tehlikeli komut kalıplarını tanımak
 gorseller:
-  - id: m04-05-a
+  - id: m04-05-b
     tur: ai
-    karakter: sadri
-    alt: "Paket deposunda Süper Kullanıcı Sadri mühürü kırık şüpheli bir kutuyu güler yüzle uzatıyor"
-    prompt: "An orderly delivery depot with shelves of identical boxes sealed with green wax seals. The villain holds out one box with a broken seal and a suspicious green glow leaking out, offering it with an exaggerated friendly smile."
+    alt: "Resmî mühürlü kolilerin geldiği güvenli bir depo ile sokakta mühürsüz kutu satan şüpheli bir seyyar satıcı"
+    prompt: "Split scene: on the left a clean official warehouse counter where sealed boxes with intact wax seals arrive on a conveyor belt and a clerk checks each seal with a magnifier; on the right a dark alley where a shady street vendor offers unsealed boxes with wires sticking out from a cart."
+  - id: m04-05-c
+    tur: ai
+    alt: "Öğrenci internetten gelen kapalı bir zarfı açmadan doğrudan makinenin ağzına atmak üzereyken bir el onu durduruyor"
+    prompt: "A student about to drop an unopened mysterious envelope straight into the mouth of a large humming machine, while another hand gently catches their wrist and offers a magnifying glass to read the envelope first."
 ---
 
 # Süreçler, paketler ve terminalde güvenli kalmak
@@ -20,7 +23,7 @@ gorseller:
 > Linux'ta neyin çalıştığını görmek, neyi kurduğunu bilmek ve
 > internetten kopyaladığın komutlara güvenmemek — üç temel alışkanlık.
 
-![Paket deposunda Süper Kullanıcı Sadri mühürü kırık şüpheli bir kutuyu güler yüzle uzatıyor](../../gorseller/m04-05-a.webp)
+::cizgi[m04-05-sahne]
 
 ## Süreçler ve servisler
 
@@ -33,6 +36,8 @@ kill 1234                # PID'i 1234 olan süreci sonlandır
 ```
 
 ## Paket yöneticisi: güvenli kurulum
+
+![Resmî mühürlü kolilerin geldiği güvenli bir depo ile sokakta mühürsüz kutu satan şüpheli bir seyyar satıcı](../../gorseller/m04-05-b.webp)
 
 Linux'ta programlar **resmî depolardan**, imzalı paketlerle kurulur:
 
@@ -59,6 +64,8 @@ chmod u+x yedek.sh && ./yedek.sh
 ```
 
 ## 🚩 Tehlikeli kalıplar
+
+![Öğrenci internetten gelen kapalı bir zarfı açmadan doğrudan makinenin ağzına atmak üzereyken bir el onu durduruyor](../../gorseller/m04-05-c.webp)
 
 | Kalıp | Neden tehlikeli? |
 |---|---|

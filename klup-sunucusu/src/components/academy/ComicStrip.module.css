@@ -1,0 +1,202 @@
+/* Gölge Ağ çizgi roman şeridi: kâğıt sayfa, kalın mürekkep çerçeveli paneller, raster nokta dokusu,
+   sarı anlatıcı kutusu, el yazısı balonlar ve büyük ses efektleri. Metinler gerçek metindir.
+   Anlatıcı kutusu görselin üstünde ayrı bir banttır; balonlar ve ses efekti görselin üzerinde köşelere dağıtılır.
+   Bütün metin ölçüleri panel genişliğine bağlıdır (cqi): panel daraldıkça punto da küçülür, metin görselden taşmaz. */
+.strip {
+  --ink: #0d0d10;
+  --paper: #f6efdc;
+  --caption: #ffd84a;
+  --bubble: #fffdf7;
+  --pop: #e8442e;
+  margin: 30px 0;
+  font-family: var(--comic-letter), "Comic Sans MS", system-ui, sans-serif;
+}
+
+/* Başlık: eğik sarı afiş */
+.head { display: flex; margin-bottom: -6px; position: relative; z-index: 2; }
+.title {
+  display: inline-block;
+  padding: 6px 16px 4px;
+  font-family: var(--comic-display), Impact, system-ui, sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  color: var(--ink);
+  background: var(--caption);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(-1.5deg);
+  text-transform: uppercase;
+}
+
+/* Sayfa: krem kâğıt + raster noktalar */
+.grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  padding: 18px 12px 12px;
+  background:
+    radial-gradient(circle, rgba(13, 13, 16, 0.12) 1px, transparent 1.4px) 0 0 / 7px 7px,
+    var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 6px 6px 0 rgba(13, 13, 16, 0.85);
+}
+.grid[data-count="1"] { grid-template-columns: 1fr; }
+.grid[data-count="3"] > .panel:first-child { grid-column: 1 / -1; }
+
+/* Panel: anlatıcı bandı + görsel, tek sütun. container-type: cqi ölçüleri panel genişliğinden gelir. */
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 3px solid var(--ink);
+  background: #1b1d22;
+  overflow: hidden;
+  container-type: inline-size;
+}
+.panel:nth-child(odd) { transform: rotate(-0.4deg); }
+.panel:nth-child(even) { transform: rotate(0.5deg); }
+
+.art { position: relative; flex: none; aspect-ratio: 4 / 3; }
+.grid[data-count="3"] > .panel:first-child .art { aspect-ratio: 16 / 7; }
+.beat .art { aspect-ratio: 16 / 9; }
+.art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Raster doku panelin üstünde: düz dijital görseli basılı çizgi romana yaklaştırır */
+.art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.18) 0.8px, transparent 1.1px) 0 0 / 5px 5px;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+/* Görseli henüz olmayan panel: boş kutu değil, karanlık noir sahne */
+.shade { width: 100%; height: 100%; min-height: 160px; background:
+  radial-gradient(ellipse at 70% 30%, rgba(201, 149, 59, 0.28), transparent 55%),
+  radial-gradient(ellipse at 20% 80%, rgba(64, 160, 140, 0.22), transparent 60%),
+  repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 9px),
+  linear-gradient(160deg, #2a2f38, #12141a); }
+
+/* Ses efekti */
+.sfx {
+  position: absolute;
+  z-index: 1;
+  max-width: 42%;
+  font-family: var(--comic-display), Impact, system-ui, sans-serif;
+  /* panel genişliğine göre: dar panelde anlatıcı bandına ve balonlara taşmaz */
+  font-size: clamp(14px, 8cqi, 56px);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--caption);
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--pop), 5px 5px 0 var(--ink);
+  transform: rotate(-9deg);
+  pointer-events: none;
+}
+.sfx_sol_ust { top: 8%; left: 5%; }
+.sfx_sag_ust { top: 8%; right: 5%; transform: rotate(8deg); text-align: right; }
+.sfx_sol_alt { bottom: 8%; left: 5%; }
+.sfx_sag_alt { bottom: 8%; right: 5%; transform: rotate(7deg); text-align: right; }
+
+/* Anlatıcı kutusu: görselin üstünde kendi bandı (görselle çakışmaz) */
+.caption {
+  flex: none;
+  margin: 0;
+  padding: 6px 10px 7px;
+  background: var(--caption);
+  color: var(--ink);
+  border-bottom: 3px solid var(--ink);
+  font-size: clamp(12px, 2.9cqi, 15px);
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+/* Balonlar: görselin üzerinde, her biri kendi köşesinde */
+.text { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.bubble {
+  position: absolute;
+  /* iki balon yan yana gelirken kenar boşluklarıyla birlikte panel genişliğini aşmasın */
+  max-width: calc(50% - 14px);
+  margin: 0;
+  padding: clamp(4px, 1.5cqi, 7px) clamp(7px, 1.8cqi, 12px);
+  background: var(--bubble);
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  border-radius: 22px;
+  font-size: clamp(11px, 4cqi, 16px);
+  line-height: 1.2;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.who {
+  display: block;
+  font-family: var(--comic-display), Impact, system-ui, sans-serif;
+  font-size: clamp(9px, 3cqi, 13px);
+  letter-spacing: 0.08em;
+  color: var(--pop);
+  margin-bottom: 1px;
+}
+.bubble::after { content: ""; position: absolute; width: 14px; height: 14px; background: inherit; border: inherit; border-top: 0; border-left: 0; }
+
+.sol_ust { top: clamp(8px, 2.5cqi, 12px); left: clamp(8px, 2.5cqi, 12px); }
+.sag_ust { top: clamp(8px, 2.5cqi, 12px); right: clamp(8px, 2.5cqi, 12px); }
+.sol_alt { bottom: clamp(8px, 2.5cqi, 12px); left: clamp(8px, 2.5cqi, 12px); }
+.sag_alt { bottom: clamp(8px, 2.5cqi, 12px); right: clamp(8px, 2.5cqi, 12px); }
+/* Kuyruk konuşana bakar: üst balonda aşağı, alt balonda yukarı */
+.sol_ust::after, .sag_ust::after { bottom: -9px; transform: rotate(45deg); }
+.sol_ust::after { left: 22px; }
+.sag_ust::after { right: 22px; }
+.sol_alt::after, .sag_alt::after { top: -9px; transform: rotate(-135deg); }
+.sol_alt::after { left: 22px; }
+.sag_alt::after { right: 22px; }
+
+.dusunce { border-radius: 32px; font-style: italic; }
+.dusunce::after { width: 10px; height: 10px; border-radius: 50%; border: inherit; }
+.fisilti { border-style: dashed; font-style: italic; background: #f3efe4; }
+
+/* Devam edecek… */
+.next {
+  width: fit-content;
+  max-width: 100%;
+  margin: 10px 0 0 auto;
+  padding: 6px 14px 5px;
+  background: var(--ink);
+  color: var(--caption);
+  font-family: var(--comic-display), Impact, system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+  box-shadow: 4px 4px 0 var(--pop);
+}
+
+/* Tek panelli sahne: derste kısa bir ara, sayfayı boğmasın */
+.beat .title { font-size: 18px; }
+.beat .grid { padding: 14px 10px 10px; }
+
+/* Panel, kaydırınca sayfaya "basılır"; balonlar hemen ardından gelir. Destek yoksa ya da hareket azaltılmışsa durağan. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .panel { view-timeline: --panel block; animation: ink-in linear both; animation-timeline: view(); animation-range: entry 5% cover 28%; }
+    /* Metinler panelin zaman çizelgesine bağlı: panel ekrana girerken tamamlanır, ekranın altında yarı saydam kalmaz */
+    .bubble, .caption, .sfx { animation: pop-in linear both; animation-timeline: --panel; animation-range: entry 30% entry 85%; }
+  }
+}
+@keyframes ink-in { from { opacity: 0.15; transform: translateY(18px) scale(0.97); } }
+@keyframes pop-in { from { opacity: 0; scale: 0.6; } }
+
+/* Dar ekranda paneller tek sütuna iner; balonlar görselin üzerinde kalır, punto panel genişliğiyle büyür */
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; padding: 14px 8px 8px; }
+  .grid[data-count="3"] > .panel:first-child .art { aspect-ratio: 4 / 3; }
+  .title { font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel:nth-child(odd), .panel:nth-child(even), .title, .next { transform: none; }
+}

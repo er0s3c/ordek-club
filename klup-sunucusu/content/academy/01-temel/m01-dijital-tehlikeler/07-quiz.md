@@ -23,6 +23,15 @@ sorular:
       - Çalıştıkları saatler
     dogru: 2
     aciklama: Araçlar aynı olabilir; farkı yazılı izin ve niyet belirler.
+  - soru: İzin almadan bir sitede açık bulup zarar vermeden sahibine bildiren biri hangi gruba girer?
+    tur: coktan
+    secenekler:
+      - White hat — iyi niyetli olduğu için
+      - Gray hat — niyeti iyi ama izni yok
+      - Black hat — zarar verdiği için
+      - Purple Team — bulguyu paylaştığı için
+    dogru: 1
+    aciklama: Gray hat iyi niyetli olabilir ama izinsiz çalışır; bu yüzden yaptığı iş yine de yasa dışıdır. White hat'i ayıran yazılı izindir.
   - soru: Purple Team'in görevi nedir?
     tur: coktan
     secenekler:
@@ -58,12 +67,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: Benzer görünmesi aynı olduğu anlamına gelmez; alan adını harf harf karşılaştır.
-gorseller:
-  - id: m01-07-a
-    tur: ai
-    karakter: tevfik
-    alt: "Karakolda somurtan Tatlı Dil Tevfik; iki telefonu delil poşetinde, dosyaya kırmızı damga basılıyor"
-    prompt: "A dim office hallway at night: the villain sits sulking on a wooden bench, his two phones sealed inside a transparent evidence bag on the counter beside him, his gold-tooth grin finally gone. In the foreground a hand presses a big red rubber stamp onto a closed case folder."
 ---
 
 # M01 Quiz: Dijital tehlikeler
@@ -72,8 +75,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Tatlı Dil Tevfik** · *quiz'i %70 ile geçince*
 >
-> ![Karakolda somurtan Tatlı Dil Tevfik; iki telefonu delil poşetinde, dosyaya kırmızı damga basılıyor](../../gorseller/m01-07-a.webp)
->
-> Tevfik'in tuzağı boşa çıktı, sahte site kapandı. Ama telefonundaki son arama bir avukat bürosuna gidiyor: "Kemal Bey, bir çocuk izimize düştü."
+> ::cizgi[tevfik-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Avukat "Boşluk" Kemal** (M02)*

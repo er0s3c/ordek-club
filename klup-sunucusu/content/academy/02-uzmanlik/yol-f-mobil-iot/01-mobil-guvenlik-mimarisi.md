@@ -7,11 +7,10 @@ hedefler:
   - Android ve iOS'ta uygulama yalıtımının (sandbox) nasıl çalıştığını açıklamak
   - Bir uygulamanın istediği izinlerin işleviyle uyumlu olup olmadığını değerlendirmek
 gorseller:
-  - id: f-01-a
+  - id: f-01-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman, odaları ayrı ayrı parlayan dev bir telefon-apartmanının merdiveninde; bir odanın kapısını aralık tutan izin fişine havyasıyla dokunuyor"
-    prompt: "A giant smartphone drawn as a tall apartment building at night, each floor a separate glowing room with its own sealed door, one small app living in each room. The villain stands on a rolling ladder outside one room whose door is propped open by an oversized permission slip marked with an abstract stamp symbol, and she peeks inside with her magnifier goggles down, her tiny drone hovering nearby holding a flashlight."
+    alt: "Telefon bir apartman gibi: her uygulama kendi kilitli dairesinde, ortak kapılardan yalnızca izinle geçiliyor"
+    prompt: "A smartphone drawn as an apartment building cutaway: each app lives in its own locked flat with its own belongings, a building manager in the lobby hands out keys to shared rooms like the camera and the mailbox only when asked."
 ---
 
 # Mobil güvenlik mimarisi: sandbox, izinler ve güvenli depolama
@@ -19,9 +18,11 @@ gorseller:
 > Telefonundaki her uygulama kendi odasında yaşar. Kapıyı açan tek kişi sensin: **"İzin ver"** dediğinde.
 > 🔧 **Devre 1:** Kampüsün akıllı kilit uygulaması kamera, rehber ve SMS izni istiyor. Bir kapı kilidi neden rehberini okusun?
 
-![Lehimci Leman, odaları ayrı ayrı parlayan dev bir telefon-apartmanının merdiveninde; bir odanın kapısını aralık tutan izin fişine havyasıyla dokunuyor](../../gorseller/f-01-a.webp)
+::cizgi[f-01-sahne]
 
 ## Yalıtım: her uygulama ayrı oda
+
+![Telefon bir apartman gibi: her uygulama kendi kilitli dairesinde, ortak kapılardan yalnızca izinle geçiliyor](../../gorseller/f-01-b.webp)
 
 - **Android:** her uygulama kendi Linux kullanıcı kimliğiyle (UID) çalışır; dosyaları `/data/data/<paket>/` altında, başkası okuyamaz. SELinux ek bir duvar örer.
 - **iOS:** her uygulama kendi kapsayıcısında (container) çalışır; yalnızca Apple'ın imzaladığı kod yüklenir.

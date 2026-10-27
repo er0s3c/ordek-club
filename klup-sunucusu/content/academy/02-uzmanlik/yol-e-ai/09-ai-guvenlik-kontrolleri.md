@@ -8,11 +8,14 @@ hedefler:
   - Araç çağrılarını izin listesi ve yetkiyle doğrulamak
 animasyonlar: [xss]
 gorseller:
-  - id: e-09-a
+  - id: e-09-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel, robot kuklanın ağzından çıkan konuşma balonlarını tek tek denetleyen pirinç turnikeden kılık değiştirmiş bir balonu geçirmeye çalışırken yakalanıyor"
-    prompt: "A theater stage exit guarded by a stern brass turnstile with a glowing inspection lamp above it. Glowing speech bubbles float out of a translucent robot puppet's mouth and must pass through the turnstile one by one; the lamp turns some of them amber and stops them. The villain tries to squeeze a speech bubble wearing a tiny fake mustache through the turnstile, looking comically annoyed as the amber light catches it."
+    alt: "Robotun uzattığı emir kartı, gerçek kapıya gitmeden önce bir kontrol masasında izin listesiyle karşılaştırılıyor"
+    prompt: "A robot hands an order card toward a big machine, but a checkpoint clerk in between compares the card with a short allowed list and a stamp, stopping one card that asks for too much."
+  - id: e-09-c
+    tur: ai
+    alt: "Dağ yolunda korkuluklar arasında giden robot araba; korkuluk onu uçurumdan uzak tutuyor"
+    prompt: "A small robot car drives along a winding mountain road with sturdy guardrails on both sides, gently bumping one guardrail at a sharp curve instead of falling into the canyon."
 ---
 
 # AI güvenlik kontrolleri: araç izni ve çıktı doğrulama
@@ -20,7 +23,7 @@ gorseller:
 > Enjeksiyonu %100 engelleyemezsin. Ama modelin **ağzından çıkanı** ve **elinin uzandığını** denetleyebilirsin.
 > 🎭 **Ses 9:** Veysel robotu konuşturabilir. Sözlerin sahneden çıkıp çıkmayacağına artık Kalkan karar veriyor.
 
-![Vantrolog Veysel, robot kuklanın ağzından çıkan konuşma balonlarını tek tek denetleyen pirinç turnikeden kılık değiştirmiş bir balonu geçirmeye çalışırken yakalanıyor](../../gorseller/e-09-a.webp)
+::cizgi[e-09-sahne]
 
 ## Güvensiz çıktı işleme (LLM05)
 
@@ -32,6 +35,8 @@ konursa enjeksiyon, `eval()` ile çalıştırılırsa uzaktan kod çalıştırma
 Çözüm Yol A'dan tanıdık: bağlama göre kaçış (*escape*), parametreli sorgu, asla `eval`.
 
 ## Araç çağrısını doğrula
+
+![Robotun uzattığı emir kartı, gerçek kapıya gitmeden önce bir kontrol masasında izin listesiyle karşılaştırılıyor](../../gorseller/e-09-b.webp)
 
 Modelin araç isteği bir **öneridir**; kararı uygulama verir:
 
@@ -49,6 +54,8 @@ def dogrula(arac, arg, kullanici):
 ```
 
 ## Korkuluklar (*guardrails*)
+
+![Dağ yolunda korkuluklar arasında giden robot araba; korkuluk onu uçurumdan uzak tutuyor](../../gorseller/e-09-c.webp)
 
 | Katman | Ne yapar? | Sınırı |
 |---|---|---|

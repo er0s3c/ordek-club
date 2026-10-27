@@ -8,20 +8,25 @@ hedefler:
   - Liste ve sözlüklerle veri tutmak
   - Tekrar eden işi fonksiyona çevirmek
 gorseller:
-  - id: m07-02-a
+  - id: m07-02-b
     tur: ai
-    karakter: orhan
-    alt: "Kuklacı Orhan tren makasının koluna bağlı iplerle parlayan vagonları yanlış raya yönlendiriyor"
-    prompt: "A miniature railway junction at dusk with a lever switch: small glowing cargo wagons roll along a loop track and at the junction are routed onto either a green or a red track. The villain pulls glowing strings tied to the lever, diverting the wagons onto the red track."
+    alt: "Tren makası: vagon yeşil ışıkta bir raya, kırmızı ışıkta öbür raya yönleniyor"
+    prompt: "A railway junction at night: a small glowing wagon arrives at a switch where a signal lamp decides its path, green light sends it to the left track toward a bright station, red light sends it to the right track toward a quiet depot."
+  - id: m07-02-c
+    tur: ai
+    alt: "Dairesel bir rayda dönen oyuncak tren, her turda bir kutu yüklüyor"
+    prompt: "A toy train running on a circular track around a table, stopping at the same little platform on every lap to pick up one box from a stack, the stack getting smaller each time while the wagons fill up."
 ---
 
 # Karar ver, tekrar et
 
 > Programların gücü iki şeyden gelir: **karar vermek** (if) ve **sıkılmadan tekrar etmek** (for/while).
 
-![Kuklacı Orhan tren makasının koluna bağlı iplerle parlayan vagonları yanlış raya yönlendiriyor](../../gorseller/m07-02-a.webp)
+::cizgi[m07-02-sahne]
 
 ## Koşullar
+
+![Tren makası: vagon yeşil ışıkta bir raya, kırmızı ışıkta öbür raya yönleniyor](../../gorseller/m07-02-b.webp)
 
 ```python
 deneme = 7
@@ -47,6 +52,8 @@ print(servis.get(3306, "bilinmiyor")) # anahtar yoksa varsayılan
 ```
 
 ## Döngüler
+
+![Dairesel bir rayda dönen oyuncak tren, her turda bir kutu yüklüyor](../../gorseller/m07-02-c.webp)
 
 ```python
 for p in portlar:

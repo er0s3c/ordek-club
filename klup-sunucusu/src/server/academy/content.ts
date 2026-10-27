@@ -1,3 +1,6 @@
+import { coreReadiness } from "@/lib/academy-curriculum";
+import { activitiesSchema, type Activity } from "@/lib/academy-activities";
+import { isTranslationFile, loadTranslation, resolveTranslationFile, type TranslationContent } from "./translation";
 // Akademi içeriğini (content/academy) okuyup içe aktarılabilir yapıya çevirir. DB'ye dokunmaz.
 // Yazarlık kuralları scripts/academy.mjs check ile denetlenir; burada yalnızca platformun
 // güvenle çalışması için gereken yapı doğrulanır ve hatalar toplanır.
@@ -28,6 +31,10 @@ export type ParsedLesson = {
   passPercent: number | null;
   sourcePath: string;
   contentHash: string;
+  activities: Activity[];
+  reviewed: boolean;
+  skills: string[];
+  english: TranslationContent | null;
 };
 
 export type ParsedTrack = {
@@ -38,8 +45,12 @@ export type ParsedTrack = {
   summary: string;
   position: number;
   villain: Villain | null;
+  // Kapak görseli (kapak-<key>.webp) için yazarlık bilgisi; DB'ye yazılmaz, görsel coverUrl ile bulunur.
+  cover: TrackCover | null;
   lessons: ParsedLesson[];
 };
+
+export type TrackCover = { symbol: string; scene: string; alt: string; character: string | null };
 
 const KIND: Record<string, LessonKind> = { bilgi: "INFO", ders: "LESSON", uygulama: "PRACTICE", quiz: "QUIZ" };
 const TRACK_KIND: Record<string, TrackKind> = { program: "PROGRAM", temel: "CORE", uzmanlik: "SPECIALIZATION" };
@@ -54,6 +65,9 @@ const manifestSchema = z.object({
         tur: z.enum(["program", "temel", "uzmanlik"]),
         baslik: z.string().min(1).max(200),
         ozet: z.string().max(500).default(""),
+        kapak: z
+          .object({ sembol: z.string().min(1), sahne: z.string().min(1), alt: z.string().min(1).max(300), karakter: z.string().optional() })
+          .optional(),
       }),
     )
     .min(1),
@@ -73,6 +87,10 @@ const metaSchema = z.object({
   gecme: z.number().int().min(1).max(100).optional(),
   sorular: z.array(questionSchema).optional(),
   gorevler: z.array(missionSchema).max(3).optional(),
+  etkinlikler: activitiesSchema.default([]),
+  beceriler: z.array(z.string().regex(/^[a-z0-9-]{1,40}$/)).max(12).default([]),
+  ingilizce: z.string().optional(),
+  inceleme: z.object({ yazar: z.string().min(2), teknik: z.string().min(2), dil: z.string().min(2), tarih: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), onayli: z.boolean() }).optional(),
 });
 
 // Gövdedeki görev yerleştirme ayracı: ::gorev[id]
@@ -146,7 +164,7 @@ export function loadAcademy(dir: string): { tracks: ParsedTrack[]; problems: str
     if (!path.resolve(folder).startsWith(path.resolve(dir) + path.sep)) return problems.push(`${t.anahtar}: klasör içerik dizininin dışında`);
     if (!fs.existsSync(folder)) return problems.push(`${t.anahtar}: klasör yok (${t.klasor})`);
     trackByDir.set(path.resolve(folder), t.anahtar);
-    for (const name of fs.readdirSync(folder).filter((n) => n.endsWith(".md")).sort()) {
+    for (const name of fs.readdirSync(folder).filter((n) => n.endsWith(".md") && !isTranslationFile(n)).sort()) {
       const file = path.join(folder, name);
       const raw = fs.readFileSync(file, "utf8");
       const id = raw.match(/^---\r?\n[\s\S]*?^id:\s*([a-z0-9-]+)\s*$/m)?.[1];
@@ -164,6 +182,7 @@ export function loadAcademy(dir: string): { tracks: ParsedTrack[]; problems: str
     summary: t.ozet,
     position: i,
     villain: villains.get(t.kod) ?? null,
+    cover: t.kapak ? { symbol: t.kapak.sembol, scene: t.kapak.sahne, alt: t.kapak.alt, character: t.kapak.karakter ?? null } : null,
     lessons: [],
   }));
   const seen = new Map<string, string>();
@@ -208,6 +227,13 @@ export function loadAcademy(dir: string): { tracks: ParsedTrack[]; problems: str
       for (const g of missions ?? []) if (!refs.includes(g.id)) problems.push(`${rel}: ${g.id} görevi gövdede ::gorev[${g.id}] ile yerleştirilmemiş`);
       const track = tracks[r.track]!;
       const finalBody = rewriteLinks(body, path.dirname(r.file), slugByFile, trackByDir, imagesDir, path.resolve(dir)).trim();
+      const englishFile = resolveTranslationFile(dir, r.file, d.ingilizce);
+      let english: TranslationContent | null = null;
+      if (englishFile) {
+        const { rawBody, ...rest } = loadTranslation(englishFile, { slug: d.id, activities: d.etkinlikler, quiz: d.sorular, missions: d.gorevler });
+        english = { ...rest, body: rewriteLinks(rawBody, path.dirname(englishFile), slugByFile, trackByDir, imagesDir, path.resolve(dir)).trim() };
+      }
+      if (d.etkinlikler.length && (missions?.length || d.tur === "quiz" || d.tur === "bilgi")) problems.push(`${rel}: yeni etkinlikler yalnız bağımsız ders/uygulama sayfalarında kullanılabilir`);
       track.lessons.push({
         slug: d.id,
         position: track.lessons.length,
@@ -218,14 +244,20 @@ export function loadAcademy(dir: string): { tracks: ParsedTrack[]; problems: str
         body: finalBody,
         quiz,
         missions,
+        activities: d.etkinlikler,
+        reviewed: !!d.inceleme?.onayli && d.inceleme.yazar !== d.inceleme.teknik,
+        skills: d.beceriler,
+        english,
         passPercent: d.tur === "quiz" ? (d.gecme ?? 70) : null,
         sourcePath: rel,
         // Ham dosya + yeniden yazılmış gövde: başka bir sayfa taşınınca bağlantıları değişen ders de güncellenir.
-        contentHash: crypto.createHash("sha256").update(r.raw).update("\0").update(finalBody).digest("hex"),
+        contentHash: crypto.createHash("sha256").update(r.raw).update("\0").update(finalBody).update(english?.contentHash ?? "").digest("hex"),
       });
     } catch (e) {
       problems.push(`${rel}: ${(e as Error).message.split("\n")[0]}`);
     }
   }
+  const pilot = tracks.find(t => t.code === "SK-101");
+  if (pilot) problems.push(...coreReadiness(pilot.lessons).missing.map(p => `SK-101 yayın kapısı: ${p}`));
   return { tracks, problems };
 }

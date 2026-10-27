@@ -4,20 +4,22 @@ tur: bilgi
 baslik: Kampüs etkinlikleri
 sure: 3
 gorseller:
-  - id: p-08-a
+  - id: p-08-b
     tur: ai
-    karakter: nuri
-    alt: "Kampüs avlusundaki gece etkinliğinde Dinleyici Nuri bir palmiyenin arkasına saklanmış, takımları dinliyor"
-    prompt: "A lively evening event in a university courtyard under string lights: student teams gather around tables with laptops and blank clue cards, a large screen shows a glowing question mark. Hidden behind a palm tree in the foreground, the villain listens in with his parabolic dish, comically failing to stay unnoticed."
+    alt: "Gece kampüs avlusunda dört etkinlik standı: gizem kutusu, dedektif panosu, laboratuvar masası ve kasa biçimli parola standı"
+    prompt: "A festive night courtyard on a Mediterranean campus with string lights and palm trees, four small wooden event booths in a semicircle: one with a closed mystery box and a question-mark shaped lamp, one with a detective pinboard of photos and red threads, one with a lab bench of glowing green terminals, and one shaped like a giant antique safe. Students crowd around each booth with excitement."
 ---
 
 # Kampüs etkinlikleri
 
 > Akademiye kayıtlı olmasan da katılabileceğin etkinlikler. **Sadece web tarayıcısı kullanabilmek yeter.**
 
-![Kampüs avlusundaki gece etkinliğinde Dinleyici Nuri bir palmiyenin arkasına saklanmış, takımları dinliyor](../gorseller/p-08-a.webp)
+::cizgi[p-08-sahne]
 
 ## 🕵️ Kampüs 404 — Dijital Gizem
+
+![Gece kampüs avlusunda dört etkinlik standı: gizem kutusu, dedektif panosu, laboratuvar masası ve kasa biçimli parola standı](../gorseller/p-08-b.webp)
+
 **90–120 dk · takım · her bölüm**
 
 Kurgusal kampüsün arşivinden bir dosya kayboldu. Beş ipucuyla izini sür:

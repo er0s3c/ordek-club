@@ -1,6 +1,17 @@
 "use client";
 
 import type { CodeAnimation } from "@/animations/types";
+import { ShikiCode } from "./ShikiCode";
+
+// Panelde dil belirtilmemişse içerikten tahmin (yalnız renklendirme içindir; yanlış tahmin yalnız rengi etkiler).
+const guessLang = (lines: string[]) => {
+  const t = lines.join("\n");
+  if (/\bSELECT\b|\bWHERE\b/i.test(t)) return "sql";
+  if (/\bdef |^import |print\(/m.test(t)) return "python";
+  if (/<\/?[a-z]+[ >]/i.test(t)) return "html";
+  if (/\bconst |\blet |=>|function /.test(t)) return "javascript";
+  return "text";
+};
 
 export function CodeAnimationView({ def, step }: { def: CodeAnimation; step: number }) {
   const k = Math.min(Math.max(0, step), def.steps.length);
@@ -13,19 +24,13 @@ export function CodeAnimationView({ def, step }: { def: CodeAnimation; step: num
     <figure className="anim" aria-label={def.title}>
       <div className="code-anim" style={{ gridTemplateColumns: `repeat(${def.panels.length}, minmax(0, 1fr))` }}>
         {def.panels.map((p, pi) => {
-          const hl = new Set(current?.highlight.find((h) => h.panel === pi)?.lines ?? []);
+          // Adım tanımındaki satırlar 0 tabanlı; görünümde 1 tabanlı vurgu.
+          const hl = new Set((current?.highlight.find((h) => h.panel === pi)?.lines ?? []).map((l) => l + 1));
           const out = outputs.get(pi);
           return (
             <div key={pi} className={`code-panel code-panel-${p.tone}`}>
               <div className="code-panel-h">{p.label}</div>
-              <pre className="code-lines">
-                {p.lines.map((line, li) => (
-                  <div key={li} className={hl.has(li) ? "code-line is-hl" : "code-line"}>
-                    <span className="ln" aria-hidden>{li + 1}</span>
-                    <code>{line}</code>
-                  </div>
-                ))}
-              </pre>
+              <ShikiCode code={p.lines.join("\n")} lang={p.lang ?? guessLang(p.lines)} highlight={hl} className="code-lines" />
               {out && <div className={`code-out code-out-${out.tone}`}>{out.text}</div>}
             </div>
           );

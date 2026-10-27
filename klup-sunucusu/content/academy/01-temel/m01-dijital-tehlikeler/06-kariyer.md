@@ -6,19 +6,20 @@ sure: 5
 hedefler:
   - Başlıca siber güvenlik rollerini tanımak
 gorseller:
-  - id: m01-06-a
+  - id: m01-06-b
     tur: ai
-    karakter: tevfik
-    alt: "Tatlı Dil Tevfik, güvenlik uzmanlarının şapkalarının asılı olduğu askılığa endişeyle bakıyor"
-    prompt: "A coat rack in a dim hallway holds the hats and gear of different security professionals: a detective hat, an analyst headset, a lab coat, a hard hat with a small radar antenna. The villain stares at it nervously like a lineup of the people who will hunt him, clutching his phones."
+    alt: "Kesit görünümlü bir ofis binası; her odada farklı bir güvenlik rolü çalışıyor"
+    prompt: "A cross-section of a tall noir office building at night with nine lit rooms like a dollhouse, each showing a different security job: an analyst watching a wall of monitors, a tester carefully picking a lock on a model door, a responder with a fire extinguisher beside a smoking server, a forensic expert with a magnifying glass over a hard drive, an intelligence analyst at a pinboard with threads, an engineer pair-reviewing code with a developer, a specialist arranging floating cloud-shaped servers, a reverse engineer opening a clockwork device, and a consultant balancing a brass scale next to a thick rulebook."
 ---
 
 # Siber güvenlikte hangi işler var?
 
+![Kesit görünümlü bir ofis binası; her odada farklı bir güvenlik rolü çalışıyor](../../gorseller/m01-06-b.webp)
+
 > Siber güvenlik tek bir meslek değil, **bir sürü meslekten oluşan bir şehir**.
 > Kod yazmayı sevmesen bile bir köşesi sana göre olabilir.
 
-![Tatlı Dil Tevfik, güvenlik uzmanlarının şapkalarının asılı olduğu askılığa endişeyle bakıyor](../../gorseller/m01-06-a.webp)
+::cizgi[m01-06-sahne]
 
 | Rol | Bir günü nasıl geçer? | Akademideki yolu |
 |---|---|---|

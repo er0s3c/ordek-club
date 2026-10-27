@@ -7,11 +7,14 @@ hedefler:
   - Tehdit, zafiyet ve risk kavramlarını ayırt etmek
   - Gizlilik, bütünlük ve erişilebilirlik ilkelerini açıklamak
 gorseller:
-  - id: m10-01-a
+  - id: m10-01-b
     tur: ai
-    karakter: ferhat
-    alt: "Fidyeci Ferhat üzerinde mücevher duran üç ayaklı taburenin bir ayağını testereyle kesiyor"
-    prompt: "A sturdy three-legged wooden stool on a stage under a spotlight, a precious glowing gem on its seat, each leg carved with a glowing symbol: a padlock, a balance scale, an open door. The villain kneels and saws at the leg with the open door symbol, chains rattling on his shoulders."
+    alt: "Koridorda kilidi bozuk bir dolapta duran laptop ve önünden geçen kalabalık; risk ölçen bir terazi kırmızıya eğik"
+    prompt: "A school corridor with a locker whose lock hangs broken, a shiny laptop visible inside, and a busy crowd passing by; above the locker a large brass gauge needle points deep into the red zone."
+  - id: m10-01-c
+    tur: ai
+    alt: "Üç ayaklı bir kalkan: kapalı göz (gizlilik), kırılmamış mühür (bütünlük) ve yanan fener (erişilebilirlik)"
+    prompt: "A sturdy triangular shield standing on three legs: one leg shaped like a closed watchful eye, one like an unbroken wax seal, and one like a brightly lit lantern; a student leans on it confidently while a missing piece would tip it over."
 ---
 
 # Tehdit, zafiyet, risk — ve CIA üçlüsü
@@ -19,17 +22,19 @@ gorseller:
 > Bu üç kelime çoğu zaman karıştırılır. Bir güvenlikçi ise onları
 > **ayrı ayrı** düşünür, çünkü her biri farklı bir önlem ister.
 
-![Fidyeci Ferhat üzerinde mücevher duran üç ayaklı taburenin bir ayağını testereyle kesiyor](../../gorseller/m10-01-a.webp)
+::cizgi[m10-01-sahne]
 
 > 🕴️ **DOSYA: Fidyeci Ferhat** · *Fidye Patronu*
 >
 > ![Fidyeci Ferhat — Fidye Patronu](../../gorseller/karakter-ferhat.webp)
 >
-> 📼 **Bölüm 10 — Fidye.** Şehrin hastanesi sabaha karşı kilitlendi; bütün ekranlarda tek bir asma kilit. Fidyeci Ferhat'ın zinciri yedi halkalı: keşiften sızmaya, sızmadan şifrelemeye. Senin işin tek bir halkayı kırmak.
->
 > **Tehdit:** Fidye yazılımı, zararlı yazılım, saldırı zinciri (kill chain), DDoS. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
 
+::cizgi[ferhat-acilis]
+
 ## Üç kavram, bir örnek
+
+![Koridorda kilidi bozuk bir dolapta duran laptop ve önünden geçen kalabalık; risk ölçen bir terazi kırmızıya eğik](../../gorseller/m10-01-b.webp)
 
 Yurt odanın kapısı:
 
@@ -43,6 +48,8 @@ Yurt odanın kapısı:
 Risk sıfırlanamaz, **yönetilir**: düzelt (kilidi tamir et), azalt (laptopu dolaba kilitle), devret (sigorta), kabul et.
 
 ## CIA üçlüsü
+
+![Üç ayaklı bir kalkan: kapalı göz (gizlilik), kırılmamış mühür (bütünlük) ve yanan fener (erişilebilirlik)](../../gorseller/m10-01-c.webp)
 
 Güvenliğin üç hedefi — biri eksilirse tabure devrilir:
 

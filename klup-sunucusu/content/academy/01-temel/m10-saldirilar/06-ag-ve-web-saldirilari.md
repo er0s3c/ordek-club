@@ -9,16 +9,15 @@ hedefler:
   - DDoS'un etkisini ve savunmasını anlamak
 animasyonlar: [mitm, xss]
 gorseller:
-  - id: m10-06-a
-    tur: ai
-    karakter: nuri
-    alt: "Köprünün ortasındaki Dinleyici Nuri iki kıyı arasında uçan kâğıt uçakları yakalayıp okuyor; üstte güvenli ışık tüneli"
-    prompt: "A narrow stone bridge between two islands at dusk: figures on each island send paper airplanes across, but the villain stands in the middle catching each airplane, reading it and refolding it. Above the scene, a glowing tunnel of light is being built to carry the airplanes safely over him."
   - id: m10-06-b
     tur: ai
     karakter: jasmine
     alt: "Tek Tırnak Jasmine kart katalog dolabına parlayan bir kesme işareti sokuyor; bütün çekmeceler aynı anda fırlıyor"
     prompt: "A tall wooden card-catalogue cabinet stands for a database in a dim library. The villain slips a single glowing green apostrophe-shaped token into a small form slot on its front, and every drawer bursts open at once, spilling glowing index cards into the air while a little librarian robot panics."
+  - id: m10-06-c
+    tur: ai
+    alt: "Küçük bir dükkânın kapısını binlerce karton figür tıkıyor; gerçek müşteriler içeri giremiyor"
+    prompt: "A tiny shop entrance completely jammed by a huge crowd of identical cardboard figures pushing forward, while a few real customers stand outside unable to get in, the shopkeeper overwhelmed behind the counter."
 ---
 
 # Ağda ve web'de saldırılar
@@ -26,7 +25,7 @@ gorseller:
 > Saldırganlar iki yerde pusu kurar: **yolda** (ağ) ve **kapıda** (web uygulaması).
 > Bir de kapıyı kalabalıkla tıkarlar (DDoS).
 
-![Köprünün ortasındaki Dinleyici Nuri iki kıyı arasında uçan kâğıt uçakları yakalayıp okuyor; üstte güvenli ışık tüneli](../../gorseller/m10-06-a.webp)
+::cizgi[m10-06-sahne]
 
 ## Yolda: MITM ve spoofing
 
@@ -57,6 +56,8 @@ XSS'in bir kullanıcıdan diğerine nasıl taşındığını gör:
 Bunların her birini **Ördek Lab**'de güvenle deneyeceksin (Yol A).
 
 ## Kalabalıkla tıkamak: DDoS
+
+![Küçük bir dükkânın kapısını binlerce karton figür tıkıyor; gerçek müşteriler içeri giremiyor](../../gorseller/m10-06-c.webp)
 
 **Dağıtık hizmet engelleme**: binlerce ele geçirilmiş cihazdan (botnet) aynı anda gelen trafik, servisi kullanılamaz hâle getirir.
 CIA'nın **erişilebilirlik** ayağını hedefler.

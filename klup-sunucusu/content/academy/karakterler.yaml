@@ -11,9 +11,7 @@
 aile:
   ad: Gölge Ağ Ailesi
   ozet: >-
-    Kurgusal bir siber suç ailesi. Her üyesi bir saldırı türünün ustasıdır ve Akademi'nin bir modülünde
-    karşına çıkar. Modülü bitiren öğrenci o üyenin hilelerini çözmüş ve onu "dosyalayıp" etkisiz bırakmış olur.
-    Ailenin görünen başı Don Gölge'dir; ama ipleri, yüzünü kimsenin görmediği Baron Eren tutar.
+    Kurgusal bir siber suç ailesi. Her üyesi bir saldırı türünün ustasıdır ve Akademi'nin bir modülünde karşına çıkar. Modülü bitiren öğrenci o üyenin hilelerini çözmüş ve onu "dosyalayıp" etkisiz bırakmış olur. Ailenin görünen başı Don Gölge'dir; ama ipleri, yüzünü kimsenin görmediği Baron Eren tutar.
   grup_kurali:
     - Don Gölge kompozisyonun tam merkezinde; tüm karakterler aynı yatay zemine basar.
     - Don'un hemen arkasında, yarı gölgede Baron Eren durur; bir eli Don'un omzunda (asıl patron odur). Yanında Tek Tırnak Jasmine.
@@ -21,20 +19,17 @@ aile:
     - Kanatlarda boy sırasına göre diğerleri; kısa Dinleyici Nuri ve oturan Süper Kullanıcı Sadri kanatlara yerleşir.
     - Herkesin üzerine aynı açıdan tek, yumuşak bir ışık kaynağı düşer; Baron'un yüzü ışığın kenarında kalır.
   tarif: >-
-    the members of a fictional shadowy noir family posing together as a group lineup on one shared ground line:
-    the gray-haired family patriarch with a cigar in the center, and right behind him, half in shadow, a calm tall mastermind
-    in a black three-piece suit with a black hoodie under the jacket resting one hand on the boss's shoulder,
-    beside him an elegant woman in an emerald trouser suit with a jasmine flower in her ponytail holding a giant fountain pen,
-    a huge bald bodyguard with chains on one side,
-    an elegant woman in a burgundy trench coat holding masks on the other, flanked by a slick con artist with two glowing phones,
-    a portly lawyer with a briefcase, a gaunt locksmith with a giant keyring, a bald old boss seated on a throne of server racks,
-    a small wiry listener in a cable-lined trench coat with headphones, a burly baker in an apron over a pinstripe suit,
-    a tall puppeteer controlling tiny robots with glowing strings, and an old vault mechanic with a stethoscope
+    the members of a fictional shadowy noir family posing together as a group lineup standing on the dark harbor ground, the scene continuing to every edge: the gray-haired family patriarch with a cigar in the center, and right behind him, half in shadow, a calm tall mastermind in a black three-piece suit with a black hoodie under the jacket resting one hand on the boss's shoulder, beside him an elegant woman in an emerald trouser suit with a jasmine flower in her ponytail holding a giant fountain pen, a huge bald bodyguard with chains on one side, an elegant woman in a burgundy trench coat holding masks on the other, flanked by a slick con artist with two glowing phones, a portly lawyer with a briefcase, a gaunt locksmith with a giant keyring, a bald old boss seated on a throne of server racks, a small wiry listener in a cable-lined trench coat with headphones, a burly baker in an apron over a pinstripe suit, a tall puppeteer controlling tiny robots with glowing strings, and an old vault mechanic with a stethoscope
 
 karakterler:
   - id: tevfik
     ad: Tatlı Dil Tevfik
     unvan: Dolandırıcı
+    en:
+      ad: Smooth-Talking Tevfik
+      unvan: Scammer
+      tehdit: Fake scholarship messages, social engineering, phishing
+      ozet: The smooth-talking scammer who sends everyone exactly the message they want, exactly when they expect it. "Your scholarship is approved!" is his signature.
     modul: M01
     tehdit: Sahte burs mesajları, sosyal mühendislik, phishing
     ozet: Herkese tam beklediği anda tam istediği mesajı gönderen tatlı dilli dolandırıcı. "Bursun onaylandı!" onun imzasıdır.
@@ -45,10 +40,7 @@ karakterler:
     imza: Altın diş ve iki telefon.
     palet: { yelek: "#6E1E1E", gomlek: "#E6DDD3", kravat: "#B8892E", ten: "#D89E7A", ten_golge: "#9E6347" }
     tarif: >-
-      Tatli Dil Tevfik, a slick con artist in his 40s with oily side-parted black hair, a pencil mustache, a wide fake charming grin
-      showing one gold tooth and half-lidded scheming eyes, lean build with long legs and a slightly forward salesman posture,
-      wearing a burgundy pinstripe vest over a cream shirt with rolled-up sleeves and a loosened mustard tie, glowing fake message
-      cards sticking out of his vest pocket, both arms held away from his body each holding a smartphone glowing green
+      Tatli Dil Tevfik, a slick con artist in his 40s with oily side-parted black hair, a pencil mustache, a wide fake charming grin showing one gold tooth and half-lidded scheming eyes, lean build with long legs and a slightly forward salesman posture, wearing a burgundy pinstripe vest over a cream shirt with rolled-up sleeves and a loosened mustard tie, glowing fake message cards sticking out of his vest pocket, both arms held away from his body each holding a smartphone glowing green
 
   - id: kemal
     ad: Avukat "Boşluk" Kemal
@@ -63,10 +55,12 @@ karakterler:
     imza: Yere kadar uzanan sözleşme rulosu.
     palet: { takim: "#5A4A42", golge: "#3B302B", papyon: "#6E1E1E", gozluk: "#C9953B", ten: "#DDA585" }
     tarif: >-
-      Avukat Bosluk Kemal, a crooked portly lawyer in his 50s with round wire-rimmed glasses, thinning slicked-back hair,
-      a double chin and one sly raised eyebrow with a cunning sideways smile, short stocky legs, wearing a three-piece brown suit
-      with a pocket-watch chain and a burgundy bow tie, one hand gripping an oversized leather briefcase and the other holding
-      a very long contract scroll unrolling to the floor, its tiny fine print glowing faintly (abstract lines only)
+      Avukat Bosluk Kemal, a crooked portly lawyer in his 50s with round wire-rimmed glasses, thinning slicked-back hair, a double chin and one sly raised eyebrow with a cunning sideways smile, short stocky legs, wearing a three-piece brown suit with a pocket-watch chain and a burgundy bow tie, one hand gripping an oversized leather briefcase and the other holding a very long contract scroll unrolling to the floor, its tiny fine print glowing faintly (abstract lines only)
+    en:
+      ad: Lawyer "Loophole" Kemal
+      unvan: Crooked Lawyer
+      tehdit: Unauthorised "tests", stepping out of scope, "I was just looking" excuses
+      ozet: "The lawyer who believes he can find a loophole in every law. He advises his clients: \"Permission? We'll sort that out later.\""
 
   - id: riza
     ad: Anahtarcı Rıza
@@ -81,10 +75,12 @@ karakterler:
     imza: Parlayan altın ana anahtar.
     palet: { trenckot: "#4A4743", kasket: "#2B2623", anahtar: "#C9953B", eldiven: "#3B302B", ten: "#CFA083" }
     tarif: >-
-      Anahtarci Riza, a gaunt very tall locksmith in his 40s with sunken cheeks, three-day stubble, a long bony nose
-      and one squinting sly eye under a flat cap, slightly hunched sideways stance, wearing a long gray trench coat and fingerless
-      gloves, an enormous ring with hundreds of keys and lockpicks hanging from his hip, one arm raised high away from his body
-      holding a single glowing golden master key
+      Anahtarci Riza, a gaunt very tall locksmith in his 40s with sunken cheeks, three-day stubble, a long bony nose and one squinting sly eye under a flat cap, slightly hunched sideways stance, wearing a long gray trench coat and fingerless gloves, an enormous ring with hundreds of keys and lockpicks hanging from his hip, one arm raised high away from his body holding a single glowing golden master key
+    en:
+      ad: Locksmith Rıza
+      unvan: The Lockpick
+      tehdit: Privilege escalation, hiding in startup (persistence), fake file extensions
+      ozet: "\"If a door didn't open, you picked the wrong key.\" The locksmith who hunts the master key in every system, and never leaves once he finds it."
 
   - id: sadri
     ad: Süper Kullanıcı Sadri
@@ -99,10 +95,12 @@ karakterler:
     imza: Yeşil parlayan monokl ve sunucu tahtı.
     palet: { ceket: "#5A1C22", balikci: "#1B1A1A", monokl: "#5FD3A7", yuzuk: "#C9953B", ten: "#D29A79" }
     tarif: >-
-      Super Kullanici Sadri, a heavyset bald old system boss in his 60s with a bushy white handlebar mustache, heavy eyelids,
-      a commanding expression and a glowing green monocle over his right eye, wearing a black turtleneck under a burgundy velvet
-      smoking jacket and thick gold rings, sprawled on a throne built from server racks with blinking green lights,
-      one arm extended away from his body holding out a glowing green terminal tablet
+      Super Kullanici Sadri, a heavyset bald old system boss in his 60s with a bushy white handlebar mustache, heavy eyelids, a commanding expression and a glowing green monocle over his right eye, wearing a black turtleneck under a burgundy velvet smoking jacket and thick gold rings, sprawled on a throne built from server racks with blinking green lights, one arm extended away from his body holding out a glowing green terminal tablet
+    en:
+      ad: Superuser Sadri
+      unvan: Root Father
+      tehdit: Abusing sudo privileges, chmod 777, commands run without reading them
+      ozet: "The old father sitting on the throne of servers. He tells everyone: \"Just run this command, don't worry about the rest.\""
 
   - id: nuri
     ad: Dinleyici Nuri
@@ -117,10 +115,12 @@ karakterler:
     imza: Kablo dolu trençkot astarı ve parabolik çanak.
     palet: { trenckot: "#A08B6B", astar: "#2E3A36", kablo: "#5FD3A7", sapka: "#3B302B", ten: "#D9A07F" }
     tarif: >-
-      Dinleyici Nuri, a very short wiry nervous listener in his 30s with huge padded headphones, wide twitchy eyes,
-      a pointed nose and a thin mustache, crouching with legs apart, wearing an oversized beige trench coat held open to reveal
-      a lining stuffed with tangled glowing green cables, tiny radios and antennas, a fedora with a small antenna,
-      one arm extended away from his body holding a parabolic listening dish, the other hand pressed to his headphones
+      Dinleyici Nuri, a very short wiry nervous listener in his 30s with huge padded headphones, wide twitchy eyes, a pointed nose and a thin mustache, crouching with legs apart, wearing an oversized beige trench coat held open to reveal a lining stuffed with tangled glowing green cables, tiny radios and antennas, a fedora with a small antenna, one arm extended away from his body holding a parabolic listening dish, the other hand pressed to his headphones
+    en:
+      ad: Listener Nuri
+      unvan: The Listener
+      tehdit: Traffic sniffing on shared Wi-Fi, ARP/DNS spoofing, man-in-the-middle
+      ozet: The quietest customer on the café Wi-Fi. Nobody notices him; he listens to everyone's packets.
 
   - id: celal
     ad: Çerezci Celal
@@ -135,10 +135,12 @@ karakterler:
     imza: Parlayan anahtar desenli çerez tepsisi.
     palet: { takim: "#2C2623", onluk: "#E6DDD3", cerez: "#C9953B", yanak: "#C0584A", ten: "#DBA07C" }
     tarif: >-
-      Cerezci Celal, a burly big-bellied cheerful but sly baker in his 40s with a thick black mustache,
-      rosy cheeks and a winking grin under a tilted chef hat, wearing a white baker apron over a dark pinstripe suit,
-      flour-dusted fingers, one arm held away from his body balancing a tray of glowing cookies each stamped with a small
-      key pattern, the other hand resting a rolling pin on his shoulder like a club
+      Cerezci Celal, a burly big-bellied cheerful but sly baker in his 40s with a thick black mustache, rosy cheeks and a winking grin under a tilted chef hat, wearing a white baker apron over a dark pinstripe suit, flour-dusted fingers, one arm held away from his body balancing a tray of glowing cookies each stamped with a small key pattern, the other hand resting a rolling pin on his shoulder like a club
+    en:
+      ad: Cookie-Baker Celal
+      unvan: Session Thief
+      tehdit: Session cookie theft, APIs with missing authorization checks (IDOR), fake domains
+      ozet: The session thief nicknamed "the baker". Every cookie he steals logs him in as someone else; he shares his recipe with no one.
 
   - id: orhan
     ad: Kuklacı Orhan
@@ -153,10 +155,12 @@ karakterler:
     imza: Yeşil parlayan kukla ipleri ve robot sürüsü.
     palet: { frak: "#1E1B1A", astar: "#8F1D24", ip: "#5FD3A7", sac: "#B9B4AE", ten: "#D6A182" }
     tarif: >-
-      Kuklaci Orhan, a tall thin theatrical puppeteer in his 50s with slicked-back silver hair, a pointed goatee, thin eyebrows
-      and a sly showman grin, wearing a black hoodie under a long tailcoat with a red lining and circuit-board cufflinks,
-      both arms spread wide away from his body, glowing green marionette strings descending from his long fingers
-      to a swarm of tiny boxy robots below
+      Kuklaci Orhan, a tall thin theatrical puppeteer in his 50s with slicked-back silver hair, a pointed goatee, thin eyebrows and a sly showman grin, wearing a black hoodie under a long tailcoat with a red lining and circuit-board cufflinks, both arms spread wide away from his body, glowing green marionette strings descending from his long fingers to a swarm of tiny boxy robots below
+    en:
+      ad: Puppeteer Orhan
+      unvan: Bot Master
+      tehdit: Botnets, malicious scripts, hard-coded keys, eval/command injection
+      ozet: The puppeteer who runs thousands of little bots on strings. Every line left exposed in code gets tied to one of his strings.
 
   - id: kadir
     ad: Kasa Kıran Kadir
@@ -171,10 +175,12 @@ karakterler:
     imza: Stetoskop ve gökkuşağı defteri.
     palet: { kazak: "#3B302B", cizgi: "#D8CBB8", bere: "#1B1A1A", defter: "#C9953B", ten: "#D0957A" }
     tarif: >-
-      Kasa Kiran Kadir, a short compact muscular old vault mechanic in his 60s with a black knit beanie, a jeweler's loupe pushed up
-      on his forehead, thick gray eyebrows, focused squinting eyes and a grizzled beard, wearing a striped knit sweater
-      with suspenders, crouched forward with knees bent, carefully listening with a stethoscope to the dial of a glowing antique safe like a master watchmaker,
-      the other arm held away from his body holding a rainbow-colored notebook
+      Kasa Kiran Kadir, a short compact muscular old vault mechanic in his 60s with a black knit beanie, a jeweler's loupe pushed up on his forehead, thick gray eyebrows, focused squinting eyes and a grizzled beard, wearing a striped knit sweater with suspenders, crouched forward with knees bent, carefully listening with a stethoscope to the dial of a glowing antique safe like a master watchmaker, the other arm held away from his body holding a rainbow-colored notebook
+    en:
+      ad: Safecracker Kadir
+      unvan: Vault Thief
+      tehdit: Password cracking, weak hashes, unsalted passwords, leaked password lists
+      ozet: An old-school safecracker turned modern password cracker. His rainbow-coloured notebook carries millions of ready-made password hashes.
 
   - id: mine
     ad: Maskeli Mine
@@ -189,10 +195,12 @@ karakterler:
     imza: Yelpaze gibi açılmış maskeler.
     palet: { trenckot: "#4A252B", golge: "#2E161A", eldiven: "#1B1A1A", maske: "#E6DDD3", ten: "#DFAA8B" }
     tarif: >-
-      Maskeli Mine, a tall elegant information broker woman in her 30s, non-sexualized and composed, with a sharp dark bob haircut,
-      high cheekbones, an ice-cold calculating gaze and a thin measured smile, wearing a burgundy trench coat with the collar
-      turned up and black leather gloves, binoculars around her neck, in a 3/4 pose holding a fan of several porcelain masks
-      with different fictional faces away from her body
+      Maskeli Mine, a tall elegant information broker woman in her 30s, non-sexualized and composed, with a sharp dark bob haircut, high cheekbones, an ice-cold calculating gaze and a thin measured smile, wearing a burgundy trench coat with the collar turned up and black leather gloves, binoculars around her neck, in a 3/4 pose holding a fan of several porcelain masks with different fictional faces away from her body
+    en:
+      ad: Masked Mine
+      unvan: Information Broker
+      tehdit: Personal data collection (doxxing), fake profiles, fake listings
+      ozet: The information broker with a file on everyone. A new face for every listing, a new mask for every target.
 
   - id: ferhat
     ad: Fidyeci Ferhat
@@ -207,10 +215,12 @@ karakterler:
     imza: Asma kilitli zincirler.
     palet: { palto: "#1F1C1A", gomlek: "#33362F", zincir: "#8A8F94", kilit: "#C9953B", ten: "#D99B78", yara: "#9E4F42" }
     tarif: >-
-      Fidyeci Ferhat, a massive broad-shouldered bodyguard in his 40s with a huge inverted-triangle torso,
-      a thick neck, a shaved head, a scar across one eyebrow, a square jaw and a cold intimidating scowl, wearing a black
-      leather coat over a dark shirt with heavy chains and padlocks draped over his shoulders, wide immovable stance,
-      one arm held away from his body gripping a briefcase spilling glowing chained file icons, the other hand clenched into a fist
+      Fidyeci Ferhat, a massive broad-shouldered bodyguard in his 40s with a huge inverted-triangle torso, a thick neck, a shaved head, a scar across one eyebrow, a square jaw and a cold intimidating scowl, wearing a black leather coat over a dark shirt with heavy chains and padlocks draped over his shoulders, wide immovable stance, one arm held away from his body gripping a briefcase spilling glowing chained file icons, the other hand clenched into a fist
+    en:
+      ad: Ransom Ferhat
+      unvan: Ransom Boss
+      tehdit: Ransomware, malware, kill chain, DDoS
+      ozet: The family's muscle and its most feared collector. He chains up files and sells the key to the highest bidder.
 
   - id: don
     ad: Don Gölge
@@ -225,11 +235,12 @@ karakterler:
     imza: Kalkık tek kaş ve puro.
     palet: { takim: "#2C2623", golge: "#1B2220", kravat: "#6E1E1E", gomlek: "#E6DDD3", ten: "#D89E7A", ten_golge: "#9E6347" }
     tarif: >-
-      Don Golge, the head of the family, an elegant family patriarch in his late 50s with slick dark hair graying at the temples,
-      a thin mustache, an aquiline nose, calm piercing half-closed eyes and one eyebrow raised authoritatively, tall upright
-      silhouette with long legs and a slim waist, wearing a double-breasted dark charcoal pinstripe suit, white shirt,
-      deep burgundy tie, pocket square and polished shoes, one hand in his pocket and the other held slightly away from his body
-      holding a smoking cigar, faint glowing green code drifting in the darkness behind him
+      Don Golge, the head of the family, an elegant family patriarch in his late 50s with slick dark hair graying at the temples, a thin mustache, an aquiline nose, calm piercing half-closed eyes and one eyebrow raised authoritatively, tall upright silhouette with long legs and a slim waist, wearing a double-breasted dark charcoal pinstripe suit, white shirt, deep burgundy tie, pocket square and polished shoes, one hand in his pocket and the other held slightly away from his body holding a smoking cigar, faint glowing green code drifting in the darkness behind him
+    en:
+      ad: Don Shadow
+      unvan: Head of the Family
+      tehdit: Finale — a mini CTF where every technique comes together
+      ozet: Head of the Shadow Network family. He says very little; one raised eyebrow is enough. The final file you face in the mini CTF.
 
   # ── Modül dışı karakterler: ailenin tepesi ve Sezon 2'nin kapısı ──
   - id: jasmine
@@ -245,12 +256,12 @@ karakterler:
     imza: Yasemin çiçeği ve kalemin ucundan damlayan parlayan yeşil damla.
     palet: { takim: "#1F5A45", bluz: "#E6DDD3", sac: "#1E1614", cicek: "#F3EEDF", isik: "#5FD3A7", ten: "#C98E6C" }
     tarif: >-
-      Tek Tirnak Jasmine, the queen of databases, an elegant composed woman in her late 30s with long dark wavy hair tied in a
-      high ponytail fastened with a white jasmine flower, sharp cat-eye glasses reflecting faint green glowing lines, a calm
-      dangerous half-smile, tall upright posture, wearing a modest tailored emerald-green trouser suit with a high-collared cream
-      blouse and a small glowing green apostrophe-shaped earring, one arm held away from her body holding an oversized antique
-      fountain pen whose nib drips a single glowing green droplet, her other hand resting on a tall vintage wooden card-catalogue
-      cabinet whose many small drawers slide open by themselves
+      Tek Tirnak Jasmine, the queen of databases, an elegant composed woman in her late 30s with long dark wavy hair tied in a high ponytail fastened with a white jasmine flower, sharp cat-eye glasses reflecting faint green glowing lines, a calm dangerous half-smile, tall upright posture, wearing a modest tailored emerald-green trouser suit with a high-collared cream blouse and a small glowing green apostrophe-shaped earring, one arm held away from her body holding an oversized antique fountain pen whose nib drips a single glowing green droplet, her other hand resting on a tall vintage wooden card-catalogue cabinet whose many small drawers slide open by themselves
+    en:
+      ad: Single-Quote Jasmine
+      unvan: Queen of Databases
+      tehdit: SQL injection, database leaks, forms that don't validate input
+      ozet: The woman who opens every drawer in a database with a single quotation mark. The only person the Baron trusts; few have seen her face, fewer still speak her name.
 
   - id: eren
     ad: Baron Eren
@@ -265,12 +276,12 @@ karakterler:
     imza: Takımın altındaki kapüşon ve kadranı yeşil terminal olan cep saati.
     palet: { takim: "#141213", yelek: "#3B1E33", kapuson: "#232022", altin: "#C9953B", isik: "#5FD3A7", ten: "#D3A07F" }
     tarif: >-
-      Baron Eren, the legendary mastermind and greatest hacker of all time, a tall lean man in his early 40s with slicked-back
-      black hair marked by a single silver streak at the front, a neatly trimmed short black beard, calm sharp dark eyes and a
-      faint knowing smile, perfectly still upright posture, wearing a black three-piece suit with a deep plum silk vest and a
-      black hoodie worn underneath the suit jacket with the hood resting on his shoulders, a small gold signet ring shaped like a key,
-      one arm held away from his body holding an open antique gold pocket watch whose face is a tiny glowing green terminal screen,
-      faint glowing green light particles drifting around him
+      Baron Eren, the legendary mastermind and greatest hacker of all time, a tall lean man in his early 40s with slicked-back black hair marked by a single silver streak at the front, a neatly trimmed short black beard, calm sharp dark eyes and a faint knowing smile, perfectly still upright posture, wearing a black three-piece suit with a deep plum silk vest and a black hoodie worn underneath the suit jacket with the hood resting on his shoulders, a small gold signet ring shaped like a key, one arm held away from his body holding an open antique gold pocket watch whose face is a tiny glowing green terminal screen, faint glowing green light particles drifting around him
+    en:
+      ad: Baron Eren
+      unvan: The Family's Elder
+      tehdit: All of them — the greatest hacker there has ever been; founder and invisible brain of the Shadow Network
+      ozet: The man everyone, Don Shadow included, owes a debt to, and whose face no one has seen. Twenty years ago he was a hooded young man; one night he chose the open door over the right one.
 
   - id: eren-genc
     ad: Kapüşon (genç Eren)
@@ -285,11 +296,12 @@ karakterler:
     imza: Kapüşon altından görünen gümüş tutam ve boynundaki altın anahtar.
     palet: { kapuson: "#3A3836", kot: "#3D4A5A", eldiven: "#1E1C1B", anahtar: "#C9953B", isik: "#5FD3A7", ten: "#D3A07F" }
     tarif: >-
-      young Eren twenty years ago, a slim 20-year-old prodigy hacker with the hood of an oversized charcoal hoodie pulled up,
-      a single silver streak of hair visible under the hood, his face half-lit by green laptop glow, sharp dark eyes and a defiant
-      grin, worn jeans, fingerless gloves and a small gold key hanging on a chain around his neck, sitting cross-legged on a
-      basement floor among tangled cables and empty cans with a battered laptop covered in stickers of simple abstract shapes,
-      one hand on the keyboard and the other raised away from his body snapping his fingers
+      young Eren twenty years ago, a slim 20-year-old prodigy hacker with the hood of an oversized charcoal hoodie pulled up, a single silver streak of hair visible under the hood, his face half-lit by green laptop glow, sharp dark eyes and a defiant grin, worn jeans, fingerless gloves and a small gold key hanging on a chain around his neck, sitting cross-legged on a basement floor among tangled cables and empty cans with a battered laptop covered in stickers of simple abstract shapes, one hand on the keyboard and the other raised away from his body snapping his fingers
+    en:
+      ad: The Hood (young Eren)
+      unvan: The Baron's past
+      tehdit: The first big breach, twenty years ago — the night the story began
+      ozet: A brilliant young man living in a university basement lab twenty years ago. He called himself the Hood; Selim and Jasmine were his two closest friends.
 
   - id: tarik
     ad: Tünelci Tarık
@@ -304,11 +316,12 @@ karakterler:
     imza: Yeşil madenci feneri ve parlayan fiber kangalı.
     palet: { parka: "#3E4231", kapuson: "#4A4744", fener: "#5FD3A7", kablo: "#8FF0C8", ten: "#C99A78", dovme: "#2F4A5A" }
     tarif: >-
-      Tunelci Tarik, a lean wiry ghost of the network in his mid 40s with short dark hair shaved at the sides, stubble,
-      hollow cheeks and tired but sharp eyes, a slightly hunched tunneler's posture, wearing a worn long dark khaki parka over
-      a faded hoodie, a miner's headlamp glowing green on his forehead and a small key tattoo on the back of one hand,
-      half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable,
-      the other hand gripping a pair of cable pliers
+      Tunelci Tarik, a lean wiry ghost of the network in his mid 40s with short dark hair shaved at the sides, stubble, hollow cheeks and tired but sharp eyes, a slightly hunched tunneler's posture, wearing a worn long dark khaki parka over a faded hoodie, a miner's headlamp glowing green on his forehead and a small key tattoo on the back of one hand, half crouched with one knee on the ground, one arm held away from his body holding a coil of glowing green fiber-optic cable, the other hand gripping a pair of cable pliers
+    en:
+      ad: Tunneller Tarık
+      unvan: Ghost of the Network
+      tehdit: Lateral movement, segmentation gaps, rogue access points, tunnelling, weak server configuration
+      ozet: The Fourth Hooded One. He built the network; the blame for the door Eren opened that night fell on him and he served ten years. Now a ghost who walks through walls.
 
   - id: tamer
     ad: Temizlikçi Tamer
@@ -323,10 +336,12 @@ karakterler:
     imza: Değdiği yerde izleri silen parlayan paspas.
     palet: { tulum: "#5B5E5A", yelek: "#2F2A27", eldiven: "#C9953B", isik: "#5FD3A7", ten: "#D1A07E" }
     tarif: >-
-      Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless
-      face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves,
-      a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green
-      and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light
+      Temizlikci Tamer, a quiet stocky cleaner in his 50s with short gray hair, a thick gray mustache and a calm expressionless face with tired attentive eyes, wearing a gray work coverall under a striped vest with a loose tie, yellow rubber gloves, a ring of keys and a small flashlight on his belt, one arm held away from his body holding a mop whose head glows soft green and leaves a perfectly clean trail, the other hand holding a bucket in which paper strips dissolve into green light
+    en:
+      ad: Cleaner Tamer
+      unvan: Trace Eraser
+      tehdit: Log deletion, anti-forensics, post-attack persistence, alarm fatigue
+      ozet: He arrives after every Shadow Network operation; he deletes logs, shifts clocks and sweeps away traces. "Nothing happened here" is his signature.
 
   - id: bedri
     ad: Bayrakçı Bedri
@@ -341,10 +356,12 @@ karakterler:
     imza: Hepsi farklı, hiçbiri gerçek olmayan bayrak demeti.
     palet: { kaban: "#1E2A3A", kazak: "#E6DDD3", kasket: "#2B2420", isik: "#5FD3A7", ten: "#C68E6A" }
     tarif: >-
-      Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye
-      squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and
-      blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each
-      showing a different abstract geometric symbol, the other hand behind his back
+      Bayrakci Bedri, a tall broad-shouldered former sailor in his 60s with a short white beard, a weathered face, one eye squinting and a sly half-smile, wearing a navy peacoat over a cream turtleneck and a dark captain's cap, folded maps and blank cards peeking from his coat pocket, one arm held away from his body holding a bundle of small signal flags each showing a different abstract geometric symbol, the other hand behind his back
+    en:
+      ad: Flag-Bearer Bedri
+      unvan: Master of False Trails
+      tehdit: False flags (misattribution), disinformation, fake threat reports, misdirection
+      ozet: The man who pins the Shadow Network's attacks on someone else. He leaves another group's "signature" at every operation; while the analyst knocks on the wrong door, the family finishes the job.
 
   - id: veysel
     ad: Vantrolog Veysel
@@ -359,10 +376,12 @@ karakterler:
     imza: Ağzı onun yerine konuşan parlayan robot kukla.
     palet: { smokin: "#5A1B24", papyon: "#14110F", eldiven: "#F3EEDF", isik: "#5FD3A7", ten: "#D8A585" }
     tarif: >-
-      Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin
-      mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black
-      bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open
-      mouth, his other arm held away from his body in a grand presenting gesture
+      Vantrolog Veysel, a very tall thin ventriloquist in his 40s with long fingers, glossy slicked-back black hair, a thin mustache and an exaggerated theatrical smile with perfectly still lips, wearing a burgundy velvet tuxedo with a black bow tie and white gloves, a translucent glowing robot puppet sitting on one knee with green light spilling from its open mouth, his other arm held away from his body in a grand presenting gesture
+    en:
+      ad: Ventriloquist Veysel
+      unvan: Owner of the Voice
+      tehdit: Prompt injection, indirect injection, jailbreak, data poisoning, fake voice and video
+      ozet: The ventriloquist who makes every talking machine speak in his voice. He whispers into a document, a web page, an email; the chatbot takes his sentences for its own thoughts.
 
   - id: leman
     ad: Lehimci Leman
@@ -377,10 +396,12 @@ karakterler:
     imza: Ucu yeşil parlayan havya ve omzunun üstündeki minik dron.
     palet: { onluk: "#5C3B27", gomlek: "#2E4436", gozluk: "#C9953B", isik: "#5FD3A7", ten: "#C99474" }
     tarif: >-
-      Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop
-      goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under
-      a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron
-      whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder
+      Lehimci Leman, a short energetic hardware tinkerer woman in her 50s with short salt-and-pepper hair, magnifier workshop goggles pushed up on her forehead, sharp attentive eyes and a wry half-smile, wearing a modest dark green work shirt under a leather workshop apron with tiny chips and cables in its pocket, one arm held away from her body holding a soldering iron whose tip glows green, the other hand holding a small circuit board, a tiny drone hovering above her shoulder
+    en:
+      ad: Solderer Leman
+      unvan: Circuit Master
+      tehdit: Smart device and IoT flaws, default passwords, insecure mobile apps, exposed debug ports, insecure updates
+      ozet: The woman who knows the inside of every smart lock, camera and phone on campus. A default password is an invitation to her, an exposed debug port is the front door.
 
   - id: sabri
     ad: Saatçi Sabri
@@ -395,10 +416,12 @@ karakterler:
     imza: Gözündeki saatçi büyüteci ve avucundaki parlayan mekanik böcek.
     palet: { yelek: "#5A4030", gomlek: "#E6DDD3", kostek: "#C9953B", isik: "#5FD3A7", ten: "#D9A988" }
     tarif: >-
-      Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over
-      one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled
-      sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his
-      shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver
+      Saatci Sabri, a small slightly hunched watchmaker in his 70s with a bald head, white eyebrows and a jeweler's loupe over one eye, thin lips curved in a patient smile and perfectly steady hands, wearing a brown vest over a white shirt with rolled sleeves and sleeve garters, a gold watch chain hanging from his vest pocket, two tiny clockwork beetles climbing on his shoulder, one arm held away from his body showing a glowing clockwork beetle in his open palm, the other hand holding a tiny screwdriver
+    en:
+      ad: Clockmaker Sabri
+      unvan: Master of Mechanical Bugs
+      tehdit: Malware (trojans, worms, ransomware), packing and obfuscation, persistence, evading analysis
+      ozet: Every "bug" he leaves on the campus network is as precise as a clock; it wakes at a set time, hides and copies itself. Sabri uses patience, not code, as his weapon.
 
 # ============================================================================
 #  HİKÂYE — "Gölge Ağ", Sezon 1 (M01–M11). Öğrenci, kod adı TİLKİ olan bir Kalkan analistidir.
@@ -430,154 +453,185 @@ hikaye:
     sabri: Ailenin en yaşlı ustası. Ayna'yı besleyen mekanik böcekleri yapar; yirmi yıl önce genç Eren'in boynundaki altın anahtarı da o yapmıştı.
   bolumler:
     tevfik:
+      en:
+        baslik: Your Scholarship Is Approved
+        giris: "Enrolment week. The same message lands on hundreds of phones across campus: \"Your scholarship is approved! Confirm within 24 hours.\" Professor Selim recognises the message's signature: Smooth-Talking Tevfik, the Shadow Network's biggest mouth. Your first job: recognise the bait."
+        kapanis: "Tevfik's trap failed and the fake site is down. But the last call on your phone goes to a lawyer's office: \"Kemal Bey, a kid has caught our trail.\""
       baslik: Bursun Onaylandı
       giris: >-
-        Kayıt haftası. Kampüste yüzlerce telefona aynı mesaj düşüyor: "Bursun onaylandı! 24 saat içinde onayla."
-        Selim Hoca mesajın imzasını tanıyor: Tatlı Dil Tevfik, Gölge Ağ'ın en çok konuşan ağzı. İlk görevin, yemini tanımak.
+        Kayıt haftası. Kampüste yüzlerce telefona aynı mesaj düşüyor: "Bursun onaylandı! 24 saat içinde onayla." Selim Hoca mesajın imzasını tanıyor: Tatlı Dil Tevfik, Gölge Ağ'ın en çok konuşan ağzı. İlk görevin, yemini tanımak.
       kapanis: >-
-        Tevfik'in tuzağı boşa çıktı, sahte site kapandı. Ama telefonundaki son arama bir avukat bürosuna gidiyor:
-        "Kemal Bey, bir çocuk izimize düştü."
+        Tevfik'in tuzağı boşa çıktı, sahte site kapandı. Ama telefonundaki son arama bir avukat bürosuna gidiyor: "Kemal Bey, bir çocuk izimize düştü."
     kemal:
       baslik: Yetki Belgesi
       giris: >-
-        Avukat "Boşluk" Kemal'in planı basit: seni kışkırtıp izinsiz bir sisteme sokmak. Bir kez kuralı çiğnersen
-        topladığın bütün deliller çöpe gider, suçlu sen olursun. Bu bölümde silahın kod değil, izin.
+        Avukat "Boşluk" Kemal'in planı basit: seni kışkırtıp izinsiz bir sisteme sokmak. Bir kez kuralı çiğnersen topladığın bütün deliller çöpe gider, suçlu sen olursun. Bu bölümde silahın kod değil, izin.
       kapanis: >-
-        Tuzağa düşmedin; dosyandaki her delil imzalı ve izinli. Kemal masasındaki eski fotoğrafı çeviriyor:
-        aynı koğuştan iki adam — bir çilingir ve bir kasa hırsızı.
+        Tuzağa düşmedin; dosyandaki her delil imzalı ve izinli. Kemal masasındaki eski fotoğrafı çeviriyor: aynı koğuştan iki adam — bir çilingir ve bir kasa hırsızı.
+      en:
+        baslik: Letter of Authority
+        giris: "Lawyer \"Loophole\" Kemal's plan is simple: provoke you into getting into a system without permission. Break the rule once and every piece of evidence you have gathered is worthless, and you are the criminal. In this chapter your weapon is not code, it is permission."
+        kapanis: "You didn't fall for it; every piece of evidence in your file is signed and permitted. Kemal turns the old photo on his desk: two men from the same prison wing — a locksmith and a safecracker."
     riza:
       baslik: Ana Anahtar
       giris: >-
-        Kulübün laboratuvar bilgisayarları geceleri kendi kendine açılıyor. Biri yönetici yetkisini kapmış ve başlangıca
-        saklanmış. Anahtarcı Rıza'nın imzası: hiçbir şeyi kırmaz, hep birinin unuttuğu anahtarı kullanır.
+        Kulübün laboratuvar bilgisayarları geceleri kendi kendine açılıyor. Biri yönetici yetkisini kapmış ve başlangıca saklanmış. Anahtarcı Rıza'nın imzası: hiçbir şeyi kırmaz, hep birinin unuttuğu anahtarı kullanır.
       kapanis: >-
-        Arka kapı kapandı; makineler güncel ve kilitli. Rıza'nın düşürdüğü anahtarlıkta bir etiket var:
-        "Sadri Usta'ya — sunucu odası."
+        Arka kapı kapandı; makineler güncel ve kilitli. Rıza'nın düşürdüğü anahtarlıkta bir etiket var: "Sadri Usta'ya — sunucu odası."
+      en:
+        baslik: The Master Key
+        giris: "The Club's lab computers switch themselves on at night. Someone has seized admin privileges and hidden in startup. Locksmith Rıza's signature: he never breaks anything, he always uses a key someone forgot."
+        kapanis: 'The backdoor is closed; the machines are up to date and locked. On the keyring Rıza dropped there is a tag: "For Master Sadri — the server room."'
     sadri:
       baslik: Kök
       giris: >-
-        Şehrin eski veri merkezinde, kimsenin dokunmadığı bir sunucuda yaşlı bir adam oturuyor. Süper Kullanıcı Sadri
-        her şeyi sudo ile yapar, her dosyaya 777 verir. Söylenene göre yirmi yıl önce kapüşonlu bir gence ilk terminalini o açtı.
+        Şehrin eski veri merkezinde, kimsenin dokunmadığı bir sunucuda yaşlı bir adam oturuyor. Süper Kullanıcı Sadri her şeyi sudo ile yapar, her dosyaya 777 verir. Söylenene göre yirmi yıl önce kapüşonlu bir gence ilk terminalini o açtı.
       kapanis: >-
-        Sadri'nin tahtı devrildi. Loglarda unuttuğu tek satır kaldı: yirmi yıllık bir kullanıcı adı, "eren".
-        Selim Hoca o satırı görünce uzun süre konuşmuyor.
+        Sadri'nin tahtı devrildi. Loglarda unuttuğu tek satır kaldı: yirmi yıllık bir kullanıcı adı, "eren". Selim Hoca o satırı görünce uzun süre konuşmuyor.
+      en:
+        baslik: Root
+        giris: In the city's old data centre, on a server nobody touches, sits an old man. Superuser Sadri does everything with sudo and gives every file 777. They say that twenty years ago he opened the first terminal for a hooded young man.
+        kapanis: "Sadri's throne has been toppled. One line he forgot remains in the logs: a twenty-year-old username, \"eren\". When Professor Selim sees that line, he says nothing for a long time."
     nuri:
       baslik: Fırındaki Kulak
       giris: >-
-        Kampüsün yanındaki fırın-kafede herkes bedava Wi-Fi'a bağlanıyor. Köşedeki kulaklıklı küçük adamı kimse fark etmiyor.
-        Dinleyici Nuri trafiği dinliyor, adresleri taklit ediyor, araya giriyor.
+        Kampüsün yanındaki fırın-kafede herkes bedava Wi-Fi'a bağlanıyor. Köşedeki kulaklıklı küçük adamı kimse fark etmiyor. Dinleyici Nuri trafiği dinliyor, adresleri taklit ediyor, araya giriyor.
       kapanis: >-
-        Nuri'nin cihazı söküldü; trafik artık şifreli. Ama dinlediği son paket fırının kendi sunucusuna gidiyordu.
-        Fırının sahibi kuzeni: Çerezci Celal.
+        Nuri'nin cihazı söküldü; trafik artık şifreli. Ama dinlediği son paket fırının kendi sunucusuna gidiyordu. Fırının sahibi kuzeni: Çerezci Celal.
+      en:
+        baslik: The Ear in the Bakery
+        giris: Everyone in the bakery-café next to campus connects to the free Wi-Fi. Nobody notices the small man with headphones in the corner. Listener Nuri listens to the traffic, spoofs addresses and slips in between.
+        kapanis: "Nuri's device is gone; the traffic is encrypted now. But the last packet he heard went to the bakery's own server. Its owner is his cousin: Cookie-Baker Celal."
     celal:
       baslik: Taze Çerezler
       giris: >-
-        Celal'in fırınından çıkan şey kurabiye değil, oturum. Bir çerez ve başkasının hesabıyla içeridesin.
-        Celal'in arkasında ise kimsenin görmediği biri var: veritabanlarına fısıldayan bir kadın.
+        Celal'in fırınından çıkan şey kurabiye değil, oturum. Bir çerez ve başkasının hesabıyla içeridesin. Celal'in arkasında ise kimsenin görmediği biri var: veritabanlarına fısıldayan bir kadın.
       kapanis: >-
-        Çerez tezgâhı kapandı; oturumlar güvende. Fırının arka odasında bir kablo yığını duruyor —
-        iplerin hepsi tek bir kuklacıya uzanıyor.
+        Çerez tezgâhı kapandı; oturumlar güvende. Fırının arka odasında bir kablo yığını duruyor — iplerin hepsi tek bir kuklacıya uzanıyor.
+      en:
+        baslik: Fresh Cookies
+        giris: "What comes out of Celal's oven is not a biscuit, it is a session. One cookie and you are inside with someone else's account. And behind Celal stands someone nobody sees: a woman who whispers to databases."
+        kapanis: The cookie counter is closed; the sessions are safe. In the bakery's back room a pile of cables lies waiting — every string leads to a single puppeteer.
     orhan:
       baslik: İpler
       giris: >-
-        Kampüs ağında binlerce küçük cihaz aynı anda aynı kapıyı yokluyor: Kuklacı Orhan'ın botları.
-        Orhan kodu ustasından öğrendi; adı hiç anılmayan, tek bir tırnakla kapı açan birinden.
+        Kampüs ağında binlerce küçük cihaz aynı anda aynı kapıyı yokluyor: Kuklacı Orhan'ın botları. Orhan kodu ustasından öğrendi; adı hiç anılmayan, tek bir tırnakla kapı açan birinden.
       kapanis: >-
-        Loglardan bot ordusunu buldun; ipler kesildi. Orhan'ın sunucusunda çalınmış parola özetleri duruyor.
-        Onları kırmaya çalışan adamın adı loglarda: Kasa Kıran Kadir.
+        Loglardan bot ordusunu buldun; ipler kesildi. Orhan'ın sunucusunda çalınmış parola özetleri duruyor. Onları kırmaya çalışan adamın adı loglarda: Kasa Kıran Kadir.
+      en:
+        baslik: Strings
+        giris: "On the campus network thousands of small devices probe the same door at once: Puppeteer Orhan's bots. Orhan learned code from a master; from someone whose name is never mentioned, who opens doors with a single quote."
+        kapanis: "You found the bot army in the logs; the strings are cut. Stolen password hashes sit on Orhan's server. The name of the man trying to crack them is in the logs: Safecracker Kadir."
     kadir:
       baslik: Kasa
       giris: >-
-        Kasa Kıran Kadir otuz yıl çelik kasa açtı; şimdi parola açıyor. Elinde milyonlarca sızmış parola ve sonsuz sabır var.
-        Ama tuzlu bir özetin karşısında en usta eller bile titrer.
+        Kasa Kıran Kadir otuz yıl çelik kasa açtı; şimdi parola açıyor. Elinde milyonlarca sızmış parola ve sonsuz sabır var. Ama tuzlu bir özetin karşısında en usta eller bile titrer.
       kapanis: >-
-        Kadir'in açamadığı tek kasa güçlü, tuzlu parolalardı. Teslim olmadan önce tek bir isim veriyor:
-        "Ben sadece açarım. Kime açtığımı Mine Hanım bilir."
+        Kadir'in açamadığı tek kasa güçlü, tuzlu parolalardı. Teslim olmadan önce tek bir isim veriyor: "Ben sadece açarım. Kime açtığımı Mine Hanım bilir."
+      en:
+        baslik: The Vault
+        giris: Safecracker Kadir spent thirty years opening steel safes; now he cracks passwords. He has millions of leaked passwords and endless patience. But faced with a salted hash, even the steadiest hands tremble.
+        kapanis: 'The one safe Kadir could not open was strong, salted passwords. Before he surrenders he gives a single name: "I only open things. Who I open them for, Masked Mine knows."'
     mine:
       baslik: Maskeler
       giris: >-
-        Don'un kızı Mine babasının tahtına göz dikmiş. Herkes hakkında her şeyi bilir, çünkü herkes her şeyi paylaşır.
-        Elinde yüz maske var: sahte şirketler, sahte ilanlar, sahte profiller.
+        Don'un kızı Mine babasının tahtına göz dikmiş. Herkes hakkında her şeyi bilir, çünkü herkes her şeyi paylaşır. Elinde yüz maske var: sahte şirketler, sahte ilanlar, sahte profiller.
       kapanis: >-
-        Sahte şirket açık kaynak bilgileriyle çöktü. Mine kaçarken bir dosya düşürüyor:
-        babasının sağ kolu Ferhat'ın şehre kurduğu fidye ağının haritası.
+        Sahte şirket açık kaynak bilgileriyle çöktü. Mine kaçarken bir dosya düşürüyor: babasının sağ kolu Ferhat'ın şehre kurduğu fidye ağının haritası.
+      en:
+        baslik: Masks
+        giris: "Mine, Don's daughter, has her eye on her father's throne. She knows everything about everyone, because everyone shares everything. She holds a hundred masks: fake companies, fake listings, fake profiles."
+        kapanis: "The fake company fell apart under open-source information. Fleeing, Mine drops a file: a map of the ransomware network Ferhat, her father's right hand, built across the city."
     ferhat:
       baslik: Fidye
       giris: >-
-        Şehrin hastanesi sabaha karşı kilitlendi; bütün ekranlarda tek bir asma kilit. Fidyeci Ferhat'ın zinciri yedi halkalı:
-        keşiften sızmaya, sızmadan şifrelemeye. Senin işin tek bir halkayı kırmak.
+        Şehrin hastanesi sabaha karşı kilitlendi; bütün ekranlarda tek bir asma kilit. Fidyeci Ferhat'ın zinciri yedi halkalı: keşiften sızmaya, sızmadan şifrelemeye. Senin işin tek bir halkayı kırmak.
       kapanis: >-
-        Zincir üçüncü halkada kırıldı; yedekler kurtarıldı. Ferhat sorguda tek cümle kuruyor:
-        "Don'u yakalarsınız. Ama Baron'u asla."
+        Zincir üçüncü halkada kırıldı; yedekler kurtarıldı. Ferhat sorguda tek cümle kuruyor: "Don'u yakalarsınız. Ama Baron'u asla."
+      en:
+        baslik: Ransom
+        giris: "The city hospital locked up before dawn; a single padlock on every screen. Ransom Ferhat's chain has seven links: from reconnaissance to intrusion, from intrusion to encryption. Your job is to break one link."
+        kapanis: "The chain broke at the third link; the backups were saved. Under questioning Ferhat says only one sentence: \"You'll catch Don. But the Baron, never.\""
     don:
       baslik: Son Masa
       giris: >-
-        Ailenin bütün dosyaları masanda. Don Gölge son bir oyun hazırladı: sekiz kilitli kapı, her birinde bir üyesinin hilesi.
-        Öğrendiğin her şey tek gecede sınanacak.
+        Ailenin bütün dosyaları masanda. Don Gölge son bir oyun hazırladı: sekiz kilitli kapı, her birinde bir üyesinin hilesi. Öğrendiğin her şey tek gecede sınanacak.
       kapanis: >-
-        Don Gölge'nin dosyası kapandı. Tam o anda ekranında bir mesaj beliriyor, imza tek harf:
-        "İyi oyundu Tilki. Selim'e selamımı söyle. — B." Selim Hoca çekmecesinden yirmi yıllık bir fotoğraf çıkarıyor:
-        üç kapüşonlu genç. "Eren..." diyor. Sezon 2 uzmanlık yollarında başlıyor.
+        Don Gölge'nin dosyası kapandı. Tam o anda ekranında bir mesaj beliriyor, imza tek harf: "İyi oyundu Tilki. Selim'e selamımı söyle. — B." Selim Hoca çekmecesinden yirmi yıllık bir fotoğraf çıkarıyor: üç kapüşonlu genç. "Eren..." diyor. Sezon 2 uzmanlık yollarında başlıyor.
+      en:
+        baslik: The Last Table
+        giris: "All the family's files are on your desk. Don Shadow has prepared one last game: eight locked doors, each hiding one member's trick. Everything you have learned will be tested in a single night."
+        kapanis: "Don Shadow's file is closed. Just then a message appears on your screen, signed with a single letter: \"Good game, Fox. Give Selim my regards. — B.\" Professor Selim takes a twenty-year-old photograph from his drawer: three hooded youngsters. \"Eren...\" he says. Season 2 begins on the specialisation paths."
     # ── Sezon 2: her uzmanlık yolu bir bölüm ──
     jasmine:
       baslik: Çekmeceler
       giris: >-
-        Don'un dosyası kapandı ama Kampüs Portalı'nda gece yarısı tuhaf sorgular dönüyor. Notlar, burslar, kimlik fotoğrafları:
-        hepsi bir veritabanının çekmecelerinde. Selim Hoca imzalı bir test izniyle seni portalın laboratuvar kopyasına gönderiyor:
-        Jasmine'den önce her çekmeceyi bul ve kilitle.
+        Don'un dosyası kapandı ama Kampüs Portalı'nda gece yarısı tuhaf sorgular dönüyor. Notlar, burslar, kimlik fotoğrafları: hepsi bir veritabanının çekmecelerinde. Selim Hoca imzalı bir test izniyle seni portalın laboratuvar kopyasına gönderiyor: Jasmine'den önce her çekmeceyi bul ve kilitle.
       kapanis: >-
-        Son çekmece kilitlendi; raporun okulun güvenlik ekibinin masasında. Laboratuvarın kapı kolunda bir yasemin çiçeği ve
-        katlanmış bir not var: "Kapüşonlular hep üç kişi miydi sanıyorsun, Tilki? Selim'e dördüncüyü sor."
+        Son çekmece kilitlendi; raporun okulun güvenlik ekibinin masasında. Laboratuvarın kapı kolunda bir yasemin çiçeği ve katlanmış bir not var: "Kapüşonlular hep üç kişi miydi sanıyorsun, Tilki? Selim'e dördüncüyü sor."
+      en:
+        baslik: Drawers
+        giris: "Don's file is closed, but strange queries are running on the Campus Portal at midnight. Grades, scholarships, ID photos: all of it in the drawers of one database. Professor Selim sends you to the portal's lab copy with a signed test permit: find and lock every drawer before Jasmine."
+        kapanis: "The last drawer is locked and your report is on the school security team's desk. On the lab door handle there is a jasmine flower and a folded note: \"Did you think the Hooded Ones were always three, Fox? Ask Selim about the fourth.\""
     tarik:
       baslik: Tüneller
       giris: >-
-        Selim Hoca sonunda anlatıyor: "Dördüncü Kapüşonlu Tarık'tı. Ağı o kurardı. O gece Eren'in açtığı kapının suçu ona kaldı;
-        on yıl yattı." Şimdi kampüs ağında bir hayalet dolaşıyor: bölgeler arasında tünel kazıyor, güvenlik duvarının arkasında
-        beliriyor. Kampüs ağının laboratuvar kopyası senin; Tarık'tan önce her tüneli bul ve kapat.
+        Selim Hoca sonunda anlatıyor: "Dördüncü Kapüşonlu Tarık'tı. Ağı o kurardı. O gece Eren'in açtığı kapının suçu ona kaldı; on yıl yattı." Şimdi kampüs ağında bir hayalet dolaşıyor: bölgeler arasında tünel kazıyor, güvenlik duvarının arkasında beliriyor. Kampüs ağının laboratuvar kopyası senin; Tarık'tan önce her tüneli bul ve kapat.
       kapanis: >-
-        Son tünel kapandı; ağ bölgelerine ayrıldı, sunucular sertleştirildi. Sunucu dolabının içinde fenerinin yeşil ışığıyla
-        yazılmış bir not buluyorsun: "Eren beni o gece yaktı. Ona çalışıyorum, ama onun adamı değilim. Bir gün aynı tarafta olacağız, Tilki."
+        Son tünel kapandı; ağ bölgelerine ayrıldı, sunucular sertleştirildi. Sunucu dolabının içinde fenerinin yeşil ışığıyla yazılmış bir not buluyorsun: "Eren beni o gece yaktı. Ona çalışıyorum, ama onun adamı değilim. Bir gün aynı tarafta olacağız, Tilki."
+      en:
+        baslik: Tunnels
+        giris: "Professor Selim finally tells the story: \"The Fourth Hooded One was Tarık. He built the network. The blame for the door Eren opened that night fell on him; he served ten years.\" Now a ghost walks the campus network: tunnelling between segments, appearing behind the firewall. The campus network's lab copy is yours; find and close every tunnel before Tarık."
+        kapanis: "The last tunnel is closed; the network is segmented and the servers hardened. Inside the server rack you find a note written in the green light of his torch: \"Eren burned me that night. I work for him, but I am not his man. One day we'll be on the same side, Fox.\""
     tamer:
       baslik: Temizlik
       giris: >-
-        Tarık'ın notundan bir hafta sonra kampüsün olay kayıtlarında altı saatlik bir boşluk var. Saatler kaydırılmış, loglar
-        silinmiş, alarmlar susturulmuş. Bu, ailenin temizlikçisinin işi: Temizlikçi Tamer. Görevin SOC masasında; silinen her izi
-        geri getir, olayın zaman çizelgesini kur.
+        Tarık'ın notundan bir hafta sonra kampüsün olay kayıtlarında altı saatlik bir boşluk var. Saatler kaydırılmış, loglar silinmiş, alarmlar susturulmuş. Bu, ailenin temizlikçisinin işi: Temizlikçi Tamer. Görevin SOC masasında; silinen her izi geri getir, olayın zaman çizelgesini kur.
       kapanis: >-
-        Zaman çizelgesi tamamlandı; Tamer'in sildiği altı saat geri geldi. Kurtarılan son kayıtta tek bir kelime tekrar ediyor:
-        AYNA. Selim Hoca kâğıdı katlayıp cebine koyuyor: "Bunu daha önce duymuştum."
+        Zaman çizelgesi tamamlandı; Tamer'in sildiği altı saat geri geldi. Kurtarılan son kayıtta tek bir kelime tekrar ediyor: AYNA. Selim Hoca kâğıdı katlayıp cebine koyuyor: "Bunu daha önce duymuştum."
+      en:
+        baslik: Clean-Up
+        giris: "A week after Tarık's note there is a six-hour gap in the campus incident logs. Clocks shifted, logs deleted, alarms silenced. This is the family cleaner's work: Cleaner Tamer. Your mission is at the SOC desk; bring back every erased trace and build the timeline of the incident."
+        kapanis: "The timeline is complete; the six hours Tamer erased are back. In the last recovered record a single word repeats: MIRROR. Professor Selim folds the paper and puts it in his pocket: \"I've heard that before.\""
     bedri:
       baslik: Sahte Bayraklar
       giris: >-
-        Kampüse yapılan son saldırıyı bütün raporlar yabancı bir gruba yüklüyor. Fazla temiz, fazla kolay. Bayrakçı Bedri her
-        operasyona başka bir grubun imzasını bırakır. Görevin istihbarat masasında; kanıtı topla, hipotezleri ayır, bayrakları
-        gerçek sahibine bağla.
+        Kampüse yapılan son saldırıyı bütün raporlar yabancı bir gruba yüklüyor. Fazla temiz, fazla kolay. Bayrakçı Bedri her operasyona başka bir grubun imzasını bırakır. Görevin istihbarat masasında; kanıtı topla, hipotezleri ayır, bayrakları gerçek sahibine bağla.
       kapanis: >-
-        Bayraklar söküldü; bütün altyapı tek bir şirkete çıkıyor: Ayna Teknoloji. Kâğıt üstünde kimse yok, ama bütün alan adları
-        aynı gece, aynı saatte kaydedilmiş: Kapüşonlular'ın yirmi yıl önce buluştuğu saatte.
+        Bayraklar söküldü; bütün altyapı tek bir şirkete çıkıyor: Ayna Teknoloji. Kâğıt üstünde kimse yok, ama bütün alan adları aynı gece, aynı saatte kaydedilmiş: Kapüşonlular'ın yirmi yıl önce buluştuğu saatte.
+      en:
+        baslik: False Flags
+        giris: Every report blames the latest attack on campus on a foreign group. Too clean, too easy. Flag-Bearer Bedri leaves another group's signature at every operation. Your mission is at the intelligence desk; gather the evidence, separate the hypotheses, tie the flags to their real owner.
+        kapanis: "The flags are down; all the infrastructure leads to one company: Mirror Technology. On paper nobody owns it, but every domain was registered the same night, at the same hour: when the Hooded Ones met twenty years ago."
     veysel:
       baslik: Ayna
       giris: >-
-        Kampüsün yeni yapay zekâ asistanı fazla yardımsever: soranlara notları, burs listelerini, yurt kayıtlarını gösteriyor.
-        Asistanın adı Ayna ve onu konuşturan bir vantrolog var: Vantrolog Veysel. Görevin laboratuvardaki kopyasında; Ayna'nın
-        hangi sesi kendi sesi sandığını bul ve sustur.
+        Kampüsün yeni yapay zekâ asistanı fazla yardımsever: soranlara notları, burs listelerini, yurt kayıtlarını gösteriyor. Asistanın adı Ayna ve onu konuşturan bir vantrolog var: Vantrolog Veysel. Görevin laboratuvardaki kopyasında; Ayna'nın hangi sesi kendi sesi sandığını bul ve sustur.
       kapanis: >-
-        Ayna'nın eğitim verisinde Gölge Ağ'ın yıllardır topladığı her şey var: sesler, yazışmalar, yüzler. Baron bir asistan değil,
-        şehrin bir kopyasını kuruyor. Veysel sahneden inerken fısıldıyor: "Ayna'nın gözleri sizin cebinizde, Tilki."
+        Ayna'nın eğitim verisinde Gölge Ağ'ın yıllardır topladığı her şey var: sesler, yazışmalar, yüzler. Baron bir asistan değil, şehrin bir kopyasını kuruyor. Veysel sahneden inerken fısıldıyor: "Ayna'nın gözleri sizin cebinizde, Tilki."
+      en:
+        baslik: Mirror
+        giris: "The campus's new AI assistant is too helpful: it shows enquirers grades, scholarship lists and dormitory records. The assistant is called Mirror, and a ventriloquist makes it talk: Ventriloquist Veysel. Your mission is on the lab copy; find which voice Mirror mistakes for its own and silence it."
+        kapanis: "Mirror's training data holds everything the Shadow Network has collected for years: voices, messages, faces. The Baron is not building an assistant but a copy of the city. Leaving the stage, Veysel whispers: \"Mirror's eyes are in your pocket, Fox.\""
     leman:
       baslik: Gözler
       giris: >-
-        Kampüsteki akıllı kilitler gece kendi kendine açılıyor, kameralar boş koridorları değil seni izliyor. Ayna'nın gözleri ve
-        kulakları her cihazda; onları kuran el tek: Lehimci Leman. Görevin laboratuvar tezgâhında; her cihazı aç, her kapıyı bul,
-        her varsayılan parolayı değiştir.
+        Kampüsteki akıllı kilitler gece kendi kendine açılıyor, kameralar boş koridorları değil seni izliyor. Ayna'nın gözleri ve kulakları her cihazda; onları kuran el tek: Lehimci Leman. Görevin laboratuvar tezgâhında; her cihazı aç, her kapıyı bul, her varsayılan parolayı değiştir.
       kapanis: >-
-        Kameralar kapandı, kilitler yeniden programlandı. Leman'ın tezgâhında yarım kalmış bir kart duruyor; içinde minik, mekanik
-        bir böcek. Kartın arkasına kazınmış not: "Sabri Usta'ya teslim."
+        Kameralar kapandı, kilitler yeniden programlandı. Leman'ın tezgâhında yarım kalmış bir kart duruyor; içinde minik, mekanik bir böcek. Kartın arkasına kazınmış not: "Sabri Usta'ya teslim."
+      en:
+        baslik: Eyes
+        giris: "The smart locks on campus open by themselves at night, and the cameras watch you rather than the empty corridors. Mirror's eyes and ears are in every device, and one hand installed them all: Solderer Leman. Your mission is at the lab bench; open every device, find every door, change every default password."
+        kapanis: "The cameras are off and the locks reprogrammed. On Leman's bench lies a half-finished card holding a tiny mechanical bug. Scratched on the back: \"Deliver to Master Sabri.\""
     sabri:
       baslik: Saat İşliyor
       giris: >-
-        Kampüs ağında uyuyan bir şey var: belirli bir saatte uyanacak, kendini kopyalayacak ve Ayna'yı besleyecek. Saatçi Sabri'nin
-        mekanik böcekleri. Görevin izole analiz laboratuvarında; böceği güvenle aç, nasıl çalıştığını anla, saati durdur.
+        Kampüs ağında uyuyan bir şey var: belirli bir saatte uyanacak, kendini kopyalayacak ve Ayna'yı besleyecek. Saatçi Sabri'nin mekanik böcekleri. Görevin izole analiz laboratuvarında; böceği güvenle aç, nasıl çalıştığını anla, saati durdur.
       kapanis: >-
-        Saat durdu. Böceğin içindeki imza anahtarı yirmi yıl öncesine gidiyor: o gece liman bankasında kullanılan anahtar. Ve son
-        satır yeni bir geri sayım başlatıyor; bitişi, Ayna'nın uyanacağı gece. Sezon 3: Ayna.
+        Saat durdu. Böceğin içindeki imza anahtarı yirmi yıl öncesine gidiyor: o gece liman bankasında kullanılan anahtar. Ve son satır yeni bir geri sayım başlatıyor; bitişi, Ayna'nın uyanacağı gece. Sezon 3: Ayna.
+      en:
+        baslik: The Clock Is Ticking
+        giris: "Something is sleeping on the campus network: it will wake at a set time, copy itself and feed Mirror. Clockmaker Sabri's mechanical bugs. Your mission is in the isolated analysis lab; open the bug safely, understand how it works, stop the clock."
+        kapanis: "The clock has stopped. The signature key inside the bug goes back twenty years: the key used at the bank at the harbour that night. And the last line starts a new countdown; it ends on the night Mirror wakes. Season 3: Mirror."
+  en:
+    ad: Shadow Network — Season 1

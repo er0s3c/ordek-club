@@ -8,6 +8,7 @@ import { api, ApiError } from "@/lib/api-client";
 import type { Block } from "@/lib/deck-schema";
 import { useCountdown } from "./Poll";
 import { FILE_ACCEPT } from "@/components/classroom/labels";
+import { useT } from "@/i18n/client";
 
 type PracticalBlock = Extract<Block, { type: "practical" }>;
 type Mine = { status: "SUBMITTED" | "RETURNED" | "APPROVED" | "REJECTED"; late: boolean; feedback: string; score: number | null; files: { id: string; name: string }[] } | null;
@@ -21,6 +22,7 @@ export function fmtClock(sec: number) {
 
 // Öğrenci: uygulama molası teslim formu (metin + dosya). Görev API'sine gider; XP onaydan sonra.
 export function StudentPractical({ assignmentId, dueAt, block, skew }: { assignmentId: string; dueAt: number; block: PracticalBlock; skew: number }) {
+  const t = useT();
   const toast = useToast();
   const left = useCountdown(dueAt, skew);
   const [mine, setMine] = useState<Mine>(null);
@@ -46,12 +48,12 @@ export function StudentPractical({ assignmentId, dueAt, block, skew }: { assignm
     setBusy(true);
     try {
       await api(`/api/tasks/${encodeURIComponent(assignmentId)}/submit`, { method: "POST", form });
-      toast("ok", "Teslimin alındı. Eğitmen değerlendirince bildirim gelecek.");
+      toast("ok", t("Teslimin alındı. Eğitmen değerlendirince bildirim gelecek."));
       setText("");
       if (fileRef.current) fileRef.current.value = "";
       await load();
     } catch (err) {
-      toast("error", err instanceof ApiError ? err.message : "Teslim gönderilemedi.");
+      toast("error", err instanceof ApiError ? err.message : t("Teslim gönderilemedi."));
     } finally {
       setBusy(false);
     }
@@ -62,27 +64,27 @@ export function StudentPractical({ assignmentId, dueAt, block, skew }: { assignm
     <section className="card practical-card" aria-labelledby="pr-h">
       <div className="card-h">
         <h2 id="pr-h"><FlaskConical size={15} aria-hidden /> {block.title}</h2>
-        <span className={left > 0 ? "badge badge-amber" : "badge badge-red"}><Clock size={12} aria-hidden /> {left > 0 ? fmtClock(left) : "süre doldu"}</span>
+        <span className={left > 0 ? "badge badge-amber" : "badge badge-red"}><Clock size={12} aria-hidden /> {left > 0 ? fmtClock(left) : t("süre doldu")}</span>
       </div>
       <div className="card-b stack-sm">
         {mine && (
           <div className="row" style={{ flexWrap: "wrap" }}>
-            <span className={`badge ${SUB_STATUS[mine.status][1]}`}>{SUB_STATUS[mine.status][0]}</span>
-            {mine.late && <span className="badge">geç</span>}
-            {mine.score !== null && <span className="small mono">{mine.score} puan</span>}
+            <span className={`badge ${SUB_STATUS[mine.status][1]}`}>{t(SUB_STATUS[mine.status][0])}</span>
+            {mine.late && <span className="badge">{t("geç")}</span>}
+            {mine.score !== null && <span className="small mono">{t("{score} puan", { score: mine.score })}</span>}
           </div>
         )}
         {mine?.feedback && <div className="alert alert-info small" style={{ whiteSpace: "pre-wrap" }}>{mine.feedback}</div>}
         {locked ? (
-          <p className="small muted" style={{ margin: 0 }}>Bu teslim değerlendirildi. Ayrıntı: <Link href={`/tasks/${assignmentId}`}>görev sayfası</Link></p>
+          <p className="small muted" style={{ margin: 0 }}>{t("Bu teslim değerlendirildi. Ayrıntı:")}{" "}<Link href={`/tasks/${assignmentId}`}>{t("görev sayfası")}</Link></p>
         ) : (
           <form className="stack-sm" onSubmit={submit}>
-            <label htmlFor="pr-text" className="small">Sonuç / açıklama</label>
-            <textarea id="pr-text" className="textarea" rows={4} maxLength={20000} required placeholder="Ne yaptın, ne buldun? Komut çıktısı veya ekran görüntüsü de ekleyebilirsin." value={text} onChange={(e) => setText(e.target.value)} />
-            <label htmlFor="pr-files" className="small"><Paperclip size={13} aria-hidden /> Dosyalar (isteğe bağlı, en fazla 5)</label>
+            <label htmlFor="pr-text" className="small">{t("Sonuç / açıklama")}</label>
+            <textarea id="pr-text" className="textarea" rows={4} maxLength={20000} required placeholder={t("Ne yaptın, ne buldun? Komut çıktısı veya ekran görüntüsü de ekleyebilirsin.")} value={text} onChange={(e) => setText(e.target.value)} />
+            <label htmlFor="pr-files" className="small"><Paperclip size={13} aria-hidden />{" "}{t("Dosyalar (isteğe bağlı, en fazla 5)")}</label>
             <input id="pr-files" ref={fileRef} type="file" multiple className="input" accept={FILE_ACCEPT} />
-            <button className="btn btn-primary btn-sm" disabled={busy || !text.trim()}>{busy ? "Gönderiliyor…" : mine ? "Teslimi güncelle" : "Teslim et"}</button>
-            {left === 0 && <p className="tiny faint" style={{ margin: 0 }}>Süre doldu; teslimin geç olarak işaretlenir.</p>}
+            <button className="btn btn-primary btn-sm" disabled={busy || !text.trim()}>{busy ? t("Gönderiliyor…") : mine ? t("Teslimi güncelle") : t("Teslim et")}</button>
+            {left === 0 && <p className="tiny faint" style={{ margin: 0 }}>{t("Süre doldu; teslimin geç olarak işaretlenir.")}</p>}
           </form>
         )}
       </div>
@@ -100,6 +102,7 @@ type StaffView = {
 
 // Eğitmen: hazırlık notları (yalnız eğitmene gelir) + teslim durumu (5 sn'de bir yenilenir).
 export function HostPractical({ assignmentId, dueAt, block, skew, online }: { assignmentId: string | null; dueAt: number | null; block: PracticalBlock; skew: number; online: number }) {
+  const tl = useT();
   const left = useCountdown(dueAt, skew);
   const [data, setData] = useState<StaffView | null>(null);
 
@@ -128,42 +131,42 @@ export function HostPractical({ assignmentId, dueAt, block, skew, online }: { as
   return (
     <section className="card practical-card" aria-labelledby="hp-h">
       <div className="card-h">
-        <h2 id="hp-h"><FlaskConical size={15} aria-hidden /> Uygulama molası</h2>
-        {dueAt && <span className={left > 0 ? "badge badge-amber" : "badge badge-red"}>{left > 0 ? fmtClock(left) : "süre doldu"}</span>}
+        <h2 id="hp-h"><FlaskConical size={15} aria-hidden />{" "}{tl("Uygulama molası")}</h2>
+        {dueAt && <span className={left > 0 ? "badge badge-amber" : "badge badge-red"}>{left > 0 ? fmtClock(left) : tl("süre doldu")}</span>}
       </div>
       <div className="card-b stack-sm">
-        <p className="tiny faint" style={{ margin: 0 }}>Sistem VMware&apos;i başlatmaz/yönetmez. Ortamı sen hazırlarsın; öğrenciler sonucu buradan teslim eder.</p>
+        <p className="tiny faint" style={{ margin: 0 }}>{tl("Sistem VMware'i başlatmaz/yönetmez. Ortamı sen hazırlarsın; öğrenciler sonucu buradan teslim eder.")}</p>
         {(h.prepNotes || h.vms.length > 0 || h.snapshot) && (
           <div className="notes small stack-sm">
-            {h.vms.length > 0 && <div><Server size={13} aria-hidden /> <strong>VM&apos;ler:</strong> {h.vms.join(" · ")}</div>}
-            {h.snapshot && <div><strong>Snapshot:</strong> {h.snapshot}</div>}
+            {h.vms.length > 0 && <div><Server size={13} aria-hidden /> <strong>{tl("VM'ler:")}</strong> {h.vms.join(" · ")}</div>}
+            {h.snapshot && <div><strong>{tl("Snapshot:")}</strong> {h.snapshot}</div>}
             {h.prepNotes && <div>{h.prepNotes}</div>}
           </div>
         )}
         {h.expected && (
           <details className="small">
-            <summary>Beklenen sonuç (yalnız sen görürsün)</summary>
+            <summary>{tl("Beklenen sonuç (yalnız sen görürsün)")}</summary>
             <div className="notes" style={{ marginTop: 6 }}>{h.expected}</div>
           </details>
         )}
         {!assignmentId ? (
-          <p className="small muted" style={{ margin: 0 }}><RefreshCw size={13} aria-hidden /> Teslim görevi hazırlanıyor…</p>
+          <p className="small muted" style={{ margin: 0 }}><RefreshCw size={13} aria-hidden />{" "}{tl("Teslim görevi hazırlanıyor…")}</p>
         ) : (
           <>
             <div className="row small" style={{ flexWrap: "wrap" }}>
-              <span className="badge badge-lime">{subs.length} teslim</span>
-              <span className="badge badge-amber">{pending} bekliyor</span>
-              <span className="faint">{online} çevrimiçi</span>
+              <span className="badge badge-lime">{tl("{length} teslim", { length: subs.length })}</span>
+              <span className="badge badge-amber">{tl("{pending} bekliyor", { pending })}</span>
+              <span className="faint">{tl("{online} çevrimiçi", { online })}</span>
               <span style={{ flex: 1 }} />
-              <Link className="btn btn-sm" href={`/teach/tasks/${assignmentId}`} target="_blank" rel="noopener">Değerlendir</Link>
+              <Link className="btn btn-sm" href={`/teach/tasks/${assignmentId}`} target="_blank" rel="noopener">{tl("Değerlendir")}</Link>
             </div>
             {subs.length > 0 && (
               <ul className="list-tight" style={{ maxHeight: 200, overflow: "auto" }}>
                 {subs.map((s) => (
                   <li key={s.id}>
-                    <span style={{ flex: 1 }}>{s.user.displayName}{s.files.length > 0 && <span className="tiny faint"> · {s.files.length} dosya</span>}</span>
-                    {s.late && <span className="badge">geç</span>}
-                    <span className={`badge ${SUB_STATUS[s.status][1]}`}>{s.status === "SUBMITTED" ? "bekliyor" : SUB_STATUS[s.status][0].toLowerCase()}</span>
+                    <span style={{ flex: 1 }}>{s.user.displayName}{s.files.length > 0 && <span className="tiny faint">{" "}{tl("· {length} dosya", { length: s.files.length })}</span>}</span>
+                    {s.late && <span className="badge">{tl("geç")}</span>}
+                    <span className={`badge ${SUB_STATUS[s.status][1]}`}>{s.status === "SUBMITTED" ? tl("bekliyor") : tl(SUB_STATUS[s.status][0]).toLocaleLowerCase()}</span>
                   </li>
                 ))}
               </ul>
