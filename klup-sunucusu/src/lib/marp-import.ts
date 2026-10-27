@@ -47,7 +47,7 @@ function parseSlide(src: string, index: number): Slide {
       flushPara();
       let body = trimmed.slice(4);
       while (!body.includes("-->") && i + 1 < lines.length) body += `\n${lines[++i]}`;
-      body = body.replace(/-->[\s\S]*$/, "").trim();
+      body = body.replace(/--!?>[\s\S]*$/, "").trim();
       if (body && !/^_?\w+\s*:/.test(body)) notes.push(body);
       continue;
     }
