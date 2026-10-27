@@ -23,9 +23,9 @@ export function curve(a: Actor, b: Actor) {
 
 // ELK "layered" yerleşimi: adımlardaki iletişim yönüne göre soldan sağa katmanlar; 800×360 tuvale ölçeklenir.
 export function useElkLayout(def: FlowAnimation): Actor[] {
-  const [actors, setActors] = useState(def.actors);
+  const [layout, setLayout] = useState<{ def: FlowAnimation; actors: Actor[] } | null>(null);
   useEffect(() => {
-    if (def.layout !== "auto") { setActors(def.actors); return; }
+    if (def.layout !== "auto") return;
     let live = true;
     void (async () => {
       const { default: ELK } = await import("elkjs/lib/elk.bundled.js");
@@ -44,11 +44,13 @@ export function useElkLayout(def: FlowAnimation): Actor[] {
       const w = Math.max(1, g.width ?? 1), h = Math.max(1, g.height ?? 1);
       const sx = Math.min(1, 700 / w), sy = Math.min(1, 280 / h);
       const ox = (800 - w * sx) / 2, oy = (360 - h * sy) / 2;
-      if (live) setActors(def.actors.map((a) => { const n = kids.find((k) => k.id === a.id); return n ? { ...a, x: ox + ((n.x ?? 0) + (n.width ?? 0) / 2) * sx, y: oy + ((n.y ?? 0) + (n.height ?? 0) / 2) * sy } : a; }));
+      if (live) setLayout({ def, actors: def.actors.map((a) => { const n = kids.find((k) => k.id === a.id); return n ? { ...a, x: ox + ((n.x ?? 0) + (n.width ?? 0) / 2) * sx, y: oy + ((n.y ?? 0) + (n.height ?? 0) / 2) * sy } : a; }) });
     })();
     return () => { live = false; };
   }, [def]);
-  return actors;
+  // A reused view may receive a different animation before its effect runs.
+  // Never combine the new steps with actors from the previous definition.
+  return layout?.def === def ? layout.actors : def.actors;
 }
 
 // rough.js ile elle çizilmiş görünüm için SVG yol verisi (tohumlu: her çizimde aynı titreme).

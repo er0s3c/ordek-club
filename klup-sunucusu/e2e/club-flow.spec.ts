@@ -137,6 +137,8 @@ test("kurulumdan onaylı göreve 13 adım", async ({ browser }) => {
   await test.step("9. Eğitmen ilerler, öğrencinin ekranı eşzamanlı değişir", async () => {
     await o.getByRole("button", { name: "Sonraki adım" }).click();
     await expect(s.getByRole("heading", { name: "Paketin yolculuğu" })).toBeVisible();
+    await expect(o.getByRole("heading", { name: "Paketin yolculuğu" })).toBeVisible();
+    await expect(o.getByRole("region", { name: "Quiz / anket" })).toBeVisible();
   });
 
   await test.step("10. Canlı quiz: öğrenci cevaplar, eğitmen açıklar", async () => {
