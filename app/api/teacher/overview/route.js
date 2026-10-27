@@ -13,10 +13,12 @@ function gate(req) {
   return s && s.role === "teacher" ? s : null;
 }
 
-function summarize(solved) {
+export function summarize(solved) {
   let total = 0, low = 0, medium = 0, high = 0;
-  for (const ls of Object.values(solved || {})) {
-    for (const l of ls || []) { total++; if (l === "low") low++; else if (l === "medium") medium++; else if (l === "high") high++; }
+  if (!solved || typeof solved !== "object") return { total, low, medium, high };
+  for (const ls of Object.values(solved)) {
+    if (!Array.isArray(ls)) continue;
+    for (const l of ls) { total++; if (l === "low") low++; else if (l === "medium") medium++; else if (l === "high") high++; }
   }
   return { total, low, medium, high };
 }
