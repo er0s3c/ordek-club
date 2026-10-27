@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ANIMATIONS, getAnimation } from "@/animations/registry";
 import { animationStepCount } from "@/animations/types";
-import { blockSteps, deckSchema, slideSteps } from "@/lib/deck-schema";
+import { blockSchema, blockSteps, deckSchema, EMPTY_PRACTICAL_HOST, slideSteps } from "@/lib/deck-schema";
 import { clientMessageSchema } from "@/lib/live-protocol";
 import { TEMPLATES } from "@/templates";
 
@@ -54,6 +54,13 @@ describe("animasyon kayıt defteri", () => {
 });
 
 describe("sunum şeması", () => {
+  it("uygulama bloğunda eksik eğitmen alanları varsayılanlarla tamamlanır", () => {
+    for (const host of [undefined, {}]) {
+      const block = blockSchema.parse({ type: "practical", title: "Deneme", host });
+      expect(block.type === "practical" && block.host).toEqual(EMPTY_PRACTICAL_HOST);
+    }
+  });
+
   it("tüm hazır şablonlar şemadan geçer", () => {
     for (const [key, t] of Object.entries(TEMPLATES)) {
       const r = deckSchema.safeParse(t);

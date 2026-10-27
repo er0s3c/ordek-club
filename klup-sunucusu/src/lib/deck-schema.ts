@@ -92,7 +92,7 @@ export const blockSchema = z.discriminatedUnion("type", [
         snapshot: text(300).default(""),
         expected: text(3000).default(""),
       })
-      .default({}),
+      .prefault({}),
   }),
 ]);
 

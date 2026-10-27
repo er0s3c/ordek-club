@@ -38,20 +38,23 @@ const cache = new Map<string, { mtime: number; data: CharFile }>();
 
 function loadChars(): CharFile | null {
   const file = path.join(env().academyDir, "karakterler.yaml");
-  let mtime = 0;
+  let fd: number;
   try {
-    mtime = fs.statSync(file).mtimeMs;
+    fd = fs.openSync(file, "r");
   } catch {
     return null;
   }
-  const hit = cache.get(file);
-  if (hit?.mtime === mtime) return hit.data;
   try {
-    const data = YAML.parse(fs.readFileSync(file, "utf8")) as CharFile;
+    const mtime = fs.fstatSync(fd).mtimeMs;
+    const hit = cache.get(file);
+    if (hit?.mtime === mtime) return hit.data;
+    const data = YAML.parse(fs.readFileSync(fd, "utf8")) as CharFile;
     cache.set(file, { mtime, data });
     return data;
   } catch {
     return null;
+  } finally {
+    fs.closeSync(fd);
   }
 }
 

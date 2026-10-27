@@ -12,16 +12,21 @@ let cache: { file: string; mtime: number; data: ComicFile | null } | null = null
 
 function load(): ComicFile | null {
   const file = path.join(env().academyDir, "cizgi-roman.yaml");
-  let mtime: number;
+  let fd: number;
   try {
-    mtime = fs.statSync(file).mtimeMs;
+    fd = fs.openSync(file, "r");
   } catch {
     return null;
   }
-  if (cache?.file === file && cache.mtime === mtime) return cache.data;
-  const parsed = comicFileSchema.safeParse(YAML.parse(fs.readFileSync(file, "utf8")));
-  cache = { file, mtime, data: parsed.success ? parsed.data : null };
-  return cache.data;
+  try {
+    const mtime = fs.fstatSync(fd).mtimeMs;
+    if (cache?.file === file && cache.mtime === mtime) return cache.data;
+    const parsed = comicFileSchema.safeParse(YAML.parse(fs.readFileSync(fd, "utf8")));
+    cache = { file, mtime, data: parsed.success ? parsed.data : null };
+    return cache.data;
+  } finally {
+    fs.closeSync(fd);
+  }
 }
 
 // Balonlardaki konuşan adı kısa addır ("Tilki", "Selim"); İngilizce sayfada da kısa ad kullanılır.
