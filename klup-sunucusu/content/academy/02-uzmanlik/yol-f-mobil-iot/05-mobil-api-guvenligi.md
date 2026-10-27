@@ -9,11 +9,10 @@ hedefler:
 animasyonlar:
   - mitm
 gorseller:
-  - id: f-05-a
+  - id: f-05-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman telefonla sunucu arasındaki havalı posta borusuna cam bir ek kutusu takmış; elindeki mühürlü zarf bir türlü açılmıyor"
-    prompt: "A pneumatic tube system carries glowing envelopes from a smartphone on one side of the room to a tall server tower on the other. Halfway along, the villain has fitted a small glass junction box into the tube and is pulling envelopes out to peek at them. Most open easily, but the one in her hands carries a bright amber wax seal shaped like an abstract symbol and refuses to open no matter how she tugs, her goggles fogging up comically while her tiny drone shrugs."
+    alt: "Telefon yalnızca tanıdığı tek bir mühürle damgalanmış zarfı kabul ediyor; sahte mühürlü zarfı geri itiyor"
+    prompt: "A smartphone with a tiny doorman inside its screen holds up a reference wax seal pattern, accepting only envelopes stamped with the exact matching seal and pushing back an envelope with a slightly different fake seal."
 ---
 
 # Mobil API güvenliği: token saklama ve sertifika doğrulama
@@ -21,7 +20,7 @@ gorseller:
 > Mobil uygulama bir vitrin; asıl kapı arkasındaki **API**. Vitrindeki düğmeyi gizlemek kapıyı kilitlemez.
 > 🔧 **Devre 5:** Kilit uygulaması sunucuyla konuşurken araya biri giriyor. Uygulama bunu fark ediyor mu?
 
-![Lehimci Leman telefonla sunucu arasındaki havalı posta borusuna cam bir ek kutusu takmış; elindeki mühürlü zarf bir türlü açılmıyor](../../gorseller/f-05-a.webp)
+::cizgi[f-05-sahne]
 
 ## Token nerede durur?
 
@@ -47,6 +46,8 @@ Her istek sunucuda kontrol edilir: bu token, **bu kapıyı** açmaya yetkili mi?
 - `network_security_config.xml` ile şifresiz trafik kapatılır.
 
 ## Sertifika sabitleme (pinning)
+
+![Telefon yalnızca tanıdığı tek bir mühürle damgalanmış zarfı kabul ediyor; sahte mühürlü zarfı geri itiyor](../../gorseller/f-05-b.webp)
 
 Uygulama, sunucunun **beklenen açık anahtarını** yanında taşır; geçerli ama farklı bir sertifikayı reddeder.
 

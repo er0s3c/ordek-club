@@ -8,11 +8,14 @@ hedefler:
   - Parametreli sorgu ile açığı kapatmak
 animasyonlar: [sql-injection]
 gorseller:
-  - id: a-05-a
+  - id: a-05-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine kütüphane masasına son satırı yeşil parlayan bir istek fişi bırakıyor; kütüphaneci robot bütün çekmeceleri boşaltmaya başlıyor"
-    prompt: "A grand dim library with a tall wooden card-catalogue cabinet behind the front desk. The villain leans on the desk and slides a request slip toward a small librarian robot; the last line of the slip glows bright green. The robot reads it obediently and starts pulling out every single drawer of the cabinet, piles of glowing index cards spilling onto the floor."
+    alt: "Kütüphaneciye verilen istek fişinin sonuna eklenmiş küçük bir ek emir; robot kütüphaneci bütün dolapları açıyor"
+    prompt: "A library request slip handed to a robot librarian: the slip has a normal request and then a small extra glowing green clause squeezed in after a quote-mark-shaped tear, and the robot obediently pulls open every drawer of the giant card catalog at once, cards flying everywhere."
+  - id: a-05-c
+    tur: ai
+    alt: "İstek ve veri iki ayrı kutuda veriliyor; robot kütüphaneci yalnızca şablon formu uygulayıp veriyi kutudan çıkarmıyor"
+    prompt: "The same robot librarian now receives a printed request form with a fixed empty slot, and the visitor's request sealed in a separate small box placed into the slot; the robot opens only the one correct drawer while the box stays sealed, no matter what is written inside it."
 ---
 
 # Injection: tek bir tırnak neden bu kadar tehlikeli?
@@ -20,9 +23,11 @@ gorseller:
 > Sunucu, senin yazdığını **veri** sanıyor. Ya yazdığın şey **komut** gibi davranırsa?
 > 🗂️ **Çekmece 5:** Jasmine'in adı buradan geliyor. Bugün onun imzasını tanıyacaksın.
 
-![Tek Tırnak Jasmine kütüphane masasına son satırı yeşil parlayan bir istek fişi bırakıyor; kütüphaneci robot bütün çekmeceleri boşaltmaya başlıyor](../../gorseller/a-05-a.webp)
+::cizgi[a-05-sahne]
 
 ## Sorun: veri ve komut aynı cümlede
+
+![Kütüphaneciye verilen istek fişinin sonuna eklenmiş küçük bir ek emir; robot kütüphaneci bütün dolapları açıyor](../../gorseller/a-05-b.webp)
 
 ```python
 sorgu = "SELECT * FROM ogrenciler WHERE ad = '" + girdi + "'"
@@ -45,6 +50,8 @@ JSON gövdede `{"sifre": {"$ne": null}}` gibi bir operatör, "parola boş değil
 kontrolü atlatabilir. Sebep aynı: girdi sorgunun **yapısını** değiştiriyor.
 
 ## Savunma: parametreli sorgu
+
+![İstek ve veri iki ayrı kutuda veriliyor; robot kütüphaneci yalnızca şablon formu uygulayıp veriyi kutudan çıkarmıyor](../../gorseller/a-05-c.webp)
 
 ```python
 cur.execute("SELECT * FROM ogrenciler WHERE ad = %s", (girdi,))

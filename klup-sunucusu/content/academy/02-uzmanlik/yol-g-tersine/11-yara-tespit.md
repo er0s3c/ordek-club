@@ -7,11 +7,10 @@ hedefler:
   - Bir örnek için yanlış pozitif üretmeyen YARA kuralı yazmak
   - Dosya göstergelerini davranışsal göstergelerle tamamlamak
 gorseller:
-  - id: g-11-a
+  - id: g-11-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri birbirinin aynısı böceklerini pirinç bir ayıklama makinesinin önünden geçirmeye çalışıyor; makinenin mercekli kolu her birini kabuğundaki desenden tanıyıp cam kavanoza bırakıyor"
-    prompt: "At a workshop gate, the villain tiptoes a neat row of identical-looking clockwork beetles past a large brass sorting machine. The machine's jointed mechanical arm, fitted with a pattern-matching magnifying lens, recognizes the distinctive swirl pattern on each beetle's shell and plucks them one by one into a big glass jar. The villain stares open-mouthed, his loupe popping off his eye."
+    alt: "Bir anahtar kalıbı: yalnızca doğru kilide uyan, çok genel de çok dar da olmayan tek anahtar"
+    prompt: "A locksmith's table with three keys: one key so plain it opens every lock in a pile, one key so overly specific it fits nothing, and one well-cut key that opens exactly the matching set of locks, glowing green."
 animasyonlar:
   - soc-alert
 ---
@@ -21,7 +20,7 @@ animasyonlar:
 > Bir böceği bir kez analiz edersin; iyi bir kural yazarsan **bütün kardeşlerini** her yerde yakalarsın.
 > ⚙️ **Çark 11:** Sabri'nin böcekleri birbirine benziyor. Selim Hoca: "Hepsini tanıyan tek bir parmak izi yaz; saat bir daha işlemesin."
 
-![Saatçi Sabri birbirinin aynısı böceklerini pirinç bir ayıklama makinesinin önünden geçirmeye çalışıyor; makinenin mercekli kolu her birini kabuğundaki desenden tanıyıp cam kavanoza bırakıyor](../../gorseller/g-11-a.webp)
+::cizgi[g-11-sahne]
 
 ## YARA nedir?
 
@@ -43,6 +42,8 @@ rule Ornek_Kural
 ```
 
 ## İyi kuralın üç özelliği
+
+![Bir anahtar kalıbı: yalnızca doğru kilide uyan, çok genel de çok dar da olmayan tek anahtar](../../gorseller/g-11-b.webp)
 
 - **Değişmeyeni hedefler:** benzersiz dize, mutex, özgün kod parçası. IP ve sürüm numarası kolay değişir.
 - **Fazla genel değildir:** `"http"` neredeyse her programda var → yanlış pozitif (false positive).

@@ -6,11 +6,10 @@ sure: 20
 hedefler:
   - Kurgusal bir web uygulaması için yetkilendirme belgesi hazırlamak
 gorseller:
-  - id: m02-06-a
+  - id: m02-06-b
     tur: ai
-    karakter: kemal
-    alt: "Avukat Kemal, dipnotları parlayan bir sözleşmeyi ve tüy kalemi masada uzatıyor"
-    prompt: "A heavy desk under a green banker's lamp. The villain slides a contract across the table toward the viewer, offering a glowing quill pen with a sly smile; at the bottom of the page, tiny abstract fine-print lines glow suspiciously red."
+    alt: "Kulüp masasında öğrenciler sırayla parlayan yeşil mühürlü bir sözleşmeyi imzalıyor"
+    prompt: "A club meeting table under warm hanging lamps: a line of students taking turns signing a long contract with a fountain pen, each signature leaving a small glowing green seal, a coffee mug and laptops on the table, everyone serious but proud."
 ---
 
 # Uygulama: Etik Hacker Sözleşmesi
@@ -19,9 +18,11 @@ gorseller:
 > için güvenlik testi isteniyor. Siteyi kulüp BT sorumlusu Ayşe Hanım yönetiyor.
 > Testi sen yapacaksın. Önce izni yaz.
 
-![Avukat Kemal, dipnotları parlayan bir sözleşmeyi ve tüy kalemi masada uzatıyor](../../gorseller/m02-06-a.webp)
+::cizgi[m02-06-sahne]
 
 ## Görevin
+
+![Kulüp masasında öğrenciler sırayla parlayan yeşil mühürlü bir sözleşmeyi imzalıyor](../../gorseller/m02-06-b.webp)
 
 Aşağıdaki şablonu doldurarak **en fazla 1 sayfalık** bir yetkilendirme belgesi hazırla.
 

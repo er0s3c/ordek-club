@@ -38,12 +38,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: Paylaşılan sorumluluk modelinde ayarlar ve veri müşterinin sorumluluğundadır.
-gorseller:
-  - id: m06-07-a
-    tur: ai
-    karakter: celal
-    alt: "Kepengi yarıya inmiş fırında Çerezci Celal, toz olup dağılan çerezlerine önlüğüyle ağlıyor"
-    prompt: "A bakery at night with its metal shutter half down: behind the counter the villain weeps into his apron over a tray of glowing cookies that crumble into dust one by one, his rolling pin lying forgotten on the floor."
 ---
 
 # M06 Quiz: Web teknolojileri
@@ -52,8 +46,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Çerezci Celal** · *quiz'i %70 ile geçince*
 >
-> ![Kepengi yarıya inmiş fırında Çerezci Celal, toz olup dağılan çerezlerine önlüğüyle ağlıyor](../../gorseller/m06-07-a.webp)
->
-> Çerez tezgâhı kapandı; oturumlar güvende. Fırının arka odasında bir kablo yığını duruyor — iplerin hepsi tek bir kuklacıya uzanıyor.
+> ::cizgi[celal-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Kuklacı Orhan** (M07)*

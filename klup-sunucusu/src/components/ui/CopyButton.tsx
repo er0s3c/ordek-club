@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { CopyMark } from "@/components/motion/CopyMark";
 import { useMessages } from "@/components/providers";
 
 export function CopyButton({ value, className = "btn btn-sm" }: { value: string; className?: string }) {
@@ -21,7 +21,7 @@ export function CopyButton({ value, className = "btn btn-sm" }: { value: string;
         }
       }}
     >
-      {done ? <Check size={15} aria-hidden /> : <Copy size={15} aria-hidden />}
+      <CopyMark copied={done} />
       {done ? m.common.copied : m.common.copy}
     </button>
   );

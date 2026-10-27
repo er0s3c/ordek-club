@@ -7,11 +7,10 @@ hedefler:
   - SYN, connect ve UDP taramalarını karşılaştırmak
   - Tarama sonuçlarını doğrulayıp yanlış pozitifleri ayıklamak
 gorseller:
-  - id: b-04-a
+  - id: b-04-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık bir binanın kapılarına aceleyle vurup cevap beklemeden kaçıyor; kapı görevlisi robot alarm düğmesine uzanıyor"
-    prompt: "A long building facade with many doors at night. The villain races along it rapping on every door in quick succession without waiting for answers, a blur of motion lines behind him, while a sleepy doorman robot at the end of the street wakes up and reaches for a glowing alarm button."
+    alt: "Alarm veren dedektör bir cebin içindeki zararsız anahtarlığı gösteriyor; analist ikinci bir kontrolle doğruluyor"
+    prompt: "A security checkpoint where a metal detector arch is blaring red, but the inspector opens the traveler's pocket to find only a harmless keychain, double-checking with a second handheld scanner before deciding."
 ---
 
 # İleri tarama: türler, hız ve yanlış pozitifler
@@ -19,7 +18,7 @@ gorseller:
 > Hızlı tarama gürültülüdür; yavaş tarama sabır ister. Ve tarayıcının söylediği her şey **doğru değildir**.
 > 🕳️ **Tünel 4:** Laboratuvar IDS'i dün gece kısa bir tarama yakaladı. Ama Tarık bu kadar acemi mi?
 
-![Tünelci Tarık bir binanın kapılarına aceleyle vurup cevap beklemeden kaçıyor; kapı görevlisi robot alarm düğmesine uzanıyor](../../gorseller/b-04-a.webp)
+::cizgi[b-04-sahne]
 
 ## Tarama türleri
 
@@ -36,6 +35,8 @@ gorseller:
 - Laboratuvarda **IDS'in hangi taramayı gördüğünü** izlemek, savunmayı anlamanın en iyi yoludur.
 
 ## Yanlış pozitifler
+
+![Alarm veren dedektör bir cebin içindeki zararsız anahtarlığı gösteriyor; analist ikinci bir kontrolle doğruluyor](../../gorseller/b-04-b.webp)
 
 Tarayıcı bir **tahminde** bulunur; bulgu değildir.
 

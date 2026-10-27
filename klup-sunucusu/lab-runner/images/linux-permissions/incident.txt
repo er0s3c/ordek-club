@@ -1,0 +1,5 @@
+Mavi Fener Lojistik — synthetic training evidence / sentetik eğitim kanıtı
+Case MF-014: a service account report was readable by other local users.
+Only the owner should have read/write access to this file.
+Bu dosyada yalnız sahibinin okuma/yazma yetkisi bulunmalıdır.
+No real personal data / gerçek kişisel veri içermez.

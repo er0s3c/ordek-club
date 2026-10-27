@@ -6,8 +6,10 @@ import { useState } from "react";
 import { Field } from "@/components/ui/Field";
 import { useMessages } from "@/components/providers";
 import { ApiError, api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 export function LoginForm({ next, canRegister, canReset }: { next: string; canRegister: boolean; canReset: boolean }) {
+  const t = useT();
   const m = useMessages();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -37,7 +39,7 @@ export function LoginForm({ next, canRegister, canReset }: { next: string; canRe
       <button className="btn btn-primary btn-block" disabled={busy}>
         {busy && <span className="spinner" aria-hidden />} {m.auth.loginButton}
       </button>
-      {canReset && <p className="auth-foot" style={{ marginTop: -6 }}><Link href="/forgot-password">Parolamı unuttum</Link></p>}
+      {canReset && <p className="auth-foot" style={{ marginTop: -6 }}><Link href="/forgot-password">{t("Parolamı unuttum")}</Link></p>}
       {canRegister && (
         <p className="auth-foot">
           {m.auth.noAccount} <Link href="/register">{m.auth.registerLink}</Link>

@@ -1,0 +1,9 @@
+import {test} from "node:test";
+import assert from "node:assert/strict";
+import {containerArgs,validateImage,mayRemoveContainer,expired,TTL_MS,IDLE_MS,reservedSlots} from "./policy.mjs";
+const instance="11111111-1111-1111-1111-111111111111",name=`ordek-lab-${instance}`;
+test("rejects tags and requires pinned images",()=>{assert.equal(validateImage(`sha256:${"a".repeat(64)}`),`sha256:${"a".repeat(64)}`);assert.throws(()=>validateImage("debian:latest"));assert.throws(()=>validateImage("--privileged"));});
+test("gVisor is mandatory, with no host mounts or network",()=>{const args=containerArgs(name,`ordek/lab@sha256:${"a".repeat(64)}`,instance);for(const flag of ["--runtime=runsc","--network=none","--read-only","--cap-drop=ALL","--pull=never"])assert.ok(args.includes(flag));assert.ok(!args.includes("--privileged"));assert.ok(!args.includes("-v"));});
+test("cleanup requires current-session identity, exact name, container id and instance",()=>{const session={name,containerId:"abc"};const inspected={Id:"abc",Name:`/${name}`,Config:{Labels:{"ordek.club.instance":instance}}};assert.ok(mayRemoveContainer(session,inspected,instance));assert.ok(!mayRemoveContainer(session,inspected,"another-instance"));assert.ok(!mayRemoveContainer({...session,containerId:"different"},inspected,instance));assert.ok(!mayRemoveContainer(null,inspected,instance));});
+test("idle and absolute expiry are independent",()=>{assert.ok(expired({createdAt:0,lastInput:TTL_MS-1},TTL_MS));assert.ok(expired({createdAt:0,lastInput:0},IDLE_MS));assert.ok(!expired({createdAt:0,lastInput:0},IDLE_MS-1));});
+test("uncertain failed launches keep their capacity reserved",()=>{assert.equal(reservedSlots([{state:"RUNNING"},{state:"FAILED"},{state:"QUEUED"}]),2);assert.equal(reservedSlots(Array.from({length:20},()=>({state:"FAILED"}))),20);});

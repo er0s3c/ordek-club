@@ -1,3 +1,4 @@
+import { recordLearning } from "@/server/learning/events";
 // Görev atama, teslim ve değerlendirme.
 // - XP yalnız eğitmen ONAYINDAN (ya da otomatik puanlamada geçme notundan) sonra, onayla aynı transaction'da ve görev başına kişi başı bir kez verilir.
 // - Onaylanan ya da reddedilen teslim kesindir (öğrenci değiştiremez).
@@ -48,6 +49,10 @@ export const assignmentInputSchema = z
     quiz: z.unknown().optional(),
     passPercent: z.number().int().min(0).max(100).default(60),
     maxAttempts: z.number().int().min(1).max(20).nullable().default(null),
+    checklist: z.array(z.string().trim().min(2).max(160)).max(10).default([]),
+    skills: z.array(z.string().regex(/^[a-z0-9-]{1,30}$/)).max(8).default([]),
+    peerReviewEnabled: z.boolean().default(false),
+    peerReviewCount: z.number().int().min(1).max(5).default(2),
   })
   .superRefine((v, ctx) => {
     if (v.dueAt && v.startsAt && v.dueAt <= v.startsAt) ctx.addIssue({ code: "custom", path: ["dueAt"], message: "Son teslim, başlangıçtan sonra olmalı." });
@@ -121,6 +126,10 @@ function dataOf(input: AssignmentInput) {
     quiz: input.quiz ? (input.quiz as Prisma.InputJsonValue) : undefined,
     passPercent: input.passPercent,
     maxAttempts: input.maxAttempts,
+    checklist: input.checklist,
+    skills: input.skills,
+    peerReviewEnabled: input.peerReviewEnabled && input.rubric.length > 0 && !input.teamMode,
+    peerReviewCount: input.peerReviewCount,
   };
 }
 
@@ -133,18 +142,19 @@ async function writeTeams(tx: Prisma.TransactionClient, assignmentId: string, in
   }
 }
 
-export async function createAssignment(actor: Actor, input: AssignmentInput, ip: string, extra: { liveSessionId?: string; slideId?: string } = {}) {
+export async function createAssignment(actor: Actor, input: AssignmentInput, ip: string, extra: { liveSessionId?: string; slideId?: string } = {}, transaction?: Prisma.TransactionClient) {
   requireStaff(actor);
   const ids = input.audience === "SELECTED" ? await resolveUsers(input.targetUsernames) : new Map<string, string>();
   await checkGroup(input.groupId);
-  return db.$transaction(async (tx) => {
+  const write = async (tx: Prisma.TransactionClient) => {
     const a = await tx.assignment.create({
       data: { ...dataOf(input), createdById: actor.id, ...extra, targets: { create: [...ids.values()].map((userId) => ({ userId })) } },
     });
     await writeTeams(tx, a.id, input, ids);
     await audit({ actorId: actor.id, action: "assignment.create", targetType: "Assignment", targetId: a.id, meta: { title: a.title, kind: a.kind, teams: input.teams.length }, ip }, tx);
     return a;
-  });
+  };
+  return transaction ? write(transaction) : db.$transaction(write);
 }
 
 async function loadEditable(actor: Actor, id: string) {
@@ -327,7 +337,7 @@ export async function getAssignmentForStaff(actor: Actor, id: string) {
 }
 
 // ── Teslim ──────────────────────────────────────────────────────────────────
-type SubmitInput = { text: string; files: File[]; answers?: unknown };
+type SubmitInput = { text: string; files: File[]; answers?: unknown; checklist?: number[] };
 
 export async function submitAssignment(actor: Actor, id: string, input: SubmitInput, ip: string) {
   if (isStaff(actor.role)) throw forbidden("Görev teslimi öğrencilere açıktır.");
@@ -335,9 +345,15 @@ export async function submitAssignment(actor: Actor, id: string, input: SubmitIn
   if (!a) throw notFound("Görev bulunamadı.");
   if (a.status !== "PUBLISHED") throw conflict("Bu görev teslime kapalı.", "CLOSED");
   const now = new Date();
-  const late = !!a.dueAt && now > a.dueAt;
+  // Onaylı ek süre talebi kişiye özel son tarih üretir.
+  const override = await db.deadlineOverride.findUnique({ where: { assignmentId_userId: { assignmentId: id, userId: actor.id } } });
+  const due = override?.dueAt ?? a.dueAt;
+  const late = !!due && now > due;
   if (late && !a.allowLate) throw conflict("Son teslim tarihi geçti.", "PAST_DUE");
   const text = input.text.trim().slice(0, 20_000);
+  // Teslim öncesi kontrol listesi: göreve özel bütün maddeler işaretlenmeli.
+  const checked = [...new Set(input.checklist ?? [])].filter((i) => Number.isInteger(i) && i >= 0 && i < a.checklist.length);
+  if (a.kind !== "QUIZ" && a.checklist.length && checked.length < a.checklist.length) throw badRequest("Göndermeden önce kontrol listesindeki bütün maddeleri işaretle.", "CHECKLIST");
   if (input.files.length > MAX_SUBMISSION_FILES) throw badRequest(`En fazla ${MAX_SUBMISSION_FILES} dosya eklenebilir.`, "TOO_MANY_FILES");
 
   let teamId: string | null = null;
@@ -370,7 +386,7 @@ export async function submitAssignment(actor: Actor, id: string, input: SubmitIn
 
   const attempts = prev ? prev.attempts + (prev.status === "RETURNED" ? 1 : 0) : 1;
   const out = await db.$transaction(async (tx) => {
-    const base = { text, late, submittedAt: now, ...(answers ? { answers: answers as Prisma.InputJsonValue } : {}) };
+    const base = { text, late, submittedAt: now, ...(answers ? { answers: answers as Prisma.InputJsonValue } : {}), ...(a.checklist.length ? { checklist: { items: a.checklist, checked } } : {}) };
     let auto: { status: "APPROVED" | "RETURNED" | "REJECTED"; score: number; feedback: string } | null = null;
     if (graded) {
       const score = Math.round((graded.correct / graded.total) * a.maxScore);
@@ -384,7 +400,11 @@ export async function submitAssignment(actor: Actor, id: string, input: SubmitIn
     const s = prev
       ? await tx.submission.update({ where: { id: prev.id }, data: { ...data, attempts } })
       : await tx.submission.create({ data: { ...data, assignmentId: id, userId: actor.id, teamId } });
-    for (const f of input.files) await storeFile(tx, actor, f, { scope: "SUBMISSION", submissionId: s.id });
+    const fileIds: string[] = [];
+    for (const f of input.files) fileIds.push((await storeFile(tx, actor, f, { scope: "SUBMISSION", submissionId: s.id })).id);
+    // Teslim sürümleri: her gönderim değişmez bir kopya olarak saklanır (ilk teslim ve düzeltme yan yana karşılaştırılır).
+    const versions = await tx.submissionVersion.count({ where: { submissionId: s.id } });
+    await tx.submissionVersion.create({ data: { submissionId: s.id, number: versions + 1, text, ...(answers ? { answers: answers as Prisma.InputJsonValue } : {}), fileIds } });
     let xp = 0;
     if (auto?.status === "APPROVED") xp = await awardTask(tx, a, actor.id);
     await audit({ actorId: actor.id, action: "submission.submit", targetType: "Submission", targetId: s.id, meta: { assignmentId: id, files: input.files.length, late, auto: auto?.status ?? null, teamId }, ip }, tx);
@@ -396,7 +416,8 @@ export async function submitAssignment(actor: Actor, id: string, input: SubmitIn
   return out;
 }
 
-function awardTask(tx: Prisma.TransactionClient, a: { id: string; title: string; xpRuleKey: string; xpAmount: number | null }, userId: string) {
+async function awardTask(tx: Prisma.TransactionClient, a: { id: string; title: string; xpRuleKey: string; xpAmount: number | null }, userId: string) {
+  await recordLearning(tx, userId, `assignment:${a.id}`, "assignment");
   return award(tx, {
     userId,
     ruleKey: a.xpRuleKey as (typeof XP_RULES)[number],

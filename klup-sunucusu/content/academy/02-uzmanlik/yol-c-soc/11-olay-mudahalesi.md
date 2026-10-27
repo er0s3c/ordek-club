@@ -7,11 +7,14 @@ hedefler:
   - NIST olay müdahalesi aşamalarını sırayla uygulamak
   - Delil zinciri kaydını doğru tutmak
 gorseller:
-  - id: c-11-a
+  - id: c-11-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer paspasını kaldırıp mühürlü kehribar delil kutusuna yaklaşıyor; kutu duvardaki imza panosuna uzun kehribar bir kurdeleyle bağlı"
-    prompt: "A tidy incident response room at night with a large round wall board showing six glowing stages connected in a circle by abstract icons. The villain tiptoes toward a sealed amber evidence box on a table, mop raised to sweep it away, but the box is tied with a long amber ribbon to a clipboard on the wall that holds a neat column of signature scribbles, and the ribbon has already wrapped twice around his ankle."
+    alt: "Dört istasyonlu bir döngü: hazırlık çantası, büyüteç, söndürme cihazı ve ders defteri; oklar başa dönüyor"
+    prompt: "A circular track on a table with four stations connected by glowing arrows: a packed emergency kit, a magnifying glass over a scorch mark, a fire extinguisher and a sealed door, and a notebook with lessons; the last arrow loops back to the emergency kit."
+  - id: c-11-c
+    tur: ai
+    alt: "Mühürlü delil poşetinin elden ele geçişi; her el bir imza kartına tarih düşüyor"
+    prompt: "A sealed evidence bag passed hand to hand along a line of people, each pausing to sign a small attached card with a pen before handing it on, the seal unbroken and glowing amber."
 ---
 
 # Olay müdahalesi: NIST döngüsü, playbook ve delil zinciri
@@ -19,9 +22,11 @@ gorseller:
 > Panik, saldırganın en iyi dostudur. **Plan** ise savunucunun.
 > 🧹 **İz 11:** Tamer'in son hamlesi kanıtı "kaybettirmek". Delil zinciri tutulmuşsa kaybolan kanıt da belgelenmiştir.
 
-![Temizlikçi Tamer paspasını kaldırıp mühürlü kehribar delil kutusuna yaklaşıyor; kutu duvardaki imza panosuna uzun kehribar bir kurdeleyle bağlı](../../gorseller/c-11-a.webp)
+::cizgi[c-11-sahne]
 
 ## NIST döngüsü
+
+![Dört istasyonlu bir döngü: hazırlık çantası, büyüteç, söndürme cihazı ve ders defteri; oklar başa dönüyor](../../gorseller/c-11-b.webp)
 
 NIST SP 800-61, olay müdahalesini (incident response) dört aşamada anlatır:
 
@@ -46,6 +51,8 @@ Döngüdür: dördüncü aşama birinciyi besler.
 6. Vaka kaydını güncelle, sorumluya bildir.
 
 ## Delil zinciri
+
+![Mühürlü delil poşetinin elden ele geçişi; her el bir imza kartına tarih düşüyor](../../gorseller/c-11-c.webp)
 
 **Delil zinciri (chain of custody)**, kanıtın kimde, ne zaman, neden bulunduğunu kesintisiz gösterir. Zincir koparsa kanıt tartışmalı olur.
 

@@ -6,8 +6,22 @@ import { importAcademy } from "@/server/academy/importer";
 import { ensureArchived } from "@/server/xp/leaderboard";
 import { backfillXp } from "@/server/xp/engine";
 import { evaluateBadges } from "@/server/xp/badges";
+import { labHealth } from "@/server/learning/lab-client";
+import { audit } from "@/server/audit";
 
 const commands: Record<string, { help: string; run: (args: string[]) => Promise<void> }> = {
+  "lab-enable": {
+    help: "Lab mTLS bağlantısını doğrular ve aktif kulüp üyelerine Linux lab erişimini açar.",
+    async run() {
+      await labHealth();
+      await db.$transaction(async tx => {
+        const current = await tx.featureSwitch.findUnique({ where: { key: "labs" } });
+        await tx.featureSwitch.upsert({ where: { key: "labs" }, create: { key: "labs", enabled: true, enabledAt: new Date() }, update: { enabled: true, enabledAt: current?.enabledAt ?? new Date() } });
+        await audit({ action: "feature.update", targetType: "FeatureSwitch", targetId: "labs", meta: { enabled: true, source: "cli", healthVerified: true } }, tx);
+      });
+      console.log("Linux lab aktif üyelere açıldı. Üyeler /academy/labs üzerinden kendi oturumlarını başlatabilir.");
+    },
+  },
   "setup-token": {
     help: "Kurulum tamamlanmadıysa yeni bir tek seferlik kurulum anahtarı üretir ve gösterir.",
     async run() {

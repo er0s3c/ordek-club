@@ -4,8 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LogIn } from "lucide-react";
 import { api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 export function JoinForm() {
+  const t = useT();
   const router = useRouter();
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +19,7 @@ export function JoinForm() {
       className="stack"
       onSubmit={async (e) => {
         e.preventDefault();
-        if (normalized.length < 6) return setError("Kod 6 karakter olmalı.");
+        if (normalized.length < 6) return setError(t("Kod 6 karakter olmalı."));
         setBusy(true);
         setError(null);
         try {
@@ -30,7 +32,7 @@ export function JoinForm() {
       }}
     >
       <div className="field">
-        <label htmlFor="code">Oturum kodu</label>
+        <label htmlFor="code">{t("Oturum kodu")}</label>
         <input
           id="code"
           className="input mono"
@@ -47,7 +49,7 @@ export function JoinForm() {
         />
         {error && <span id="code-err" className="err" role="alert">{error}</span>}
       </div>
-      <button className="btn btn-primary" disabled={busy}>{busy ? <span className="spinner" aria-hidden /> : <LogIn size={16} aria-hidden />} Katıl</button>
+      <button className="btn btn-primary" disabled={busy}>{busy ? <span className="spinner" aria-hidden /> : <LogIn size={16} aria-hidden />}{" "}{t("Katıl")}</button>
     </form>
   );
 }

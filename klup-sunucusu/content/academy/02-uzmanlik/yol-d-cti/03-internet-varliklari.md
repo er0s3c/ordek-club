@@ -8,11 +8,10 @@ hedefler:
   - Sertifika şeffaflığı kayıtlarında gizli alan adlarını bulmak
 animasyonlar: [dns-resolution]
 gorseller:
-  - id: d-03-a
+  - id: d-03-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri farklı bayraklı şamandıraların hepsini sandalından aynı parlayan zincirle tek bir batık sandığa bağlıyor"
-    prompt: "A calm night harbor with a row of small round buoys floating on dark water, each painted with a different abstract flag symbol. The villain rows a little wooden boat between them, quietly tying every buoy to the same single thick glowing green anchor chain that disappears down into one sunken crate on the seabed, visible through the clear water."
+    alt: "Tek bir anahtardan çıkan iplik başka kapılara, oradan başka binalara uzanarak bir ağ oluşturuyor"
+    prompt: "A single key pinned to the center of a cork board with threads running from it to three doors, and from each door further threads to buildings and certificates, the network growing outward as an investigator adds new pins."
 ---
 
 # İnternet varlıkları: WHOIS, DNS ve sertifika kayıtları
@@ -20,7 +19,7 @@ gorseller:
 > Bayrak boyamak ucuzdur; altyapı kurmak pahalı. Bedri'nin her alan adı başka bir bayrak taşır ama hepsi bir yere bağlanır.
 > 🚩 **Bayrak 3:** Saldırıda kullanılan alan adlarının adı "mercan" diye bağırıyor. Peki kayıtları ne fısıldıyor?
 
-![Bayrakçı Bedri farklı bayraklı şamandıraların hepsini sandalından aynı parlayan zincirle tek bir batık sandığa bağlıyor](../../gorseller/d-03-a.webp)
+::cizgi[d-03-sahne]
 
 ## WHOIS ve RDAP
 
@@ -52,6 +51,8 @@ Her TLS sertifikası herkese açık günlüklere yazılır. `crt.sh` gibi arayü
 Saldırgan bir alt alan adını unutursa, oradan çıkar.
 
 ## Pivot (pivoting)
+
+![Tek bir anahtardan çıkan iplik başka kapılara, oradan başka binalara uzanarak bir ağ oluşturuyor](../../gorseller/d-03-b.webp)
 
 Bir göstergeden ötekine atla: alan adı → IP → aynı IP'deki diğer adlar → onların NS'i → aynı NS'deki diğer kayıtlar.
 Her adımı günlüğe yaz; her pivot bir **hipotez**dir, kanıt değil.

@@ -9,11 +9,10 @@ hedefler:
   - Tespitin neden savunmanın kalbi olduğunu anlamak
 animasyonlar: [soc-alert]
 gorseller:
-  - id: m10-07-a
+  - id: m10-07-b
     tur: ai
-    karakter: ferhat
-    alt: "Fidyeci Ferhat yedi halkalı zinciri çekerken görünmeyen bir el zinciri üçüncü halkadan kesiyor"
-    prompt: "A heavy chain of seven large glowing links stretched across a dark room, colored from red to dark purple. The villain hauls the chain with all his strength, but a pair of glowing bolt cutters held by an unseen defender's hands slices it at the third link, and the villain stumbles backward."
+    alt: "Duvarı kaplayan bir hareket kataloğu: sütunlar aşamaları, kartlar her aşamadaki teknikleri gösteren simgeler"
+    prompt: "A large wall cabinet of small drawers arranged in columns, each column topped by a different icon for a stage of an attack, a binoculars, a key, a ladder, a hiding cloak, a door and a sack; analysts pull out drawers to compare small picture cards of techniques."
 ---
 
 # Bir saldırının aşamaları
@@ -21,7 +20,7 @@ gorseller:
 > Saldırılar tek hamlede olmaz; bir **zincir** gibi aşama aşama ilerler.
 > İyi haber: zinciri **herhangi bir halkada** kırmak saldırıyı durdurur.
 
-![Fidyeci Ferhat yedi halkalı zinciri çekerken görünmeyen bir el zinciri üçüncü halkadan kesiyor](../../gorseller/m10-07-a.webp)
+::cizgi[m10-07-sahne]
 
 ## Cyber Kill Chain (7 halka)
 
@@ -36,6 +35,8 @@ gorseller:
 | 7 | **Hedefe ulaşma** | Veri çalma, şifreleme | Bölümlendirme, yedek, DLP |
 
 ## MITRE ATT&CK
+
+![Duvarı kaplayan bir hareket kataloğu: sütunlar aşamaları, kartlar her aşamadaki teknikleri gösteren simgeler](../../gorseller/m10-07-b.webp)
 
 Kill Chain "hangi aşamada?" der; **ATT&CK** ise "**tam olarak nasıl?**" der.
 Gerçek saldırılarda görülmüş yüzlerce tekniği taktiklere göre sıralayan, herkese açık bir bilgi tabanıdır.

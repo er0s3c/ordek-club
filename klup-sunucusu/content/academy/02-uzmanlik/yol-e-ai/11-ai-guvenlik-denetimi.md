@@ -7,11 +7,10 @@ hedefler:
   - OWASP LLM Top 10 risklerini bir test matrisinde eşleştirmek
   - Sohbet kayıtlarını inceleyip sahte ses ve görüntüye karşı doğrulama süreci önermek
 gorseller:
-  - id: e-11-a
+  - id: e-11-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel on spot ışığının ortasında yakalanmış; her ışık onun başka bir numarasını aydınlatıyor, o da mahcup bir reveransla gözlerini kısıyor"
-    prompt: "A dark theater seen from the balcony, where an auditor's desk with a glowing checklist faces the stage. Ten bright spotlights shine down, each lighting a different trick prop of the villain on the stage floor: a hidden note, a golden key, a forged folder, a mask that copies a face, a microphone that copies a voice. The villain stands caught in the center of all the beams, squinting into the light and making a sheepish theatrical bow."
+    alt: "Bir telefon görüşmesinde bilinen bir sesin arkasında ses taklit makinesi kullanan gölge; dinleyen kişi geri arayarak doğruluyor"
+    prompt: "A person on a vintage phone hears a familiar voice, but behind a curtain a shadowy figure speaks into a voice-changing machine with dials; the listener calmly hangs up and calls back on a known number from their own address book."
 ---
 
 # AI güvenlik denetimi: OWASP LLM riskleri ve test matrisi
@@ -19,7 +18,7 @@ gorseller:
 > Denetim (*audit*) tek bir açığı değil, **bütün resmi** gösterir: hangi risk test edildi, hangisi açık, hangisi kabul edildi.
 > 🎭 **Ses 11:** Ayna'nın kayıtları Kalkan'a ulaştı. Veysel'in sesleri orada; yalnız makinelerin değil, insanların da kandırıldığı izler var.
 
-![Vantrolog Veysel on spot ışığının ortasında yakalanmış; her ışık onun başka bir numarasını aydınlatıyor, o da mahcup bir reveransla gözlerini kısıyor](../../gorseller/e-11-a.webp)
+::cizgi[e-11-sahne]
 
 ## OWASP Top 10 for LLM Applications (2025)
 
@@ -45,6 +44,8 @@ Matrisin sütunları: **test edildi mi · bulgu · kontrol · kalan risk**. Boş
 kullanıcının kendi numarası olmayan araç parametresi.
 
 ## Model dışı: sahte ses ve görüntü
+
+![Bir telefon görüşmesinde bilinen bir sesin arkasında ses taklit makinesi kullanan gölge; dinleyen kişi geri arayarak doğruluyor](../../gorseller/e-11-b.webp)
 
 Ses klonu (*voice clone*) ve deepfake video, makineyi değil **insanı** kandırır. Teknik tespit giderek zorlaşıyor;
 asıl kontrol süreçtir:

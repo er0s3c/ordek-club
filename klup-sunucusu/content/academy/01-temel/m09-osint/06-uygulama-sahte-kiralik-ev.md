@@ -8,11 +8,10 @@ hedefler:
   - Bir kiralık ev ilanını doğrulama adımlarını tasarlamak
   - Dolandırıcılık göstergelerini raporlamak
 gorseller:
-  - id: m09-06-a
+  - id: m09-06-b
     tur: ai
-    karakter: mine
-    alt: "Maskeli Mine, karlı dağ detayı ele veren villa fotoğrafını sahte ilan panosuna yapıştırıyor"
-    prompt: "A dreamy photo of a white seaside villa with a pool, but in its background a small snowy mountain and pine forest that clearly do not belong to a Mediterranean island. The villain pastes this photo onto a fake rental listing board with glue, her mask tucked under her arm."
+    alt: "Sahte ilan panosunda aynı villa fotoğrafı iki farklı ülkenin haritasında iğneli duruyor"
+    prompt: "A cork board with a world map where the same photo of a sunny villa is pinned in two distant countries at once, a red thread connecting both copies, and a magnifying glass resting on top of them."
 ---
 
 # Uygulama: Sahte Kiralık Ev İlanı
@@ -20,7 +19,7 @@ gorseller:
 > **Senaryo (KKTC-05):** Yeni dönem öncesi Mert, Girne'de ev arıyor. Bir ilan dikkatini çekiyor.
 > Tüm kişi, ilan ve kayıtlar **kurgusaldır**.
 
-![Maskeli Mine, karlı dağ detayı ele veren villa fotoğrafını sahte ilan panosuna yapıştırıyor](../../gorseller/m09-06-a.webp)
+::cizgi[m09-06-sahne]
 
 ## İlan
 
@@ -29,6 +28,8 @@ gorseller:
 > Sadece WhatsApp: +90 5xx … · Ödeme: uluslararası para transferi
 
 ## Mert'in bulduğu ek bilgiler
+
+![Sahte ilan panosunda aynı villa fotoğrafı iki farklı ülkenin haritasında iğneli duruyor](../../gorseller/m09-06-b.webp)
 
 - Aynı fotoğraflar tersine aramada başka bir ülkede, farklı fiyatla ilanda çıkıyor.
 - Bölgedeki benzer evlerin kirası 550–700€.

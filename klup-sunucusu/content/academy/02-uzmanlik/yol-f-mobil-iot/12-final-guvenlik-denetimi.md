@@ -7,16 +7,10 @@ hedefler:
   - Laboratuvar akıllı cihaz kitini veya eğitim amaçlı zafiyetli bir uygulamayı uçtan uca değerlendirmek
   - Bulguları riske göre önceliklendirip uygulanabilir düzeltmeler önermek
 gorseller:
-  - id: f-12-a
+  - id: f-12-c
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman'ın tezgâhındaki tüm cihazların kapakları vidalanmış, portları kehribar mühürlerle kapatılmış; Leman soğumuş havyasıyla oturup etkilenmiş gibi başını sallıyor"
-    prompt: "The same cluttered workbench from before, now neatly tidied: the smartphone, smart lock, small camera and circuit boards all have their back panels screwed shut, and every little port and pin row is covered with a glowing amber seal. The villain sits on a stool at the edge of the bench, goggles pushed up, her soldering iron cooled in its stand and her tiny drone powered down on her shoulder, nodding slowly with a reluctant impressed smile."
-  - id: f-12-b
-    tur: ai
-    karakter: leman
-    alt: "Boş tezgâhta yarım kalmış bir devre kartının içinde minik mekanik bir böcek; kartın arkasında kazınmış soyut simgeler, kapıda uzaklaşan Leman ve dronunun silüeti"
-    prompt: "An empty workbench under a single hanging lamp in a dark workshop. In the center lies a half-finished circuit board, and nestled among its components is a tiny clockwork beetle glowing faintly green. The back edge of the board is engraved with small abstract symbols catching the lamplight. In the doorway behind, the villain's silhouette with goggles on her forehead walks away into the dark, her tiny drone following over her shoulder."
+    alt: "Atölye masasında denetimi bitmiş cihazlar etiketli kutularda; analist mühürlü rapor dosyasını kapatıyor"
+    prompt: "A workshop table at dawn with inspected devices placed in separate trays with colored tags, and an analyst closing a thick report folder with an amber seal."
 ---
 
 # Final: akıllı cihaz ve mobil uygulama güvenlik denetimi
@@ -24,7 +18,7 @@ gorseller:
 > Denetim tek bir açığı bulmak değil; **cihazın bütün kapılarını haritalamak, kanıtlamak ve kapatmaktır**.
 > 🔧 **Son devre:** Laboratuvar tezgâhı senin. Leman'ın kurduğu her gözü ve kulağı aç, incele, kapat.
 
-![Lehimci Leman'ın tezgâhındaki tüm cihazların kapakları vidalanmış, portları kehribar mühürlerle kapatılmış; Leman soğumuş havyasıyla oturup etkilenmiş gibi başını sallıyor](../../gorseller/f-12-a.webp)
+::cizgi[f-12-sahne]
 
 ## Görev
 
@@ -45,6 +39,8 @@ Adımlar:
 Donanım çalışması yalnızca laboratuvar kartlarında ve elektrik güvenliği kurallarıyla; radyo testleri yalnızca kendi cihazına.
 
 ## Rapor iskeleti
+
+![Atölye masasında denetimi bitmiş cihazlar etiketli kutularda; analist mühürlü rapor dosyasını kapatıyor](../../gorseller/f-12-c.webp)
 
 | Bölüm | İçerik |
 |---|---|
@@ -72,8 +68,6 @@ Donanım çalışması yalnızca laboratuvar kartlarında ve elektrik güvenliğ
 
 > 🔒 **DOSYA KAPANDI: Lehimci Leman** · *raporunu teslim edince*
 >
-> ![Boş tezgâhta yarım kalmış bir devre kartının içinde minik mekanik bir böcek; kartın arkasında kazınmış soyut simgeler, kapıda uzaklaşan Leman ve dronunun silüeti](../../gorseller/f-12-b.webp)
->
-> Kameralar kapandı, kilitler yeniden programlandı. Leman'ın tezgâhında yarım kalmış bir kart duruyor; içinde minik, mekanik bir böcek. Kartın arkasına kazınmış not: "Sabri Usta'ya teslim."
+> ::cizgi[leman-kapanis]
 >
 > ➡️ *Sezon 2 sürüyor: diğer uzmanlık yollarında Gölge Ağ'ın başka dosyaları seni bekliyor.*

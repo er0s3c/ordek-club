@@ -96,3 +96,5 @@ gorevler:
 # Şüpheli Mesaj: Sahte Kampüs Bursu
 
 ::gorev[sahte-burs]
+
+::cizgi[m01-05-sahne]

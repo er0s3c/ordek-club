@@ -4,34 +4,32 @@ tur: bilgi
 baslik: "Yol B — Ağ ve Sistem Güvenliği"
 sure: 3
 gorseller:
-  - id: b-00-a
+  - id: b-00-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık bölgelere ayrılmış parlayan bir ağ haritasının altında, iki bölgenin duvarı arasından yeşil fenerle tünel kazıyor"
-    prompt: "An isometric glowing network map of routers, switches, servers and laptops linked by light trails and separated into colored zones by translucent walls. Beneath the map, in a cutaway of dark earth, the villain digs a narrow tunnel from one zone to another, his green headlamp lighting the way and a glowing fiber-optic cable unspooling behind him."
+    alt: "Kampüs ağı bir yeraltı haritası gibi: bölgeler, aralarında kapılar ve tüneller, her bölgede fenerli bir öğrenci"
+    prompt: "A glowing underground map of a campus network spread on a table, divided into walled zones for students, staff, servers and cameras, connected by gates and narrow tunnels; small student figures with lanterns explore each zone and mark weak walls with chalk."
 ---
 
 # Yol B — Ağ ve Sistem Güvenliği
 
 > Bir kampüs ağını uçtan uca anla: trafik, tarama, Wi-Fi, güvenlik duvarı, Windows ve Linux sunucular.
 
-![Tünelci Tarık bölgelere ayrılmış parlayan bir ağ haritasının altında, iki bölgenin duvarı arasından yeşil fenerle tünel kazıyor](../../gorseller/b-00-a.webp)
+::cizgi[b-00-sahne]
 
 > 🕴️ **DOSYA: Tünelci Tarık** · *Ağın Hayaleti*
 >
 > ![Tünelci Tarık — Ağın Hayaleti](../../gorseller/karakter-tarik.webp)
 >
-> 📼 **Bölüm — Sezon 2: Tüneller.** Selim Hoca sonunda anlatıyor: "Dördüncü Kapüşonlu Tarık'tı. Ağı o kurardı.
-> O gece Eren'in açtığı kapının suçu ona kaldı; on yıl yattı." Şimdi kampüs ağında bir hayalet dolaşıyor: bölgeler
-> arasında tünel kazıyor, güvenlik duvarının arkasında beliriyor. Kampüs ağının laboratuvar kopyası senin;
-> Tarık'tan önce her tüneli bul ve kapat.
->
 > **Kim o?** Rıza ve Kadir'le aynı koğuşta yattı. Baron'a çalışıyor ama ona borçlu değil — kin besliyor.
 > [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[tarik-acilis]
 
 **Ön koşul:** Ağ temelleri (M05), Linux (M04), Windows (M03)
 
 ## 12 ders
+
+![Kampüs ağı bir yeraltı haritası gibi: bölgeler, aralarında kapılar ve tüneller, her bölgede fenerli bir öğrenci](../../gorseller/b-00-b.webp)
 
 | # | Ders | Tek cümleyle |
 |---|---|---|

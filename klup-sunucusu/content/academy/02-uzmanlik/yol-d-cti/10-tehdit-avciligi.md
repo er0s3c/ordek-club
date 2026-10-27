@@ -8,11 +8,14 @@ hedefler:
   - Bulguyu Sigma ve YARA kuralına çevirmek
 animasyonlar: [soc-alert]
 gorseller:
-  - id: d-10-a
+  - id: d-10-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri gemi ambarında ters yöne bakan sahte ayak izleri bırakıyor; bir fenerin ışığı altındaki gerçek izleri ortaya çıkarıyor"
-    prompt: "A dark ship's hold full of stacked wooden crates lit only by a few glowing green retro terminals. The villain tiptoes between the crates with exaggerated care, pressing a pair of fake boot-shaped stamps into the dusty floor so the footprints point the wrong way, while a warm amber lantern beam held by an unseen hand sweeps across the floor and reveals his real footprints glowing faintly underneath."
+    alt: "Avcı ormanda pusula ile belirli bir izin peşinde; rastgele dolaşmıyor"
+    prompt: "A tracker in a dark forest holds a brass compass whose needle points along a specific trail of faint glowing footprints, ignoring other paths, a notebook of the hypothesis tucked under the arm."
+  - id: d-10-c
+    tur: ai
+    alt: "Avcının bulduğu iz bir kalıba dökülüp kapıdaki bekçiye teslim ediliyor"
+    prompt: "A tracker pours plaster into a footprint and hands the hardened cast to a gate guard, who mounts it on the gate so every future visitor's footprints can be compared to it automatically."
 ---
 
 # Tehdit avcılığı: alarm çalmadan izi bul
@@ -20,9 +23,11 @@ gorseller:
 > Alarm, bildiğin şeyi yakalar. Av, bilmediğin şeyi arar.
 > 🚩 **Bayrak 10:** Engelleme listesi hazır ama Selim Hoca soruyor: "Aynı belge başka kimin bilgisayarında açıldı? Alarm çalmayanlar?"
 
-![Bayrakçı Bedri gemi ambarında ters yöne bakan sahte ayak izleri bırakıyor; bir fenerin ışığı altındaki gerçek izleri ortaya çıkarıyor](../../gorseller/d-10-a.webp)
+::cizgi[d-10-sahne]
 
 ## Hipotez: avın pusulası
+
+![Avcı ormanda pusula ile belirli bir izin peşinde; rastgele dolaşmıyor](../../gorseller/d-10-b.webp)
 
 Tehdit avcılığı (threat hunting) bir **hipotezle** başlar, IOC listesiyle değil:
 
@@ -47,6 +52,8 @@ jq -r 'select(.image|test("schtasks";"i")) | [.ts,.host,.user,.command_line] | @
 Her sonucu bağlamla yorumla: yöneticinin gece yedekleme görevi de bir `schtasks` satırıdır.
 
 ## Sigma: avı kalıcı kurala çevir
+
+![Avcının bulduğu iz bir kalıba dökülüp kapıdaki bekçiye teslim ediliyor](../../gorseller/d-10-c.webp)
 
 ```yaml
 title: Ofis belgesinden PowerShell başlatılması

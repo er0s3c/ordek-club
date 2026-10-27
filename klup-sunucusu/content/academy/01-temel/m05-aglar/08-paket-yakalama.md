@@ -11,11 +11,10 @@ gorseller:
     tur: ekran
     alt: Wireshark ana ekranı; üstte "dns" görüntü filtresi, ortada paket listesi, altta seçili paketin katmanları
     nasil: "Wireshark'ı açın → kendi Wi-Fi/Ethernet arayüzünüzde yakalamayı başlatın → tarayıcıda example.com açın → yakalamayı durdurun → üstteki filtre kutusuna 'dns' yazıp Enter. Bir DNS sorgu paketini seçin; alt panelde katmanlar (Frame, Ethernet, IP, UDP, DNS) açık görünsün. Filtre kutusunu ve katman listesini kehribar (#C9953B) çerçeveyle işaretleyin. Kendi IP ve MAC adreslerinizi bulanıklaştırın."
-  - id: m05-08-b
+  - id: m05-08-c
     tur: ai
-    karakter: nuri
-    alt: "Dinleyici Nuri paket otoyolunun üzerindeki köprüde dürbünle trafiği izliyor"
-    prompt: "A pedestrian bridge over a busy glowing highway at night where vehicles are small glowing packets of different colors moving in lanes. The villain leans on the railing with binoculars and his headphones, scribbling notes about certain packets in a small notebook."
+    alt: "Ağı koruyan beş nesne yan yana: kilitli zarf, bölmeli kapılar, tek anahtar, nöbetçi dürbünü ve yedek jeneratör"
+    prompt: "Five guardian objects standing in a row on a shelf above a small network model of glowing cables: a sealed locked envelope, a set of doors dividing rooms, a single small key, a watchtower with binoculars, and a sturdy backup generator. Each object lit by its own small spotlight."
 ---
 
 # Wireshark ile paketleri görmek
@@ -23,7 +22,7 @@ gorseller:
 > Şimdiye kadar paketleri anlattık. Şimdi **gerçekten göreceksin**.
 > Wireshark, ağ kartından geçen her paketi kaydeden bir mikroskoptur.
 
-![Dinleyici Nuri paket otoyolunun üzerindeki köprüde dürbünle trafiği izliyor](../../gorseller/m05-08-b.webp)
+::cizgi[m05-08-sahne]
 
 ## ⚠️ Önce kural
 
@@ -51,6 +50,8 @@ Kampüs ağında, yurtta veya başkasının trafiğini dinlemek (izinsiz dinleme
 HTTPS trafiğinde içeriği **göremezsin** — sadece kimle konuştuğunu ve el sıkışmayı görürsün. TLS işini yapıyor.
 
 ## Ağ güvenliğinin 5 temel ilkesi
+
+![Ağı koruyan beş nesne yan yana: kilitli zarf, bölmeli kapılar, tek anahtar, nöbetçi dürbünü ve yedek jeneratör](../../gorseller/m05-08-c.webp)
 
 1. **En az yetki** — Herkes ve her cihaz sadece ihtiyacı olana erişsin.
 2. **Bölümlendirme** — Misafir, öğrenci ve yönetim ağları ayrı olsun.

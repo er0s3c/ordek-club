@@ -7,11 +7,10 @@ hedefler:
   - find ile dosya aramak
   - grep ve boru (|) ile metin filtrelemek
 gorseller:
-  - id: m04-03-a
+  - id: m04-03-b
     tur: ai
-    karakter: sadri
-    alt: "Süper Kullanıcı Sadri altın ipliklerden bir samanlığın içine parlayan bir iğne saklıyor"
-    prompt: "A tall haystack made of countless thin glowing golden threads in a dark barn. The villain, chuckling, pushes a single bright green needle deep into the haystack, confident no one will ever find it."
+    alt: "Birbirine borularla bağlı üç makine: ilki samanı süzüyor, ikincisi iğneleri ayırıyor, üçüncüsü onları sayıp diziyor"
+    prompt: "Three retro machines connected in a row by brass pipes: the first machine swallows a big pile of hay and sifts it through a sieve, the second machine magnetically pulls out only the shiny needles, and the third machine counts and lines the needles up neatly by size on a tray. Green glow at each joint."
 ---
 
 # Samanlıkta iğne bulmak — find ve grep
@@ -19,7 +18,7 @@ gorseller:
 > Bir log dosyası 100.000 satır olabilir. Aradığın tek bir satırdır.
 > Linux'un süper gücü: **bul, süz, say.**
 
-![Süper Kullanıcı Sadri altın ipliklerden bir samanlığın içine parlayan bir iğne saklıyor](../../gorseller/m04-03-a.webp)
+::cizgi[m04-03-sahne]
 
 ## find — dosyayı bul
 
@@ -39,6 +38,8 @@ grep -r "parola" ~/notlar       # klasörde içten içe ara
 ```
 
 ## Boru (|): komutları birleştir
+
+![Birbirine borularla bağlı üç makine: ilki samanı süzüyor, ikincisi iğneleri ayırıyor, üçüncüsü onları sayıp diziyor](../../gorseller/m04-03-b.webp)
 
 Bir komutun çıktısı, diğerinin girdisi olur:
 

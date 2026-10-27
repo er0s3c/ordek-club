@@ -8,11 +8,10 @@ hedefler:
   - Nmap çıktısını okuyup envantere dönüştürmek
 animasyonlar: [tcp-handshake]
 gorseller:
-  - id: b-03-a
+  - id: b-03-b
     tur: ai
-    karakter: tarik
-    alt: "Gece bir sokakta Tünelci Tarık her binanın kapısını tek tek yokluyor; açık kapılardan yeşil ışık sızıyor"
-    prompt: "A dark street of identical numbered buildings at night. The villain walks along the row knocking lightly on each door with his cable pliers and listening; most doors stay dark and silent, but a few creak open spilling green light, and he marks those on a small map clipped to his parka."
+    alt: "Kapıların üç hâli: açık kapıdan ışık sızıyor, kapalı kapı sessiz, filtrelenmiş kapının önünde bekçi duruyor"
+    prompt: "Three doors side by side in a dark alley: the first door is open with warm light pouring out and someone answering, the second door is shut and silent, the third door has a guard standing in front who simply stares and says nothing."
 ---
 
 # Nmap ile keşif: hangi kapılar açık?
@@ -20,7 +19,7 @@ gorseller:
 > Savunmanın ilk sorusu: **ağımda ne var ve hangi kapıları açık?** Saldırganın ilk sorusu da aynıdır.
 > 🕳️ **Tünel 3:** Tarık laboratuvar ağında her kapıyı çaldı. Hangilerinin açıldığını ondan önce bil.
 
-![Gece bir sokakta Tünelci Tarık her binanın kapısını tek tek yokluyor; açık kapılardan yeşil ışık sızıyor](../../gorseller/b-03-a.webp)
+::cizgi[b-03-sahne]
 
 ## Üç adım
 
@@ -33,6 +32,8 @@ gorseller:
 ::animasyon[tcp-handshake]
 
 ## Çıktıyı okumak
+
+![Kapıların üç hâli: açık kapıdan ışık sızıyor, kapalı kapı sessiz, filtrelenmiş kapının önünde bekçi duruyor](../../gorseller/b-03-b.webp)
 
 ```text
 PORT     STATE    SERVICE  VERSION

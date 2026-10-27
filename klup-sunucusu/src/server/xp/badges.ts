@@ -1,3 +1,5 @@
+import { learningCalendar } from "@/server/learning/calendar";
+import { featureSwitch } from "@/server/learning/features";
 // Rozet kuralları ve otomatik değerlendirme. Kural tipleri sabit bir listedir (yönetici yeni rozet
 // oluştururken bu tiplerden birini seçer); kural verisi zod ile doğrulanır, kod çalıştırılmaz.
 import { z } from "zod";
@@ -31,7 +33,8 @@ export function describeRule(r: BadgeRule): string {
     case "quizzes": return `${r.count} quiz geç`;
     case "streak": return `${r.days} gün üst üste çalış`;
     case "track": return `${r.track.toUpperCase()} yolunu bitir`;
-    case "track_kind": return `${r.count} ${r.kind === "CORE" ? "temel modül" : r.kind === "SPECIALIZATION" ? "uzmanlık yolu" : "program yolu"} bitir`;
+    // Metinler sözlük kalıbıdır (bkz. translateFor): yer tutucular dile göre çevrilir.
+    case "track_kind": return r.kind === "CORE" ? `${r.count} temel modül bitir` : r.kind === "SPECIALIZATION" ? `${r.count} uzmanlık yolu bitir` : `${r.count} program yolu bitir`;
     case "xp": return `${r.total} XP topla`;
     case "overall_rank": return `Genel sıralamada ilk ${r.rank}`;
     case "monthly_rank": return `Bir ayı ilk ${r.rank} içinde kapat`;
@@ -53,6 +56,12 @@ export async function completedTracks(userId: string) {
 export async function userStreak(userId: string) {
   const { timezone } = await getSettings();
   const days = (await db.activityDay.findMany({ where: { userId }, select: { day: true } })).map((d) => d.day);
+  const flag = await featureSwitch("learning");
+  if (flag?.enabled && flag.enabledAt) {
+    const protections = await db.examProtection.findMany({ where: { memberIds: { has: userId } } });
+    const result = learningCalendar(days, dayKey(new Date(), timezone), dayKey(flag.enabledAt, timezone), protections);
+    return { current: result.current, longest: result.longest };
+  }
   return streaks(days, dayKey(new Date(), timezone));
 }
 
@@ -107,4 +116,34 @@ export async function evaluateBadges(userId: string): Promise<string[]> {
   if (!earned.length) return [];
   await db.userBadge.createMany({ data: earned.map((e) => ({ userId, badgeId: e.id, reason: e.reason })), skipDuplicates: true });
   return earned.map((e) => e.name);
+}
+
+// Rozet yol haritası: kazanılmamış rozetlerin koşulu ve kişinin o koşuldaki ilerlemesi (ör. 3/7 gün).
+export async function badgeRoadmap(userId: string) {
+  await ensureGamificationDefaults();
+  const [badges, owned] = await Promise.all([db.badge.findMany({ where: { active: true }, orderBy: { createdAt: "asc" } }), db.userBadge.findMany({ where: { userId }, select: { badgeId: true, awardedAt: true } })]);
+  const have = new Map(owned.map((o) => [o.badgeId, o.awardedAt]));
+  const [lessons, quizzes, tracks, streak, xp, all] = await Promise.all([
+    db.lessonProgress.count({ where: { userId, status: "COMPLETED", lesson: { kind: { not: "QUIZ" }, archivedAt: null } } }),
+    db.quizAttempt.groupBy({ by: ["lessonId"], where: { userId, passed: true } }).then((r) => r.length),
+    completedTracks(userId),
+    userStreak(userId),
+    db.xpTransaction.aggregate({ where: { userId }, _sum: { amount: true } }).then((r) => r._sum.amount ?? 0),
+    db.track.findMany({ where: { archivedAt: null }, select: { key: true, lessons: { where: { archivedAt: null }, select: { progress: { where: { userId, status: "COMPLETED" }, select: { id: true } } } } } }),
+  ]);
+  return badges.map((b) => {
+    const parsed = badgeRuleSchema.safeParse(b.rule);
+    const r = parsed.success ? parsed.data : ({ type: "manual" } as const);
+    let progress: { value: number; target: number } | null = null;
+    switch (r.type) {
+      case "lessons": progress = { value: lessons, target: r.count }; break;
+      case "quizzes": progress = { value: quizzes, target: r.count }; break;
+      case "streak": progress = { value: streak.longest, target: r.days }; break;
+      case "xp": progress = { value: xp, target: r.total }; break;
+      case "track_kind": progress = { value: tracks.filter((t) => t.kind === r.kind).length, target: r.count }; break;
+      case "track": { const t = all.find((x) => x.key === r.track); progress = t ? { value: t.lessons.filter((l) => l.progress.length).length, target: t.lessons.length } : null; break; }
+      default: progress = null;
+    }
+    return { id: b.id, key: b.key, name: b.name, description: b.description, icon: b.icon, rule: describeRule(r), owned: have.has(b.id), awardedAt: have.get(b.id)?.toISOString() ?? null, progress };
+  });
 }

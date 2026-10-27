@@ -8,11 +8,10 @@ hedefler:
   - API anahtarlarını ve dış istekleri güvenle kullanmak
 animasyonlar: [sql-injection]
 gorseller:
-  - id: m07-06-a
+  - id: m07-06-b
     tur: ai
-    karakter: orhan
-    alt: "Kod bloklarından yapılmış duvarın çatlaklarından Kuklacı Orhan'ın parlayan ipleri içeri sızıyor"
-    prompt: "A wall built from glowing translucent code-like tiles (no characters) with a few thin red cracks. Through the cracks, the villain threads his glowing marionette strings, trying to pull tiles loose from the other side."
+    alt: "Kasada saklanan anahtar ile kapının üstüne yapıştırılmış anahtarın karşılaştırması"
+    prompt: "Split scene: on the left a key taped openly to the front of a house door where any passerby can grab it, on the right the same key kept inside a small locked safe hidden behind a painting, a developer nodding at the safe."
 ---
 
 # Kendi kodunda açık bırakmamak
@@ -20,7 +19,7 @@ gorseller:
 > Güvenlikçinin yazdığı araç da bir yazılımdır — ve açık barındırabilir.
 > En yaygın hatalar hep aynı yerden çıkar: **girdiye güvenmek**.
 
-![Kod bloklarından yapılmış duvarın çatlaklarından Kuklacı Orhan'ın parlayan ipleri içeri sızıyor](../../gorseller/m07-06-a.webp)
+::cizgi[m07-06-sahne]
 
 ## Dört klasik hata
 
@@ -36,6 +35,8 @@ SQL'de girdiyi metne yapıştırmanın neden tehlikeli olduğunu gör:
 ::animasyon[sql-injection]
 
 ## Dış API'leri güvenle çağırmak
+
+![Kasada saklanan anahtar ile kapının üstüne yapıştırılmış anahtarın karşılaştırması](../../gorseller/m07-06-b.webp)
 
 ```python
 import os

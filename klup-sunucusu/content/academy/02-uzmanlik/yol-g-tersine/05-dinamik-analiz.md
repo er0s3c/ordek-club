@@ -7,11 +7,10 @@ hedefler:
   - Debugger'da breakpoint koyup programı adım adım yürütmek
   - Analizden kaçma izlerini bulgu olarak tanımak
 gorseller:
-  - id: g-05-a
+  - id: g-05-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri kurduğu böceğin her birkaç adımda bir raya takılmış pirinç iğnelerde donup kaldığını görünce cep saatine sinirle vuruyor"
-    prompt: "On a long brass track laid across a workbench, the villain winds up a large clockwork beetle and lets it go, but every few steps it freezes mid-motion at tiny brass pins pushed into the track at precise spots. A magnifying lens on a jointed arm hovers over the frozen beetle, revealing its glowing inner gears. The villain taps his pocket watch in comic frustration, his loupe slipping from his eye."
+    alt: "Mekanik bir oyuncağın dişlilerine takılmış küçük durdurma kancaları; analist her durakta parçaları inceliyor"
+    prompt: "A clockwork toy running on a lab bench with several small brass hooks attached to its gears, each hook freezing the toy at a specific moment so the analyst can inspect the position of every gear with a loupe."
 ---
 
 # Dinamik analiz: debugger, breakpoint ve API izleme
@@ -19,7 +18,7 @@ gorseller:
 > Statik analiz "ne yapabilir?" der; debugger ise "şu an ne yapıyor?" sorusunu yanıtlar.
 > ⚙️ **Çark 5:** Sabri'nin böceği kurma kolu çevrilince uyanıyor. Selim Hoca: "Sen onu her dişlide durdurabilirsin, Tilki."
 
-![Saatçi Sabri kurduğu böceğin her birkaç adımda bir raya takılmış pirinç iğnelerde donup kaldığını görünce cep saatine sinirle vuruyor](../../gorseller/g-05-a.webp)
+::cizgi[g-05-sahne]
 
 ## Debugger nedir?
 
@@ -34,6 +33,8 @@ Windows'ta **x64dbg**, Linux'ta **gdb** kullanılır.
 | `F9` | Sonraki breakpoint'e kadar çalıştır |
 
 ## Breakpoint türleri
+
+![Mekanik bir oyuncağın dişlilerine takılmış küçük durdurma kancaları; analist her durakta parçaları inceliyor](../../gorseller/g-05-b.webp)
 
 - **Yazılım breakpoint'i:** belirli bir adreste dur.
 - **API breakpoint'i:** `bp CreateFileW` — program dosya açmak istediği anda dur, argümanları oku.

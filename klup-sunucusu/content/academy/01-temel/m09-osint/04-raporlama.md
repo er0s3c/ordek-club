@@ -6,18 +6,17 @@ sure: 6
 hedefler:
   - Bir OSINT bulgusunu kaynak ve güven düzeyiyle raporlamak
 gorseller:
-  - id: m09-04-a
+  - id: m09-04-b
     tur: ai
-    karakter: mine
-    alt: "Maskeli Mine kanıt panosundaki zaman çizelgesine sahte kanıt kartları iğneliyor"
-    prompt: "A clean evidence board wall with cards (simple icons only: a globe, a camera, a calendar, a document) pinned in a neat timeline connected by thin lines. The villain pins an extra suspicious card into the sequence with a gloved hand, glancing back over her shoulder."
+    alt: "Üç farklı yükseklikte köprü: birçok sağlam ayakla duran köprü yüksek, tek ayaklı köprü orta, ipten köprü düşük güveni gösteriyor"
+    prompt: "Three bridges crossing a dark canyon side by side: a strong stone bridge resting on many solid pillars, a wooden bridge resting on a single pillar, and a thin rope bridge swaying in the wind. A traveler with a report folder chooses carefully which to cross."
 ---
 
 # Bulduğunu inandırıcı anlatmak
 
 > İyi bir araştırmacı "buldum" demez; **"şuradan, şu tarihte, şu kadar eminim"** der.
 
-![Maskeli Mine kanıt panosundaki zaman çizelgesine sahte kanıt kartları iğneliyor](../../gorseller/m09-04-a.webp)
+::cizgi[m09-04-sahne]
 
 ## Her bulgu için dört şey
 
@@ -29,6 +28,8 @@ gorseller:
 | **Güven düzeyi** | Yüksek — kayıt bilgisi doğrudan sorgulandı |
 
 ## Güven düzeyi
+
+![Üç farklı yükseklikte köprü: birçok sağlam ayakla duran köprü yüksek, tek ayaklı köprü orta, ipten köprü düşük güveni gösteriyor](../../gorseller/m09-04-b.webp)
 
 - **Yüksek** — Birbirinden bağımsız birden fazla güvenilir kaynak, doğrudan gözlem.
 - **Orta** — Tek güvenilir kaynak ya da dolaylı kanıt.

@@ -6,11 +6,14 @@ import { useState } from "react";
 import { Bell, CheckCheck, ClipboardList, Inbox, Megaphone, Star, Upload } from "lucide-react";
 import { useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
+import { AnimatedList } from "@/components/motion/AnimatedList";
+import { useT } from "@/i18n/client";
 
 type Item = { id: string; type: string; title: string; body: string; link: string; unread: boolean; at: string };
 const ICON = { ANNOUNCEMENT: Megaphone, ASSIGNMENT: ClipboardList, REVIEW: Star, SUBMISSION: Upload, SYSTEM: Bell } as Record<string, typeof Bell>;
 
 export function NotificationList({ items }: { items: Item[] }) {
+  const t = useT();
   const toast = useToast();
   const router = useRouter();
   const [read, setRead] = useState<Set<string>>(new Set());
@@ -29,13 +32,13 @@ export function NotificationList({ items }: { items: Item[] }) {
   return (
     <section className="card">
       <div className="card-h">
-        <h2>{unread.length ? `${unread.length} okunmamış` : "Hepsi okundu"}</h2>
-        {unread.length > 0 && <button className="btn btn-sm" onClick={() => mark("all")}><CheckCheck size={14} aria-hidden /> Tümünü okundu say</button>}
+        <h2>{unread.length ? t("{length} okunmamış", { length: unread.length }) : t("Hepsi okundu")}</h2>
+        {unread.length > 0 && <button className="btn btn-sm" onClick={() => mark("all")}><CheckCheck size={14} aria-hidden />{" "}{t("Tümünü okundu say")}</button>}
       </div>
       {!items.length ? (
-        <div className="empty"><Inbox size={28} aria-hidden /><div>Bildirim yok.</div></div>
+        <div className="empty"><Inbox size={28} aria-hidden /><div>{t("Bildirim yok.")}</div></div>
       ) : (
-        items.map((n) => {
+        <AnimatedList>{items.map((n) => {
           const Icon = ICON[n.type] ?? Bell;
           const isUnread = n.unread && !read.has(n.id);
           return (
@@ -46,10 +49,10 @@ export function NotificationList({ items }: { items: Item[] }) {
                 {n.body && <div className="small muted" style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{n.body}</div>}
                 <div className="tiny faint">{n.at}</div>
               </div>
-              {isUnread && <button className="btn btn-sm btn-ghost" onClick={() => mark([n.id])} aria-label="Okundu say"><CheckCheck size={14} aria-hidden /></button>}
+              {isUnread && <button className="btn btn-sm btn-ghost" onClick={() => mark([n.id])} aria-label={t("Okundu say")}><CheckCheck size={14} aria-hidden /></button>}
             </div>
           );
-        })
+        })}</AnimatedList>
       )}
     </section>
   );

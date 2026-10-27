@@ -36,9 +36,13 @@ export type FlowAnimation = {
   links?: [string, string][]; // sabit bağlantılar (topoloji çizgileri)
   zones?: { label: string; x: number; y: number; w: number; h: number; tone: "trusted" | "dmz" | "untrusted" }[];
   steps: FlowStep[];
+  // "sketch": bölge ve bağlantılar elle çizilmiş görünür (rough.js); varsayılan temiz çizgi.
+  style?: "clean" | "sketch";
+  // "auto": aktör konumları ELK ile hesaplanır (x/y yalnız başlangıç değeri olur).
+  layout?: "manual" | "auto";
 };
 
-export type CodePanel = { label: string; tone: "bad" | "good" | "neutral"; lines: string[] };
+export type CodePanel = { label: string; tone: "bad" | "good" | "neutral"; lines: string[]; lang?: string };
 
 export type CodeStep = {
   note: string;

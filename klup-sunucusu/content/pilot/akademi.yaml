@@ -1,0 +1,8 @@
+yollar:
+  - anahtar: sk101
+    kod: SK-101
+    klasor: sk101
+    tur: temel
+    baslik: Siber Temeller
+    ozet: Güvenliğe giriş · Ağın dili · Web nasıl çalışır · Linux kabuğu · Windows
+      temelleri · Kriptografinin özü · Savunmanın ilk yarım saati

@@ -45,12 +45,6 @@ sorular:
       - Kesin ifadeler
     dogru: 1
     aciklama: Okuyucu bulgunun nereden geldiğini ve ne kadar güvenilir olduğunu bilmelidir.
-gorseller:
-  - id: m09-07-a
-    tur: ai
-    karakter: mine
-    alt: "Kırık maskelerin ortasında el feneri ışığına yakalanan Maskeli Mine; yere düşen dosyadan kırmızı iplerle bağlı bir harita kayıyor"
-    prompt: "In a dark archive the villain's porcelain masks lie shattered on the floor. She stands unmasked, caught in the beam of a flashlight, clutching the last cracked mask, while a folder slips from her arm and a map tied with red string slides across the floor."
 ---
 
 # M09 Quiz: OSINT ve dijital araştırma
@@ -59,8 +53,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Maskeli Mine** · *quiz'i %70 ile geçince*
 >
-> ![Kırık maskelerin ortasında el feneri ışığına yakalanan Maskeli Mine; yere düşen dosyadan kırmızı iplerle bağlı bir harita kayıyor](../../gorseller/m09-07-a.webp)
->
-> Sahte şirket açık kaynak bilgileriyle çöktü. Mine kaçarken bir dosya düşürüyor: babasının sağ kolu Ferhat'ın şehre kurduğu fidye ağının haritası.
+> ::cizgi[mine-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Fidyeci Ferhat** (M10)*

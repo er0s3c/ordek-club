@@ -9,6 +9,10 @@ gorseller:
     karakter: aile
     alt: "Gölge Ağ Ailesi karanlık bir sokaktan, pencerelerinde öğrencilerin çalıştığı ışıklı kampüs binasını izliyor"
     prompt: "The family stands in a rain-slick dark alley at night, half in shadow, watching across the street a brightly lit university building whose windows show silhouettes of students studying at laptops. The family looks uneasy, as if underestimating them. Puddles reflect the warm window light."
+  - id: p-01-b
+    tur: ai
+    alt: "Üç aşamalı bir dağ yolu: geniş ortak patika, yedi renkli yola ayrılan kavşak ve zirvede spot ışıklı küçük bir sahne"
+    prompt: "A winding mountain trail at dusk seen from above in three clear stages: a wide shared stone path at the bottom where a group of students walks together, a crossroads in the middle where the path splits into seven trails each glowing a different color, and at the summit a small stage under a single warm spotlight where a team presents. Lanterns line the path."
 ---
 
 # Ördek Akademi nedir?
@@ -26,6 +30,8 @@ Her konuda önce *neden* önemli olduğunu görürsün, sonra kendi elinle dener
 Saldırıyı anlamak, savunmayı kurmak için. Bulduğunu açıklayabilmek de becerinin parçası.
 
 ## Program üç kısımdan oluşur
+
+![Üç aşamalı bir dağ yolu: geniş ortak patika, yedi renkli yola ayrılan kavşak ve zirvede spot ışıklı küçük bir sahne](../gorseller/p-01-b.webp)
 
 | Kısım | Hafta | Ne var? |
 |---|---|---|

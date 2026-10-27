@@ -7,11 +7,10 @@ hedefler:
   - Bir güvenlik testinin kapsamını tanımlamak
   - Yazılı izinde bulunması gerekenleri saymak
 gorseller:
-  - id: m02-03-a
+  - id: m02-03-b
     tur: ai
-    karakter: kemal
-    alt: "Avukat Kemal, test kapsamını gösteren planda yasak odaların içinden kendi kesik çizgisini çiziyor"
-    prompt: "A large blueprint of a fictional office building on a desk: some rooms outlined with glowing green borders, others shaded red and crossed out. The villain uses his fountain pen to draw his own dotted line straight through the forbidden red rooms, smirking."
+    alt: "Masada açık bir izin dosyası; etrafında yedi nesne: iki el sıkışması, yeşil çizgiyle çevrili bina maketi, kırmızı bantlı odalar, kum saati, alet çantası, yasak işaretli çekiç ve kırmızı telefon"
+    prompt: "An open permission folder lying on a desk under a green banker's lamp, surrounded by seven neatly arranged objects: two hands shaking above the folder, a small building model outlined by a glowing green boundary line, a few model rooms wrapped in red tape, an hourglass, an open toolbox with careful tools, a sledgehammer under a red prohibition circle, and a red emergency telephone."
 ---
 
 # İzinli bir test nasıl planlanır?
@@ -19,9 +18,11 @@ gorseller:
 > İyi bir test, ilk komuttan **önce** başlar: kağıt üzerinde.
 > Profesyoneller buna *Rules of Engagement* (çalışma kuralları) der.
 
-![Avukat Kemal, test kapsamını gösteren planda yasak odaların içinden kendi kesik çizgisini çiziyor](../../gorseller/m02-03-a.webp)
+::cizgi[m02-03-sahne]
 
 ## Yazılı iznin 7 parçası
+
+![Masada açık bir izin dosyası; etrafında yedi nesne: iki el sıkışması, yeşil çizgiyle çevrili bina maketi, kırmızı bantlı odalar, kum saati, alet çantası, yasak işaretli çekiç ve kırmızı telefon](../../gorseller/m02-03-b.webp)
 
 | Parça | Örnek |
 |---|---|

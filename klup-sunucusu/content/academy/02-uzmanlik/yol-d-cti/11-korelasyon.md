@@ -7,11 +7,14 @@ hedefler:
   - Elmas Modeli ve rakip hipotezler analiziyle (ACH) kanıtları birleştirmek
   - Bilişsel yanlılıkları ve sahte bayrak göstergelerini tanımak
 gorseller:
-  - id: d-11-a
+  - id: d-11-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri kanıt panosundaki kırmızı ipleri gizlice başka bir kaptanın silüetine yönlendiriyor; kaçırdığı kehribar ipler kendi askıdaki kasketine çıkıyor"
-    prompt: "A dim ship's cabin with a large investigation corkboard covered in abstract photos and symbol cards linked by strings. The villain secretly re-pins all the red strings so they lead to a faceless silhouette portrait of a different captain, looking very pleased with himself, but a few amber strings he missed still run straight across the cabin to his own captain's cap hanging on a hook by the door."
+    alt: "Dört köşeli bir elmas: köşelerde maskeli figür, alet çantası, ağ kablosu ve hedef bina; köşeler iplerle bağlı"
+    prompt: "A large glowing diamond shape drawn on a dark table with an object at each of its four corners: a masked figure, an open toolbox, a coil of network cable, and a small target building; glowing threads connect all four corners."
+  - id: d-11-c
+    tur: ai
+    alt: "Masada yan yana duran üç farklı bayrak; her kanıt taşı bir bayrağın önüne konuyor ya da çıkarılıyor"
+    prompt: "An analyst at a long table with three different abstract flags standing in a row, placing small evidence stones in front of each flag and removing stones that contradict it, one flag clearly gathering the most consistent pile."
 ---
 
 # Korelasyon ve atıf: sahte bayrağı nasıl ayırırsın?
@@ -19,9 +22,11 @@ gorseller:
 > Kanıtı toplamak kolay; onu doğru hipoteze bağlamak zor. Bedri ipleri senin yerine bağlamaya çalışır.
 > 🚩 **Bayrak 11:** Elinde rapor, altyapı kaydı, zararlı yazılım analizi ve av sonuçları var. Hepsi aynı yere mi çıkıyor?
 
-![Bayrakçı Bedri kanıt panosundaki kırmızı ipleri gizlice başka bir kaptanın silüetine yönlendiriyor; kaçırdığı kehribar ipler kendi askıdaki kasketine çıkıyor](../../gorseller/d-11-a.webp)
+::cizgi[d-11-sahne]
 
 ## Elmas Modeli (Diamond Model)
+
+![Dört köşeli bir elmas: köşelerde maskeli figür, alet çantası, ağ kablosu ve hedef bina; köşeler iplerle bağlı](../../gorseller/d-11-b.webp)
 
 Her saldırı olayının dört köşesi vardır: **Saldırgan (adversary) · Yetenek (capability) · Altyapı (infrastructure) · Kurban (victim)**.
 Boş bir köşe, toplanacak bilginin yeridir. Sahte bayrak genellikle yetenek köşesini boyar; altyapı köşesi daha zor taklit edilir.
@@ -38,6 +43,8 @@ Olayları zaman çizgisinde ise **Siber Öldürme Zinciri (Cyber Kill Chain)** i
 | **Erişilebilirlik (availability)** | En çok konuşulan grubu en olası sanmak |
 
 ## Rakip hipotezler analizi (ACH)
+
+![Masada yan yana duran üç farklı bayrak; her kanıt taşı bir bayrağın önüne konuyor ya da çıkarılıyor](../../gorseller/d-11-c.webp)
 
 Analysis of Competing Hypotheses: hipotezleri **yan yana** koy, her kanıtın her hipotezle uyumunu işaretle (✔ uyumlu · ✘ çelişkili · – nötr).
 Kazanan, en çok ✔ alan değil, **en az ✘ alan** hipotezdir. Her hipotezle uyumlu kanıt ayırt edici değildir.

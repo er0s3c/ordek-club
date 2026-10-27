@@ -11,11 +11,10 @@ gorseller:
     tur: ekran
     alt: Windows Görev Yöneticisi'nde "Başlangıç uygulamaları" sekmesi
     nasil: "Ctrl+Shift+Esc ile Görev Yöneticisi'ni açın → sol menüden 'Başlangıç uygulamaları'. Ad, Yayımcı, Durum ve 'Başlangıç etkisi' sütunları görünsün. 'Yayımcı' sütununu kehribar (#C9953B) çerçeveyle işaretleyin. Listede kişisel bilgi veya kurumsal yazılım adı varsa bulanıklaştırın."
-  - id: m03-03-a
+  - id: m03-03-c
     tur: ai
-    karakter: riza
-    alt: "Anahtarcı Rıza, fabrika bandındaki küçük robotların arasında takma bıyıkla robot kılığına girmiş"
-    prompt: "A tidy factory conveyor line where tiny helper robots each carry a glowing box. At the end of the line, the villain crouches inside a cardboard robot costume with an obviously fake mustache, trying to blend in, his keyring poking out."
+    alt: "Bir fabrika vardiyası: önde çalışan robotlar (işlem), arka odada sessizce çalışan robotlar (servis) ve kapı açılır açılmaz fırlayan robotlar (başlangıç programı)"
+    prompt: "A cozy retro factory floor at the start of a shift: in the front small boxy robots busily work at a conveyor belt, in a dim back room other robots quietly work alone with nobody watching, and at the entrance door a few robots spring into action the moment the door opens and the morning light comes in. A hidden extra robot clings to the door frame trying to sneak in with them."
 ---
 
 # Bilgisayarında şu an neler çalışıyor?
@@ -23,9 +22,11 @@ gorseller:
 > Bilgisayar açıldığında sen hiçbir şeye tıklamadan onlarca program çalışmaya başlar.
 > Zararlı yazılımlar da oraya, **başlangıca** saklanmayı sever.
 
-![Anahtarcı Rıza, fabrika bandındaki küçük robotların arasında takma bıyıkla robot kılığına girmiş](../../gorseller/m03-03-a.webp)
+::cizgi[m03-03-sahne]
 
 ## Üç kavram
+
+![Bir fabrika vardiyası: önde çalışan robotlar (işlem), arka odada sessizce çalışan robotlar (servis) ve kapı açılır açılmaz fırlayan robotlar (başlangıç programı)](../../gorseller/m03-03-c.webp)
 
 - **İşlem (process)** — Çalışan bir programın kendisi. Her tarayıcı sekmesi bile ayrı bir işlem olabilir.
 - **Servis (service)** — Arka planda, çoğu zaman sen oturum açmadan çalışan işlem (ör. Windows Update).

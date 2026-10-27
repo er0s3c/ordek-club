@@ -7,8 +7,10 @@ import type { RegistrationPolicy } from "@prisma/client";
 import { Field, TextAreaField } from "@/components/ui/Field";
 import { useMessages } from "@/components/providers";
 import { ApiError, api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 export function RegisterForm({ policy, initialCode }: { policy: RegistrationPolicy; initialCode: string }) {
+  const t = useT();
   const m = useMessages();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -73,7 +75,7 @@ export function RegisterForm({ policy, initialCode }: { policy: RegistrationPoli
         autoCapitalize="characters"
         spellCheck={false}
         required={inviteRequired}
-        placeholder="XXXX-XXXX-XXXX"
+        placeholder={t("XXXX-XXXX-XXXX")}
         className="input mono"
         error={fields.invitationCode}
       />

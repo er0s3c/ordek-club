@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Role } from "@prisma/client";
 import { useMessages, useToast } from "@/components/providers";
 import { api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 type Action = "approve" | "reject" | "disable" | "enable";
 
@@ -16,6 +17,7 @@ const META: Record<Action, { label: string; done: string; cls: string; needsNote
 };
 
 export function MemberActions(props: { memberId: string; name: string; actions: Action[]; roles: Role[]; currentRole: Role }) {
+  const t = useT();
   const m = useMessages();
   const toast = useToast();
   const router = useRouter();
@@ -44,7 +46,7 @@ export function MemberActions(props: { memberId: string; name: string; actions: 
         <>
           {anyNote && (
             <div className="field">
-              <label htmlFor="note">Not (isteğe bağlı, denetim kaydına yazılır)</label>
+              <label htmlFor="note">{t("Not (isteğe bağlı, denetim kaydına yazılır)")}</label>
               <input id="note" className="input" value={note} maxLength={300} onChange={(e) => setNote(e.target.value)} />
             </div>
           )}
@@ -55,11 +57,11 @@ export function MemberActions(props: { memberId: string; name: string; actions: 
                 className={META[a].cls}
                 disabled={busy}
                 onClick={() => {
-                  if (META[a].confirm && !window.confirm(META[a].confirm)) return;
-                  void run(META[a].needsNote ? { action: a, note } : { action: a }, META[a].done);
+                  if (META[a].confirm && !window.confirm(t(META[a].confirm))) return;
+                  void run(META[a].needsNote ? { action: a, note } : { action: a }, t(META[a].done));
                 }}
               >
-                {META[a].label}
+                {t(META[a].label)}
               </button>
             ))}
           </div>
@@ -67,20 +69,20 @@ export function MemberActions(props: { memberId: string; name: string; actions: 
       )}
       {props.roles.length > 0 && (
         <div className="field">
-          <label htmlFor="role">Rol</label>
+          <label htmlFor="role">{t("Rol")}</label>
           <div className="row">
             <select id="role" className="select" style={{ width: 200 }} value={role} onChange={(e) => setRole(e.target.value as Role)}>
               {!props.roles.includes(props.currentRole) && <option value={props.currentRole}>{m.roles[props.currentRole]}</option>}
               {props.roles.map((r) => <option key={r} value={r}>{m.roles[r]}</option>)}
             </select>
-            <button className="btn" disabled={busy || role === props.currentRole} onClick={() => run({ action: "role", role }, "Rol güncellendi; üyenin oturumları yenilenecek.")}>
-              Rolü değiştir
+            <button className="btn" disabled={busy || role === props.currentRole} onClick={() => run({ action: "role", role }, t("Rol güncellendi; üyenin oturumları yenilenecek."))}>
+              {t("Rolü değiştir")}
             </button>
           </div>
-          <span className="hint">Rol değişince üyenin açık oturumları kapanır.</span>
+          <span className="hint">{t("Rol değişince üyenin açık oturumları kapanır.")}</span>
         </div>
       )}
-      {props.actions.length === 0 && props.roles.length === 0 && <p className="muted" style={{ margin: 0 }}>Bu durumda uygulanabilecek işlem yok.</p>}
+      {props.actions.length === 0 && props.roles.length === 0 && <p className="muted" style={{ margin: 0 }}>{t("Bu durumda uygulanabilecek işlem yok.")}</p>}
     </div>
   );
 }

@@ -4,33 +4,32 @@ tur: bilgi
 baslik: "Yol A — Web Uygulaması ve API Güvenliği"
 sure: 3
 gorseller:
-  - id: a-00-a
+  - id: a-00-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine katmanlarına ayrılmış dev tarayıcının en altındaki veritabanına kalemini daldırıyor"
-    prompt: "A giant floating web browser window made of glass panels is pulled apart into layers like an exploded diagram (page, code brackets, server, database cylinder). The villain stands on the bottom layer dipping her fountain pen into the glowing database cylinder, and green droplets leak upward through every layer."
+    alt: "Bir web uygulaması binasının katları: lobide giriş kapısı, ortada oturum odaları, bodrumda veritabanı kasası; her katta fenerli bir öğrenci"
+    prompt: "A cutaway of a tall building representing a web application: a front lobby with a revolving door and a reception desk, middle floors with session rooms and key-card doors, a mail room with packages, and a basement vault of database drums; on each floor a student with a lantern inspects locks and doors, climbing down floor by floor."
 ---
 
 # Yol A — Web Uygulaması ve API Güvenliği
 
 > Her gün kullandığın uygulamalar nerede kırılır, nasıl düzeltilir? **Web pentest** ve **uygulama güvenliği**.
 
-![Tek Tırnak Jasmine katmanlarına ayrılmış dev tarayıcının en altındaki veritabanına kalemini daldırıyor](../../gorseller/a-00-a.webp)
+::cizgi[a-00-sahne]
 
 > 🕴️ **DOSYA: Tek Tırnak Jasmine** · *Veritabanı Kraliçesi*
 >
 > ![Tek Tırnak Jasmine — Veritabanı Kraliçesi](../../gorseller/karakter-jasmine.webp)
 >
-> 📼 **Bölüm — Sezon 2: Çekmeceler.** Don'un dosyası kapandı ama Kampüs Portalı'nda gece yarısı tuhaf sorgular dönüyor.
-> Notlar, burslar, kimlik fotoğrafları: hepsi bir veritabanının çekmecelerinde. Selim Hoca imzalı bir test izniyle seni
-> portalın laboratuvar kopyasına gönderiyor: Jasmine'den önce her çekmeceyi bul ve kilitle.
->
 > **Kim o?** Kapüşonlular'ın üçüncüsü; o gece Eren'in yanında kaldı. Baron'un sağ eli, Kuklacı Orhan'ın ustası.
 > [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[jasmine-acilis]
 
 **Ön koşul:** HTTP, web temelleri (M06), Linux (M04)
 
 ## 12 ders
+
+![Bir web uygulaması binasının katları: lobide giriş kapısı, ortada oturum odaları, bodrumda veritabanı kasası; her katta fenerli bir öğrenci](../../gorseller/a-00-b.webp)
 
 | # | Ders | Tek cümleyle |
 |---|---|---|

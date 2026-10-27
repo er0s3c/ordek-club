@@ -8,11 +8,10 @@ hedefler:
   - Ağ sensörünün saatini uç nokta saatiyle karşılaştırmak
 animasyonlar: [dns-resolution]
 gorseller:
-  - id: c-08-a
+  - id: c-08-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer gece iskelesinde cep saatine bakarak tam aralıklarla fenerli kâğıt kayıklar bırakıyor; deniz fenerindeki dev mercek her kayığı kusursuz bir sıra hâlinde kaydediyor"
-    prompt: "A night harbor where glowing network cables run under the water like currents. The villain stands at the end of a wooden pier, checking his pocket watch and releasing a tiny paper boat carrying a little lantern at perfectly regular intervals. High on a lighthouse above, a giant brass lens swivels to follow each boat and marks it as an amber dot in a perfectly even row across the night sky."
+    alt: "Kalp ritmi monitöründe kusursuz düzenli nabız çizgisi; analist bunun insan değil makine olduğunu işaret ediyor"
+    prompt: "A vintage heart monitor screen in a dark room showing a perfectly regular pulse line with identical spacing, too perfect to be human, an analyst tapping the screen with a pencil while a small hidden metronome ticks behind the monitor."
 ---
 
 # Ağ adli bilişimi: DNS anomalileri ve düzenli nabız
@@ -20,7 +19,7 @@ gorseller:
 > Cihazın saati yalan söyleyebilir. Ağ sensörü olayı **kendi saatiyle** kaydeder.
 > 🧹 **İz 8:** KLP-WS07 gece boyunca her 30 dakikada bir aynı alan adına sordu. Tamer saati kaydırdı; sensörün saati kaymadı.
 
-![Temizlikçi Tamer gece iskelesinde cep saatine bakarak tam aralıklarla fenerli kâğıt kayıklar bırakıyor; deniz fenerindeki dev mercek her kayığı kusursuz bir sıra hâlinde kaydediyor](../../gorseller/c-08-a.webp)
+::cizgi[c-08-sahne]
 
 ## Neden DNS?
 
@@ -30,6 +29,8 @@ Bu yüzden hem zararlı yazılımın sevdiği kanal hem de savunucunun en veriml
 ::animasyon[dns-resolution]
 
 ## Üç anomali
+
+![Kalp ritmi monitöründe kusursuz düzenli nabız çizgisi; analist bunun insan değil makine olduğunu işaret ediyor](../../gorseller/c-08-b.webp)
 
 | Belirti | Neye benzer? | Ne olabilir? |
 |---|---|---|

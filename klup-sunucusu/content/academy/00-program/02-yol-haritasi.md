@@ -3,19 +3,13 @@ id: p-02
 tur: bilgi
 baslik: Yol haritası ve takvim
 sure: 3
-gorseller:
-  - id: p-02-a
-    tur: ai
-    karakter: don
-    alt: "Don Gölge masasında, şehir haritası üzerinde kırmızı iplerle bağlanmış üç işaretli noktaya bakıyor"
-    prompt: "The villain sits behind a heavy wooden desk in a smoky office lit by a green-shaded banker's lamp, studying a large city map pinned with three glowing markers (a small house made of circuit boards, a fork splitting into seven paths, a theater stage) connected by red string. His raised eyebrow shows he senses a long campaign ahead."
 ---
 
 # Yol haritası ve takvim
 
 > Program iki dönem sürer. Etkinlik ve tatil haftalarıyla birlikte takvimde yaklaşık **33 hafta** eder.
 
-![Don Gölge masasında, şehir haritası üzerinde kırmızı iplerle bağlanmış üç işaretli noktaya bakıyor](../gorseller/p-02-a.webp)
+::cizgi[p-02-sahne]
 
 ## 1. dönem — Ortak temel
 

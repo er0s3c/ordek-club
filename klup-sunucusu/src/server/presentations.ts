@@ -57,7 +57,7 @@ async function writeVersion(tx: Tx, presentationId: string, deck: Deck, authorId
         create: deck.slides.map((s, i) => ({
           position: i,
           title: s.title,
-          blocks: { layout: s.layout, items: s.blocks } as unknown as Prisma.InputJsonValue,
+          blocks: { layout: s.layout, items: s.blocks, ...(s.motion ? { motion: s.motion } : {}) } as unknown as Prisma.InputJsonValue,
           notes: s.notes,
           steps: slideSteps(s.blocks),
         })),
@@ -69,16 +69,17 @@ async function writeVersion(tx: Tx, presentationId: string, deck: Deck, authorId
   return version;
 }
 
-export async function createPresentation(actor: Actor, deck: Deck, ip: string, templateKey?: string) {
+export async function createPresentation(actor: Actor, deck: Deck, ip: string, templateKey?: string, transaction?: Tx) {
   requireTeacher(actor);
-  return db.$transaction(async (tx) => {
+  const write = async (tx: Tx) => {
     const p = await tx.presentation.create({
       data: { title: deck.title, description: deck.description, ownerId: actor.id, templateKey: templateKey ?? null },
     });
     await writeVersion(tx, p.id, deck, actor.id);
     await audit({ actorId: actor.id, action: templateKey ? "presentation.create.template" : "presentation.import", targetType: "Presentation", targetId: p.id, meta: { slides: deck.slides.length, templateKey: templateKey ?? null }, ip }, tx);
     return p;
-  });
+  };
+  return transaction ? write(transaction) : db.$transaction(write);
 }
 
 export async function createFromTemplate(actor: Actor, key: string, ip: string) {
@@ -131,7 +132,7 @@ export async function loadClientDeck(versionId: string, includeNotes: boolean): 
     title: v.presentation.title,
     description: v.presentation.description,
     slides: v.slides.map((s) => {
-      const b = s.blocks as unknown as { layout?: "default" | "title" | "section"; items?: Block[] };
+      const b = s.blocks as unknown as { layout?: "default" | "title" | "section"; items?: Block[]; motion?: string };
       return {
         id: s.id,
         position: s.position,
@@ -140,6 +141,7 @@ export async function loadClientDeck(versionId: string, includeNotes: boolean): 
         // Uygulama molasının eğitmen notları (VM, snapshot, beklenen sonuç) öğrenciye gönderilmez.
         blocks: includeNotes ? (b.items ?? []) : (b.items ?? []).map((x) => (x.type === "practical" ? { ...x, host: EMPTY_PRACTICAL_HOST } : x)),
         steps: s.steps,
+        ...(b.motion ? { motion: b.motion } : {}),
         ...(includeNotes ? { notes: s.notes } : {}),
       };
     }),
@@ -164,7 +166,7 @@ export async function exportDeck(actor: Actor, id: string): Promise<Deck> {
     schema: DECK_SCHEMA_VERSION,
     title: deck.title,
     description: deck.description,
-    slides: deck.slides.map((s) => ({ title: s.title, layout: s.layout, blocks: s.blocks, notes: s.notes ?? "" })),
+    slides: deck.slides.map((s) => ({ title: s.title, layout: s.layout, blocks: s.blocks, notes: s.notes ?? "", motion: s.motion ?? "" })),
   };
 }
 
@@ -265,7 +267,7 @@ export async function restoreVersion(actor: Actor, id: string, versionId: string
   const v = await db.presentationVersion.findFirst({ where: { id: versionId, presentationId: id }, select: { id: true } });
   if (!v) throw notFound("Sürüm bulunamadı.");
   const deck = await loadClientDeck(v.id, true);
-  const content: Deck = { schema: DECK_SCHEMA_VERSION, title: deck.title, description: deck.description, slides: deck.slides.map((sl) => ({ title: sl.title, layout: sl.layout, blocks: sl.blocks, notes: sl.notes ?? "" })) };
+  const content: Deck = { schema: DECK_SCHEMA_VERSION, title: deck.title, description: deck.description, slides: deck.slides.map((sl) => ({ title: sl.title, layout: sl.layout, blocks: sl.blocks, notes: sl.notes ?? "", motion: sl.motion ?? "" })) };
   await db.presentation.update({ where: { id }, data: { draft: content as unknown as Prisma.InputJsonValue, draftUpdatedAt: new Date() } });
   return content;
 }

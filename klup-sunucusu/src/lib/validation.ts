@@ -108,6 +108,11 @@ export const setupSchema = z.object({
 
 export const settingsUpdateSchema = clubInfoSchema
   .extend({
+    // PATCH requests must not apply creation defaults to omitted fields.
+    description: clubInfoSchema.shape.description.removeDefault(),
+    universityName: clubInfoSchema.shape.universityName.removeDefault(),
+    timezone: clubInfoSchema.shape.timezone.removeDefault(),
+    registrationPolicy: clubInfoSchema.shape.registrationPolicy.removeDefault(),
     locale: z.enum(["tr", "en"]),
     maxUploadMb: z.number().int().min(1).max(500),
     storageQuotaMb: z.number().int().min(100).max(1_000_000),

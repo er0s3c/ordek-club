@@ -7,16 +7,10 @@ hedefler:
   - Kapsam içinde bir web uygulamasını uçtan uca test etmek
   - Bulguları CVSS ile derecelendirip profesyonel bir rapor yazmak
 gorseller:
-  - id: a-12-a
+  - id: a-12-c
     tur: ai
-    karakter: jasmine
-    alt: "Şafakta laboratuvar: kehribar mühürlü rapor masada, arkadaki katalog dolabının bütün çekmeceleri parlayan asma kilitlerle kapalı; Tek Tırnak Jasmine kapıdan bakıyor"
-    prompt: "A quiet computer lab at dawn: on the desk lies a neatly bound report sealed with an amber wax seal, and behind it the tall card-catalogue cabinet now has every single drawer locked with a small glowing amber padlock. The villain stands in the doorway with her fountain pen lowered, studying the locked cabinet with a thin, almost respectful smile."
-  - id: a-12-b
-    tur: ai
-    karakter: jasmine
-    alt: "Gece laboratuvar kapısının koluna sıkıştırılmış beyaz yasemin çiçeği ve katlanmış not; koridorun gölgesinde Tek Tırnak Jasmine uzaklaşıyor"
-    prompt: "A lab door at night in a dim university corridor: a single white jasmine flower is tucked into the door handle with a small folded note beneath it. Far down the corridor, the villain's silhouette walks away into the shadows, her ponytail and pen catching a last glint of green light."
+    alt: "Ciddiyeti gösteren bir ölçü kadranı; ibre bulgunun etkisine göre yeşilden kırmızıya doğru ilerliyor"
+    prompt: "A large brass gauge on a wooden report desk with a colored dial going from calm green through yellow and orange to deep red, the needle moving toward orange as an analyst places a small cracked lock beside it."
 ---
 
 # Final: kapsamdan profesyonel rapora
@@ -24,7 +18,7 @@ gorseller:
 > Bulgu bulmak işin yarısı. Diğer yarısı, onu **düzeltecek kişinin anlayacağı** biçimde yazmak.
 > 🗂️ **Son çekmece:** Kampüs Portalı'nın laboratuvar kopyası senin. Jasmine'den önce bitir.
 
-![Şafakta laboratuvar: kehribar mühürlü rapor masada, arkadaki katalog dolabının bütün çekmeceleri parlayan asma kilitlerle kapalı; Tek Tırnak Jasmine kapıdan bakıyor](../../gorseller/a-12-a.webp)
+::cizgi[a-12-sahne]
 
 ## Görev
 
@@ -45,6 +39,8 @@ Eğitmenin verdiği hedefte (Ördek Lab portal kopyası ya da yerel Juice Shop) 
 | **Ek** | Ham istek/yanıt örnekleri (gizli değerler maskeli) |
 
 ## CVSS'i kısaca
+
+![Ciddiyeti gösteren bir ölçü kadranı; ibre bulgunun etkisine göre yeşilden kırmızıya doğru ilerliyor](../../gorseller/a-12-c.webp)
 
 Bir açığın ciddiyetini 0–10 arası puanlar. Temel sorular:
 **Nereden** saldırılır (ağ/yerel)? **Ne kadar zor**? **Yetki** gerekir mi? **Kullanıcı** bir şey yapmalı mı?
@@ -68,9 +64,6 @@ Bir açığın ciddiyetini 0–10 arası puanlar. Temel sorular:
 
 > 🔒 **DOSYA KAPANDI: Tek Tırnak Jasmine** · *raporunu teslim edince*
 >
-> ![Gece laboratuvar kapısının koluna sıkıştırılmış beyaz yasemin çiçeği ve katlanmış not; koridorun gölgesinde Tek Tırnak Jasmine uzaklaşıyor](../../gorseller/a-12-b.webp)
->
-> Son çekmece kilitlendi; raporun okulun güvenlik ekibinin masasında. Laboratuvarın kapı kolunda bir yasemin çiçeği ve
-> katlanmış bir not var: "Kapüşonlular hep üç kişi miydi sanıyorsun, Tilki? Selim'e dördüncüyü sor."
+> ::cizgi[jasmine-kapanis]
 >
 > ➡️ *Sezon 2 sürüyor: diğer uzmanlık yollarında Gölge Ağ'ın başka dosyaları seni bekliyor.*

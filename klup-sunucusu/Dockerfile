@@ -35,6 +35,8 @@ COPY --from=build --chown=root:root /app/.next ./.next
 COPY --from=build --chown=root:root /app/dist ./dist
 COPY --from=build --chown=root:root /app/prisma ./prisma
 COPY --from=build --chown=root:root /app/public ./public
+COPY --from=build --chown=root:root /app/licenses ./licenses
+COPY --from=build --chown=root:root /app/THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md
 COPY --from=build --chown=root:root /app/next.config.ts ./next.config.ts
 # Akademi içeriği (Markdown + görseller): başlangıçta veritabanına aktarılır, salt okunur
 COPY --from=build --chown=root:root /app/content/academy ./content/academy

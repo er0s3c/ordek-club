@@ -8,18 +8,21 @@ hedefler:
   - Bir bilgiyi birden fazla bağımsız kaynakla doğrulamak
   - Sahte profil göstergelerini tanımak
 gorseller:
-  - id: m09-03-a
+  - id: m09-03-b
     tur: ai
-    karakter: mine
-    alt: "Arkası açılmış bir fotoğraftan Maskeli Mine cımbızla konum iğnesini çekip alıyor"
-    prompt: "A printed photograph of a sunny harbor floats in the air, flipped open like a hinged lid, revealing a hidden compartment with small glowing icons: a location pin, a tiny camera, a clock, a calendar page. The villain plucks the location pin out with tweezers, smiling coldly."
+    alt: "Bir fotoğrafı üç aletle inceleyen dedektif: kaynağa uzanan iplik, ikinci bir fotoğrafla karşılaştırma ve saat ile pusula"
+    prompt: "A detective at a desk examines a single photo with three tools: a red thread leading from the photo back to its original source on a pinboard, a second independent photo placed beside it for comparison, and a pocket watch with a compass to check time and place against shadows in the photo."
+  - id: m09-03-c
+    tur: ai
+    alt: "Vitrindeki kusursuz bir mankene benzeyen profil; arkasında karton destekler ve kopyala-yapıştır yapılmış aynı yorumlar"
+    prompt: "A perfect smiling mannequin displayed in a shop window as a social profile, but seen from behind it is held up by cardboard braces, and a crowd of identical cardboard cutouts in front of it all wear the same expression and raise the same hand."
 ---
 
 # Bir fotoğraf ne anlatır?
 
 > Telefonla çekilen bir fotoğraf, görünmeyen bir **künye** taşıyabilir: tarih, cihaz, hatta konum.
 
-![Arkası açılmış bir fotoğraftan Maskeli Mine cımbızla konum iğnesini çekip alıyor](../../gorseller/m09-03-a.webp)
+::cizgi[m09-03-sahne]
 
 ## EXIF: fotoğrafın künyesi
 
@@ -38,6 +41,8 @@ fotoğraflarda kalabilir. **Paylaşmadan önce sen sil** (Windows: Özellikler �
 
 ## Doğrulamanın üç sorusu
 
+![Bir fotoğrafı üç aletle inceleyen dedektif: kaynağa uzanan iplik, ikinci bir fotoğrafla karşılaştırma ve saat ile pusula](../../gorseller/m09-03-b.webp)
+
 1. **İlk kaynak kim?** Bilgiyi ilk kim yayınladı?
 2. **Bağımsız bir ikinci kaynak var mı?** Birbirini kopyalayan on site tek bir kaynaktır.
 3. **Zaman ve yer tutarlı mı?** Gölgeler, hava durumu, tabelalar, iddia edilen tarih…
@@ -46,6 +51,8 @@ fotoğraflarda kalabilir. **Paylaşmadan önce sen sil** (Windows: Özellikler �
 "Yeni" denen bir ev fotoğrafı yıllar önce başka bir ülkenin ilanında çıkıyorsa…
 
 ## Sahte profil göstergeleri
+
+![Vitrindeki kusursuz bir mankene benzeyen profil; arkasında karton destekler ve kopyala-yapıştır yapılmış aynı yorumlar](../../gorseller/m09-03-c.webp)
 
 - Hesap çok yeni ama binlerce takipçisi var
 - Profil fotoğrafı tersine aramada başka bir isimle çıkıyor

@@ -58,6 +58,8 @@ services:
       SMTP_FROM: ${SMTP_FROM:-}
       CLAMAV_HOST: ${CLAMAV_HOST:-}
       CLAMAV_PORT: ${CLAMAV_PORT:-3310}
+      SLIDE_CONVERTER_URL: ${SLIDE_CONVERTER_URL:-}
+      SLIDE_CONVERTER_SECRET: ${SLIDE_CONVERTER_SECRET:-}
       PORT: 3100
     ports:
       - "${APP_BIND:-0.0.0.0}:${APP_PORT:-3100}:3100"
@@ -68,10 +70,30 @@ services:
       - /tmp:size=64m
       - /app/.next/cache:uid=1000,gid=1000,size=128m
     cap_drop: [ALL]
-    networks: [club_net]
+    networks: [club_net, slides_net]
     deploy:
       resources:
         limits: { memory: 1536m }
+
+  # İsteğe bağlı PPTX/PPT → PDF dönüştürücü: docker compose --profile slides up -d
+  # .env: SLIDE_CONVERTER_URL=http://slide-converter:8080 ve SLIDE_CONVERTER_SECRET (≥32 karakter).
+  # Güvenilmeyen ofis dosyaları yalnız burada açılır: iç ağ (internete çıkış yok), salt-okunur kök, tmpfs, sınırlı kaynak.
+  slide-converter:
+    <<: *hardening
+    profiles: ["slides"]
+    build: ./slide-converter
+    image: ordek-slide-converter:latest
+    environment:
+      CONVERTER_SECRET: ${SLIDE_CONVERTER_SECRET:-}
+      PORT: 8080
+    read_only: true
+    tmpfs:
+      - /tmp:size=768m,mode=1777
+    cap_drop: [ALL]
+    networks: [slides_net]
+    deploy:
+      resources:
+        limits: { memory: 1g, cpus: "1.0", pids: 128 }
 
   # İsteğe bağlı virüs taraması: docker compose --profile clamav up -d  ve .env'de CLAMAV_HOST=clamav
   # (imza veritabanı ilk açılışta indirilir; ~1 GB bellek kullanır).
@@ -106,6 +128,10 @@ services:
 networks:
   club_net:
     name: ordek_club_net
+  # Yalnız app ↔ slide-converter. internal: dış dünyaya yönlendirme yok (dönüştürücünün ağ çıkışı kapalı).
+  slides_net:
+    name: ordek_slides_net
+    internal: true
 
 volumes:
   clamav_db:

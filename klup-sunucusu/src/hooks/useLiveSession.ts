@@ -1,15 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { translateClient } from "@/i18n/client";
 import {
   WS_CLOSE, WS_PATH,
-  type ClientMessage, type LiveState, type ParticipantView, type PollStats, type PollView, type QuestionView, type ServerMessage,
+  type ClientMessage, type HelpView, type LiveState, type ParticipantView, type PollStats, type PollView, type PulseStats, type QuestionView, type ServerMessage,
 } from "@/lib/live-protocol";
 
 export type ConnStatus = "connecting" | "open" | "reconnecting" | "ended" | "error";
 const FATAL = new Set<number>([WS_CLOSE.ENDED, WS_CLOSE.UNAUTHORIZED, WS_CLOSE.FORBIDDEN, WS_CLOSE.NOT_FOUND]);
 
 export type LiveSnapshot = {
+  operationRevision: number;
   status: ConnStatus;
   error: string | null;
   v: number;
@@ -24,14 +26,20 @@ export type LiveSnapshot = {
   poll: PollView | null;
   pollStats: PollStats | null; // yalnızca eğitmen
   clockSkew: number; // sunucu saati - yerel saat (ms), geri sayım için
+  help: HelpView[]; // yalnızca eğitmen: yardım kuyruğu
+  helpYou: { pending: boolean; position: number | null };
+  pulse: PulseStats | null; // yalnızca eğitmen: anlama göstergesi
+  pulseYou: "ok" | "slow" | "repeat" | null;
+  turnAt: number | null; // söz sende (zaman)
 };
 
 // Canlı oturum bağlantısı: otomatik yeniden bağlanma (üstel geri çekilme + jitter),
 // sürüm kontrolü (eski durum mesajları yok sayılır) ve yeniden bağlanınca tam senkron.
 export function useLiveSession(code: string) {
   const [snap, setSnap] = useState<LiveSnapshot>({
-    status: "connecting", error: null, v: -1, state: null, stateKey: 0, isHost: false, online: 0,
+    operationRevision: 0, status: "connecting", error: null, v: -1, state: null, stateKey: 0, isHost: false, online: 0,
     participants: [], questions: [], handRaised: false, announcement: null, poll: null, pollStats: null, clockSkew: 0,
+    help: [], helpYou: { pending: false, position: null }, pulse: null, pulseYou: null, turnAt: null,
   });
   const ws = useRef<WebSocket | null>(null);
   const vRef = useRef(-1);
@@ -81,13 +89,25 @@ export function useLiveSession(code: string) {
         case "poll.stats":
           return setSnap((s) => ({ ...s, pollStats: m.stats }));
         case "announcement":
-          return setSnap((s) => ({ ...s, announcement: { text: m.text, at: m.at } }));
+          return setSnap((s) => ({ ...s, announcement: { text: translateClient(m.text), at: m.at } }));
+        case "help.queue":
+          return setSnap((s) => ({ ...s, help: m.items }));
+        case "help.you":
+          return setSnap((s) => ({ ...s, helpYou: { pending: m.pending, position: m.position } }));
+        case "pulse.stats":
+          return setSnap((s) => ({ ...s, pulse: m.stats }));
+        case "pulse.you":
+          return setSnap((s) => ({ ...s, pulseYou: m.value }));
+        case "turn":
+          return setSnap((s) => ({ ...s, turnAt: m.at }));
+        case "operation.changed":
+          return setSnap((s) => ({ ...s, operationRevision: s.operationRevision + 1 }));
         case "ended":
           stopped.current = true;
           return setSnap((s) => ({ ...s, status: "ended" }));
         case "error":
-          lastError.current = m.message;
-          return setSnap((s) => ({ ...s, error: m.message }));
+          lastError.current = translateClient(m.message);
+          return setSnap((s) => ({ ...s, error: lastError.current }));
       }
     };
 
@@ -159,6 +179,10 @@ export function useLiveSession(code: string) {
 }
 
 function closeMessage(code: number): string {
+  return translateClient(closeText(code));
+}
+
+function closeText(code: number): string {
   switch (code) {
     case WS_CLOSE.UNAUTHORIZED:
       return "Oturumun sona erdi. Yeniden giriş yap.";

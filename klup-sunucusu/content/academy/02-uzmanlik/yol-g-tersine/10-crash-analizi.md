@@ -7,11 +7,10 @@ hedefler:
   - Bir çökmenin ne kadar ciddi olduğunu debugger çıktısından değerlendirmek
   - Bellek korumalarının (canary, DEP, ASLR, CFG) açık olduğunu doğrulamak
 gorseller:
-  - id: g-10-a
+  - id: g-10-b
     tur: ai
-    karakter: sabri
-    alt: "Saatçi Sabri, kapıları dişliler üzerinde dönüp her göz kırpışta yer değiştiren bir saat kulesi koridorunda artık tutmayan haritasına bakıyor; böceği kaygan, kehribar ışıklı bir rafa tırmanamayıp kayıyor"
-    prompt: "Inside a grand clocktower corridor, a row of wooden doors rides on huge rotating gears and keeps swapping places, so the paper map in the villain's hands no longer matches anything. Nearby, his clockwork beetle tries to climb onto a shelf glowing with a soft amber stop symbol and slides right off its slick, polished surface. The villain scratches his bald head under his loupe, comically puzzled."
+    alt: "Devrilmiş bir domino dizisinin son taşından geriye doğru iz süren dedektif"
+    prompt: "A detective kneels at the end of a fallen line of dominoes and traces backward with a flashlight to find the first domino that tipped, marking it with chalk."
 ---
 
 # Exploit geliştirme temelleri: crash analizi, ASLR ve DEP
@@ -19,7 +18,7 @@ gorseller:
 > Her çökme (crash) bir hatadır, ama bazı çökmeler **kapı aralığıdır**. Hangisinin hangisi olduğunu ayırmak, yama önceliğini belirler.
 > ⚙️ **Çark 10:** Sabri'nin bir böceği laboratuvardaki eski bir programı çökertiyor. Selim Hoca: "Kaza mı, kapı mı? Çökmeyi oku."
 
-![Saatçi Sabri, kapıları dişliler üzerinde dönüp her göz kırpışta yer değiştiren bir saat kulesi koridorunda artık tutmayan haritasına bakıyor; böceği kaygan, kehribar ışıklı bir rafa tırmanamayıp kayıyor](../../gorseller/g-10-a.webp)
+::cizgi[g-10-sahne]
 
 ## Önce kurallar
 
@@ -27,6 +26,8 @@ Bu konu **yalnızca** eğitim için yazılmış, kasıtlı zafiyetli programlard
 Gerçek bir yazılımda açık bulursan: kullanma, **sorumlu bildirim** (responsible disclosure) yap.
 
 ## Çökmeyi okumak
+
+![Devrilmiş bir domino dizisinin son taşından geriye doğru iz süren dedektif](../../gorseller/g-10-b.webp)
 
 | Gösterge | Soru |
 |---|---|

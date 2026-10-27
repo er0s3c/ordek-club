@@ -12,5 +12,6 @@ paths = [
   '''(^|/)klup-sunucusu/tests/''',
   '''(^|/)klup-sunucusu/e2e/''',
   '''(^|/)klup-sunucusu/vitest\.config\.ts$''',
+  '''(^|/)klup-sunucusu/vitest\.pure\.config\.ts$''',
   '''(^|/)klup-sunucusu/\.env\.example$''',
 ]

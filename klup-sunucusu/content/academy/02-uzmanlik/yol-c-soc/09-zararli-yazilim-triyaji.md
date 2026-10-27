@@ -7,11 +7,10 @@ hedefler:
   - Şüpheli bir dosyayı çalıştırmadan ilk incelemeyi yapmak
   - Basit bir YARA kuralı yazmak
 gorseller:
-  - id: c-09-a
+  - id: c-09-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer camdan bir deney tankının dışından endişeyle bakıyor; içerideki mekanik cımbızlar kurmalı oyuncak kutudan parlayan dişlileri çıkarıp sıraya diziyor"
-    prompt: "A laboratory bench at night under a bright amber lamp, where a strange wind-up toy box sits opened inside a sealed glass sandbox tank filled with fine sand. Mechanical brass tweezers pull out tiny glowing gears one by one and lay them in a neat labeled row next to a big magnifying glass, each gear stamped with an abstract symbol. The villain presses his nose against the outside of the glass with mild panic, clutching his mop."
+    alt: "Mekanik bir böcek kalın cam kutunun içinde inceleniyor; eldivenli eller dışarıdan kollarla kontrol ediyor"
+    prompt: "A small mechanical beetle crawling inside a thick sealed glass box on a lab bench, an analyst operating it through built-in rubber glove ports, the box disconnected from every cable, a notebook of observations beside it."
 ---
 
 # Zararlı yazılım triyajı: hash, strings, YARA ve sandbox
@@ -19,9 +18,11 @@ gorseller:
 > Şüpheli dosyayı **çalıştırmadan** önce çok şey öğrenebilirsin. Triyaj, "bu ne ve ne kadar tehlikeli?" sorusunun hızlı cevabıdır.
 > 🧹 **İz 9:** `bakim.exe` kendine "Windows Bakım Hizmeti" diyor. İçindeki dizeler başka bir şey söylüyor.
 
-![Temizlikçi Tamer camdan bir deney tankının dışından endişeyle bakıyor; içerideki mekanik cımbızlar kurmalı oyuncak kutudan parlayan dişlileri çıkarıp sıraya diziyor](../../gorseller/c-09-a.webp)
+::cizgi[c-09-sahne]
 
 ## Kural bir: yalnızca izole ortam
+
+![Mekanik bir böcek kalın cam kutunun içinde inceleniyor; eldivenli eller dışarıdan kollarla kontrol ediyor](../../gorseller/c-09-b.webp)
 
 Örnekler **yalnızca** kulübün internetsiz analiz VM'inde açılır. Kendi bilgisayarında, paylaşılan klasörde
 ya da e-postada zararlı örnek açılmaz. Dosyalar parolalı arşivde taşınır.

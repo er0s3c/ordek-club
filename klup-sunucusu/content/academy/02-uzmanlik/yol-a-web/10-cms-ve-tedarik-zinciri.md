@@ -7,11 +7,10 @@ hedefler:
   - CMS sitelerindeki açıkların çoğunun nereden geldiğini açıklamak
   - Bağımlılık riskini ve SBOM'u tanımak
 gorseller:
-  - id: a-10-a
+  - id: a-10-b
     tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine fabrika bandındaki eklenti parçaları sandığına parlayan yeşil bir tohum bırakıyor; ileride aynı parçalardan onlarca site evi kuruluyor"
-    prompt: "A long factory conveyor belt carries crates of identical building parts. The villain drops a single glowing green seed into one open crate as it passes. Further down the line, robot arms assemble dozens of identical little website-shaped houses from those parts, and a faint green glow is already spreading through each house."
+    alt: "Bir yazılım kutusunun yanında uzun bir malzeme listesi; her parçanın nereden geldiği iplerle gösteriliyor"
+    prompt: "A finished product box on a workbench with its lid open, a long unrolled parts scroll beside it, and thin threads running from each small part inside the box to the distant workshops that made them, one thread glowing red at a suspicious workshop."
 ---
 
 # CMS ve tedarik zinciri: senin yazmadığın kod
@@ -19,7 +18,7 @@ gorseller:
 > Modern bir web sitesindeki kodun çoğunu sahibi yazmadı: tema, eklenti, kütüphane, paket.
 > 🗂️ **Çekmece 10:** Jasmine portala dokunmadı. Portalın kullandığı bir eklentiye dokundu.
 
-![Tek Tırnak Jasmine fabrika bandındaki eklenti parçaları sandığına parlayan yeşil bir tohum bırakıyor; ileride aynı parçalardan onlarca site evi kuruluyor](../../gorseller/a-10-a.webp)
+::cizgi[a-10-sahne]
 
 ## CMS: açık genelde çekirdekte değil
 
@@ -43,6 +42,8 @@ Değerlendirmede bakılanlar (izinle):
 | **Kurulumda çalışan script** | Paket yüklenirken kendi komutunu çalıştırıyor |
 
 ## SBOM: malzeme listesi
+
+![Bir yazılım kutusunun yanında uzun bir malzeme listesi; her parçanın nereden geldiği iplerle gösteriliyor](../../gorseller/a-10-b.webp)
 
 **Software Bill of Materials:** Yazılımın içindeki bütün bileşenlerin ve sürümlerinin listesi.
 Yeni bir açık duyurulduğunda "bizde var mı?" sorusunu dakikalar içinde cevaplatır.

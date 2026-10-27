@@ -7,11 +7,10 @@ hedefler:
   - Temel ağ teşhis komutlarını kullanmak
   - Bir bağlantı sorununu katman katman daraltmak
 gorseller:
-  - id: m05-07-a
+  - id: m05-07-b
     tur: ai
-    karakter: nuri
-    alt: "Teşhis aletleriyle dolu açık çantanın yanında tezgâhın altına gizlenmiş yanıp sönen dinleme cihazı"
-    prompt: "An open vintage leather tool bag on a workbench holding a stethoscope, a magnifying glass, a folded map, a compass and a small radar dish. Under the bench, the villain is caught mid-motion sticking a small blinking listening bug to the underside of the table."
+    alt: "Beş basamaklı bir merdiven; teknisyen fenerle alttan başlayıp her basamaktaki kabloyu, router'ı, dünya küresini ve rehberi kontrol ediyor"
+    prompt: "A technician with a flashlight climbs a five-step ladder checking one thing per step from the bottom up: a plugged-in cable at the floor, a small router on the second step, a doorway to the outside on the third, a glowing globe on the fourth, and an address directory book on the top step where a broken link glows red."
 ---
 
 # Ağ teşhis çantan — ping, traceroute, ip, ss
@@ -19,9 +18,11 @@ gorseller:
 > "İnternet yok!" Bunu duyan bir güvenlikçi tahmin etmez, **ölçer**.
 > Dört komutla sorunun hangi katmanda olduğunu bulursun.
 
-![Teşhis aletleriyle dolu açık çantanın yanında tezgâhın altına gizlenmiş yanıp sönen dinleme cihazı](../../gorseller/m05-07-a.webp)
+::cizgi[m05-07-sahne]
 
 ## Sorunu aşağıdan yukarı daralt
+
+![Beş basamaklı bir merdiven; teknisyen fenerle alttan başlayıp her basamaktaki kabloyu, router'ı, dünya küresini ve rehberi kontrol ediyor](../../gorseller/m05-07-b.webp)
 
 ```bash
 # 1. Benim adresim var mı?           (ağ erişimi + DHCP)

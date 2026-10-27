@@ -31,6 +31,7 @@ export const POST = route<Ctx>(async (req, { params }) => {
       throw badRequest("Cevaplar geçersiz.", "BAD_ANSWERS");
     }
   }
-  const s = await submitAssignment(actor, idParam.parse((await params).id), { text: typeof text === "string" ? text : "", files, answers }, ip);
+  const checklist = form.getAll("checklist").map((v) => Number(v)).filter((n) => Number.isInteger(n));
+  const s = await submitAssignment(actor, idParam.parse((await params).id), { text: typeof text === "string" ? text : "", files, answers, checklist }, ip);
   return json({ id: s.id, status: s.status, late: s.late, score: s.score, feedback: s.feedback, xp: s.xp }, { status: 201 });
 });

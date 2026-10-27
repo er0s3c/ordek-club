@@ -1,0 +1,58 @@
+# Dedicated Linux Docker host/VM. Never merge this controller into the Club host.
+# bash scripts/labs.sh setup localhost
+# bash scripts/labs.sh up
+name: ordek-labs
+services:
+  lab-runner:
+    build:
+      context: ./lab-runner
+      network: host
+      args:
+        RUNNER_NODE_IMAGE: ${RUNNER_NODE_IMAGE:?Run scripts/labs.sh setup first}
+        DOCKER_CLI_IMAGE: ${DOCKER_CLI_IMAGE:?Run scripts/labs.sh setup first}
+    image: ordek-lab-runner:v1
+    init: true
+    user: "1000:1000"
+    group_add: ["${LAB_DOCKER_GID:?Docker socket group is required}"]
+    environment:
+      LAB_IMAGE: ${LAB_IMAGE:?Pinned student image is required}
+      LAB_BIND: 0.0.0.0
+      LAB_PORT: 9443
+      LAB_TLS_CA: /run/secrets/lab_ca
+      LAB_TLS_CERT: /run/secrets/lab_server_cert
+      LAB_TLS_KEY: /run/secrets/lab_server_key
+      LAB_HEALTH_CERT: /run/secrets/lab_probe_cert
+      LAB_HEALTH_KEY: /run/secrets/lab_probe_key
+      DOCKER_HOST: unix:///var/run/docker.sock
+    ports: ["${LAB_BIND_IP:-127.0.0.1}:9443:9443"]
+    volumes:
+      - type: bind
+        source: ${LAB_DOCKER_SOCKET:-/var/run/docker.sock}
+        target: /var/run/docker.sock
+        bind: { create_host_path: false }
+    secrets: [lab_ca, lab_server_cert, lab_server_key, lab_probe_cert, lab_probe_key]
+    read_only: true
+    tmpfs: ["/tmp:size=16m,mode=1777"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    # Controller budget includes up to 20 concurrent Docker exec clients.
+    pids_limit: 512
+    mem_limit: 1g
+    cpus: 2.0
+    restart: "on-failure:3"
+    stop_grace_period: 8m
+    healthcheck:
+      test: ["CMD", "node", "healthcheck.mjs"]
+      interval: 15s
+      timeout: 7s
+      start_period: 20s
+      retries: 3
+    logging:
+      driver: json-file
+      options: { max-size: "5m", max-file: "3" }
+secrets:
+  lab_ca: { file: ./storage/lab-pki/ca.pem }
+  lab_server_cert: { file: ./storage/lab-pki/server.pem }
+  lab_server_key: { file: ./storage/lab-pki/server-key.pem }
+  lab_probe_cert: { file: ./storage/lab-pki/probe.pem }
+  lab_probe_key: { file: ./storage/lab-pki/probe-key.pem }

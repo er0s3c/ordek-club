@@ -1,0 +1,62 @@
+# ============================================================================
+#  SK-101 pilot modül kapakları (oda kartları). Modüller src/lib/academy-curriculum.ts → CORE_MODULES.
+#  Alanlar content/academy/akademi.yaml içindeki kapak: ile aynıdır; pilot modüllerin kendi
+#  kötü adamı olmadığı için karakter her girişte açıkça yazılır.
+#  Promptlar `npm run academy:gorseller` ile content/academy/KAPAKLAR.md'ye üretilir; dosya adı kapak-<anahtar>.webp.
+# ============================================================================
+kapaklar:
+  - anahtar: sk101-m1
+    baslik: "Güvenliğe giriş"
+    kapak:
+      sembol: "a triangular shield assembled from three interlocking pieces: a closed watchful eye, an unbroken wax seal and a lit lantern"
+      sahne: "the shield stands upright on a dark floor, a velvet rope boundary curving around its base"
+      alt: "Kapalı göz, kırılmamış mühür ve yanan fenerden oluşan üç parçalı üçgen kalkan; sağda Avukat Boşluk Kemal."
+      karakter: kemal
+
+  - anahtar: sk101-m2
+    baslik: "Ağın dili"
+    kapak:
+      sembol: "two tin-can telephones joined by a glowing green string that splits into many branching routes in between"
+      sahne: "tiny sealed envelopes slide along the branching strings like little packets"
+      alt: "Arası dallanan yeşil bir iple bağlı iki teneke kutu telefon; sağda kulaklıklı Dinleyici Nuri."
+      karakter: nuri
+
+  - anahtar: sk101-m3
+    baslik: "Web nasıl çalışır"
+    kapak:
+      sembol: "a vintage front door with a brass mail slot, one envelope going in through the slot and a reply envelope sliding out"
+      sahne: "a small cookie sits on the door's ledge glowing faintly, a warm light behind the door"
+      alt: "Posta yarığından bir zarfın girip cevabının çıktığı eski bir kapı; sağda Çerezci Celal."
+      karakter: celal
+
+  - anahtar: sk101-m4
+    baslik: "Linux kabuğu"
+    kapak:
+      sembol: "a large spiral seashell glowing green from within, a blinking cursor light at its opening"
+      sahne: "the shell rests on a small server-rack pedestal, thin cables coiling around it"
+      alt: "İçinden yeşil ışık vuran, ağzında imleç yanıp sönen sarmal deniz kabuğu; sağda Süper Kullanıcı Sadri."
+      karakter: sadri
+
+  - anahtar: sk101-m5
+    baslik: "Windows temelleri"
+    kapak:
+      sembol: "a four-pane vintage window frame where each pane is fastened by a lock of a different size, one pane swung open"
+      sahne: "a ring of keys hangs from the window latch, warm amber light shining through the open pane"
+      alt: "Her camı ayrı boyda bir kilitle kapanan dört bölmeli pencere, bir camı açık; sağda Anahtarcı Rıza."
+      karakter: riza
+
+  - anahtar: sk101-m6
+    baslik: "Kriptografinin özü"
+    kapak:
+      sembol: "a cipher wheel made of two concentric brass rings with plain notches, a small key set in its center"
+      sahne: "a thin green light beam enters the wheel straight and leaves it scrambled into zigzag lines"
+      alt: "Ortasında anahtar olan, iç içe iki pirinç halkadan bir şifre çarkı; sağda Kasa Kıran Kadir."
+      karakter: kadir
+
+  - anahtar: sk101-m7
+    baslik: "Savunmanın ilk yarım saati"
+    kapak:
+      sembol: "an hourglass with its sand half run out, the falling sand glowing green, standing on a round shield"
+      sahne: "a small alarm bell rings beside it, a wet mop trail creeping in from the shadows"
+      alt: "Kalkanın üstünde kumu yeşil parlayan, yarısı akmış kum saati; sağda Temizlikçi Tamer."
+      karakter: tamer

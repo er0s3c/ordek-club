@@ -8,11 +8,10 @@ hedefler:
   - IDS, IPS ve VPN'in neyi koruduğunu ayırt etmek
 animasyonlar: [firewall-decision, vpn-tunnel]
 gorseller:
-  - id: b-07-a
+  - id: b-07-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık sınır duvarının altından kazdığı tüneli izinli bir kapının arkasına çıkarmış; duvardaki nöbetçi kule ışığı onu arıyor"
-    prompt: "A tall stone border wall at night with a single guarded gate and a watchtower sweeping a searchlight. The villain pops his head up from a narrow tunnel he dug under the wall, emerging right behind the gate inside the protected zone, his green headlamp dimmed, as the searchlight beam swings toward him."
+    alt: "İki bekçi: biri dürbünle izleyip zil çalıyor (IDS), diğeri kapıyı kapatıp şüpheliyi durduruyor (IPS)"
+    prompt: "A city wall gate with two guards: one on the tower watching through binoculars and ringing an alarm bell when a suspicious cart passes, the other standing at the gate pulling a lever that slams the gate shut in front of the same cart."
 ---
 
 # Ağ savunması: firewall kuralları, IDS/IPS ve VPN
@@ -20,7 +19,7 @@ gorseller:
 > Duvar ne kadar yüksek olursa olsun, **kuralları kimin yazdığı** ve **kimin izlediği** belirler.
 > 🕳️ **Tünel 7:** Laboratuvar firewall'unda bir yıl önce "geçici" açılmış bir kural duruyor. Tarık onu buldu.
 
-![Tünelci Tarık sınır duvarının altından kazdığı tüneli izinli bir kapının arkasına çıkarmış; duvardaki nöbetçi kule ışığı onu arıyor](../../gorseller/b-07-a.webp)
+::cizgi[b-07-sahne]
 
 ## Firewall kuralı nasıl okunur?
 
@@ -38,6 +37,8 @@ sunucudan **dışarıya** sınırsız çıkış (çalınan veri ve komut kanalı
 ::animasyon[firewall-decision]
 
 ## IDS ve IPS
+
+![İki bekçi: biri dürbünle izleyip zil çalıyor (IDS), diğeri kapıyı kapatıp şüpheliyi durduruyor (IPS)](../../gorseller/b-07-b.webp)
 
 | | IDS | IPS |
 |---|---|---|

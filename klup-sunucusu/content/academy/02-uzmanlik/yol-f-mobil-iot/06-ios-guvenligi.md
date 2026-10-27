@@ -7,11 +7,10 @@ hedefler:
   - iOS'un kod imzalama, sandbox ve Keychain katmanlarını açıklamak
   - Info.plist ve entitlements içindeki riskli ayarları tanımak
 gorseller:
-  - id: f-06-a
+  - id: f-06-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman yüksek duvarlı, mühürlü kapısı olan beyaz bir bahçenin dışında dronunu duvarın üstünden içeri baktırmaya çalışıyor"
-    prompt: "A pristine walled garden with tall smooth white walls and a single gate sealed by a large glowing amber signature seal shaped like an abstract symbol. Inside, small tidy app houses each sit in their own fenced plot, and in the center stands a tiny vault. Outside the wall, the villain stands on tiptoe on a toolbox, steering her tiny drone with a little remote to peek over the top, while a single garden window on one app house has been left open."
+    alt: "İç içe surlarla çevrili bir kale gibi telefon: dış sur, iç sur ve en ortada anahtarların saklandığı kasa"
+    prompt: "A smartphone drawn as a castle with concentric walls: an outer wall with a gate, an inner wall with guards, and at the very center a small vault where keys are stored, glowing softly."
 ---
 
 # iOS güvenliğine giriş: Keychain, entitlements ve sandbox
@@ -19,9 +18,11 @@ gorseller:
 > iOS yüksek duvarlı bir bahçedir. Ama bahçedeki her evin penceresini **geliştirici** kapatır.
 > 🔧 **Devre 6:** Leman'ın kilit uygulamasının iPhone sürümü de var. Duvar sağlam; pencere açık mı?
 
-![Lehimci Leman yüksek duvarlı, mühürlü kapısı olan beyaz bir bahçenin dışında dronunu duvarın üstünden içeri baktırmaya çalışıyor](../../gorseller/f-06-a.webp)
+::cizgi[f-06-sahne]
 
 ## Katmanlar
+
+![İç içe surlarla çevrili bir kale gibi telefon: dış sur, iç sur ve en ortada anahtarların saklandığı kasa](../../gorseller/f-06-b.webp)
 
 | Katman | Ne yapar? |
 |---|---|

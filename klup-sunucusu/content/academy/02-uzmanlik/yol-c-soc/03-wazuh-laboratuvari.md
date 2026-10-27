@@ -7,15 +7,14 @@ hedefler:
   - Wazuh ajanı ile yöneticinin nasıl çalıştığını açıklamak
   - Basit bir özel kural yazıp laboratuvarda test etmek
 gorseller:
-  - id: c-03-a
-    tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer masaüstü bilgisayarlara bağlı küçük pirinç nöbetçi robotlardan birinin bayrağının üstüne bez örtüyor; diğer robotların hepsi bayraklarıyla onu gösteriyor"
-    prompt: "A row of small round brass sentry robots, each plugged into a desktop computer by a glowing cable, raising tiny amber flags toward a central watchtower that collects their signals. The villain crouches beside one robot and tucks a cleaning cloth over its flag with an exaggerated finger-to-lips gesture, while every other robot in the row turns and points its flag straight at him."
   - id: c-03-b
     tur: ekran
     alt: "Wazuh panelinde Threat Hunting ekranı; bir laboratuvar ajanından gelen yüksek seviyeli uyarılar ve kural kimliği sütunu"
     nasil: "Kulüp laboratuvarındaki Wazuh panelinde (tek ajanlı test VM'i) Threat Hunting → Events sekmesini açın. Laboratuvar VM'inde birkaç kez yanlış parolayla SSH denemesi yapıp uyarıları üretin. rule.level ≥ 10 filtresini uygulayın; rule.id ve rule.description sütunlarını ve en üstteki uyarı satırını kehribar (#C9953B) çerçeveyle işaretleyin. Ajan adı ve IP'ler laboratuvara ait olmalı; gerçek kullanıcı adı veya kampüs adresi görünüyorsa bulanıklaştırın."
+  - id: c-03-c
+    tur: ai
+    alt: "Her bilgisayarın yanında küçük bir muhabir robot; hepsi raporlarını merkezdeki yöneticiye boru postasıyla gönderiyor"
+    prompt: "Several computers on separate desks, each with a tiny reporter robot sitting beside it taking notes, all sending their notes through pneumatic tubes to a central manager desk where a calm operator reviews them under a lamp."
 ---
 
 # Wazuh laboratuvarı: ajan, kural ve uyarı
@@ -23,9 +22,11 @@ gorseller:
 > Teori bitti; kendi SIEM'ini çalıştırma zamanı. **Wazuh** açık kaynaklı, laboratuvarda kurması kolay bir SIEM/XDR platformudur.
 > 🧹 **İz 3:** Tamer bir ajanın sesini kıstı. Ama susan ajan da bir alarmdır.
 
-![Temizlikçi Tamer masaüstü bilgisayarlara bağlı küçük pirinç nöbetçi robotlardan birinin bayrağının üstüne bez örtüyor; diğer robotların hepsi bayraklarıyla onu gösteriyor](../../gorseller/c-03-a.webp)
+::cizgi[c-03-sahne]
 
 ## Mimari
+
+![Her bilgisayarın yanında küçük bir muhabir robot; hepsi raporlarını merkezdeki yöneticiye boru postasıyla gönderiyor](../../gorseller/c-03-c.webp)
 
 | Parça | Görev |
 |---|---|

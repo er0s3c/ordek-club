@@ -12,11 +12,10 @@ gorseller:
     tur: ekran
     alt: Windows Güvenliği uygulamasının ana ekranı; tüm koruma alanlarında yeşil onay işaretleri
     nasil: "Başlat → 'Windows Güvenliği' uygulamasını açın → 'Bir bakışta güvenlik' ana ekranı. Virüs ve tehdit koruması, Hesap koruması, Güvenlik duvarı ve ağ koruması kutucukları görünsün. Tüm pencereyi çekin; cihaz adı görünüyorsa bulanıklaştırın."
-  - id: m03-04-b
+  - id: m03-04-c
     tur: ai
-    karakter: riza
-    alt: "Anahtarcı Rıza yeni güncellenmiş kapıda anahtarını deniyor; parlayan kalkan yaması kilidi kapatmış, anahtar kırılıyor"
-    prompt: "A freshly repainted door in a dark corridor glows with a translucent shield patch sealing its keyhole. The villain jams a key from his giant keyring into it and the key snaps in half; he stares at the broken key in disbelief while a small guard robot with a shield badge watches from the side."
+    alt: "Bir kaleyi koruyan üç savunma: kapıdaki muhafız, sur kapısında kural defteriyle bekçi ve duvardaki çatlakları yamayan usta"
+    prompt: "A small castle representing a laptop guarded by three defenders: a guard at the inner gate inspecting each arriving package with a lantern, a gatekeeper at the outer wall checking a rulebook before letting carts pass in or out, and a mason on a ladder patching cracks in the wall with glowing green mortar."
 ---
 
 # Defender, güvenlik duvarı ve güncellemeler
@@ -24,11 +23,13 @@ gorseller:
 > Windows'un içinde ücretsiz bir koruma ekibi zaten var. Çoğu zaman tek yapman gereken
 > **kapatmamak** ve **güncel tutmak**.
 
-![Anahtarcı Rıza yeni güncellenmiş kapıda anahtarını deniyor; parlayan kalkan yaması kilidi kapatmış, anahtar kırılıyor](../../gorseller/m03-04-b.webp)
+::cizgi[m03-04-sahne]
 
 ![Windows Güvenliği ana ekranı](../../gorseller/m03-04-a.webp)
 
 ## Üç koruma
+
+![Bir kaleyi koruyan üç savunma: kapıdaki muhafız, sur kapısında kural defteriyle bekçi ve duvardaki çatlakları yamayan usta](../../gorseller/m03-04-c.webp)
 
 | Koruma | Ne yapar? |
 |---|---|

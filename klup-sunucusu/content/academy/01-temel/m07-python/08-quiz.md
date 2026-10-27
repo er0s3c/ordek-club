@@ -42,12 +42,6 @@ sorular:
     tur: dogru-yanlis
     dogru: true
     aciklama: Bu, bağlantıyı ortadaki adam saldırılarına açık bırakır; kullanılmamalıdır.
-gorseller:
-  - id: m07-08-a
-    tur: ai
-    karakter: orhan
-    alt: "Bütün ipleri kesilmiş Kuklacı Orhan; küçük robotları ayaklarının dibinde uyuyor, elinde boş kumanda çıtası"
-    prompt: "Every glowing marionette string has been cut and hangs loose from above. The villain stands dumbfounded holding his useless wooden control bar, while his tiny robots lie peacefully asleep in a heap at his feet."
 ---
 
 # M07 Quiz: Python ve otomasyon
@@ -56,8 +50,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Kuklacı Orhan** · *quiz'i %70 ile geçince*
 >
-> ![Bütün ipleri kesilmiş Kuklacı Orhan; küçük robotları ayaklarının dibinde uyuyor, elinde boş kumanda çıtası](../../gorseller/m07-08-a.webp)
->
-> Loglardan bot ordusunu buldun; ipler kesildi. Orhan'ın sunucusunda çalınmış parola özetleri duruyor. Onları kırmaya çalışan adamın adı loglarda: Kasa Kıran Kadir.
+> ::cizgi[orhan-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Kasa Kıran Kadir** (M08)*

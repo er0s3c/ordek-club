@@ -1,0 +1,32 @@
+/* Motion owns transforms/layout only in explicitly opted-in components. */
+.hdr-menu[data-motion-menu], .mnav[data-motion-menu], .toast { animation: none; }
+.progress > [data-motion-fill] { transition: none; }
+.bar > [data-motion-fill] { transition: none; }
+.tabs-list { padding: 4px; gap: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); isolation: isolate; }
+.tabs:has(> .tabs-list) { display: block; min-width: 0; border: 0; }
+.tabs-tab { position: relative; flex-shrink: 0; margin: 0; border: 0; border-radius: 10px; padding: 10px 16px; }
+.tabs-tab[aria-selected="true"] { color: var(--ciu-purple); background: var(--surface); }
+.tabs-tab:has(.tab-selection)[aria-selected="true"] { background: transparent; }
+.tab-selection { position: absolute; inset: 0; border-radius: inherit; background: var(--surface); box-shadow: 0 1px 4px #23113c14; z-index: -1; pointer-events: none; }
+.tabs-tab-label { position: relative; display: inline-flex; align-items: center; gap: 6px; }
+.module-accordion > :is(h2,h3,h4) { margin: 0; font-size: inherit; }
+.module-accordion-trigger { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; text-align: left; border: 0; border-radius: var(--radius); background: transparent; color: inherit; padding: 18px 20px; font: inherit; font-weight: 500; cursor: pointer; }
+.module-accordion-trigger > span { min-width: 0; overflow-wrap: anywhere; }
+.module-accordion-trigger > svg { flex-shrink: 0; transition: rotate 240ms var(--ease); }
+.module-accordion-trigger[data-state="open"] > svg { rotate: 180deg; }
+.module-accordion-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+.module-accordion-content { overflow: hidden; }
+.module-accordion-content[data-state="closed"] { height: 0; opacity: 0; }
+.module-accordion-body { padding: 0 20px 20px; }
+.duck-mascot { display: inline-block; position: relative; flex-shrink: 0; vertical-align: middle; }
+.duck-mascot > .duck { position: absolute; inset: 0; }
+.duck-mascot-canvas { position: absolute; inset: 0; opacity: 0; }
+.duck-mascot[data-ready="true"] > .duck { visibility: hidden; }
+.duck-mascot[data-ready="true"] .duck-mascot-canvas { opacity: 1; }
+.success-panel .duck-cheer { animation: none; }
+.copy-check-path { stroke-dasharray: 24; stroke-dashoffset: 0; animation: copyCheck 220ms var(--ease) both; }
+@keyframes copyCheck { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+html[data-motion="reduce"] .module-accordion-trigger > svg { transition: none; }
+html[data-motion-policy="reduce"] *, html[data-motion-policy="reduce"] *::before, html[data-motion-policy="reduce"] *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) { .module-accordion-trigger > svg { transition: none; } }
+@media print { .duck-mascot-canvas { display: none; } .duck-mascot[data-ready="true"] > .duck { visibility: visible; } }

@@ -1,6 +1,7 @@
 // Yükleme taraması:
 //  1) ZIP denetimi (açmadan, merkezi dizinden): şifreli öğe, yol geçişi, iç içe arşiv, çalıştırılabilir öğe,
-//     sıkıştırma bombası ve öğe başı içerik imzası (ilk baytlar) kontrol edilir.
+//     sıkıştırma bombası ve öğe başı içerik imzası (ilk baytlar) kontrol edilir. PPTX de bir ZIP'tir: aynı denetimden
+//     geçer; ek olarak makro/ActiveX içeren sunum reddedilir, gömülü Office belgelerine (grafik verisi) izin verilir.
 //  2) İsteğe bağlı ClamAV (clamd INSTREAM). CLAMAV_HOST tanımlıysa tarama zorunludur: ulaşılamazsa yükleme reddedilir.
 import net from "node:net";
 import zlib from "node:zlib";
@@ -30,11 +31,17 @@ const looksArchive = (b: Uint8Array) =>
   (b[0] === 0x37 && b[1] === 0x7a && b[2] === 0xbc && b[3] === 0xaf) || // 7z
   (b[0] === 0x52 && b[1] === 0x61 && b[2] === 0x72 && b[3] === 0x21); // rar
 
-const reject = (code: string, msg: string) => badRequest(`ZIP reddedildi: ${msg}`, code);
+const reject = (code: string, msg: string, label = "ZIP") => badRequest(`${label} reddedildi: ${msg}`, code);
 
 export type ZipReport = { entries: number; uncompressed: number };
 
-export function inspectZip(buf: Buffer): ZipReport {
+// PPTX içindeki gömülü grafik/tablo verisi (ör. ppt/embeddings/Microsoft_Excel_Worksheet.xlsx) kendisi bir ZIP'tir.
+const OFFICE_EMBED = /^ppt\/embeddings\/[^/]+\.(xlsx|docx|pptx)$/i;
+const OFFICE_ACTIVE = /(^|\/)vbaProject\.bin$|^ppt\/activeX\//i;
+
+export function inspectZip(buf: Buffer, { office = false } = {}): ZipReport {
+  const label = office ? "Sunum" : "ZIP";
+  const reject_ = (code: string, msg: string) => reject(code, msg, label);
   // End of Central Directory: son 64 KB + 22 bayt içinde aranır.
   let eocd = -1;
   for (let i = buf.length - 22; i >= Math.max(0, buf.length - 65_557); i--) {
@@ -43,18 +50,18 @@ export function inspectZip(buf: Buffer): ZipReport {
       break;
     }
   }
-  if (eocd < 0) throw reject("ZIP_CORRUPT", "arşiv yapısı okunamadı.");
+  if (eocd < 0) throw reject_("ZIP_CORRUPT", "arşiv yapısı okunamadı.");
   const count = buf.readUInt16LE(eocd + 10);
   const cdSize = buf.readUInt32LE(eocd + 12);
   const cdOffset = buf.readUInt32LE(eocd + 16);
-  if (count === 0xffff || cdOffset === 0xffffffff) throw reject("ZIP64", "ZIP64 biçimi desteklenmiyor.");
-  if (count > ZIP_LIMITS.entries) throw reject("ZIP_TOO_MANY", `en fazla ${ZIP_LIMITS.entries} öğe olabilir.`);
-  if (cdOffset + cdSize > eocd) throw reject("ZIP_CORRUPT", "merkezi dizin bozuk.");
+  if (count === 0xffff || cdOffset === 0xffffffff) throw reject_("ZIP64", "ZIP64 biçimi desteklenmiyor.");
+  if (count > ZIP_LIMITS.entries) throw reject_("ZIP_TOO_MANY", `en fazla ${ZIP_LIMITS.entries} öğe olabilir.`);
+  if (cdOffset + cdSize > eocd) throw reject_("ZIP_CORRUPT", "merkezi dizin bozuk.");
 
   let p = cdOffset;
   let total = 0;
   for (let n = 0; n < count; n++) {
-    if (p + 46 > buf.length || buf.readUInt32LE(p) !== 0x02014b50) throw reject("ZIP_CORRUPT", "merkezi dizin bozuk.");
+    if (p + 46 > buf.length || buf.readUInt32LE(p) !== 0x02014b50) throw reject_("ZIP_CORRUPT", "merkezi dizin bozuk.");
     const flags = buf.readUInt16LE(p + 8);
     const method = buf.readUInt16LE(p + 10);
     const csize = buf.readUInt32LE(p + 20);
@@ -66,19 +73,21 @@ export function inspectZip(buf: Buffer): ZipReport {
     const name = buf.subarray(p + 46, p + 46 + nameLen).toString(flags & 0x800 ? "utf8" : "latin1");
     p += 46 + nameLen + extraLen + commentLen;
 
-    if (flags & 0x1) throw reject("ZIP_ENCRYPTED", `şifreli öğe taranamaz (${name}).`);
+    if (flags & 0x1) throw reject_("ZIP_ENCRYPTED", `şifreli öğe taranamaz (${name}).`);
     const clean = name.replace(/\\/g, "/");
-    if (clean.startsWith("/") || /^[a-z]:/i.test(clean) || clean.split("/").includes("..")) throw reject("ZIP_PATH", `güvensiz yol (${name}).`);
+    if (clean.startsWith("/") || /^[a-z]:/i.test(clean) || clean.split("/").includes("..")) throw reject_("ZIP_PATH", `güvensiz yol (${name}).`);
     if (clean.endsWith("/")) continue; // klasör
+    if (office && OFFICE_ACTIVE.test(clean)) throw reject_("PPTX_ACTIVE", `makro ya da ActiveX içeriyor (${name}). Makrosuz bir kopya kaydedip yükle.`);
+    const embed = office && OFFICE_EMBED.test(clean);
     const ext = clean.includes(".") ? clean.slice(clean.lastIndexOf(".") + 1).toLowerCase() : "";
-    if (BLOCKED_EXT.has(ext)) throw reject("ZIP_EXECUTABLE", `çalıştırılabilir öğe (${name}).`);
-    if (NESTED_EXT.has(ext)) throw reject("ZIP_NESTED", `iç içe arşiv taranamaz (${name}).`);
+    if (BLOCKED_EXT.has(ext)) throw reject_("ZIP_EXECUTABLE", `çalıştırılabilir öğe (${name}).`);
+    if (NESTED_EXT.has(ext) && !embed) throw reject_("ZIP_NESTED", `iç içe arşiv taranamaz (${name}).`);
     total += usize;
-    if (total > ZIP_LIMITS.totalUncompressed) throw reject("ZIP_BOMB", "açılmış boyut çok büyük.");
-    if (usize > 10 * MB && csize > 0 && usize / csize > ZIP_LIMITS.ratio) throw reject("ZIP_BOMB", `olağandışı sıkıştırma oranı (${name}).`);
+    if (total > ZIP_LIMITS.totalUncompressed) throw reject_("ZIP_BOMB", "açılmış boyut çok büyük.");
+    if (usize > 10 * MB && csize > 0 && usize / csize > ZIP_LIMITS.ratio) throw reject_("ZIP_BOMB", `olağandışı sıkıştırma oranı (${name}).`);
 
     // İçerik imzası: öğenin ilk baytları (uzantısı masum görünen çalıştırılabilir/arşivi yakalar).
-    if (localOffset + 30 > buf.length || buf.readUInt32LE(localOffset) !== 0x04034b50) throw reject("ZIP_CORRUPT", "yerel başlık bozuk.");
+    if (localOffset + 30 > buf.length || buf.readUInt32LE(localOffset) !== 0x04034b50) throw reject_("ZIP_CORRUPT", "yerel başlık bozuk.");
     const start = localOffset + 30 + buf.readUInt16LE(localOffset + 26) + buf.readUInt16LE(localOffset + 28);
     const data = buf.subarray(start, Math.min(start + csize, start + 64 * 1024, buf.length));
     let head: Uint8Array;
@@ -87,11 +96,11 @@ export function inspectZip(buf: Buffer): ZipReport {
       try {
         head = zlib.inflateRawSync(data, { finishFlush: zlib.constants.Z_SYNC_FLUSH, maxOutputLength: MB }).subarray(0, 8);
       } catch {
-        throw reject("ZIP_CORRUPT", `öğe açılamadı (${name}).`);
+        throw reject_("ZIP_CORRUPT", `öğe açılamadı (${name}).`);
       }
-    } else throw reject("ZIP_METHOD", `desteklenmeyen sıkıştırma (${name}).`);
-    if (head.length && looksExecutable(head)) throw reject("ZIP_EXECUTABLE", `çalıştırılabilir içerik (${name}).`);
-    if (head.length && looksArchive(head)) throw reject("ZIP_NESTED", `iç içe arşiv taranamaz (${name}).`);
+    } else throw reject_("ZIP_METHOD", `desteklenmeyen sıkıştırma (${name}).`);
+    if (head.length && looksExecutable(head)) throw reject_("ZIP_EXECUTABLE", `çalıştırılabilir içerik (${name}).`);
+    if (head.length && looksArchive(head) && !embed) throw reject_("ZIP_NESTED", `iç içe arşiv taranamaz (${name}).`);
   }
   return { entries: count, uncompressed: total };
 }
@@ -134,9 +143,9 @@ export function clamScan(buf: Uint8Array, host: string, port: number, timeoutMs 
 // Yükleme hattının tek giriş noktası. Dönen not dosya kaydında saklanır.
 export async function scanUpload(kind: string, buf: Uint8Array): Promise<string> {
   const notes: string[] = [];
-  if (kind === "zip") {
-    const r = inspectZip(Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength));
-    notes.push(`zip:${r.entries} öğe`);
+  if (kind === "zip" || kind === "pptx") {
+    const r = inspectZip(Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength), { office: kind === "pptx" });
+    notes.push(`${kind}:${r.entries} öğe`);
   }
   const e = env();
   if (e.CLAMAV_HOST) {

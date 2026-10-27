@@ -44,12 +44,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: İzinsiz hizmet engelleme suçtur ve başka kullanıcılara da zarar verir.
-gorseller:
-  - id: m10-09-a
-    tur: ai
-    karakter: ferhat
-    alt: "Sorgu odasında kelepçeli Fidyeci Ferhat; zincirleri masada, duvardaki kapüşonlu gölgeye meydan okur gibi sırıtıyor"
-    prompt: "A bare room lit by a single desk lamp: the villain sits at a metal table, his heavy padlocked chains piled uselessly in front of him. He smirks defiantly toward the wall, where a tall shadow of a hooded figure looms."
 ---
 
 # M10 Quiz: Saldırı ve savunma temelleri
@@ -58,8 +52,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Fidyeci Ferhat** · *quiz'i %70 ile geçince*
 >
-> ![Sorgu odasında kelepçeli Fidyeci Ferhat; zincirleri masada, duvardaki kapüşonlu gölgeye meydan okur gibi sırıtıyor](../../gorseller/m10-09-a.webp)
->
-> Zincir üçüncü halkada kırıldı; yedekler kurtarıldı. Ferhat sorguda tek cümle kuruyor: "Don'u yakalarsınız. Ama Baron'u asla."
+> ::cizgi[ferhat-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Don Gölge** (M11)*

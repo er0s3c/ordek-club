@@ -81,7 +81,10 @@ test("kurulumdan onaylı göreve 13 adım", async ({ browser }) => {
     await expect(m.locator("input")).toHaveCount(0); // maket: parola dahil hiçbir alan yok
     await m.getByRole("button", { name: "Bağlantıya dokun" }).click();
     await expect(m.getByRole("group", { name: "Simülasyon giriş ekranı" })).toBeVisible();
-    await m.getByRole("button", { name: "Bir ipucu ver" }).click();
+    const hints = m.locator(".mission-hints li");
+    const initialHints = await hints.count();
+    await m.getByRole("button", { name: /Küçük bir yönlendirme|Ayrıntılı ipucu|Biraz daha/ }).click();
+    await expect(hints).toHaveCount(initialHints + 1);
     await m.getByRole("button", { name: "Göndereni incele" }).click();
     await m.getByRole("button", { name: /Devam/ }).click();
     await m.getByRole("button", { name: /Gönderene dokun/ }).click();
@@ -134,6 +137,8 @@ test("kurulumdan onaylı göreve 13 adım", async ({ browser }) => {
   await test.step("9. Eğitmen ilerler, öğrencinin ekranı eşzamanlı değişir", async () => {
     await o.getByRole("button", { name: "Sonraki adım" }).click();
     await expect(s.getByRole("heading", { name: "Paketin yolculuğu" })).toBeVisible();
+    await expect(o.getByRole("heading", { name: "Paketin yolculuğu" })).toBeVisible();
+    await expect(o.getByRole("region", { name: "Quiz / anket" })).toBeVisible();
   });
 
   await test.step("10. Canlı quiz: öğrenci cevaplar, eğitmen açıklar", async () => {

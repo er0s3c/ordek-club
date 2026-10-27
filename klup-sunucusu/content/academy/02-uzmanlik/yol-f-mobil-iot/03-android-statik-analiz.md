@@ -7,15 +7,14 @@ hedefler:
   - JADX ile bir APK'yı okunur koda çevirip gömülü sırları aramak
   - MobSF raporunu OWASP MASVS başlıklarıyla yorumlamak
 gorseller:
-  - id: f-03-a
-    tur: ai
-    karakter: leman
-    alt: "Lehimci Leman büyüteçli gözlüğüyle açılmış bir saat mekanizmasına benzeyen uygulamanın dişlileri arasına bantlanmış minik altın anahtarı buluyor"
-    prompt: "A smartphone app drawn as an opened pocket-watch mechanism lying on a workbench, its gears and springs glowing faintly green. The villain leans in close with her magnifier goggles down, tweezers in one hand, triumphantly lifting a tiny golden key that had been taped between two gears, the key tag showing an abstract symbol. Her tiny drone shines a spotlight on the hidden spot."
   - id: f-03-b
     tur: ekran
     alt: "MobSF'in kasıtlı olarak zafiyetli DIVA uygulaması için ürettiği statik analiz özet ekranı; güvenlik puanı ve Manifest bulguları işaretli"
     nasil: "Laboratuvar VM'inde MobSF'i Docker ile çalıştır, DIVA APK'sını yükle. Özet sayfasında güvenlik puanını ve 'Manifest Analysis' bölümünü kehribar (#C9953B) dikdörtgenle işaretle. Yalnızca rapor alanını kırp; tarayıcı sekmeleri, kullanıcı adı ve yerel dosya yolları görünmesin, gerekirse bulanıklaştır. 1600×900, koyu tema."
+  - id: f-03-c
+    tur: ai
+    alt: "Sıkıştırılmış bir paket bir çevirme makinesinden geçip okunabilir sayfalara dönüşüyor"
+    prompt: "A compressed brick of tiny gears is fed into a brass translation machine and comes out the other side as a neat stack of open pages with clear diagrams, an analyst reading them with a pencil."
 ---
 
 # Android statik analiz: JADX ve MobSF ile kodu okumak
@@ -23,7 +22,7 @@ gorseller:
 > Statik analiz (static analysis), uygulamayı **çalıştırmadan** okumaktır. Geliştiricinin unuttuğu her şey kodda durur.
 > 🔧 **Devre 3:** Leman'ın uygulamasında bir anahtar saklı. Telefonda değil, kodun içinde.
 
-![Lehimci Leman büyüteçli gözlüğüyle açılmış bir saat mekanizmasına benzeyen uygulamanın dişlileri arasına bantlanmış minik altın anahtarı buluyor](../../gorseller/f-03-a.webp)
+::cizgi[f-03-sahne]
 
 ## Ölçüt: OWASP MASVS ve MASTG
 
@@ -31,6 +30,8 @@ gorseller:
 **MASTG** (Mobile Application Security Testing Guide) "nasıl test edilir?" sorusunu cevaplar. Bulgunu bu başlıklara bağla.
 
 ## JADX: dex'ten okunur koda
+
+![Sıkıştırılmış bir paket bir çevirme makinesinden geçip okunabilir sayfalara dönüşüyor](../../gorseller/f-03-c.webp)
 
 ```bash
 jadx -d diva-kod/ diva-beta.apk

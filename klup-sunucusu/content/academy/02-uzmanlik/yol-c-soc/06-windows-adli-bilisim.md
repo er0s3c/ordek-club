@@ -7,11 +7,10 @@ hedefler:
   - Kritik Windows olay kimliklerini tanımak
   - Log temizleme ve saat değiştirme izlerini tespit etmek
 gorseller:
-  - id: c-06-a
+  - id: c-06-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer pencere biçimli dev dosya dolabından olay kartlarını kovasına atıyor; habersiz olduğu bir borudan her kartın kopyası kilitli kehribar kutuya kayıyor"
-    prompt: "A giant old wooden filing cabinet shaped like a four-pane window, its drawers marked only with abstract symbols and overflowing with small glowing event cards. The villain pulls out a drawer and tips the cards into his bucket where they dissolve into green light, completely unaware that behind the cabinet a brass pneumatic tube is quietly delivering a carbon copy of every card into a locked amber box on the floor."
+    alt: "Silinmiş bir defter sayfasının arkasındaki sayfada kalem baskısının izleri el feneriyle görünür oluyor"
+    prompt: "A detective shines a flashlight at a low angle across a blank notebook page where the previous page was torn out, revealing the pressed grooves of what was once written, and a torn stub of paper still visible in the binding."
 ---
 
 # Windows adli bilişim: olay kayıtları, Sysmon, registry, prefetch
@@ -19,7 +18,7 @@ gorseller:
 > Windows olan her şeyi bir yere yazar. Adli bilişimci (forensic analyst) **nereye** yazdığını bilen kişidir.
 > 🧹 **İz 6:** KLP-WS07'de güvenlik günlüğü temizlendi. Temizlemenin kendisi de bir olay kimliği taşır.
 
-![Temizlikçi Tamer pencere biçimli dev dosya dolabından olay kartlarını kovasına atıyor; habersiz olduğu bir borudan her kartın kopyası kilitli kehribar kutuya kayıyor](../../gorseller/c-06-a.webp)
+::cizgi[c-06-sahne]
 
 ## Ezberlenecek olay kimlikleri
 
@@ -36,6 +35,8 @@ Sysmon ek ayrıntı verir: 1 = işlem başlatma, 3 = ağ bağlantısı, 11 = dos
 13 = kayıt defteri, **2 = dosya oluşturma zamanı değişti**, 23 = dosya silindi.
 
 ## Silinenin izi
+
+![Silinmiş bir defter sayfasının arkasındaki sayfada kalem baskısının izleri el feneriyle görünür oluyor](../../gorseller/c-06-b.webp)
 
 Saldırgan → savunucu eşleşmesi:
 

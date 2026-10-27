@@ -1,3 +1,6 @@
+import { createLabUpgradeHandler } from "@/server/learning/lab-ws";
+import { processLearningReminders } from "@/server/learning/reminders";
+import { publishScheduledAnnouncements } from "@/server/classroom/announcements";
 // ============================================================================
 //  Ördek Club — özel Node sunucusu
 //  Next.js'i ve (Faz 2'de) aynı porttan WebSocket'i servis eder. Tek süreç, tek port.
@@ -12,6 +15,7 @@ import { purgeExpiredSessions } from "@/server/auth/session";
 import { sweep } from "@/server/rate-limit";
 import { env } from "@/server/env";
 import { createLiveUpgradeHandler } from "@/server/live/ws-server";
+import { createStudioCollabHandler } from "@/server/studio/collab-ws";
 import { hub } from "@/server/live/hub";
 import { startMailer, stopMailer } from "@/server/mail/outbox";
 
@@ -37,11 +41,15 @@ async function main() {
   server.headersTimeout = 30_000;
   server.requestTimeout = 60_000;
 
-  // WebSocket: /ws/live canlı sınıfa; diğer yükseltmeler (geliştirmede HMR) Next.js'e.
+  // WebSocket: /ws/live canlı sınıfa, /ws/studio Studio ortak düzenlemeye, /ws/lab laba; diğer yükseltmeler (geliştirmede HMR) Next.js'e.
   const live = createLiveUpgradeHandler();
+  const lab = createLabUpgradeHandler();
+  const studio = createStudioCollabHandler();
   const nextUpgrade = app.getUpgradeHandler();
   server.on("upgrade", (req, socket, head) => {
+    if (lab.handleUpgrade(req, socket, head)) return;
     if (live.handleUpgrade(req, socket, head)) return;
+    if (studio.handleUpgrade(req, socket, head)) return;
     if (dev) return void nextUpgrade(req, socket, head);
     socket.destroy();
   });
@@ -53,6 +61,15 @@ async function main() {
   }, 10 * 60_000);
   timer.unref();
 
+  let learningBusy = false;
+  const learningTimer = setInterval(() => {
+    if (learningBusy) return; learningBusy = true;
+    Promise.all([
+      processLearningReminders().catch(() => console.error("[club] öğrenme hatırlatmaları işlenemedi")),
+      publishScheduledAnnouncements().catch(() => console.error("[club] planlı duyurular yayınlanamadı")),
+    ]).finally(() => { learningBusy = false; });
+  }, 60_000);
+  learningTimer.unref();
   server.listen(port, hostname, async () => {
     console.log(`[club] Ördek Club ${dev ? "(geliştirme)" : ""} http://${hostname}:${port} adresinde çalışıyor`);
     try {
@@ -69,7 +86,9 @@ async function main() {
 
   const shutdown = async (sig: string) => {
     console.log(`[club] ${sig} alındı, kapanıyor…`);
+    for (const client of lab.wss.clients) client.close(1012, "server restart");
     stopMailer();
+    clearInterval(learningTimer);
     // Canlı derslerin durumunu ve katılım sürelerini kaybetmeden kapat
     await hub.checkpoint().catch((err) => console.error("[club] canlı ders verisi yazılamadı", err));
     for (const c of live.wss.clients) c.close(1012, "server restart"); // 1012: istemci yeniden bağlanır

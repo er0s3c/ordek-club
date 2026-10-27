@@ -12,6 +12,10 @@ gorseller:
     karakter: aile
     alt: "Sekiz istasyonlu antrenman salonunda her istasyonun başında ailenin bir üyesi bekliyor"
     prompt: "A training gym with eight small stations in a circle, each with a symbolic prop (an envelope, a terminal screen, a network cable coil, a padlock puzzle cube, a photo frame, a browser window, a scroll of paper, a corkboard). At each station a different family member stands guard with arms crossed, ready to be challenged."
+  - id: m11-02-b
+    tur: ai
+    alt: "Labirentte takılan öğrenci için dört işaret: dosya türünü gösteren büyüteç, basit alet çantası, kum saati ve takım arkadaşına uzanan el"
+    prompt: "A student standing at a dead end in a hedge maze, with four helpful signposts drawn as objects: a magnifying glass over a file, a small simple toolbox, an hourglass, and a teammate's hand reaching over the hedge to point a new way."
 ---
 
 # Isınma turu
@@ -58,6 +62,8 @@ Ne oldu? Neden 302, neden `/login`?
 Bir bulguyu **bulgu + kaynak + kanıt + güven** ile tek satırda yaz. (M09-04)
 
 ## Takıldığında 4 adım
+
+![Labirentte takılan öğrenci için dört işaret: dosya türünü gösteren büyüteç, basit alet çantası, kum saati ve takım arkadaşına uzanan el](../../gorseller/m11-02-b.webp)
 
 1. **Soruyu yeniden oku** — Başlık ve açıklama çoğu zaman ipucu içerir.
 2. **Dosyanın türünü bul** — `file dosya` komutu, uzantıya güvenme.

@@ -8,15 +8,14 @@ hedefler:
   - Burp Suite ile bir isteği yakalayıp değiştirerek tekrar göndermek
 animasyonlar: [http-request]
 gorseller:
-  - id: a-01-a
-    tur: ai
-    karakter: jasmine
-    alt: "Tek Tırnak Jasmine eski bir santral masasında, tarayıcıyla sunucu arasında uçan zarfları yakalayıp kalemiyle değiştiriyor"
-    prompt: "An old telephone switchboard desk stands between a giant browser window on the left and a server tower on the right, with glowing envelopes flying between them along cables. The villain sits at the switchboard catching an envelope mid-flight, unsealing it with the tip of her fountain pen, altering one line inside and sending it on with a calm smile."
   - id: a-01-b
     tur: ekran
     alt: Burp Suite Proxy → HTTP history sekmesinde yerel Juice Shop'a giden istekler ve seçili bir isteğin ayrıntısı
     nasil: "Burp Suite Community'yi açın, Proxy → Open browser ile Burp tarayıcısında http://127.0.0.1:3000 (yerel Juice Shop) adresine gidin ve birkaç sayfa gezin. Proxy → HTTP history sekmesinde bir isteği seçin; alttaki Request/Response panelleri görünsün. Liste ile Request panelini kehribar (#C9953B) çerçeveyle işaretleyin. Çerez ve token değerlerini bulanıklaştırın."
+  - id: a-01-c
+    tur: ai
+    alt: "Tarayıcı ile sunucu arasında masası olan bir postacı; zarfları açıp okuyor, değiştirip yeniden gönderiyor"
+    prompt: "A postal clerk sits at a desk exactly halfway between a small house and a big office building, intercepting every envelope that travels between them on a wire, opening it under a lamp, reading it, editing it with a pen and sending it back on its way, a stack of copies piling up beside her."
 ---
 
 # Web laboratuvarı: isteği yakala, değiştir, tekrar gönder
@@ -24,9 +23,11 @@ gorseller:
 > Tarayıcı sana yalnızca sonucu gösterir. Jasmine ise **aradaki mektubu** okur — önce senin de okuyabilmen gerekiyor.
 > 🗂️ **Çekmece 1:** Kampüs Portalı'nın laboratuvar kopyası hazır. Test iznin imzalı, kapsamın yazılı.
 
-![Tek Tırnak Jasmine eski bir santral masasında, tarayıcıyla sunucu arasında uçan zarfları yakalayıp kalemiyle değiştiriyor](../../gorseller/a-01-a.webp)
+::cizgi[a-01-sahne]
 
 ## Proxy: araya giren postacı
+
+![Tarayıcı ile sunucu arasında masası olan bir postacı; zarfları açıp okuyor, değiştirip yeniden gönderiyor](../../gorseller/a-01-c.webp)
 
 Tarayıcı ile sunucu arasına bir **intercepting proxy** koyarsın. Her istek önce ona uğrar:
 okursun, değiştirirsin, yeniden gönderirsin. Tarayıcının arayüzde gizlediği her alan burada görünür.

@@ -7,11 +7,10 @@ hedefler:
   - Bir APK dosyasının içindeki parçaları ve görevlerini tanımak
   - AndroidManifest.xml içindeki riskli ayarları ve dışa açık bileşenleri bulmak
 gorseller:
-  - id: f-02-a
+  - id: f-02-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman tezgâhta açtığı bir APK kolisinden uzun bir manifest parşömeni çekiyor; parşömendeki kapıların bazıları ardına kadar açık"
-    prompt: "On a cluttered workbench, an opened cardboard parcel shaped like a zip archive spills out small labelled drawers and gears. The villain pulls a long glowing scroll out of the parcel, the scroll covered with tiny drawn doors and abstract symbols, several of the little doors swinging wide open. She grins with her goggles pushed up, while her tiny drone tugs the end of the scroll across the bench."
+    alt: "Açılmış bir kargo kutusu: içinde kod dişlileri, resim kutusu ve en üstte kurallar listesi olan manifest belgesi"
+    prompt: "An opened shipping box on a workbench revealing its contents in neat compartments: a bundle of gears, a box of small pictures and icons, a folded sealed manifest document on top, and a signature seal on the lid."
 ---
 
 # Android uygulama yapısı: APK, Manifest ve bileşenler
@@ -19,9 +18,11 @@ gorseller:
 > Bir APK aslında bir **zip dosyası**. Açınca uygulamanın planı da içinden çıkar.
 > 🔧 **Devre 2:** Leman'ın "KampüsKilit" uygulamasının manifesti laboratuvara düştü. Kapılardan kaçı açık?
 
-![Lehimci Leman tezgâhta açtığı bir APK kolisinden uzun bir manifest parşömeni çekiyor; parşömendeki kapıların bazıları ardına kadar açık](../../gorseller/f-02-a.webp)
+::cizgi[f-02-sahne]
 
 ## APK'nın içi
+
+![Açılmış bir kargo kutusu: içinde kod dişlileri, resim kutusu ve en üstte kurallar listesi olan manifest belgesi](../../gorseller/f-02-b.webp)
 
 ```bash
 unzip -l kampuskilit.apk          # içeriği listele

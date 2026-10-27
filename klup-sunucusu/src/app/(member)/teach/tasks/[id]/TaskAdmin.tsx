@@ -9,6 +9,7 @@ import { api } from "@/lib/api-client";
 import { formatDateTime } from "@/components/ui/format";
 import { FileList } from "@/components/classroom/FileList";
 import { FILE_ACCEPT, SUBMISSION_STATUS } from "@/components/classroom/labels";
+import { useT } from "@/i18n/client";
 
 type FileRef = { id: string; name: string; size: number };
 type Sub = {
@@ -23,6 +24,7 @@ type Task = {
 type Filter = "pending" | "all" | "done";
 
 export function TaskAdmin({ task, timezone }: { task: Task; timezone: string }) {
+  const tl = useT();
   const toast = useToast();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -65,58 +67,58 @@ export function TaskAdmin({ task, timezone }: { task: Task; timezone: string }) 
         await api("/api/files", { method: "POST", form });
       }
       if (fileRef.current) fileRef.current.value = "";
-    }, "Ekler yüklendi.");
+    }, tl("Ekler yüklendi."));
   }
 
   return (
     <div className="stack">
       {task.canEdit && (
         <div className="row" style={{ flexWrap: "wrap" }}>
-          <Link className="btn" href={`/teach/tasks/${task.id}/edit`}><Pencil size={15} aria-hidden /> Düzenle</Link>
-          {task.status === "DRAFT" && <button className="btn btn-primary" disabled={busy} onClick={() => status("PUBLISHED", "Görev yayınlandı; öğrencilere bildirim gitti.")}>Yayınla</button>}
-          {task.status === "PUBLISHED" && <button className="btn" disabled={busy} onClick={() => status("CLOSED", "Görev teslime kapatıldı.")}>Teslime kapat</button>}
-          {task.status === "CLOSED" && <button className="btn" disabled={busy} onClick={() => status("PUBLISHED", "Görev yeniden açıldı.")}>Yeniden aç</button>}
+          <Link className="btn" href={`/teach/tasks/${task.id}/edit`}><Pencil size={15} aria-hidden />{" "}{tl("Düzenle")}</Link>
+          {task.status === "DRAFT" && <button className="btn btn-primary" disabled={busy} onClick={() => status("PUBLISHED", tl("Görev yayınlandı; öğrencilere bildirim gitti."))}>{tl("Yayınla")}</button>}
+          {task.status === "PUBLISHED" && <button className="btn" disabled={busy} onClick={() => status("CLOSED", tl("Görev teslime kapatıldı."))}>{tl("Teslime kapat")}</button>}
+          {task.status === "CLOSED" && <button className="btn" disabled={busy} onClick={() => status("PUBLISHED", tl("Görev yeniden açıldı."))}>{tl("Yeniden aç")}</button>}
           {task.submissions.length === 0 && (
             <button className="btn btn-danger" disabled={busy} onClick={() => {
-              if (!window.confirm("Görev silinsin mi?")) return;
+              if (!window.confirm(tl("Görev silinsin mi?"))) return;
               void (async () => {
                 try {
                   await api(`/api/teach/tasks/${task.id}`, { method: "DELETE" });
-                  toast("ok", "Görev silindi.");
+                  toast("ok", tl("Görev silindi."));
                   router.replace("/teach/tasks");
                 } catch (e) {
                   toast("error", (e as Error).message);
                 }
               })();
-            }}><Trash2 size={15} aria-hidden /> Sil</button>
+            }}><Trash2 size={15} aria-hidden />{" "}{tl("Sil")}</button>
           )}
         </div>
       )}
 
       <div className="grid-2" style={{ alignItems: "start" }}>
         <section className="card">
-          <div className="card-h"><h2>Görev metni</h2></div>
+          <div className="card-h"><h2>{tl("Görev metni")}</h2></div>
           <div className="card-b stack-sm">
             <div className="prose-plain">{task.description || "—"}</div>
             {task.rubric.length > 0 && (
               <ul className="list-tight">{task.rubric.map((r, i) => <li key={i}><span style={{ flex: 1 }}>{r.criterion}</span><span className="mono small">{r.points}</span></li>)}</ul>
             )}
-            {task.targets.length > 0 && <p className="small muted" style={{ margin: 0 }}>Hedef: {task.targets.join(", ")}</p>}
+            {task.targets.length > 0 && <p className="small muted" style={{ margin: 0 }}>{tl("Hedef: {v0}", { v0: task.targets.join(", ") })}</p>}
             {task.teams.length > 0 && (
               <ul className="list-tight">{task.teams.map((t) => <li key={t.name}><strong>{t.name}</strong><span className="small muted" style={{ flex: 1 }}>{t.members.join(", ")}</span></li>)}</ul>
             )}
-            {task.kind === "QUIZ" && <div className="alert alert-info small">Otomatik puanlanır: geçme %{task.passPercent}. Geçen teslim onaylanır ve XP verilir; değerlendirme gerekmez.</div>}
+            {task.kind === "QUIZ" && <div className="alert alert-info small">{tl("Otomatik puanlanır: geçme %{passPercent}. Geçen teslim onaylanır ve XP verilir; değerlendirme gerekmez.", { passPercent: task.passPercent })}</div>}
           </div>
         </section>
         <section className="card">
-          <div className="card-h"><h2>Ekler</h2></div>
+          <div className="card-h"><h2>{tl("Ekler")}</h2></div>
           <div className="card-b stack-sm">
-            <FileList files={task.files} empty="Ek dosya yok." />
+            <FileList files={task.files} empty={tl("Ek dosya yok.")} />
             {task.canEdit && (
               <div className="row" style={{ flexWrap: "wrap" }}>
-                <label htmlFor="att" className="sr-only">Ek dosya seç</label>
+                <label htmlFor="att" className="sr-only">{tl("Ek dosya seç")}</label>
                 <input id="att" ref={fileRef} type="file" multiple className="input" style={{ flex: 1, minWidth: 0 }} accept={FILE_ACCEPT} />
-                <button className="btn btn-sm" disabled={busy} onClick={upload}><Upload size={14} aria-hidden /> Yükle</button>
+                <button className="btn btn-sm" disabled={busy} onClick={upload}><Upload size={14} aria-hidden />{" "}{tl("Yükle")}</button>
               </div>
             )}
           </div>
@@ -125,49 +127,49 @@ export function TaskAdmin({ task, timezone }: { task: Task; timezone: string }) 
 
       <section className="card" aria-labelledby="subs-h">
         <div className="card-h">
-          <h2 id="subs-h">Teslimler</h2>
-          <div className="seg" role="group" aria-label="Filtre">
-            <button aria-pressed={filter === "pending"} onClick={() => setFilter("pending")}>Bekleyen ({pending.length})</button>
-            <button aria-pressed={filter === "done"} onClick={() => setFilter("done")}>Değerlendirilen</button>
-            <button aria-pressed={filter === "all"} onClick={() => setFilter("all")}>Tümü ({task.submissions.length})</button>
+          <h2 id="subs-h">{tl("Teslimler")}</h2>
+          <div className="seg" role="group" aria-label={tl("Filtre")}>
+            <button aria-pressed={filter === "pending"} onClick={() => setFilter("pending")}>{tl("Bekleyen ({length})", { length: pending.length })}</button>
+            <button aria-pressed={filter === "done"} onClick={() => setFilter("done")}>{tl("Değerlendirilen")}</button>
+            <button aria-pressed={filter === "all"} onClick={() => setFilter("all")}>{tl("Tümü ({length})", { length: task.submissions.length })}</button>
           </div>
         </div>
         {task.canEdit && pending.length > 0 && (
           <div className="card-b row" style={{ flexWrap: "wrap", paddingBottom: 0 }}>
             <button className="btn btn-sm" onClick={() => setPicked(picked.size === pending.length ? new Set() : new Set(pending.map((p) => p.id)))}>
-              {picked.size === pending.length ? "Seçimi kaldır" : "Bekleyenlerin hepsini seç"}
+              {picked.size === pending.length ? tl("Seçimi kaldır") : tl("Bekleyenlerin hepsini seç")}
             </button>
             <button className="btn btn-sm btn-primary" disabled={busy || picked.size === 0} onClick={() => {
-              if (!window.confirm(`${picked.size} teslim tam puanla onaylansın mı? Her öğrenciye XP verilir.`)) return;
+              if (!window.confirm(tl("{size} teslim tam puanla onaylansın mı? Her öğrenciye XP verilir.", { size: picked.size }))) return;
               void run(async () => {
                 const r = await api<{ approved: number; skipped: number }>(`/api/teach/tasks/${task.id}/bulk-approve`, { body: { submissionIds: [...picked], feedback: "" } });
                 setPicked(new Set());
-                if (r.skipped) toast("info", `${r.skipped} teslim atlandı (artık bekleyen değil).`);
-              }, "Seçilen teslimler onaylandı.");
-            }}><Check size={14} aria-hidden /> Seçilenleri onayla ({picked.size})</button>
+                if (r.skipped) toast("info", tl("{skipped} teslim atlandı (artık bekleyen değil).", { skipped: r.skipped }));
+              }, tl("Seçilen teslimler onaylandı."));
+            }}><Check size={14} aria-hidden />{" "}{tl("Seçilenleri onayla ({size})", { size: picked.size })}</button>
           </div>
         )}
         {!subs.length ? (
-          <div className="empty"><div>{filter === "pending" ? "Değerlendirme bekleyen teslim yok." : "Henüz teslim yok."}</div></div>
+          <div className="empty"><div>{filter === "pending" ? tl("Değerlendirme bekleyen teslim yok.") : tl("Henüz teslim yok.")}</div></div>
         ) : (
           <div className="table-wrap">
             <table className="table">
-              <thead><tr>{task.canEdit && <th aria-label="Seç" />}<th>Öğrenci</th><th>Teslim</th><th>Durum</th><th className="num">Puan</th><th /></tr></thead>
+              <thead><tr>{task.canEdit && <th aria-label={tl("Seç")} />}<th>{tl("Öğrenci")}</th><th>{tl("Teslim")}</th><th>{tl("Durum")}</th><th className="num">{tl("Puan")}</th><th /></tr></thead>
               <tbody>
                 {subs.map((s) => (
                   <tr key={s.id} className={openId === s.id ? "is-open" : undefined}>
                     {task.canEdit && (
-                      <td>{s.status === "SUBMITTED" && <input type="checkbox" aria-label={`${s.user.displayName} seç`} checked={picked.has(s.id)} onChange={(e) => {
+                      <td>{s.status === "SUBMITTED" && <input type="checkbox" aria-label={tl("{displayName} seç", { displayName: s.user.displayName })} checked={picked.has(s.id)} onChange={(e) => {
                         const n = new Set(picked);
                         if (e.target.checked) n.add(s.id); else n.delete(s.id);
                         setPicked(n);
                       }} />}</td>
                     )}
-                    <td>{s.team ? <><strong>{s.team}</strong><div className="tiny faint">teslim eden: {s.user.displayName}</div></> : <>{s.user.displayName}<div className="tiny faint mono">@{s.user.username}</div></>}</td>
-                    <td className="small">{formatDateTime(s.submittedAt, timezone)}{s.late && <span className="badge" style={{ marginLeft: 6 }}>geç</span>}{s.attempts > 1 && <div className="tiny faint">{s.attempts}. deneme</div>}</td>
-                    <td><span className={SUBMISSION_STATUS[s.status]!.cls}>{SUBMISSION_STATUS[s.status]!.label}</span></td>
+                    <td>{s.team ? <><strong>{s.team}</strong><div className="tiny faint">{tl("teslim eden: {displayName}", { displayName: s.user.displayName })}</div></> : <>{s.user.displayName}<div className="tiny faint mono">@{s.user.username}</div></>}</td>
+                    <td className="small">{formatDateTime(s.submittedAt, timezone, tl.intl)}{s.late && <span className="badge" style={{ marginLeft: 6 }}>{tl("geç")}</span>}{s.attempts > 1 && <div className="tiny faint">{tl("{attempts}. deneme", { attempts: s.attempts })}</div>}</td>
+                    <td><span className={SUBMISSION_STATUS[s.status]!.cls}>{tl(SUBMISSION_STATUS[s.status]!.label)}</span></td>
                     <td className="num mono">{s.score ?? "—"}/{task.maxScore}</td>
-                    <td><button className="btn btn-sm" onClick={() => setOpenId(openId === s.id ? null : s.id)}>{openId === s.id ? "Kapat" : s.status === "SUBMITTED" && task.canEdit ? "Değerlendir" : "Görüntüle"}</button></td>
+                    <td><button className="btn btn-sm" onClick={() => setOpenId(openId === s.id ? null : s.id)}>{openId === s.id ? tl("Kapat") : s.status === "SUBMITTED" && task.canEdit ? tl("Değerlendir") : tl("Görüntüle")}</button></td>
                   </tr>
                 ))}
               </tbody>
@@ -182,6 +184,7 @@ export function TaskAdmin({ task, timezone }: { task: Task; timezone: string }) 
 }
 
 function Review({ sub, task, busy, run, onDone }: { sub: Sub; task: Task; busy: boolean; run: (fn: () => Promise<unknown>, ok: string) => Promise<void>; onDone: () => void }) {
+  const t = useT();
   const [scores, setScores] = useState<number[]>(sub.rubricScores ?? task.rubric.map((r) => r.points));
   const [score, setScore] = useState<number>(sub.score ?? task.maxScore);
   const [feedback, setFeedback] = useState(sub.feedback);
@@ -194,15 +197,15 @@ function Review({ sub, task, busy, run, onDone }: { sub: Sub; task: Task; busy: 
         body: { decision, feedback, ...(task.rubric.length ? { rubricScores: scores.map(Number) } : { score: Number(score) }) },
       });
       onDone();
-    }, decision === "APPROVE" ? "Teslim onaylandı; XP verildi." : decision === "RETURN" ? "Düzeltme istendi." : "Teslim reddedildi.");
+    }, decision === "APPROVE" ? t("Teslim onaylandı; XP verildi.") : decision === "RETURN" ? t("Düzeltme istendi.") : "Teslim reddedildi.");
 
   return (
     <section className="card" aria-labelledby="rev-h" style={{ borderColor: "var(--ink)" }}>
-      <div className="card-h"><h2 id="rev-h">{sub.team ? `Takım ${sub.team}` : sub.user.displayName} · teslim</h2><span className={SUBMISSION_STATUS[sub.status]!.cls}>{SUBMISSION_STATUS[sub.status]!.label}</span></div>
+      <div className="card-h"><h2 id="rev-h">{sub.team ? t("Takım {team}", { team: sub.team }) : sub.user.displayName}{" "}{t("· teslim")}</h2><span className={SUBMISSION_STATUS[sub.status]!.cls}>{t(SUBMISSION_STATUS[sub.status]!.label)}</span></div>
       <div className="card-b grid-2" style={{ alignItems: "start" }}>
         <div className="stack-sm">
-          <div className="notes">{sub.text || "— metin yok —"}</div>
-          <FileList files={sub.files} empty="Dosya eklenmemiş." />
+          <div className="notes">{sub.text || t("— metin yok —")}</div>
+          <FileList files={sub.files} empty={t("Dosya eklenmemiş.")} />
         </div>
         <div className="stack-sm">
           {task.rubric.length > 0 ? (
@@ -217,23 +220,23 @@ function Review({ sub, task, busy, run, onDone }: { sub: Sub; task: Task; busy: 
             </ul>
           ) : (
             <div className="field">
-              <label htmlFor="rv-score">Puan (0–{task.maxScore})</label>
+              <label htmlFor="rv-score">{t("Puan (0–{maxScore})", { maxScore: task.maxScore })}</label>
               <input id="rv-score" className="input" type="number" min={0} max={task.maxScore} disabled={!editable} value={score} onChange={(e) => setScore(Number(e.target.value))} />
             </div>
           )}
-          <div className="small">Toplam: <strong>{total}</strong> / {task.maxScore}</div>
+          <div className="small">{t("Toplam:")}{" "}<strong>{total}</strong> / {task.maxScore}</div>
           <div className="field">
-            <label htmlFor="rv-fb">Geri bildirim</label>
-            <textarea id="rv-fb" className="textarea" rows={4} maxLength={5000} disabled={!editable} value={feedback} onChange={(e) => setFeedback(e.target.value)} placeholder="Öğrenci bildirimle görür. Düzeltme isterken zorunlu." />
+            <label htmlFor="rv-fb">{t("Geri bildirim")}</label>
+            <textarea id="rv-fb" className="textarea" rows={4} maxLength={5000} disabled={!editable} value={feedback} onChange={(e) => setFeedback(e.target.value)} placeholder={t("Öğrenci bildirimle görür. Düzeltme isterken zorunlu.")} />
           </div>
           {editable ? (
             <div className="row" style={{ flexWrap: "wrap" }}>
-              <button className="btn btn-primary" disabled={busy} onClick={() => decide("APPROVE")}><Check size={15} aria-hidden /> Onayla (XP ver)</button>
-              <button className="btn" disabled={busy || !feedback.trim()} onClick={() => decide("RETURN")} title="Öğrenci düzeltip yeniden teslim eder"><CornerUpLeft size={15} aria-hidden /> Düzeltme iste</button>
-              <button className="btn btn-danger" disabled={busy} onClick={() => { if (window.confirm("Teslim reddedilsin mi? Öğrenci değiştiremez.")) void decide("REJECT"); }}><X size={15} aria-hidden /> Reddet</button>
+              <button className="btn btn-primary" disabled={busy} onClick={() => decide("APPROVE")}><Check size={15} aria-hidden />{" "}{t("Onayla (XP ver)")}</button>
+              <button className="btn" disabled={busy || !feedback.trim()} onClick={() => decide("RETURN")} title={t("Öğrenci düzeltip yeniden teslim eder")}><CornerUpLeft size={15} aria-hidden />{" "}{t("Düzeltme iste")}</button>
+              <button className="btn btn-danger" disabled={busy} onClick={() => { if (window.confirm(t("Teslim reddedilsin mi? Öğrenci değiştiremez."))) void decide("REJECT"); }}><X size={15} aria-hidden />{" "}{t("Reddet")}</button>
             </div>
           ) : (
-            <p className="small muted" style={{ margin: 0 }}>{task.canEdit ? "Bu teslim değerlendirildi." : "Değerlendirmeyi görevi oluşturan eğitmen yapar."}</p>
+            <p className="small muted" style={{ margin: 0 }}>{task.canEdit ? t("Bu teslim değerlendirildi.") : t("Değerlendirmeyi görevi oluşturan eğitmen yapar.")}</p>
           )}
         </div>
       </div>

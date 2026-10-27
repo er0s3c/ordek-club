@@ -23,6 +23,7 @@ export const httpRequest: AnimationDef = {
 export const dnsResolution: AnimationDef = {
   kind: "flow",
   id: "dns-resolution",
+  layout: "auto",
   title: "DNS çözümleme",
   summary: "ornek.edu.tr adı bir IP adresine nasıl dönüşür?",
   actors: [
@@ -87,6 +88,7 @@ export const packetJourney: AnimationDef = {
 export const firewallDecision: AnimationDef = {
   kind: "flow",
   id: "firewall-decision",
+  style: "sketch",
   title: "Güvenlik duvarı karar mekanizması",
   summary: "Kurallar yukarıdan aşağı değerlendirilir; ilk eşleşen kural uygulanır.",
   actors: [

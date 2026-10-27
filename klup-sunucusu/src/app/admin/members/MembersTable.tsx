@@ -9,6 +9,7 @@ import { useMessages, useToast } from "@/components/providers";
 import { RoleBadge, StatusBadge } from "@/components/ui/badges";
 import { formatDateTime } from "@/components/ui/format";
 import { api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 type Member = {
   id: string; username: string; displayName: string; email: string; role: Role; status: MemberStatus;
@@ -20,6 +21,7 @@ const STATUSES: MemberStatus[] = ["PENDING", "ACTIVE", "DISABLED", "REJECTED"];
 const ROLES: Role[] = ["OWNER", "ADMIN", "INSTRUCTOR", "STUDENT"];
 
 export function MembersTable({ timezone }: { timezone: string }) {
+  const t = useT();
   const m = useMessages();
   const toast = useToast();
   const router = useRouter();
@@ -72,7 +74,7 @@ export function MembersTable({ timezone }: { timezone: string }) {
     setBusyId(id);
     try {
       await api(`/api/admin/members/${encodeURIComponent(id)}`, { method: "PATCH", body: { action } });
-      toast("ok", action === "approve" ? "Üyelik onaylandı." : "Başvuru reddedildi.");
+      toast("ok", action === "approve" ? t("Üyelik onaylandı.") : t("Başvuru reddedildi."));
       await load();
       router.refresh(); // menüdeki bekleyen sayacı
     } catch (e) {
@@ -94,19 +96,19 @@ export function MembersTable({ timezone }: { timezone: string }) {
             setParam({ q: search.trim() });
           }}
         >
-          <label htmlFor="member-q" className="sr-only">Üye ara</label>
-          <input id="member-q" className="input" style={{ width: 240 }} placeholder="Ad, kullanıcı adı, e-posta, no…" value={search} onChange={(e) => setSearch(e.target.value)} maxLength={100} />
+          <label htmlFor="member-q" className="sr-only">{t("Üye ara")}</label>
+          <input id="member-q" className="input" style={{ width: 240 }} placeholder={t("Ad, kullanıcı adı, e-posta, no…")} value={search} onChange={(e) => setSearch(e.target.value)} maxLength={100} />
           <button className="btn btn-sm"><Search size={15} aria-hidden /> {m.common.search}</button>
         </form>
         <div className="row">
-          <label htmlFor="f-status" className="sr-only">Durum</label>
+          <label htmlFor="f-status" className="sr-only">{t("Durum")}</label>
           <select id="f-status" className="select" style={{ width: 170, height: 34, padding: "4px 34px 4px 10px" }} value={status} onChange={(e) => setParam({ status: e.target.value })}>
-            <option value="">Durum: {m.common.all}</option>
+            <option value="">{t("Durum: {all}", { all: m.common.all })}</option>
             {STATUSES.map((s) => <option key={s} value={s}>{m.statuses[s]}</option>)}
           </select>
-          <label htmlFor="f-role" className="sr-only">Rol</label>
+          <label htmlFor="f-role" className="sr-only">{t("Rol")}</label>
           <select id="f-role" className="select" style={{ width: 150, height: 34, padding: "4px 34px 4px 10px" }} value={role} onChange={(e) => setParam({ role: e.target.value })}>
-            <option value="">Rol: {m.common.all}</option>
+            <option value="">{t("Rol: {all}", { all: m.common.all })}</option>
             {ROLES.map((r) => <option key={r} value={r}>{m.roles[r]}</option>)}
           </select>
         </div>
@@ -122,12 +124,12 @@ export function MembersTable({ timezone }: { timezone: string }) {
             {Array.from({ length: 5 }, (_, i) => <div key={i} className="skeleton" style={{ height: 34 }} />)}
           </div>
         ) : data.items.length === 0 ? (
-          <div className="empty"><Users size={28} aria-hidden /><div>Bu filtrelere uyan üye yok.</div></div>
+          <div className="empty"><Users size={28} aria-hidden /><div>{t("Bu filtrelere uyan üye yok.")}</div></div>
         ) : (
           <div className="table-wrap">
             <table className="table">
               <thead>
-                <tr><th>Üye</th><th>Rol</th><th>Durum</th><th>Bölüm / No</th><th>Kayıt</th><th>Son giriş</th><th><span className="sr-only">İşlemler</span></th></tr>
+                <tr><th>{t("Üye")}</th><th>{t("Rol")}</th><th>{t("Durum")}</th><th>{t("Bölüm / No")}</th><th>{t("Kayıt")}</th><th>{t("Son giriş")}</th><th><span className="sr-only">{t("İşlemler")}</span></th></tr>
               </thead>
               <tbody>
                 {data.items.map((u) => (
@@ -139,16 +141,16 @@ export function MembersTable({ timezone }: { timezone: string }) {
                     <td><RoleBadge role={u.role} /></td>
                     <td><StatusBadge status={u.status} /></td>
                     <td className="small muted">{[u.department, u.studentNumber].filter(Boolean).join(" · ") || "—"}</td>
-                    <td className="tiny faint">{formatDateTime(u.createdAt, timezone)}</td>
-                    <td className="tiny faint">{u.lastLoginAt ? formatDateTime(u.lastLoginAt, timezone) : m.common.never}</td>
+                    <td className="tiny faint">{formatDateTime(u.createdAt, timezone, t.intl)}</td>
+                    <td className="tiny faint">{u.lastLoginAt ? formatDateTime(u.lastLoginAt, timezone, t.intl) : m.common.never}</td>
                     <td style={{ textAlign: "right" }}>
                       {u.status === "PENDING" && (
                         <div className="row" style={{ justifyContent: "flex-end", gap: 6, flexWrap: "nowrap" }}>
-                          <button className="btn btn-sm btn-primary" disabled={busyId === u.id} onClick={() => quick(u.id, "approve")} aria-label={`${u.displayName} başvurusunu onayla`}>
-                            <Check size={14} aria-hidden /> Onayla
+                          <button className="btn btn-sm btn-primary" disabled={busyId === u.id} onClick={() => quick(u.id, "approve")} aria-label={t("{displayName} başvurusunu onayla", { displayName: u.displayName })}>
+                            <Check size={14} aria-hidden />{" "}{t("Onayla")}
                           </button>
-                          <button className="btn btn-sm btn-danger" disabled={busyId === u.id} onClick={() => quick(u.id, "reject")} aria-label={`${u.displayName} başvurusunu reddet`}>
-                            <UserX size={14} aria-hidden /> Reddet
+                          <button className="btn btn-sm btn-danger" disabled={busyId === u.id} onClick={() => quick(u.id, "reject")} aria-label={t("{displayName} başvurusunu reddet", { displayName: u.displayName })}>
+                            <UserX size={14} aria-hidden />{" "}{t("Reddet")}
                           </button>
                         </div>
                       )}
@@ -162,7 +164,7 @@ export function MembersTable({ timezone }: { timezone: string }) {
       </div>
       {data && data.total > 0 && (
         <div className="pager">
-          <span>{data.total} üye · {m.common.page} {page}/{pages}</span>
+          <span>{t("{total} üye · {page} {page1}/{pages}", { total: data.total, page: m.common.page, page1: page, pages })}</span>
           <div className="row">
             <button className="btn btn-sm" disabled={page <= 1} onClick={() => setParam({ page: String(page - 1) })}>{m.common.previous}</button>
             <button className="btn btn-sm" disabled={page >= pages} onClick={() => setParam({ page: String(page + 1) })}>{m.common.next}</button>

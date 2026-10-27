@@ -7,16 +7,10 @@ hedefler:
   - Laboratuvardaki kampüs ağını envanterden önerilere kadar değerlendirmek
   - Segmentasyon ve sertleştirme önerilerini önceliklendirmek
 gorseller:
-  - id: b-12-a
+  - id: b-12-c
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık'ın kazdığı tünellerin hepsi parlayan kehribar kapaklarla mühürlenmiş; ağ haritası artık duvarlarla bölgelere ayrılmış"
-    prompt: "The isometric glowing network map from before, now neatly divided into colored zones by solid translucent walls. Every tunnel entrance in the dark earth beneath the map has been sealed with a glowing amber hatch. The villain sits on an overturned crate at the edge, headlamp switched off, turning a sealed hatch's handle in vain and nodding slowly as if impressed."
-  - id: b-12-b
-    tur: ai
-    karakter: tarik
-    alt: "Açık bir sunucu dolabının içinde, fener ışığıyla yazılmış gibi parlayan bir not ve yanında eski bir kapüşonlu fotoğrafı"
-    prompt: "A server cabinet with its door ajar in a dark room. Inside, between the cables, a folded note glows faintly green as if lit by a headlamp, and next to it hangs an old faded instant photo of four hooded teenagers on a basement floor. In the doorway behind, the villain's silhouette with his headlamp turns away and disappears."
+    alt: "Önce ve sonra: düz ve duvarsız bir ağ haritası ile bölmelere ayrılmış, kapıları kilitli yeni harita"
+    prompt: "Before and after maps pinned side by side on a wall: on the left a flat open network floor plan with no walls where everything connects to everything, on the right the same plan divided into walled zones with locked gates and a few controlled corridors, an amber seal stamped on the right map."
 ---
 
 # Final: kampüs ağı güvenlik değerlendirmesi
@@ -24,7 +18,7 @@ gorseller:
 > Bir ağı değerlendirmek tek bir açığı bulmak değil; **haritayı çizmek, zayıf noktaları göstermek ve yeniden tasarlamaktır**.
 > 🕳️ **Son tünel:** Laboratuvardaki kampüs ağı kopyası senin. Tarık'ın kazdığı her tüneli kapat.
 
-![Tünelci Tarık'ın kazdığı tünellerin hepsi parlayan kehribar kapaklarla mühürlenmiş; ağ haritası artık duvarlarla bölgelere ayrılmış](../../gorseller/b-12-a.webp)
+::cizgi[b-12-sahne]
 
 ## Görev
 
@@ -37,6 +31,8 @@ Eğitmenin verdiği izole laboratuvar ağında (`10.66.0.0/16`), **yazılı kaps
 5. **Rapor** — yönetici özeti + teknik bulgular + 30/60/90 günlük iyileştirme planı
 
 ## Rapor iskeleti
+
+![Önce ve sonra: düz ve duvarsız bir ağ haritası ile bölmelere ayrılmış, kapıları kilitli yeni harita](../../gorseller/b-12-c.webp)
 
 | Bölüm | İçerik |
 |---|---|
@@ -64,9 +60,6 @@ Eğitmenin verdiği izole laboratuvar ağında (`10.66.0.0/16`), **yazılı kaps
 
 > 🔒 **DOSYA KAPANDI: Tünelci Tarık** · *raporunu teslim edince*
 >
-> ![Açık bir sunucu dolabının içinde, fener ışığıyla yazılmış gibi parlayan bir not ve yanında eski bir kapüşonlu fotoğrafı](../../gorseller/b-12-b.webp)
->
-> Son tünel kapandı; ağ bölgelerine ayrıldı, sunucular sertleştirildi. Sunucu dolabının içinde fenerinin yeşil ışığıyla
-> yazılmış bir not buluyorsun: "Eren beni o gece yaktı. Ona çalışıyorum, ama onun adamı değilim. Bir gün aynı tarafta olacağız, Tilki."
+> ::cizgi[tarik-kapanis]
 >
 > ➡️ *Sezon 2 sürüyor: diğer uzmanlık yollarında Gölge Ağ'ın başka dosyaları seni bekliyor.*

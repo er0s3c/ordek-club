@@ -7,20 +7,21 @@ hedefler:
   - Linux dizin yapısındaki önemli klasörleri tanımak
   - Temel dosya ve dizin komutlarını kullanmak
 gorseller:
-  - id: m04-02-a
+  - id: m04-02-b
     tur: ai
-    karakter: sadri
-    alt: "Ters dönmüş klasör ağacının kökünde oturan Süper Kullanıcı Sadri elinde budama makasıyla"
-    prompt: "An upside-down glowing tree hanging from the ceiling of a cavern, its branches ending in small folder-shaped leaves. The villain sits at the very root at the top like a king, holding a pair of pruning shears and eyeing the folders below."
+    alt: "Kökü yukarıda olan ters bir ağaç; dallarında ev, kilitli kale, ayar dişlisi, günlük defteri, açık çöp kutusu ve alet çantası biçiminde odalar"
+    prompt: "An upside-down tree with its glowing root at the top, branches spreading downward into small rooms: a cozy house for personal files, a locked little fortress, a cabinet full of gear-shaped settings, a shelf of diary logbooks, an open public bin where anyone can drop things in, and a toolbox of programs. A tiny explorer with a lantern climbs down the branches."
 ---
 
 # Linux'ta dosyalar nerede saklanır?
 
 > Windows'ta `C:`, `D:` sürücüleri vardır. Linux'ta ise her şey **tek bir kökten** başlar: `/`
 
-![Ters dönmüş klasör ağacının kökünde oturan Süper Kullanıcı Sadri elinde budama makasıyla](../../gorseller/m04-02-a.webp)
+::cizgi[m04-02-sahne]
 
 ## Önemli adresler
+
+![Kökü yukarıda olan ters bir ağaç; dallarında ev, kilitli kale, ayar dişlisi, günlük defteri, açık çöp kutusu ve alet çantası biçiminde odalar](../../gorseller/m04-02-b.webp)
 
 | Dizin | İçinde ne var? | Güvenlikçi için neden önemli? |
 |---|---|---|

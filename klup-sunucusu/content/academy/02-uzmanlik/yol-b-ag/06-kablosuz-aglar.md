@@ -7,11 +7,10 @@ hedefler:
   - WPA2-Personal, WPA2/3-Enterprise ve WPA3 farklarını açıklamak
   - Sahte erişim noktası (Evil Twin) saldırısına karşı önlemleri sıralamak
 gorseller:
-  - id: b-06-a
+  - id: b-06-b
     tur: ai
-    karakter: tarik
-    alt: "Kampüs kafesinin önünde Tünelci Tarık parkasının içine gizlediği, gerçeğinin aynısı parlayan bir Wi-Fi anteni taşıyor"
-    prompt: "Outside a busy campus café at dusk, a genuine Wi-Fi router glows on the café wall. The villain leans against a lamppost across the street, his parka slightly open to reveal an identical glowing router hidden inside, its signal waves reaching toward students' phones which turn toward him one by one."
+    alt: "Kafede yan yana duran iki aynı görünümlü anten; biri gerçek, diğerinin arkasında gizli bir dinleyici"
+    prompt: "Two identical-looking radio antennas side by side on a café counter, both glowing the same soft green; seen from behind, one is plugged into the café wall and the other is held up by a hidden figure crouching under the counter with headphones."
 ---
 
 # Kablosuz ağlar: WPA2, WPA3 ve sahte erişim noktası
@@ -19,7 +18,7 @@ gorseller:
 > Telefonun, adı tanıdık gelen her Wi-Fi'a **kendiliğinden** bağlanmaya hazırdır. Aynı adı yayınlayan sahtesine de.
 > 🕳️ **Tünel 6:** Laboratuvarda "Kampus-Misafir" adında iki ağ görünüyor. Biri senin, biri Tarık'ın.
 
-![Kampüs kafesinin önünde Tünelci Tarık parkasının içine gizlediği, gerçeğinin aynısı parlayan bir Wi-Fi anteni taşıyor](../../gorseller/b-06-a.webp)
+::cizgi[b-06-sahne]
 
 ## Güvenlik seviyeleri
 
@@ -31,6 +30,8 @@ gorseller:
 | **WPA2/3-Enterprise** | Her kullanıcı kendi hesabıyla (802.1X) | Sunucu sertifikası doğrulanmazsa kimlik bilgisi çalınabilir |
 
 ## Sahte erişim noktası (Evil Twin)
+
+![Kafede yan yana duran iki aynı görünümlü anten; biri gerçek, diğerinin arkasında gizli bir dinleyici](../../gorseller/b-06-b.webp)
 
 Saldırgan aynı ağ adını (SSID) daha güçlü sinyalle yayınlar. Cihaz ona bağlanır;
 ardından sahte bir "giriş sayfası" parola ister ya da trafik saldırgandan geçer.

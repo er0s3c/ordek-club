@@ -1,3 +1,4 @@
+import { TermText } from "./Terms";
 // Ders gövdesini (Markdown) React öğelerine çevirir. HTML hiçbir zaman olduğu gibi basılmaz:
 // marked yalnızca belirteç (token) üretir, her belirteç burada izin verilen bir öğeye dönüşür.
 // İzinli ham HTML yalnızca <details><summary>; diğer HTML düz metin olarak gösterilir.
@@ -10,10 +11,15 @@ import { Terminal } from "@/components/ui/Terminal";
 import { parseShell, SHELL_LANGS } from "@/components/ui/terminal-parse";
 import { MissionCard, type MissionData } from "./MissionCard";
 import { decode, stripTags } from "./markdown-text";
+import { CodeHikeBlock } from "./CodeHikeBlock";
+import { MermaidDiagram } from "@/components/presentation/MermaidDiagram";
+import { COMIC, type ComicStripData } from "@/lib/comic";
+import { ComicStrip } from "./ComicStrip";
+import { getT } from "@/i18n/server";
 
 // Gövdedeki görev yerleştirme ayracı (::gorev[id]); tanım ders front-matter'ında (gorevler:).
-export type MissionCtx = { slug: string; items: MissionData[]; next: { href: string; title: string } | null; trackHref: string; readOnly?: boolean };
-type Ctx = { images: ReadonlySet<string>; skipTitle: boolean; revealEnding: boolean; missions?: MissionCtx };
+export type MissionCtx = { slug: string; items: MissionData[]; next: { href: string; title: string } | null; trackHref: string; readOnly?: boolean; lang?: "tr" | "en" };
+type Ctx = { images: ReadonlySet<string>; skipTitle: boolean; revealEnding: boolean; missions?: MissionCtx; comics?: Record<string, ComicStripData> };
 
 export function slugify(text: string): string {
   return text
@@ -52,7 +58,7 @@ function Inline({ tokens, ctx }: { tokens: Token[] | undefined; ctx: Ctx }): Rea
   return (tokens ?? []).map((t, i) => {
     switch (t.type) {
       case "text":
-        return "tokens" in t && t.tokens ? <Inline key={i} tokens={t.tokens} ctx={ctx} /> : decode(t.text);
+        return "tokens" in t && t.tokens ? <Inline key={i} tokens={t.tokens} ctx={ctx} /> : <TermText key={i} text={decode(t.text)} />;
       case "escape":
         return t.text;
       case "strong":
@@ -89,7 +95,8 @@ function Inline({ tokens, ctx }: { tokens: Token[] | undefined; ctx: Ctx }): Rea
 const ANIM = /^::animasyon\[([a-z0-9-]+)\]$/;
 const MISSION = /^::gorev\[([a-z0-9-]{1,40})\]$/;
 
-function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
+async function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): Promise<ReactNode> {
+  const tl = await getT();
   const out: ReactNode[] = [];
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
@@ -108,13 +115,20 @@ function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
       case "paragraph": {
         const anim = t.text.trim().match(ANIM);
         if (anim) { out.push(<LessonAnimation key={key} id={anim[1]!} />); break; }
+        // Gölge Ağ çizgi roman şeridi (::cizgi[id]); şerit yoksa sayfa bozulmaz.
+        const comic = t.text.trim().match(COMIC);
+        if (comic) {
+          const strip = ctx.comics?.[comic[1]!];
+          out.push(strip ? <ComicStrip key={key} strip={strip} /> : <p key={key} className="mission-missing">{tl("Bu bölümün çizgi romanı hazırlanıyor.")}</p>);
+          break;
+        }
         const gm = t.text.trim().match(MISSION);
         if (gm) {
           const m = ctx.missions?.items.find((x) => x.id === gm[1]);
           // Tanımsız görev dersi kilitlemez; yalnızca yer tutucu (07 I5)
           out.push(m && ctx.missions
-            ? <MissionCard key={key} slug={ctx.missions.slug} mission={m} next={ctx.missions.next} trackHref={ctx.missions.trackHref} readOnly={ctx.missions.readOnly} />
-            : <p key={key} className="mission-missing">Bu görev hazırlanıyor.</p>);
+            ? <MissionCard key={key} slug={ctx.missions.slug} mission={m} next={ctx.missions.next} trackHref={ctx.missions.trackHref} readOnly={ctx.missions.readOnly} lang={ctx.missions.lang} />
+            : <p key={key} className="mission-missing">{tl("Bu görev hazırlanıyor.")}</p>);
           break;
         }
         const only = t.tokens?.length === 1 && t.tokens[0]!.type === "image";
@@ -132,7 +146,7 @@ function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
         const cls = first.startsWith("🕴") ? "dossier" : first.startsWith("🔒") ? "dossier dossier-closed" : "md-quote";
         // Bölüm sonu (ipucu dahil) ders tamamlanmadan gösterilmez: hikâyenin devamı ödüldür.
         if (cls.includes("dossier-closed") && !ctx.revealEnding) {
-          out.push(<div key={key} className="dossier-locked"><Lock size={16} aria-hidden /> Bu dosyanın sonu ve sıradaki ipucu, bölümü tamamlayınca açılır.</div>);
+          out.push(<div key={key} className="dossier-locked"><Lock size={16} aria-hidden />{" "}{tl("Bu dosyanın sonu ve sıradaki ipucu, bölümü tamamlayınca açılır.")}</div>);
           break;
         }
         out.push(<blockquote key={key} className={cls}><Blocks tokens={inner} ctx={ctx} /></blockquote>);
@@ -166,7 +180,8 @@ function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
         // Kabuk blokları terminal bileşeniyle (§5.14); diğer diller koyu kod kutusunda.
         if (SHELL_LANGS.has((t.lang || "").toLowerCase()))
           out.push(<Terminal key={key} lines={parseShell(t.text, (t.lang || "").toLowerCase())} title={/^(powershell|ps1)$/i.test(t.lang || "") ? "PowerShell" : "Terminal"} />);
-        else out.push(<pre key={key} className="md-code" data-lang={t.lang || undefined}><code>{t.text}</code></pre>);
+        else if ((t.lang || "").toLowerCase() === "mermaid") out.push(<MermaidDiagram key={key} source={t.text} />);
+        else out.push(<CodeHikeBlock key={key} code={t.text} lang={(t.lang || "").toLowerCase()} />);
         break;
       case "hr":
         out.push(<hr key={key} className="divider" />);
@@ -178,7 +193,7 @@ function Blocks({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
           if (text) out.push(<p key={key}>{text}</p>);
           break;
         }
-        const summary = stripTags(open[1]!).trim() || "Ayrıntı";
+        const summary = stripTags(open[1]!).trim() || tl("Ayrıntı");
         let inner: Token[];
         const rest = open[2]!;
         const close = rest.search(/<\/details>/i);
@@ -208,7 +223,16 @@ function ListItem({ tokens, ctx }: { tokens: Token[]; ctx: Ctx }): ReactNode {
   );
 }
 
-export function Markdown({ source, images, revealEnding = true, missions }: { source: string; images: ReadonlySet<string>; revealEnding?: boolean; missions?: MissionCtx }) {
+export function Markdown({ source, images, revealEnding = true, missions, comics }: { source: string; images: ReadonlySet<string>; revealEnding?: boolean; missions?: MissionCtx; comics?: Record<string, ComicStripData> }) {
   const tokens = marked.lexer(source, { gfm: true });
-  return <div className="md"><Blocks tokens={tokens} ctx={{ images, skipTitle: true, revealEnding, missions }} /></div>;
+  return <div className="md"><Blocks tokens={tokens} ctx={{ images, skipTitle: true, revealEnding, missions, comics }} /></div>;
+}
+
+// Ders içi bölüm listesi için başlıklar (h2–h3; ilk h1 başlık sayfa başlığıdır).
+export function markdownHeadings(source: string): { id: string; text: string; depth: 2 | 3 }[] {
+  return marked
+    .lexer(source, { gfm: true })
+    .filter((t): t is Tokens.Heading => t.type === "heading" && t.depth >= 2 && t.depth <= 3)
+    .map((t) => ({ id: slugify(plain(t.tokens)), text: plain(t.tokens), depth: t.depth as 2 | 3 }))
+    .filter((h) => h.id);
 }

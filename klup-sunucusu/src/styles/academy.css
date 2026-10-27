@@ -16,6 +16,10 @@
 /* ── Akademi ana sayfası ───────────────────────────────────────────────── */
 .continue-card { border-color: var(--accent-deep); }
 .continue-body { display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; }
+/* Dar ekranda başlık kendi satırında kalır, düğme alta iner (uzun kelimeler düğmenin altına taşıyordu) */
+.continue-body > :first-child { flex: 1 1 260px; min-width: 0; }
+.continue-title { overflow-wrap: anywhere; }
+@media (max-width: 560px) { .continue-title { font-size: 22px; } .continue-body > .btn { width: 100%; justify-content: center; } }
 .continue-title { font-size: 28px; font-weight: 700; text-transform: uppercase; font-family: var(--font-display); letter-spacing: var(--tracking-display); line-height: 1.12; margin: 8px 0 4px; }
 .program-card { display: block; color: inherit; transition: border-color 0.2s var(--ease); }
 .program-card:hover { border-color: var(--gold-deep); color: inherit; }
@@ -42,7 +46,7 @@
 .lesson-min { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 
 /* ── Ders sayfası ──────────────────────────────────────────────────────── */
-.lesson { max-width: 820px; display: flex; flex-direction: column; gap: var(--sp-4); }
+.lesson { width: 100%; display: flex; flex-direction: column; gap: var(--sp-4); }
 .lesson-crumbs { gap: 8px; color: var(--ink-faint); }
 .lesson-crumbs a { color: var(--ink-dim); }
 .lesson-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 0; }
@@ -137,7 +141,7 @@
 .btn-wrap { white-space: normal; height: auto; min-height: 38px; padding-top: 8px; padding-bottom: 8px; text-align: left; max-width: 100%; }
 
 /* Bugün — ilk kullanım (docs/design-council/04 §6.1): tek kart, tek yeşil düğme */
-.first-run { max-width: 640px; margin: 0 auto; }
+.first-run { max-width: 820px; margin: 0 auto; }
 .first-head .page-title { margin: 6px 0 6px; }
 .first-head .page-sub { margin: 0; }
 .first-card { padding: 24px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
@@ -152,4 +156,27 @@
 .first-news .list-tight { padding-bottom: 12px; }
 @media (max-width: 640px) {
   .first-cta { align-self: stretch; justify-content: center; min-height: 48px; }
+}
+
+/* Code Hike açıklamalı kod: !mark vurgu, !diff ekleme/silme, !callout satır içi not */
+.ch-code { white-space: normal; }
+.ch-code .ch-line { white-space: pre; padding: 0 6px; margin: 0 -6px; border-radius: 3px; }
+.ch-line.is-mark { background: rgba(23, 255, 116, 0.1); box-shadow: inset 3px 0 0 var(--ciu-green-soft); }
+.ch-line.is-add { background: rgba(23, 255, 116, 0.12); }
+.ch-line.is-del { background: rgba(255, 84, 104, 0.14); text-decoration: line-through; text-decoration-color: rgba(255, 84, 104, 0.6); }
+.ch-diff { display: inline-block; width: 2ch; opacity: 0.7; user-select: none; }
+.ch-callout { display: inline-block; margin: 4px 0 6px; padding: 4px 10px; border-radius: 4px; background: #2b2147; color: #fffcf2; font: 500 12.5px/1.5 var(--font-sans, inherit); white-space: normal; }
+.success-panel .lottie-svg { flex: none; }
+
+/* Gölge Ağ okuyucu: bölüm listesi ve bölüm gezinmesi */
+.story-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.story-row { display: flex; align-items: center; gap: 14px; }
+.story-portrait { border-radius: 10px; border: 2px solid var(--ink, #0d0d10); object-fit: cover; flex: none; background: #1b1d22; }
+.story-dots { display: flex; flex-wrap: wrap; gap: 6px; }
+.story-dot { width: 26px; height: 8px; border-radius: 999px; background: var(--line, #d8d3c6); }
+.story-dot:hover { background: var(--muted, #9b9484); }
+.story-dot-active { background: var(--accent, #6d28d9); }
+@media (max-width: 560px) {
+  .story-row { flex-wrap: wrap; }
+  .story-row .story-portrait { width: 48px; height: 48px; }
 }

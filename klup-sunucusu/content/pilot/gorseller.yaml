@@ -1,0 +1,247 @@
+# ============================================================================
+#  SK-101 pilot sayfalarının görsel promptları. Taslak .md dosyaları
+#  scripts/write-pilot-drafts.mjs ile yeniden üretildiği için görseller burada tutulur;
+#  pilot ana akademiye alınınca her giriş ilgili sayfanın `gorseller:` alanına taşınır.
+#  Alanlar sayfalardaki gorseller: ile aynıdır (+ sayfa: hangi sayfaya ait olduğu).
+#  "the villain" yazan promptta karakter zorunludur; kötü adamlar kapaklar.yaml ile aynıdır.
+#  Liste `npm run academy:gorseller` ile GORSELLER.md'nin sonuna eklenir.
+# ============================================================================
+gorseller:
+  # ── M1 Güvenliğe giriş · Avukat "Boşluk" Kemal ──
+  - sayfa: sk101-m1-01
+    id: sk101-m1-01-a
+    tur: ai
+    karakter: kemal
+    alt: "Liman ofisinde Avukat Kemal, sevkiyat listesindeki bir varış yerini kalemiyle sessizce değiştiriyor; dosya hâlâ açılabiliyor"
+    prompt: "A dim harbor shipping office at night with cargo cranes visible through the window: the villain leans over a desk and quietly changes one line on a shipping ledger with a fountain pen, the ledger still open and readable, a small model container ship on the desk now pointing in the wrong direction."
+  - sayfa: sk101-m1-01
+    id: sk101-m1-01-b
+    tur: ai
+    alt: "Üç soru, üç nesne: kilitli göz kapağı (gizlilik), kırılmamış mühür (bütünlük) ve yanan fener (erişilebilirlik)"
+    prompt: "Three objects on three small pedestals under spotlights: a closed eyelid shaped lock for secrecy, an unbroken wax seal on a document for correctness, and a brightly burning lantern for being there when needed; an analyst points at the wax seal, which has a hairline crack."
+  - sayfa: sk101-m1-02
+    id: sk101-m1-02-a
+    tur: ai
+    alt: "Market arka odasında kilitsiz bırakılmış bir rapor dolabı, önünden geçen gölge ve olasılık ile etkiyi tartan bir terazi"
+    prompt: "The back room of a small neighborhood market with olive jars on the shelves: a report cabinet stands with its door left unlocked and slightly open, a shadow passes by the doorway, and on the desk a brass scale weighs a small die against a heavy sack of coins."
+  - sayfa: sk101-m1-03
+    id: sk101-m1-03-a
+    tur: ai
+    alt: "Panoya iplikle bağlanmış üç olay kartı: gönderilen mektup, açılan kapı ve paylaşılan dosya; altlarında zaman şeridi"
+    prompt: "An analyst pins three cards onto a cork board along a horizontal timeline ribbon: an envelope being sent, a door being unlocked, and a folder being handed to a stranger, connected left to right by a red thread, with a lighthouse silhouette in the background."
+  - sayfa: sk101-m1-04
+    id: sk101-m1-04-a
+    tur: ai
+    alt: "Kapsam haritasında yeşil çizgiyle çevrili tek bina; öğrenci çizginin dışındaki ilginç kapının önünde durup telefonla izin soruyor"
+    prompt: "A campus map on the ground drawn in chalk with a single building outlined by a glowing green boundary; a student stands right at the edge of the line, looking at an intriguing open door outside it, but stops and calls the club coordinator on a vintage phone to ask first."
+    # Lab
+  - sayfa: sk101-m1-lab
+    id: sk101-m1-lab-a
+    tur: ai
+    karakter: kemal
+    alt: "Vardiya masasında doldurulmuş olay kartı; Avukat Kemal kapının aralığından kartı okumaya çalışıyor"
+    prompt: "A first-shift desk in a small security office at dawn: a neatly filled incident card lies under a lamp next to a mug, and the villain peeks through the gap of the door trying to read it, his long contract scroll trailing on the floor behind him."
+
+  # ── M2 Ağın dili · Dinleyici Nuri ──
+  - sayfa: sk101-m2-01
+    id: sk101-m2-01-a
+    tur: ai
+    karakter: nuri
+    alt: "Dinleyici Nuri kablo üstünden geçen iç içe zarfları dinliyor; yalnız en dıştaki zarfı görebiliyor"
+    prompt: "The villain crouches beside a glowing cable on a rooftop, headphones on, watching nested envelopes travel along it; he can only see the outermost envelope of each, its inner layers hidden, and he scratches his head in frustration."
+  - sayfa: sk101-m2-01
+    id: sk101-m2-01-b
+    tur: ai
+    alt: "Bir paketin katmanları soğan gibi açılmış: dış kabuk ağ adresi, ortası taşıma, içi uygulama verisi"
+    prompt: "A glowing parcel sliced open like an onion on a cutting board, showing distinct layers: an outer shell with a destination tag, a middle layer with a delivery-route ribbon, and a bright core holding a small message card."
+  - sayfa: sk101-m2-02
+    id: sk101-m2-02-a
+    tur: ai
+    alt: "Tek bir bina adresi ve binanın üstündeki farklı kapılar; her kapıda başka bir servis görevlisi"
+    prompt: "A single building with many different colored doors along its front, each door with its own small attendant: a baker, a post clerk, a librarian; a delivery person checks the building and then picks the right door."
+  - sayfa: sk101-m2-03
+    id: sk101-m2-03-a
+    tur: ai
+    alt: "Rehber kitabından adres veren kütüphaneci; adres doğru ama binanın kapısı yine de kilitli"
+    prompt: "A librarian hands a visitor an address card from a thick directory, and in the next scene the visitor arrives at the correct building only to find its door firmly locked; the address was right, the access was never granted."
+  - sayfa: sk101-m2-04
+    id: sk101-m2-04-a
+    tur: ai
+    alt: "Keşfe başlamadan önce masada izin belgesi, saat ve kapsam haritası kontrol ediliyor; dürbün henüz kılıfında"
+    prompt: "A student at a desk checks three things before picking up binoculars still in their case: a signed permission document, a pocket watch showing the allowed time window, and a small map with one area outlined in green."
+  - sayfa: sk101-m2-lab
+    id: sk101-m2-lab-a
+    tur: ai
+    karakter: nuri
+    alt: "Açılmayan bir portal kapısının önünde teşhis çantasıyla öğrenci; Dinleyici Nuri çatıdan antenle izliyor"
+    prompt: "A student with an open diagnostic toolkit kneels in front of a stuck portal door on a campus building, testing cables and a small router one by one, while the villain watches from the rooftop above with a parabolic dish."
+
+  # ── M3 Web nasıl çalışır · Çerezci Celal ──
+  - sayfa: sk101-m3-01
+    id: sk101-m3-01-a
+    tur: ai
+    karakter: celal
+    alt: "Çerezci Celal fırının sipariş penceresinde bir sipariş fişinin hedef kutusunu gizlice değiştiriyor"
+    prompt: "At a bakery order window the villain secretly swaps the destination slip on a customer's order ticket, a tray of glowing key-stamped cookies balanced on his other arm."
+  - sayfa: sk101-m3-01
+    id: sk101-m3-01-b
+    tur: ai
+    alt: "Bir isteğin parçaları masada ayrı ayrı: yöntem damgası, hedef adres kartı, başlık etiketleri ve isteğe bağlı paket"
+    prompt: "A parcel request laid out in parts on a postal counter: a large action stamp, a destination card pinned on top, a row of small colored tags hanging from strings, and an optional sealed box set slightly aside."
+  - sayfa: sk101-m3-02
+    id: sk101-m3-02-a
+    tur: ai
+    alt: "Kulüp girişinde kolundaki parlayan bilekliği gösteren öğrenci; aynı bilekliğin kopyasını taşıyan gölge kapıda bekliyor"
+    prompt: "At a club entrance a student shows a glowing wristband to a doorman, while in the shadows a second figure holds a stolen copy of the same wristband, and the student tucks their wristband under the sleeve."
+  - sayfa: sk101-m3-03
+    id: sk101-m3-03-a
+    tur: ai
+    alt: "Kapı görevlisi ziyaretçiye nazikçe 'giremezsin' işareti yapıyor; kapı kapalı ama bina çalışıyor ve ışıklar açık"
+    prompt: "A doorman with a raised palm politely refuses entry to a visitor at a lit building whose windows glow with activity inside, showing that the building works fine but this visitor is not allowed in."
+  - sayfa: sk101-m3-04
+    id: sk101-m3-04-a
+    tur: ai
+    alt: "Tarayıcı penceresinin arkasında akan istek tüpleri; görünmeyen bir düğmenin arkasındaki kapı hâlâ açık"
+    prompt: "A browser window drawn as a shop front with a hidden button panel removed, and behind the wall a pneumatic tube network still carrying requests to a back door that remains wide open, an analyst watching the tubes with a stopwatch."
+  - sayfa: sk101-m3-lab
+    id: sk101-m3-lab-a
+    tur: ai
+    karakter: celal
+    alt: "Yanlış siparişin izi: fırın tezgâhında başkasının sipariş fişi; Çerezci Celal kendi numarasını yazıp paketi alıyor"
+    prompt: "In the bakery the villain grins as he takes a pastry box meant for another customer, holding an order slip whose customer box he has rewritten, while an analyst at the counter traces the slip back to the original order in a ledger."
+
+  # ── M4 Linux kabuğu · Süper Kullanıcı Sadri ──
+  - sayfa: sk101-m4-01
+    id: sk101-m4-01-a
+    tur: ai
+    karakter: sadri
+    alt: "Süper Kullanıcı Sadri sunucu tahtından, birbirinin aynı iki klasör kapısını gösterip öğrenciyi şaşırtıyor"
+    prompt: "From his server-rack throne the villain gestures at two identical doors in a corridor of folders, one leading to a different room than the other, while a student checks a small brass compass that shows exactly where they are standing."
+  - sayfa: sk101-m4-01
+    id: sk101-m4-01-b
+    tur: ai
+    alt: "Kat planında 'buradasınız' işareti gibi parlayan bir nokta; aynı isimli iki oda farklı katlarda"
+    prompt: "A building cutaway with several floors, a glowing you-are-here marker on one floor, and two identical-looking rooms on different floors, each holding different contents, a student with a lantern on the marked floor."
+  - sayfa: sk101-m4-02
+    id: sk101-m4-02-a
+    tur: ai
+    alt: "Sahibinin elinde anahtarı olan üç kapılı dolap; grup ve diğerleri kapıları tamamen kilitli"
+    prompt: "A wooden cabinet with three doors: the owner holds a key that opens their own door to read and write inside, while the group's door and the strangers' door are both firmly locked with padlocks."
+  - sayfa: sk101-m4-03
+    id: sk101-m4-03-a
+    tur: ai
+    alt: "Aynı isim kartını taşıyan iki işçi; biri resmî kapıdan gelmiş, diğeri arka pencereden tırmanmış"
+    prompt: "Two workers in a factory wearing identical name badges: one came in through the official entrance with a supervisor, the other climbed in through a back window, an inspector compares the paths they took rather than their badges."
+  - sayfa: sk101-m4-04
+    id: sk101-m4-04-a
+    tur: ai
+    alt: "Uzun bir kayıt şeridinde süzgecin yakaladığı tek satır ve hemen yanındaki komşu satırlar büyüteçle inceleniyor"
+    prompt: "A long paper log scroll runs across a desk, a filter frame highlights one glowing line in green, and an analyst moves a magnifying glass slightly up and down to read the neighboring lines around it, the original scroll kept untouched in a glass case."
+  - sayfa: sk101-m4-lab
+    id: sk101-m4-lab-a
+    tur: ai
+    karakter: sadri
+    alt: "Herkese açık bırakılmış dosya dolapları; Süper Kullanıcı Sadri monokluyla gülümseyerek açık kapılardan dosya topluyor"
+    prompt: "A server archive with many filing cabinets whose doors were forgotten wide open; the villain strolls between them with a glowing monocle, cheerfully collecting folders, while a student behind him closes the doors one by one."
+
+  # ── M5 Windows temelleri · Anahtarcı Rıza ──
+  - sayfa: sk101-m5-01
+    id: sk101-m5-01-a
+    tur: ai
+    karakter: riza
+    alt: "Anahtarcı Rıza yönetici grubu odasının kapısındaki listeye kendi adını ekletmeye çalışıyor"
+    prompt: "The villain leans toward a guard at the door of an exclusive room with a golden crown above it, sliding a forged membership card across the counter, a huge ring of keys jingling at his hip."
+  - sayfa: sk101-m5-01
+    id: sk101-m5-01-b
+    tur: ai
+    alt: "Kimlik kartlarının farklı renkli kulüp rozetleri taşıdığı bir masa; rozetler hangi kapıların açılacağını belirliyor"
+    prompt: "A desk where several identity cards are laid out, each pinned with different colored club badges, and behind them a wall of doors whose frames glow in matching colors only for the badges that grant access."
+  - sayfa: sk101-m5-02
+    id: sk101-m5-02-a
+    tur: ai
+    alt: "İki farklı alet: biri büyüteç gibi yalnızca bakan, öbürü çekiç gibi değiştiren; öğrenci önce büyüteci seçiyor"
+    prompt: "A student stands at a workbench with two tools hanging on the wall: a magnifying glass for looking and a heavy hammer for changing things; the student takes the magnifying glass first, leaving the hammer untouched."
+  - sayfa: sk101-m5-03
+    id: sk101-m5-03-a
+    tur: ai
+    alt: "Kayıt defterinde üç olay damgası (başarılı giriş, başarısız giriş, yeni hesap) ve her birinin yanında bağlam kartları"
+    prompt: "A big ledger open on a desk with three distinct ink stamps: a green open door, a red closed door, and a new key being cut; next to each stamp small context cards are clipped: a clock, a device, a person's silhouette."
+  - sayfa: sk101-m5-04
+    id: sk101-m5-04-a
+    tur: ai
+    alt: "Konaktaki servis kapısının yanında asılı bir kart; müfettiş kartın arkasındaki gerçek yolu ve sahibini takip ediyor"
+    prompt: "An inspector in a mansion basement studies a service door with a tag hanging from it, then follows a thread from the tag down a corridor to see where the door really leads and whose key operates it, a startup bell above the door."
+  - sayfa: sk101-m5-lab
+    id: sk101-m5-lab-a
+    tur: ai
+    karakter: riza
+    alt: "Gece yarısı ofiste yeni kesilmiş bir anahtar; Anahtarcı Rıza'nın gölgesi duvardaki saatin önünden geçiyor"
+    prompt: "A dark office at midnight, a wall clock showing the late hour, a freshly cut key glowing on the desk next to the ledger, and the villain's long shadow sliding across the wall as he sneaks out."
+
+  # ── M6 Kriptografinin özü · Kasa Kıran Kadir ──
+  - sayfa: sk101-m6-01
+    id: sk101-m6-01-a
+    tur: ai
+    karakter: kadir
+    alt: "Kasa Kıran Kadir üç kutuyu inceliyor: biri yalnızca farklı renge boyanmış, biri parmak izi kartı, biri gerçekten kilitli"
+    prompt: "The villain with his stethoscope crouches before three boxes on a workbench: one merely painted a different color with nothing locked, one replaced by a fingerprint card, and one truly locked with a heavy padlock; he grins at the first and scowls at the third."
+  - sayfa: sk101-m6-01
+    id: sk101-m6-01-b
+    tur: ai
+    alt: "Üç makine yan yana: biri mektubu farklı alfabeye çeviriyor, biri parmak izi çıkarıyor, biri anahtarla kilitliyor"
+    prompt: "Three brass machines side by side: the first transforms a card into a pattern of colored beads that anyone can turn back, the second presses a unique fingerprint from a document, the third locks a document in a box that only opens with a matching key."
+  - sayfa: sk101-m6-02
+    id: sk101-m6-02-a
+    tur: ai
+    alt: "Solda aynı anahtarın iki kopyası, sağda herkese dağıtılan açık asma kilitler ve tek bir özel anahtar"
+    prompt: "Split scene: on the left two friends each hold an identical copy of the same key to one chest, on the right a person hands out open padlocks to a crowd while keeping the only matching key on a chain around their neck."
+  - sayfa: sk101-m6-03
+    id: sk101-m6-03-a
+    tur: ai
+    alt: "Mükemmel kilitli bir zırhlı araç sahte bir banka şubesinin önüne park etmiş"
+    prompt: "An armored delivery van with a flawless gleaming lock parks in front of a fake bank branch with painted-on windows and a cardboard door, while the real bank stands across the street."
+  - sayfa: sk101-m6-04
+    id: sk101-m6-04-a
+    tur: ai
+    alt: "Hızlı bir kıyma makinesi ile yavaş, ağır dişli bir pres; her parolaya farklı bir tutam tuz serpiliyor"
+    prompt: "Two machines on a kitchen counter: a small fast grinder that a robot cranks thousands of times per second, and a heavy slow press with big gears that takes a long time per turn; a chef sprinkles a different pinch of glowing salt on each item before it goes into the slow press."
+  - sayfa: sk101-m6-lab
+    id: sk101-m6-lab-a
+    tur: ai
+    karakter: kadir
+    alt: "Kasa Kıran Kadir tuzla kaplanmış parola kasasının önünde esneyip bekliyor; kum saati yavaş akıyor"
+    prompt: "The villain sits slumped in front of a vault door crusted with glowing salt crystals, yawning, his stethoscope tangled, a huge hourglass beside him trickling very slowly."
+
+  # ── M7 Savunmanın ilk yarım saati · Temizlikçi Tamer ──
+  - sayfa: sk101-m7-01
+    id: sk101-m7-01-a
+    tur: ai
+    karakter: tamer
+    alt: "Temizlikçi Tamer bir kalenin dış surundaki izleri paspaslıyor ama iç surlar, nöbetçiler ve yedek kasa yerinde duruyor"
+    prompt: "The villain mops away footprints at the outer wall of a small castle with his glowing mop, but behind him the inner wall, a watchtower guard and a backup vault are still standing strong, each layer lit by its own lamp."
+  - sayfa: sk101-m7-01
+    id: sk101-m7-01-b
+    tur: ai
+    alt: "İsviçre peyniri dilimleri üst üste: her dilimin deliği farklı yerde, ok hiçbir dilimden tam geçemiyor"
+    prompt: "Several slices of cheese with holes standing upright one behind another like walls, each slice with holes in different places, and a glowing arrow that passes through the first hole but gets stopped by the next slice."
+  - sayfa: sk101-m7-02
+    id: sk101-m7-02-a
+    tur: ai
+    alt: "Rapor okuyan bir robota yalnız arşiv odasının anahtarı veriliyor; ana anahtar kasada kalıyor"
+    prompt: "A small reporting robot receives a single key from a manager that opens only the archive reading room, while the master key ring stays locked in a glass case behind the manager, a timer showing the key expires at the end of the shift."
+  - sayfa: sk101-m7-03
+    id: sk101-m7-03-a
+    tur: ai
+    alt: "Şüpheli ek açılan dizüstü bilgisayar cam fanusa alınıyor; yanında mühürlü delil poşeti ve zaman çizelgesi defteri"
+    prompt: "A responder places a laptop glowing with a red aura under a glass dome to contain it, beside a sealed evidence bag and an open timeline notebook where each action is being written down with a pencil and a clock."
+  - sayfa: sk101-m7-04
+    id: sk101-m7-04-a
+    tur: ai
+    alt: "Öğrenci mühürlü bir bildirim zarfını resmî bildirim kutusuna atıyor; zarfta gözlem, etki ve belirsizlik ayrı bölmelerde"
+    prompt: "A student drops a sealed report envelope into an official report box at a security office, the envelope cut away to show three separate compartments inside: a magnifying glass, a small ripple of impact, and a question-mark shaped lamp."
+  - sayfa: sk101-m7-lab
+    id: sk101-m7-lab-a
+    tur: ai
+    karakter: tamer
+    alt: "Temizlikçi Tamer paspasla geldiğinde kayıtlar çoktan mühürlü kutuda; kum saati otuz dakikayı gösteriyor"
+    prompt: "The villain arrives with his glowing mop at a security desk only to find all the records already sealed inside a locked glass box with an amber seal, a half-empty hourglass beside it, and a responder calmly sipping tea."

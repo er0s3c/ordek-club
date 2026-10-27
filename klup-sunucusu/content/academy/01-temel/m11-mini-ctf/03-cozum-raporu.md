@@ -6,24 +6,13 @@ sure: 45
 hedefler:
   - Çözülen görevleri yeniden üretilebilir biçimde raporlamak
   - Başarısız denemeleri de öğrenme kaydı olarak yazmak
-gorseller:
-  - id: m11-03-a
-    tur: ai
-    karakter: don
-    alt: "Çalışma köşesinde sekiz kartlı panoda Don Gölge'nin fotoğrafı kırmızı iple merkezde; dosya kapanıyor"
-    prompt: "A calm late-night study corner: a notebook with abstract scribbles and a cup of tea on a wooden desk. On the corkboard behind, eight cards (six with glowing green check marks) connect by red strings to a pinned photo of the villain in the center, his photo slightly crooked as if the case is about to close."
-  - id: m11-03-b
-    tur: ai
-    karakter: eren
-    alt: "Baron Eren liman şehrine bakan karanlık çatı katında cep saatiyle; ekranda kapüşonlu bir siluet, yanında üç gencin eski fotoğrafı"
-    prompt: "A dark penthouse office high above a Mediterranean harbor city at night. The villain stands at the floor-to-ceiling window with his back half turned, the glowing pocket watch open in his hand. On the desk behind him a monitor shows a single glowing hooded silhouette icon, and an old faded instant photo of three hooded teenagers leans against it."
 ---
 
 # Uygulama: Çözüm raporu
 
 > Bir bayrağı bulmak bir kez işe yarar. **Nasıl bulduğunu yazmak** bir dahaki sefere de işe yarar.
 
-![Çalışma köşesinde sekiz kartlı panoda Don Gölge'nin fotoğrafı kırmızı iple merkezde; dosya kapanıyor](../../gorseller/m11-03-a.webp)
+::cizgi[m11-03-sahne]
 
 ## Teslim kuralları
 
@@ -73,8 +62,6 @@ Görev: [ad] · Alan: [1–8] · Çözen: [isimler]
 
 > 🔒 **DOSYA KAPANDI: Don Gölge** · *raporunu teslim edince*
 >
-> ![Baron Eren liman şehrine bakan karanlık çatı katında cep saatiyle; ekranda kapüşonlu bir siluet, yanında üç gencin eski fotoğrafı](../../gorseller/m11-03-b.webp)
->
-> Don Gölge'nin dosyası kapandı. Tam o anda ekranında bir mesaj beliriyor, imza tek harf: "İyi oyundu Tilki. Selim'e selamımı söyle. — B." Selim Hoca çekmecesinden yirmi yıllık bir fotoğraf çıkarıyor: üç kapüşonlu genç. "Eren..." diyor. Sezon 2 uzmanlık yollarında başlıyor.
+> ::cizgi[don-kapanis]
 >
 > ➡️ *Sezon 2: **Tek Tırnak Jasmine** ve uzmanlık yolları*

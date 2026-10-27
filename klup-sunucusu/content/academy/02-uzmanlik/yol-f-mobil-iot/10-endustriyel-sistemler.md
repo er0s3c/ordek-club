@@ -7,11 +7,14 @@ hedefler:
   - IT ve OT güvenlik önceliklerinin neden farklı olduğunu açıklamak
   - Modbus'ın kimlik doğrulamasız yapısını simülasyon üzerinde göstermek
 gorseller:
-  - id: f-10-a
+  - id: f-10-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman cam fanus altındaki oyuncak bir fabrika maketinin büyük kolunu çevirmeye uzanıyor; maketteki minik borular ve vanalar parlıyor"
-    prompt: "A detailed tabletop toy model of a tiny factory under a large glass dome on a workbench, with miniature conveyor belts, little pipes, valves and a small water tank glowing softly. A toy control panel with oversized dials sits in front of the dome. The villain reaches eagerly toward a big lever on the toy panel, tongue between her teeth in concentration, while her tiny drone tries to hold the glass dome shut with both little arms."
+    alt: "Solda ofis masaları ve bilgisayarlar, sağda dev borular ve vanalarla çalışan fabrika; aralarında kalın bir güvenlik duvarı"
+    prompt: "A wide cutaway scene: on the left a calm office with desks and computers, on the right a large factory floor with huge pipes, valves and pumps, a thick wall with one guarded gate separating the two halves."
+  - id: f-10-c
+    tur: ai
+    alt: "Fabrikadaki bir makine, kim sorarsa sorsun her soruya kimlik sormadan cevap veriyor"
+    prompt: "An old factory machine with a friendly speaker grille answers anyone who walks up and asks it a question, even a hooded stranger, without checking any badge, a supervisor watching in alarm from a window."
 ---
 
 # Endüstriyel sistemler: IT/OT, SCADA ve Modbus
@@ -19,9 +22,11 @@ gorseller:
 > Ofiste bir sunucu çökerse e-posta gecikir. Fabrikada bir vana yanlış açılırsa **fiziksel dünya** etkilenir.
 > 🔧 **Devre 10:** Leman'ın listesinde bir de "ısıtma panosu" var. Biz ona laboratuvardaki maketinde bakacağız.
 
-![Lehimci Leman cam fanus altındaki oyuncak bir fabrika maketinin büyük kolunu çevirmeye uzanıyor; maketteki minik borular ve vanalar parlıyor](../../gorseller/f-10-a.webp)
+::cizgi[f-10-sahne]
 
 ## IT ve OT
+
+![Solda ofis masaları ve bilgisayarlar, sağda dev borular ve vanalarla çalışan fabrika; aralarında kalın bir güvenlik duvarı](../../gorseller/f-10-b.webp)
 
 | | IT (bilgi teknolojisi) | OT (operasyonel teknoloji) |
 |---|---|---|
@@ -38,6 +43,8 @@ gorseller:
 - Katmanlı ağ (Purdue modeli): ofis ağı ile saha ağı arasında ayrı bir ara bölge (DMZ).
 
 ## Modbus: soru sorana cevap verir
+
+![Fabrikadaki bir makine, kim sorarsa sorsun her soruya kimlik sormadan cevap veriyor](../../gorseller/f-10-c.webp)
 
 Modbus TCP (port 502) 1970'lerin tasarımıdır: **kimlik doğrulama ve şifreleme yok.**
 Ağa erişen herkes register okuyabilir, yazma komutu da gönderebilir.

@@ -7,11 +7,14 @@ hedefler:
   - RAG, embedding ve araç çağırmanın nasıl çalıştığını açıklamak
   - Bir AI uygulamasında güven sınırlarını işaretlemek
 gorseller:
-  - id: e-02-a
+  - id: e-02-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel memur kılığında, robot kuklanın kucağına dosya taşıyan banda fazladan bir dosya bırakıp göz kırpıyor"
-    prompt: "A cozy campus help desk at night. A translucent robot puppet with a glowing mouth sits behind the counter while a mechanical arm fetches folders from a tall filing wall and drops them onto a small conveyor belt leading into the robot's lap; a belt of tiny glowing gadgets hangs from the robot's waist. In the background, the villain disguised in a clerk's visor slides one extra folder onto the conveyor and winks."
+    alt: "Robot cevap vermeden önce kütüphaneden ilgili üç kartı çekip okuyor"
+    prompt: "A robot at a library desk pulls three relevant index cards from a huge card catalog with glowing threads that match the question, reads them, and only then turns to answer a waiting student."
+  - id: e-02-c
+    tur: ai
+    alt: "Robotun belinde takvim, posta kutusu ve hesap makinesi gibi aletler asılı bir kemer"
+    prompt: "A robot wearing a utility belt with small tools hanging from it, a calendar, a mailbox, a calculator and a door key, reaching for one tool while a student watches carefully from behind a counter."
 ---
 
 # Modern AI uygulamaları: RAG, embedding ve ajanlar
@@ -19,9 +22,11 @@ gorseller:
 > Ayna sadece "bilen" bir model değil; belge arar, araç çağırır, iş yapar. Her yeni yetenek, Veysel için yeni bir **ağız** demek.
 > 🎭 **Ses 2:** Ayna'nın beyni küçük; asıl gücü arkasındaki dosya dolabı ve alet çantası.
 
-![Vantrolog Veysel memur kılığında, robot kuklanın kucağına dosya taşıyan banda fazladan bir dosya bırakıp göz kırpıyor](../../gorseller/e-02-a.webp)
+::cizgi[e-02-sahne]
 
 ## RAG: modele kopya kâğıdı vermek
+
+![Robot cevap vermeden önce kütüphaneden ilgili üç kartı çekip okuyor](../../gorseller/e-02-b.webp)
 
 RAG (*Retrieval-Augmented Generation*): soru gelince uygulama ilgili belgeleri bulur ve **istemin içine yapıştırır**.
 
@@ -35,6 +40,8 @@ soru → belge ara → en ilgili 2–5 parça → [sistem + belgeler + soru] →
 Sonuç: bilgi tabanına giren her belge, bir gün **modelin önüne konan metin** olur.
 
 ## Araç çağırma ve ajanlar
+
+![Robotun belinde takvim, posta kutusu ve hesap makinesi gibi aletler asılı bir kemer](../../gorseller/e-02-c.webp)
 
 Araç çağırma (*tool calling*): model "şu fonksiyonu şu parametreyle çalıştır" diye yapılandırılmış bir istek üretir;
 fonksiyonu **uygulama** çalıştırır. Ajan (*agent*): bu döngüyü birkaç adım kendi kendine sürdüren sistem.

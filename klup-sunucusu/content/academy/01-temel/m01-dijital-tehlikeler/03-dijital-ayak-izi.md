@@ -7,11 +7,14 @@ hedefler:
   - Dijital kimlik, ayak izi ve itibar kavramlarını açıklamak
   - Kendi dijital izini azaltmak için adımlar belirlemek
 gorseller:
-  - id: m01-03-a
+  - id: m01-03-b
     tur: ai
-    karakter: tevfik
-    alt: "Tatlı Dil Tevfik kumsalda bir öğrencinin bıraktığı parlayan ayak izlerinden simgeleri toplayıp çuvala dolduruyor"
-    prompt: "A beach at dusk where a line of glowing footprints leads away into the distance, each footprint emitting a small floating icon (camera, location pin, heart, speech bubble, calendar). The villain follows the trail with a magnifying glass, plucking the icons and stuffing them into a burlap sack."
+    alt: "Profil kartlarından oluşan bir öğrenci silüeti, arkasında parlayan ayak izleri ve izleri büyüteçlerle inceleyen bir kalabalık"
+    prompt: "A student silhouette assembled from many small glowing profile cards and avatar circles walks across a dark plaza, leaving a long trail of glowing footprints behind, while a small crowd of onlookers at the side of the plaza studies the footprints through magnifying glasses and whispers to each other."
+  - id: m01-03-c
+    tur: ai
+    alt: "Üç fotoğraf yapboz parçası gibi birleşerek yurt binasına giden bir harita oluşturuyor"
+    prompt: "Three instant photos lying on a dark table, a campus card, a hopeful selfie and a window view of palm trees, cut like jigsaw puzzle pieces and snapping together; where they join, a glowing map line appears leading to a small dormitory building model. A gloved hand slides the last piece into place."
 ---
 
 # Dijital ayak izin seni nasıl ele verir?
@@ -19,9 +22,11 @@ gorseller:
 > Paylaştığın her fotoğraf, beğeni ve konum bir **iz** bırakır.
 > Tek başına zararsız görünen izler yan yana gelince bir hikâye anlatır.
 
-![Tatlı Dil Tevfik kumsalda bir öğrencinin bıraktığı parlayan ayak izlerinden simgeleri toplayıp çuvala dolduruyor](../../gorseller/m01-03-a.webp)
+::cizgi[m01-03-sahne]
 
 ## Üç kavram
+
+![Profil kartlarından oluşan bir öğrenci silüeti, arkasında parlayan ayak izleri ve izleri büyüteçlerle inceleyen bir kalabalık](../../gorseller/m01-03-b.webp)
 
 - **Dijital kimlik** — İnternette "sen" olarak tanınan her şey: hesapların, kullanıcı adların, e-postan.
 - **Dijital ayak izi** — Bıraktığın izler.
@@ -30,6 +35,8 @@ gorseller:
 - **Çevrimiçi itibar** — Bu izlerden başkalarının senin hakkında çıkardığı sonuç (ör. işe alım yapanlar).
 
 ## Bir dolandırıcı neler öğrenebilir?
+
+![Üç fotoğraf yapboz parçası gibi birleşerek yurt binasına giden bir harita oluşturuyor](../../gorseller/m01-03-c.webp)
 
 Şu üç paylaşımı düşün:
 

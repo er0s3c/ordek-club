@@ -4,31 +4,32 @@ tur: bilgi
 baslik: "Yol E — Yapay Zekâ ve LLM Güvenliği"
 sure: 3
 gorseller:
-  - id: e-00-a
+  - id: e-00-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel dev bir aynanın önündeki sahnede, dizindeki yarı saydam robot kuklayı belgelere, bir zarfa ve bir hoparlöre uzanan parlayan iplerle konuşturuyor"
-    prompt: "An old campus auditorium turned into a ventriloquist theater. On stage, in front of a giant ornate mirror, a friendly translucent robot puppet made of glowing green light sits on the villain's knee and speaks to rows of empty velvet seats. Thin glowing strings run from the villain's white-gloved fingers to a stack of documents, a sealed envelope and a small vintage speaker placed around the puppet, while his own lips stay perfectly still in a wide theatrical smile."
+    alt: "Cam bir robot asistanın çevresinde dört test istasyonu: konuşma hunisi, belge rafı, alet kemeri ve anahtar kasası"
+    prompt: "A translucent friendly robot assistant sits in the center of a workshop, surrounded by four test stations where students work: a speaking trumpet feeding it instructions, a shelf of documents it reads from, a tool belt it can reach for, and a small safe holding its keys."
 ---
 
 # Yol E — Yapay Zekâ ve LLM Güvenliği
 
 > Chatbotlar ve AI ajanları nasıl kandırılır, nasıl korunur? **AI güvenliği** ve **LLM red teaming**.
 
-![Vantrolog Veysel dev bir aynanın önündeki sahnede, dizindeki yarı saydam robot kuklayı belgelere, bir zarfa ve bir hoparlöre uzanan parlayan iplerle konuşturuyor](../../gorseller/e-00-a.webp)
+::cizgi[e-00-sahne]
 
 > 🕴️ **DOSYA: Vantrolog Veysel** · *Sesin Sahibi*
 >
 > ![Vantrolog Veysel — Sesin Sahibi](../../gorseller/karakter-veysel.webp)
 >
-> 📼 **Bölüm — Sezon 2: Ayna.** Kampüsün yeni yapay zekâ asistanı fazla yardımsever: soranlara notları, burs listelerini, yurt kayıtlarını gösteriyor. Asistanın adı Ayna ve onu konuşturan bir vantrolog var: Vantrolog Veysel. Görevin laboratuvardaki kopyasında; Ayna'nın hangi sesi kendi sesi sandığını bul ve sustur.
->
 > **Kim o?** Proje Ayna'nın sahnedeki yüzü. Jasmine'in çekmecelerden topladığı verilerle Ayna'yı konuşturur.
 > [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[veysel-acilis]
 
 **Ön koşul:** API ve web (M06), Python (M07)
 
 ## 12 ders
+
+![Cam bir robot asistanın çevresinde dört test istasyonu: konuşma hunisi, belge rafı, alet kemeri ve anahtar kasası](../../gorseller/e-00-b.webp)
 
 | # | Ders | Tek cümleyle |
 |---|---|---|

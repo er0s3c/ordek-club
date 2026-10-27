@@ -5,21 +5,29 @@ import { db } from "@/server/db";
 import { env } from "@/server/env";
 import type { Actor } from "@/server/auth/policy";
 import { enqueueMail, mailEnabled } from "@/server/mail/outbox";
+import { translateFor } from "@/i18n/catalog";
+import { isLocale, type Locale } from "@/i18n/locale";
 
 type Tx = Prisma.TransactionClient | typeof db;
 
 export async function notify(tx: Tx, userIds: string[], n: { type: NotificationType; title: string; body?: string; link?: string }) {
   const ids = [...new Set(userIds)];
   if (!ids.length) return 0;
-  const link = n.link && /^\/[a-z0-9/_\-?=&.]*$/i.test(n.link) ? n.link : null;
+  const link = n.link && /^\/[a-z0-9/_\-?=&.#]*$/i.test(n.link) ? n.link : null;
   const title = n.title.slice(0, 160);
   const body = (n.body ?? "").slice(0, 400);
   const r = await tx.notification.createMany({ data: ids.map((userId) => ({ userId, type: n.type, title, body, link })) });
   if (mailEnabled()) {
-    const to = await tx.user.findMany({ where: { id: { in: ids }, status: "ACTIVE", emailNotifications: true }, select: { email: true } });
+    const to = await tx.user.findMany({ where: { id: { in: ids }, status: "ACTIVE", emailNotifications: true }, select: { email: true, learningPreference: { select: { locale: true } } } });
     const app = env().APP_URL.replace(/\/$/, "");
-    const text = [title, body, link ? `Aç: ${app}${link}` : "", "", `E-posta bildirimlerini kapatmak için: ${app}/account`].filter((x, i) => x || i > 2).join("\n");
-    await enqueueMail(tx, to.map((u) => ({ to: u.email, subject: title, text })));
+    // Bildirim Türkçe saklanır; e-posta alıcının kayıtlı diline çevrilir (seçmemişse Türkçe).
+    const mail = (l: Locale) => {
+      const tr = (s: string) => translateFor(l, s);
+      const subject = tr(title);
+      return { subject, text: [subject, body ? tr(body) : "", link ? `${tr("Aç:")} ${app}${link}` : "", "", `${tr("E-posta bildirimlerini kapatmak için:")} ${app}/account`].filter((x, i) => x || i > 2).join("\n") };
+    };
+    const byLocale = { tr: mail("tr"), en: mail("en") };
+    await enqueueMail(tx, to.map((u) => ({ to: u.email, ...byLocale[isLocale(u.learningPreference?.locale) ? u.learningPreference.locale : "tr"] })));
   }
   return r.count;
 }

@@ -7,11 +7,10 @@ hedefler:
   - SSH ve sudo yapılandırmasını güvenli hâle getirmek
   - SUID dosyalarını ve gereksiz servisleri denetlemek
 gorseller:
-  - id: b-09-a
+  - id: b-09-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık bir sunucu odasının zeminindeki küçük, unutulmuş servis kapağından içeri süzülüyor"
-    prompt: "A clean modern server room with heavy locked main doors guarded by a camera. In the floor near the racks, a small forgotten maintenance hatch has been left slightly ajar, and the villain is sliding in through it headfirst, his green headlamp beam cutting across the racks and his fiber-optic coil trailing behind."
+    alt: "Sunucu kapısında anahtarla açılan kilit; parolayla açılmaya çalışılan ikinci kapı tuğlayla örülmüş"
+    prompt: "A server room door with a precise key lock that opens only for a matching key cut held by an administrator, while a second door next to it that used to accept spoken passwords has been bricked up and a robot outside is shouting guesses at the wall in vain."
 ---
 
 # Linux sunucu güvenliği: SSH, sudo, SUID ve sertleştirme
@@ -19,9 +18,11 @@ gorseller:
 > Ön kapı çelik olabilir. Saldırgan yine de **unutulmuş servis kapağını** arar.
 > 🕳️ **Tünel 9:** Laboratuvar sunucusunda `find` komutu root yetkisiyle çalışıyor. Neden?
 
-![Tünelci Tarık bir sunucu odasının zeminindeki küçük, unutulmuş servis kapağından içeri süzülüyor](../../gorseller/b-09-a.webp)
+::cizgi[b-09-sahne]
 
 ## SSH
+
+![Sunucu kapısında anahtarla açılan kilit; parolayla açılmaya çalışılan ikinci kapı tuğlayla örülmüş](../../gorseller/b-09-b.webp)
 
 `/etc/ssh/sshd_config` içinde:
 

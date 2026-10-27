@@ -8,11 +8,10 @@ hedefler:
   - Basit bir tehdit modeli çıkarmak
 animasyonlar: [network-topology]
 gorseller:
-  - id: m10-02-a
+  - id: m10-02-b
     tur: ai
-    karakter: ferhat
-    alt: "Fidyeci Ferhat kale maketinin tüm girişlerine kırmızı bayraklar dikiyor"
-    prompt: "A detailed tabletop model of a small castle with walls, gates, windows, a drawbridge and a hidden tunnel. The villain leans over the table planting small red flags at every possible entrance, including a tiny forgotten side window, planning his attack."
+    alt: "Masada kale maketi etrafında dört soru nesnesi: değerli taç, gözetleyen dürbün, merdiven ve kalkan"
+    prompt: "A planning table with a small castle model in the center and four objects placed at its corners like a board game: a glowing crown for what we protect, binoculars for who might come, a ladder for how they would climb in, and a shield for what we will do. A team leans over the table with pencils."
 ---
 
 # Saldırganın gözüyle bak
@@ -20,7 +19,7 @@ gorseller:
 > Savunmayı kurmadan önce sor: **Bir saldırgan buraya nereden girebilir?**
 > Bu soruların hepsinin cevabı saldırı yüzeyindir.
 
-![Fidyeci Ferhat kale maketinin tüm girişlerine kırmızı bayraklar dikiyor](../../gorseller/m10-02-a.webp)
+::cizgi[m10-02-sahne]
 
 ## Saldırı yüzeyi
 
@@ -40,6 +39,8 @@ Bölümlendirilmiş bir ağda yüzeyin nasıl daraltıldığını gör:
 ::animasyon[network-topology]
 
 ## Dört soruluk tehdit modeli
+
+![Masada kale maketi etrafında dört soru nesnesi: değerli taç, gözetleyen dürbün, merdiven ve kalkan](../../gorseller/m10-02-b.webp)
 
 Bir sistemi tasarlarken veya incelerken:
 

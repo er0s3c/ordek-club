@@ -7,11 +7,10 @@ hedefler:
   - Terminal komutlarıyla gizlenmiş bir dosyayı bulmak
   - Bulunan mesajı çözmek ve yolu açıklamak
 gorseller:
-  - id: m04-06-a
+  - id: m04-06-b
     tur: ai
-    karakter: sadri
-    alt: "Karanlık arşiv koridorunun sonunda fenerli Süper Kullanıcı Sadri gizli bir kutunun yanında bekliyor"
-    prompt: "A long dark archive corridor lined with shelves of folder boxes, a single flashlight beam cutting through the dark from the viewer's side. At the far end, the villain's silhouette waits beside one faintly glowing box, his monocle gleaming green."
+    alt: "El feneriyle karanlık bir arşiv rafında saklı noktalı bir kutuyu arayan öğrenci"
+    prompt: "A student with a flashlight searches a dark archive with endless shelves of boxes, the beam revealing one small hidden box tucked behind others, faint glowing footprints on the dusty floor leading to it."
 ---
 
 # Uygulama: Kayıp Dosya
@@ -19,9 +18,11 @@ gorseller:
 > Kurgusal kulüp sunucusundaki yöneticinin notu: *"Yıl sonu etkinlik şifresini bir dosyaya sakladım,
 > nereye koyduğumu unuttum. Dosya adında 'etkinlik' geçiyordu, son bir haftada değiştirmiştim."*
 
-![Karanlık arşiv koridorunun sonunda fenerli Süper Kullanıcı Sadri gizli bir kutunun yanında bekliyor](../../gorseller/m04-06-a.webp)
+::cizgi[m04-06-sahne]
 
 ## Görev
+
+![El feneriyle karanlık bir arşiv rafında saklı noktalı bir kutuyu arayan öğrenci](../../gorseller/m04-06-b.webp)
 
 Laboratuvardaki **akademi-linux** VM'inde, yalnızca terminal kullanarak:
 

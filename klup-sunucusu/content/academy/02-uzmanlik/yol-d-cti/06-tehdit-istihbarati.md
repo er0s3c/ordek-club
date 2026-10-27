@@ -7,11 +7,14 @@ hedefler:
   - İstihbarat döngüsünü ve öncelikli istihbarat gereksinimlerini (PIR) açıklamak
   - IOC ile TTP'yi ayırıp Acı Piramidi'nde konumlandırmak
 gorseller:
-  - id: d-06-a
+  - id: d-06-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri piramidin alt basamağındaki ucuz parlak çakılları çuvalından kolayca yeniliyor; tepedeki ağır kasket biçimli taş bloğu ise kaldıramıyor"
-    prompt: "A tall stepped stone pyramid on a moonlit beach. On the lowest step, the villain cheerfully tosses away a handful of cheap glowing pebbles and instantly replaces them from an overflowing sack, while at the very top of the pyramid sits one heavy carved stone block shaped like his own captain's cap, which he glances up at nervously, clearly unable to move it."
+    alt: "Taş basamaklı bir piramit: altta kolay değiştirilen küçük çakıllar, tepede saldırganın en zor bıraktığı alışkanlıkları gösteren ağır taş"
+    prompt: "A stepped stone pyramid in a desert at dusk: the bottom steps covered in small pebbles that a shadowy figure kicks away easily, middle steps made of heavier bricks, and at the very top a massive boulder carved with a pattern of footprints that the figure strains and fails to move."
+  - id: d-06-c
+    tur: ai
+    alt: "Gereksinimden geri bildirime uzanan altı adımlı döngü; bir değirmen çarkı gibi dönüyor"
+    prompt: "A large wooden water wheel with six buckets, each holding a different object: a question card, a net full of shells, a sorting sieve, a magnifying glass, a sealed envelope and an ear trumpet, the wheel turning as water flows over it."
 ---
 
 # Tehdit istihbaratı: veri ne zaman istihbarat olur?
@@ -19,9 +22,11 @@ gorseller:
 > Bin IP adresi istihbarat değildir. Bir karar için kullanılabilen, bağlamı olan bilgi istihbarattır.
 > 🚩 **Bayrak 6:** Blog "hemen engelleyin" diye bir IOC listesi yayınladı. Bedri bu listeyi değiştirmek için beş dakika harcar; sen engellemek için bir gün.
 
-![Bayrakçı Bedri piramidin alt basamağındaki ucuz parlak çakılları çuvalından kolayca yeniliyor; tepedeki ağır kasket biçimli taş bloğu ise kaldıramıyor](../../gorseller/d-06-a.webp)
+::cizgi[d-06-sahne]
 
 ## İstihbarat döngüsü
+
+![Gereksinimden geri bildirime uzanan altı adımlı döngü; bir değirmen çarkı gibi dönüyor](../../gorseller/d-06-c.webp)
 
 1. **Yönlendirme (direction)** — karar vericinin sorusu
 2. **Toplama (collection)** — loglar, raporlar, açık kaynaklar
@@ -49,6 +54,8 @@ gorseller:
 - **TTP (Tactics, Techniques and Procedures):** saldırganın **nasıl** çalıştığı. Değiştirmesi zor.
 
 ## Acı Piramidi (Pyramid of Pain)
+
+![Taş basamaklı bir piramit: altta kolay değiştirilen küçük çakıllar, tepede saldırganın en zor bıraktığı alışkanlıkları gösteren ağır taş](../../gorseller/d-06-b.webp)
 
 ```text
           ▲  TTP'ler            ← saldırgan için en acı verici

@@ -20,6 +20,10 @@ const schema = z.object({
   SMTP_USER: z.string().default(""),
   SMTP_PASS: z.string().default(""),
   SMTP_FROM: z.string().default(""),
+  // İsteğe bağlı slayt dönüştürücü (slide-converter/: LibreOffice, ayrı konteyner). Boşsa PPTX/PPT içe aktarma kapalıdır;
+  // PDF içe aktarma tarayıcıda yapıldığı için her zaman çalışır.
+  SLIDE_CONVERTER_URL: z.union([z.literal(""), z.string().url()]).default(""),
+  SLIDE_CONVERTER_SECRET: z.string().default(""),
 });
 
 export type Env = z.infer<typeof schema> & { storageDir: string; academyDir: string; secureCookies: boolean; trustProxy: boolean };
@@ -35,6 +39,9 @@ export function env(): Env {
     throw new Error(`Ördek Club yapılandırma hatası (.env):\n${issues}`);
   }
   const e = parsed.data;
+  if (e.SLIDE_CONVERTER_URL && e.SLIDE_CONVERTER_SECRET.length < 32) {
+    throw new Error("SLIDE_CONVERTER_URL tanımlıysa SLIDE_CONVERTER_SECRET en az 32 karakter olmalı.");
+  }
   if (e.NODE_ENV === "production" && /insecure|change-me/i.test(e.APP_SECRET)) {
     throw new Error("Üretimde varsayılan APP_SECRET kullanılamaz. ./install.sh ile .env üretin.");
   }

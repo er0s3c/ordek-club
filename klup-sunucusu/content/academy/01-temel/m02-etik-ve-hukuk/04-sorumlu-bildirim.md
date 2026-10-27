@@ -7,20 +7,21 @@ hedefler:
   - Sorumlu açık bildirimi sürecini açıklamak
   - Dijital delil ve yapay zekâ kullanımında gizliliği korumak
 gorseller:
-  - id: m02-04-a
+  - id: m02-04-b
     tur: ai
-    karakter: kemal
-    alt: "Avukat Kemal arka sokakta mühürlü zarfı satmayı teklif ediyor; arka planda resmî bildirim kutusu parlıyor"
-    prompt: "A dark back alley at night: the villain holds out a sealed envelope with a tempting smile toward the viewer, as if offering to sell it. In the background at the end of the alley, a lit official secure mailbox with a small shield symbol glows invitingly."
+    alt: "Beş durak: el kaldırıp duran öğrenci, doğru posta kutusunu bulan el, kısa mühürlü mektup, kum saati ve kilitli dudak işareti"
+    prompt: "A five-stop path drawn like a board game across a dark table: a student raising a palm and stepping back from an open door, a hand choosing the one official mailbox among several fake ones, a short neat sealed envelope, an hourglass with plenty of sand left, and a padlock fastened over a small megaphone. Soft amber light guides along the path."
 ---
 
 # Bir açık bulursan ne yaparsın?
 
 > Açık bulmak işin yarısı. Diğer yarısı onu **doğru kişiye, doğru şekilde** söylemek.
 
-![Avukat Kemal arka sokakta mühürlü zarfı satmayı teklif ediyor; arka planda resmî bildirim kutusu parlıyor](../../gorseller/m02-04-a.webp)
+::cizgi[m02-04-sahne]
 
 ## Sorumlu bildirim (responsible disclosure)
+
+![Beş durak: el kaldırıp duran öğrenci, doğru posta kutusunu bulan el, kısa mühürlü mektup, kum saati ve kilitli dudak işareti](../../gorseller/m02-04-b.webp)
 
 1. **Dur.** Açığı daha fazla kullanma, veri indirme.
 2. **Doğru kanalı bul.** Sitede `security.txt` dosyası, "güvenlik bildirimi" sayfası veya bug bounty programı.

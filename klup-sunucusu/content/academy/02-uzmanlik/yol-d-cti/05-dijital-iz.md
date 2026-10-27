@@ -8,11 +8,10 @@ hedefler:
   - Araştırmacının kendi güvenliğini ve dijital izini yönetmek
 animasyonlar: [phishing]
 gorseller:
-  - id: d-05-a
+  - id: d-05-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri liman kafesindeki aynı yüzlü karton figürlerin şapkalarını tek tek değiştiriyor; hepsi aynı anda bardak kaldırıyor"
-    prompt: "A small harbor cafe table at night where a dozen flat cardboard cutout figures sit side by side, every one of them with the exact same painted face, all raising their teacups at the very same moment. The villain walks behind the row, cheerfully swapping their hats one by one, a sailor cap, a beret, a bowler, a scarf, so they look like different people."
+    alt: "Araştırmacı gözlem kulübesinden tek yönlü camın arkasından izliyor; kendi gölgesi dışarıya düşmüyor"
+    prompt: "A researcher sits in a small observation booth behind a one-way mirror, watching a busy street outside, wearing a plain coat, their own shadow carefully kept inside the booth while passersby only see a reflection."
 ---
 
 # Dijital iz ve sahte kimlikler: kim konuşuyor?
@@ -20,7 +19,7 @@ gorseller:
 > Kalabalık gibi görünen şey, tek bir adamın on iki şapkası olabilir.
 > 🚩 **Bayrak 5:** Blog yazısından iki dakika sonra on iki hesap aynı cümleyi, aynı yazım hatasıyla paylaşıyor.
 
-![Bayrakçı Bedri liman kafesindeki aynı yüzlü karton figürlerin şapkalarını tek tek değiştiriyor; hepsi aynı anda bardak kaldırıyor](../../gorseller/d-05-a.webp)
+::cizgi[d-05-sahne]
 
 ## Sahte kimlik göstergeleri
 
@@ -41,6 +40,8 @@ Bedri analistlere de yem atar: "sızdırılmış rapor" bağlantısı, "kaynak" 
 ::animasyon[phishing]
 
 ## Araştırmacının güvenliği (OPSEC)
+
+![Araştırmacı gözlem kulübesinden tek yönlü camın arkasından izliyor; kendi gölgesi dışarıya düşmüyor](../../gorseller/d-05-b.webp)
 
 - Kişisel hesabınla araştırma yapma; laboratuvar tarayıcısı veya ayrı bir sanal makine kullan.
 - Şüpheli bağlantıyı tıklama; arşiv veya kum havuzu (sandbox) üzerinden incele.

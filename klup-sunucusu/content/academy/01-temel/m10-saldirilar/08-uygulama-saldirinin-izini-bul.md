@@ -7,11 +7,10 @@ hedefler:
   - Kurgusal bir olayda saldırganın faydalandığı güvenlik eksiklerini bulmak
   - Olayın nasıl önlenebileceğini Kill Chain üzerinden tartışmak
 gorseller:
-  - id: m10-08-a
+  - id: m10-08-b
     tur: ai
-    karakter: ferhat
-    alt: "Kumdaki kırmızı ayak izleri açık bir sunucu dolabına, Fidyeci Ferhat'ın bıraktığı asma kilide uzanıyor"
-    prompt: "A top-down view of a sandy path at night lit by a flashlight beam: a trail of glowing red footprints leads through a slightly open garden gate to a small server cabinet with its door ajar. The villain's back is visible as he hangs a heavy glowing padlock on the cabinet; small colored-dot markers sit beside each footprint."
+    alt: "Küçük hataların domino gibi dizildiği bir masa; ilk taş devrilmiş, son taş bir sunucu dolabına çarpmak üzere"
+    prompt: "A long line of dominoes on a dark table, each domino stamped with a small icon of a minor mistake, a reused key, an open window, an old patch, a forgotten account; the first domino has fallen and the chain races toward a small server cabinet at the end, a detective's hand reaching in to pull one domino out."
 ---
 
 # Uygulama: Saldırının İzini Bul
@@ -19,7 +18,7 @@ gorseller:
 > **Olay:** Kurgusal Kuzey Kıyı Üniversitesi Siber Güvenlik Kulübü'nün etkinlik sitesi bir sabah
 > "HACKED" yazısıyla açıldı. Ekibin topladığı kanıtlar aşağıda. Hepsi **kurgusaldır**.
 
-![Kumdaki kırmızı ayak izleri açık bir sunucu dolabına, Fidyeci Ferhat'ın bıraktığı asma kilide uzanıyor](../../gorseller/m10-08-a.webp)
+::cizgi[m10-08-sahne]
 
 ## Kanıtlar
 
@@ -39,6 +38,8 @@ echo "<h1>HACKED</h1>" > index.html
 **E4 — İzleme:** Sunucuda başarısız giriş için hiçbir alarm kuralı yok; loglar haftada bir elle okunuyor.
 
 ## Görevler
+
+![Küçük hataların domino gibi dizildiği bir masa; ilk taş devrilmiş, son taş bir sunucu dolabına çarpmak üzere](../../gorseller/m10-08-b.webp)
 
 1. **Zincir:** Olayı Kill Chain aşamalarına yerleştir. Hangi kanıt hangi aşamayı gösteriyor?
 2. **Eksikler:** Saldırganın faydalandığı **en az 5** güvenlik eksiğini listele.

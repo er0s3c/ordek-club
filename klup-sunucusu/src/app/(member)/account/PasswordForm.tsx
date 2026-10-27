@@ -5,8 +5,10 @@ import { useState } from "react";
 import { Field } from "@/components/ui/Field";
 import { useMessages, useToast } from "@/components/providers";
 import { ApiError, api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 export function PasswordForm() {
+  const t = useT();
   const m = useMessages();
   const toast = useToast();
   const router = useRouter();
@@ -18,7 +20,7 @@ export function PasswordForm() {
     const form = e.currentTarget;
     const f = new FormData(form);
     if (f.get("newPassword") !== f.get("newPassword2")) {
-      setFields({ newPassword2: "Parolalar eşleşmiyor." });
+      setFields({ newPassword2: t("Parolalar eşleşmiyor.") });
       return;
     }
     setBusy(true);
@@ -39,7 +41,7 @@ export function PasswordForm() {
     <form className="stack" onSubmit={onSubmit} noValidate>
       <Field label={m.account.currentPassword} name="currentPassword" type="password" autoComplete="current-password" required error={fields.currentPassword} />
       <Field label={m.account.newPassword} name="newPassword" type="password" autoComplete="new-password" required minLength={10} hint={m.auth.passwordHint} error={fields.newPassword} />
-      <Field label="Yeni parola (tekrar)" name="newPassword2" type="password" autoComplete="new-password" required error={fields.newPassword2} />
+      <Field label={t("Yeni parola (tekrar)")} name="newPassword2" type="password" autoComplete="new-password" required error={fields.newPassword2} />
       <div><button className="btn btn-primary" disabled={busy}>{busy && <span className="spinner" aria-hidden />} {m.account.changePassword}</button></div>
     </form>
   );

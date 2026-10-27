@@ -7,11 +7,10 @@ hedefler:
   - Windows'ta yetki yükseltmeye yol açan yaygın hataları tanımak
   - Temel sertleştirme adımlarını uygulamak
 gorseller:
-  - id: b-10-a
+  - id: b-10-b
     tur: ai
-    karakter: tarik
-    alt: "Tünelci Tarık bir konağın her sabah kendiliğinden çalışan müzik kutusunun içine küçük yeşil bir dişli yerleştiriyor"
-    prompt: "In the grand hall of an old mansion at night, a large ornate music box sits on a pedestal with a brass plaque showing a sunrise icon, meaning it plays automatically every morning. The villain has opened its lid and is carefully placing a tiny glowing green gear among its brass mechanisms, his headlamp lighting the inner workings."
+    alt: "Konaktaki üç saklanma yeri: kendiliğinden çalışan müzik kutusu, kayıt defterleri dolabı ve her sabah çalan çalar saat"
+    prompt: "A mansion study where an inspector with a flashlight checks three hiding spots: an old music box that starts by itself, a tall cabinet of ledger books with one drawer slightly open, and an alarm clock on the mantel set to ring every morning with a tiny extra gear glowing inside."
 ---
 
 # Windows sistem güvenliği: servisler, registry, UAC
@@ -19,7 +18,7 @@ gorseller:
 > Windows'ta pek çok şey **otomatik** çalışır: servisler, zamanlanmış görevler, başlangıç kayıtları. Saldırgan oraya saklanır.
 > 🕳️ **Tünel 10:** Laboratuvardaki bir Windows makinede, her açılışta SYSTEM yetkisiyle çalışan bir servisin klasörü herkese yazılabilir.
 
-![Tünelci Tarık bir konağın her sabah kendiliğinden çalışan müzik kutusunun içine küçük yeşil bir dişli yerleştiriyor](../../gorseller/b-10-a.webp)
+::cizgi[b-10-sahne]
 
 ## Tipik hatalar
 
@@ -32,6 +31,8 @@ gorseller:
 | **UAC kapalı** | Yönetici işlemleri sessizce onaylanır |
 
 ## Nereye bakılır?
+
+![Konaktaki üç saklanma yeri: kendiliğinden çalışan müzik kutusu, kayıt defterleri dolabı ve her sabah çalan çalar saat](../../gorseller/b-10-b.webp)
 
 ```powershell
 Get-Service | Where-Object Status -eq Running

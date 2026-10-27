@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Field } from "@/components/ui/Field";
 import { ApiError, api } from "@/lib/api-client";
+import { useT } from "@/i18n/client";
 
 export function ResetForm() {
+  const tl = useT();
   const [token, setToken] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -22,7 +24,7 @@ export function ResetForm() {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    if (f.get("password") !== f.get("password2")) return setFieldErr("Parolalar aynı değil.");
+    if (f.get("password") !== f.get("password2")) return setFieldErr(tl("Parolalar aynı değil."));
     setBusy(true);
     setError(null);
     setFieldErr(undefined);
@@ -37,15 +39,15 @@ export function ResetForm() {
     }
   }
 
-  if (done) return <div className="stack"><div className="alert alert-ok" role="status">Parolan değişti. Yeni parolanla giriş yapabilirsin.</div><Link className="btn btn-primary" href="/login">Giriş yap</Link></div>;
-  if (token === null) return <span className="spinner" aria-label="Yükleniyor" />;
-  if (!token) return <div className="stack"><div className="alert alert-error">Bağlantı eksik. E-postadaki bağlantıyı tam olarak aç ya da yeniden iste.</div><Link href="/forgot-password">Yeniden iste</Link></div>;
+  if (done) return <div className="stack"><div className="alert alert-ok" role="status">{tl("Parolan değişti. Yeni parolanla giriş yapabilirsin.")}</div><Link className="btn btn-primary" href="/login">{tl("Giriş yap")}</Link></div>;
+  if (token === null) return <span className="spinner" aria-label={tl("Yükleniyor")} />;
+  if (!token) return <div className="stack"><div className="alert alert-error">{tl("Bağlantı eksik. E-postadaki bağlantıyı tam olarak aç ya da yeniden iste.")}</div><Link href="/forgot-password">{tl("Yeniden iste")}</Link></div>;
   return (
     <form className="stack" onSubmit={submit}>
-      {error && <div className="alert alert-error" role="alert">{error} <Link href="/forgot-password">Yeniden iste</Link></div>}
-      <Field label="Yeni parola" name="password" type="password" autoComplete="new-password" minLength={10} maxLength={128} required autoFocus error={fieldErr} />
-      <Field label="Yeni parola (tekrar)" name="password2" type="password" autoComplete="new-password" required />
-      <button className="btn btn-primary btn-block" disabled={busy}>{busy && <span className="spinner" aria-hidden />} Parolayı değiştir</button>
+      {error && <div className="alert alert-error" role="alert">{error} <Link href="/forgot-password">{tl("Yeniden iste")}</Link></div>}
+      <Field label={tl("Yeni parola")} name="password" type="password" autoComplete="new-password" minLength={10} maxLength={128} required autoFocus error={fieldErr} />
+      <Field label={tl("Yeni parola (tekrar)")} name="password2" type="password" autoComplete="new-password" required />
+      <button className="btn btn-primary btn-block" disabled={busy}>{busy && <span className="spinner" aria-hidden />}{" "}{tl("Parolayı değiştir")}</button>
     </form>
   );
 }

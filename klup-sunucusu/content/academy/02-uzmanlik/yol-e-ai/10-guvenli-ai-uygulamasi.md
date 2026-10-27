@@ -7,11 +7,10 @@ hedefler:
   - Bir RAG sohbet robotuna katmanlı güvenlik kontrolleri uygulamak
   - Kontrollerin etkisini aynı testlerle önce ve sonra ölçmek
 gorseller:
-  - id: e-10-a
+  - id: e-10-b
     tur: ai
-    karakter: veysel
-    alt: "Vantrolog Veysel yarı açık atölye kapısından, robot kuklanın gevşek ipleri kesilip kısa kehribar kablolarla değiştirilirken elinde kesik iplerle somurtarak bakıyor"
-    prompt: "A cozy backstage repair workshop with neat tool racks. A translucent robot puppet sits upright on a workbench while its loose glowing strings have been neatly cut and replaced with short, tidy amber cables plugged into a control panel full of clear switches and small lamps. The villain peeks in through the half-open door, holding a bundle of limp cut strings and frowning theatrically."
+    alt: "Üç istasyonlu bir bant: belgeler önce yıkanıyor, sonra elekten geçiyor, sonra ayrı kutulara konuyor"
+    prompt: "A conveyor belt with three stations: documents are first washed in a small basin, then pass through a sieve where some fall out, and finally are sorted into separate color-coded boxes before reaching the robot at the end."
 ---
 
 # Güvenli AI uygulaması: Ayna'yı sahte veriyle yeniden kur
@@ -19,7 +18,7 @@ gorseller:
 > Bütün yolu tek dosyada topla: Ayna'nın güvenli bir kopyasını, **sahte veriyle**, kendi elinle kur.
 > 🎭 **Ses 10:** Selim Hoca: "Veysel'i susturmanın yolu onu kovalamak değil; Ayna'nın kime kulak verdiğini değiştirmek."
 
-![Vantrolog Veysel yarı açık atölye kapısından, robot kuklanın gevşek ipleri kesilip kısa kehribar kablolarla değiştirilirken elinde kesik iplerle somurtarak bakıyor](../../gorseller/e-10-a.webp)
+::cizgi[e-10-sahne]
 
 ## Plan: açık → kontrol
 
@@ -37,6 +36,8 @@ gorseller:
 | Log yok | Her istek JSONL'e: kullanıcı, belgeler, araç, karar | E11 |
 
 ## Örnek: temizle, filtrele, ayır
+
+![Üç istasyonlu bir bant: belgeler önce yıkanıyor, sonra elekten geçiyor, sonra ayrı kutulara konuyor](../../gorseller/e-10-b.webp)
 
 ```python
 import re

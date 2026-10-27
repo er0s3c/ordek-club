@@ -5,7 +5,8 @@ import {
   Laptop, Server, Database, Globe, Router, BrickWall, User, Skull, Mail, Shield, Lock, Cloud, Radar, AppWindow, Network, Wifi, Headset, KeyRound,
   type LucideIcon,
 } from "lucide-react";
-import type { Actor, FlowAnimation, IconKey, StepTone } from "@/animations/types";
+import type { FlowAnimation, IconKey, StepTone } from "@/animations/types";
+import { R, curve, useElkLayout, useSketch } from "./flow-layout";
 
 const ICONS: Record<IconKey, LucideIcon> = {
   laptop: Laptop, server: Server, database: Database, globe: Globe, router: Router, firewall: BrickWall, user: User,
@@ -26,58 +27,67 @@ const ACTOR_RING = { neutral: "var(--color-iron)", infra: "var(--color-iron)", g
 const ZONE = { trusted: "rgba(252,252,252,.035)", dmz: "rgba(252,252,252,.015)", untrusted: "transparent" } as const;
 const ZONE_LINE = { trusted: "rgba(252,252,252,.3)", dmz: "rgba(252,252,252,.18)", untrusted: "rgba(254,30,52,.55)" } as const;
 
-const R = 30; // aktör yarıçapı
-
-// İki aktör arasındaki oku, aynı çiftteki istek/yanıt üst üste binmesin diye dik eksende kaydırır.
-function segment(a: Actor, b: Actor) {
-  const dx = b.x - a.x, dy = b.y - a.y;
-  const len = Math.hypot(dx, dy) || 1;
-  const ux = dx / len, uy = dy / len;
-  const side = a.id < b.id ? -1 : 1;
-  const ox = -uy * 8 * side, oy = ux * 8 * side;
-  return {
-    x1: a.x + ux * (R + 6) + ox, y1: a.y + uy * (R + 6) + oy,
-    x2: b.x - ux * (R + 10) + ox, y2: b.y - uy * (R + 10) + oy,
-    mx: (a.x + b.x) / 2 + ox * 2.2, my: (a.y + b.y) / 2 + oy * 2.2,
-  };
-}
-
 type Props = { def: FlowAnimation; step: number; speed: number; reducedMotion: boolean; stepKey: string | number };
 
+// Ağ akışı animasyonu. Mevcut adımda: bağlantı eğrisi GSAP DrawSVG ile çizilir, paket ve izi anime.js ile eğri
+// boyunca akar, hedefte dalga yayılır; saldırı adımında hedef kısa bir sarsıntı yapar. Azaltılmış harekette son durum.
 export function FlowAnimationView({ def, step, speed, reducedMotion, stepKey }: Props) {
-  const actors = new Map(def.actors.map((a) => [a.id, a]));
+  const placed = useElkLayout(def);
+  const sketch = useSketch(def, placed);
+  const actors = new Map(placed.map((a) => [a.id, a]));
   const k = Math.min(Math.max(0, step), def.steps.length);
   const current = k > 0 ? def.steps[k - 1] : undefined;
-  const packet = useRef<SVGCircleElement>(null);
+  const path = useRef<SVGPathElement>(null);
+  const packet = useRef<SVGGElement>(null);
+  const ripple = useRef<SVGCircleElement>(null);
+  const target = useRef<SVGGElement>(null);
   const uid = def.id.replace(/[^a-z0-9]/gi, "");
+  const moving = !!current && current.from !== current.to;
 
-  // Mevcut adımın paketi: kaynaktan hedefe Web Animations API ile (her istemcide yerel çalışır).
   useEffect(() => {
-    const el = packet.current;
-    if (!el || !current || current.from === current.to) return;
-    const a = actors.get(current.from), b = actors.get(current.to);
-    if (!a || !b) return;
-    const s = segment(a, b);
+    const line = path.current, dot = packet.current, wave = ripple.current, hit = target.current;
+    if (!current || !line) return;
+    const dur = 1.1 / speed;
     if (reducedMotion) {
-      el.setAttribute("cx", String(s.x2));
-      el.setAttribute("cy", String(s.y2));
+      if (dot) dot.style.opacity = "0";
       return;
     }
-    const anim = el.animate(
-      [
-        { transform: `translate(${s.x1}px, ${s.y1}px)`, opacity: 0 },
-        { opacity: 1, offset: 0.1 },
-        { transform: `translate(${s.x2}px, ${s.y2}px)`, opacity: 1 },
-      ],
-      { duration: 1100 / speed, easing: "cubic-bezier(.4,0,.2,1)", fill: "forwards" },
-    );
-    return () => anim.cancel();
+    let cancelled = false;
+    const stops: (() => void)[] = [];
+    void Promise.all([import("gsap"), import("gsap/DrawSVGPlugin"), import("animejs")]).then(([{ gsap }, { DrawSVGPlugin }, anime]) => {
+      if (cancelled) return;
+      gsap.registerPlugin(DrawSVGPlugin);
+      const draw = gsap.fromTo(line, { drawSVG: "0%" }, { drawSVG: "100%", duration: dur * 0.55, ease: "power2.out" });
+      stops.push(() => draw.kill());
+      if (!moving || !dot) return;
+      const { translateX, translateY } = anime.svg.createMotionPath(line);
+      const trail = [...dot.querySelectorAll<SVGCircleElement>("circle")];
+      const run = anime.animate(trail, {
+        translateX, translateY,
+        opacity: [0, 1],
+        delay: anime.stagger(55),
+        duration: dur * 1000,
+        ease: "inOutQuad",
+        onComplete: () => {
+          if (cancelled || !wave) return;
+          const w = anime.animate(wave, { r: [R, R + 28], opacity: [0.7, 0], duration: 650, ease: "outQuad" });
+          stops.push(() => w.pause());
+          if (current.tone === "attack" && hit) {
+            const s = anime.animate(hit, { x: [0, -4, 4, -3, 3, 0], duration: 360, ease: "linear" });
+            stops.push(() => s.pause());
+          }
+        },
+      });
+      stops.push(() => run.pause());
+    });
+    return () => { cancelled = true; stops.forEach((s) => s()); };
     // stepKey değişince (yeni adım / yeniden oynat) animasyon baştan çalışır
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stepKey, k, speed, reducedMotion, def.id]);
+  }, [stepKey, k, speed, reducedMotion, def.id, placed]);
 
   const focus = new Set<string>(current ? [current.from, current.to, ...(current.focus ?? [])] : []);
-  const moving = current && current.from !== current.to;
+  const tone = current?.tone ?? (moving ? "request" : "info");
+  const curSeg = moving ? curve(actors.get(current!.from)!, actors.get(current!.to)!) : null;
 
   return (
     <figure className="anim" aria-label={def.title}>
@@ -89,50 +99,49 @@ export function FlowAnimationView({ def, step, speed, reducedMotion, stepKey }: 
               <path d="M0,0 L10,5 L0,10 z" fill={TONE[t]} />
             </marker>
           ))}
+          <filter id={`${uid}-glow`} x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
         </defs>
 
-        {def.zones?.map((z) => (
+        {def.zones?.map((z, i) => (
           <g key={z.label}>
-            <rect x={z.x} y={z.y} width={z.w} height={z.h} rx={12} fill={ZONE[z.tone]} stroke={ZONE_LINE[z.tone]} strokeDasharray="5 5" />
+            {sketch ? sketch.zones[i]?.map((p, j) => <path key={j} d={p.d} stroke={p.stroke} strokeWidth={p.strokeWidth} fill="none" opacity={0.6} />)
+              : <rect x={z.x} y={z.y} width={z.w} height={z.h} rx={12} fill={ZONE[z.tone]} stroke={ZONE_LINE[z.tone]} strokeDasharray="5 5" />}
             <text x={z.x + 10} y={z.y + 18} className="anim-zone">{z.label}</text>
           </g>
         ))}
 
-        {def.links?.map(([a, b]) => {
+        {def.links?.map(([a, b], i) => {
           const A = actors.get(a), B = actors.get(b);
-          return A && B ? <line key={`${a}-${b}`} x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="var(--line)" strokeWidth={2} /> : null;
+          if (!A || !B) return null;
+          return sketch ? <g key={`${a}-${b}`}>{sketch.links[i]?.map((p, j) => <path key={j} d={p.d} stroke={p.stroke} strokeWidth={p.strokeWidth} fill="none" />)}</g>
+            : <line key={`${a}-${b}`} x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="var(--line)" strokeWidth={2} />;
         })}
 
-        {/* tamamlanan adımlar: soluk oklar */}
+        {/* tamamlanan adımlar: soluk eğriler */}
         {def.steps.slice(0, Math.max(0, k - 1)).map((st, i) => {
           if (st.from === st.to) return null;
           const A = actors.get(st.from), B = actors.get(st.to);
           if (!A || !B) return null;
-          const s = segment(A, B);
-          return <line key={i} x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} stroke={TONE[st.tone ?? "request"]} strokeOpacity={0.22} strokeWidth={2} markerEnd={`url(#${uid}-arr-${st.tone ?? "request"})`} />;
+          return <path key={i} d={curve(A, B).d} fill="none" stroke={TONE[st.tone ?? "request"]} strokeOpacity={0.22} strokeWidth={2} markerEnd={`url(#${uid}-arr-${st.tone ?? "request"})`} />;
         })}
 
         {/* mevcut adım */}
-        {current && moving && (() => {
-          const A = actors.get(current.from)!, B = actors.get(current.to)!;
-          const s = segment(A, B);
-          const tone = current.tone ?? "request";
-          return (
-            <g key={`cur-${stepKey}-${k}`} className="anim-current">
-              <line x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} stroke={TONE[tone]} strokeWidth={3} markerEnd={`url(#${uid}-arr-${tone})`} strokeDasharray={tone === "attack" ? "7 5" : undefined} />
-              <Label x={s.mx} y={s.my - 10} text={current.label} color={TONE[tone]} />
-            </g>
-          );
-        })()}
+        {curSeg && (
+          <g key={`cur-${stepKey}-${k}`} className="anim-current">
+            <path ref={path} d={curSeg.d} fill="none" stroke={TONE[tone]} strokeWidth={3} strokeLinecap="round" markerEnd={`url(#${uid}-arr-${tone})`} strokeDasharray={tone === "attack" ? "7 5" : undefined} />
+            <Label x={curSeg.mx} y={curSeg.my - 14} text={current!.label} color={TONE[tone]} />
+          </g>
+        )}
 
-        {def.actors.map((a) => {
+        {placed.map((a) => {
           const Icon = ICONS[a.icon];
           const active = focus.has(a.id);
+          const isTarget = moving && current!.to === a.id;
           const selfStep = current && current.from === current.to && current.from === a.id;
           return (
-            <g key={a.id} className={active ? "anim-actor is-active" : "anim-actor"}>
-              {selfStep && <circle cx={a.x} cy={a.y} r={R + 10} fill="none" stroke={TONE[current.tone ?? "info"]} strokeWidth={2} className={reducedMotion ? undefined : "anim-pulse"} />}
-              <circle cx={a.x} cy={a.y} r={R} fill="var(--bg-1)" stroke={active ? "var(--gold)" : ACTOR_RING[a.tone ?? "neutral"]} strokeWidth={active ? 2.5 : 1.5} />
+            <g key={a.id} ref={isTarget ? target : undefined} className={active ? "anim-actor is-active" : "anim-actor"} style={{ transition: "transform .5s var(--ease)" }}>
+              {(isTarget || selfStep) && <circle ref={isTarget ? ripple : undefined} cx={a.x} cy={a.y} r={R + 10} fill="none" stroke={TONE[tone]} strokeWidth={2} opacity={isTarget ? 0 : 1} className={selfStep && !reducedMotion ? "anim-pulse" : undefined} />}
+              <circle cx={a.x} cy={a.y} r={R} fill="var(--bg-1)" stroke={active ? "var(--gold)" : ACTOR_RING[a.tone ?? "neutral"]} strokeWidth={active ? 2.5 : 1.5} filter={active ? `url(#${uid}-glow)` : undefined} />
               <Icon x={a.x - 13} y={a.y - 13} width={26} height={26} color={a.tone === "bad" ? "var(--red)" : active ? "var(--gold-bright)" : "var(--ink-dim)"} aria-hidden />
               <text x={a.x} y={a.y + R + 18} textAnchor="middle" className="anim-label">{a.label}</text>
               {a.sub && <text x={a.x} y={a.y + R + 33} textAnchor="middle" className="anim-sub">{a.sub}</text>}
@@ -141,7 +150,12 @@ export function FlowAnimationView({ def, step, speed, reducedMotion, stepKey }: 
           );
         })}
 
-        {moving && <circle ref={packet} r={7} cx={0} cy={0} fill={TONE[current.tone ?? "request"]} className="anim-packet" key={`p-${stepKey}-${k}`} />}
+        {/* paket + iz: anime.js motion path ile eğri boyunca akar */}
+        {moving && (
+          <g ref={packet} key={`p-${stepKey}-${k}`} className="anim-packet" filter={`url(#${uid}-glow)`}>
+            {[7, 5, 3.5].map((r, i) => <circle key={i} r={r} cx={0} cy={0} fill={TONE[tone]} fillOpacity={[1, 0.45, 0.25][i]} opacity={reducedMotion && i === 0 ? 1 : 0} transform={reducedMotion && curSeg ? `translate(${curSeg.x2} ${curSeg.y2})` : undefined} />)}
+          </g>
+        )}
       </svg>
       <figcaption className="anim-note" aria-live="polite">
         <span className="anim-step mono">{k}/{def.steps.length}</span>

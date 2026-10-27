@@ -7,11 +7,10 @@ hedefler:
   - Suricata/Snort kural yapısını okumak
   - Laboratuvarda basit bir tespit kuralı yazıp test etmek
 gorseller:
-  - id: c-04-a
+  - id: c-04-b
     tur: ai
-    karakter: tamer
-    alt: "Temizlikçi Tamer parlayan ağ borularıyla dolu koridorda paspasını denge sopası gibi tutup parmak uçlarında yürüyor; tavandaki sensör lambaları geçtiği yerde tek tek yanıyor"
-    prompt: "A long dark corridor lined with glowing network pipes, a row of round motion-sensor lamps along the ceiling. The villain tries to sneak through on tiptoe, holding his glowing mop horizontally like a tightrope balancing pole, but every lamp he passes flips on amber one after another, lighting him up in a comic spotlight with a frozen startled expression."
+    alt: "Bir eleğin katmanları: yön, protokol, içerik ve eşik; yalnızca hepsine uyan taş en altta yakalanıyor"
+    prompt: "A stack of four sieves of different mesh shapes held in a wooden frame, a stream of mixed stones poured from the top, most stones falling out at each layer, and only one distinctly shaped glowing stone caught at the very bottom."
 ---
 
 # IDS/IPS: ağdaki şüpheli trafiği kuralla yakalamak
@@ -19,7 +18,7 @@ gorseller:
 > Uç noktadaki log silinebilir. Ama paket ağdan **geçtiği anda** görülmüştür.
 > 🧹 **İz 4:** KLP-WS07 gece `kotu.test` adında bir alan adına tekrar tekrar sordu. Tamer ağ sensörünü unutmuştu.
 
-![Temizlikçi Tamer parlayan ağ borularıyla dolu koridorda paspasını denge sopası gibi tutup parmak uçlarında yürüyor; tavandaki sensör lambaları geçtiği yerde tek tek yanıyor](../../gorseller/c-04-a.webp)
+::cizgi[c-04-sahne]
 
 ## IDS mi, IPS mi?
 
@@ -32,6 +31,8 @@ Sensör nereye konur? İnternet çıkışına (kuzey-güney trafiği) ve kritik 
 IPS yanlış pozitifte meşru trafiği de keser; bu yüzden yeni kurallar önce IDS modunda izlenir.
 
 ## Bir kuralın anatomisi
+
+![Bir eleğin katmanları: yön, protokol, içerik ve eşik; yalnızca hepsine uyan taş en altta yakalanıyor](../../gorseller/c-04-b.webp)
 
 ```text
 alert dns $HOME_NET any -> any any (msg:"KULUP kotu.test alan adina DNS sorgusu"; dns.query; content:"kotu.test"; nocase; sid:1000001; rev:1;)

@@ -8,11 +8,14 @@ hedefler:
   - Düz bir ağın neden tehlikeli olduğunu göstermek
 animasyonlar: [network-topology]
 gorseller:
-  - id: b-01-a
+  - id: b-01-b
     tur: ai
-    karakter: tarik
-    alt: "Duvarsız tek bir dev salonda Tünelci Tarık laptoplardan sunuculara, kameralardan yazıcılara serbestçe dolaşıyor"
-    prompt: "A single huge open-plan hall with no inner walls where laptops, servers, security cameras, printers and a grade database all sit on the same floor connected by glowing cables. The villain strolls freely between them with his green headlamp on, casually touching each device as he passes, unchallenged."
+    alt: "Tek bir boru içinde farklı renklerde akan ayrı sıvılar; her renk kendi binasına ayrılıyor"
+    prompt: "A single wide glass pipe carrying several separate glowing streams of different colors side by side without mixing, and at its end a valve junction splitting each colored stream into its own building."
+  - id: b-01-c
+    tur: ai
+    alt: "Gemi gövdesi su geçirmez bölmelere ayrılmış; bir bölme su alsa da diğerleri kuru kalıyor"
+    prompt: "A cutaway of a ship's hull divided into watertight compartments with sturdy doors; one compartment is flooded with glowing green water while all the others stay dry, sailors calmly closing the hatches."
 ---
 
 # İleri ağ temelleri: VLAN, yönlendirme, segmentasyon
@@ -20,9 +23,11 @@ gorseller:
 > Düz bir ağ, kapısız bir evdir: ön kapıdan giren her odaya girer.
 > 🕳️ **Tünel 1:** Laboratuvardaki kampüs ağı kopyasında öğrenci Wi-Fi'si, kameralar ve not sunucusu aynı ağda. Tarık'ın en sevdiği manzara.
 
-![Duvarsız tek bir dev salonda Tünelci Tarık laptoplardan sunuculara, kameralardan yazıcılara serbestçe dolaşıyor](../../gorseller/b-01-a.webp)
+::cizgi[b-01-sahne]
 
 ## VLAN: tek kabloda ayrı ağlar
+
+![Tek bir boru içinde farklı renklerde akan ayrı sıvılar; her renk kendi binasına ayrılıyor](../../gorseller/b-01-b.webp)
 
 Bir switch'i mantıksal olarak bölersin: VLAN 10 öğrenciler, VLAN 20 personel, VLAN 30 sunucular.
 Aynı fiziksel cihazdalar ama birbirlerini **doğrudan** göremezler.
@@ -38,6 +43,8 @@ VLAN'lar arası trafik bir **router ya da L3 switch** üzerinden geçer. İşte 
 ::animasyon[network-topology]
 
 ## Segmentasyon tasarımı
+
+![Gemi gövdesi su geçirmez bölmelere ayrılmış; bir bölme su alsa da diğerleri kuru kalıyor](../../gorseller/b-01-c.webp)
 
 | Bölge | İçinde | Kime açık? |
 |---|---|---|

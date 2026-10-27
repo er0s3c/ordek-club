@@ -47,12 +47,6 @@ sorular:
     tur: dogru-yanlis
     dogru: false
     aciklama: TLS içeriği şifreler; yalnızca bağlantı bilgileri ve el sıkışma görünür.
-gorseller:
-  - id: m05-10-a
-    tur: ai
-    karakter: nuri
-    alt: "Fişi çekilmiş çanak antenin yanında yıkılmış Dinleyici Nuri; kafedeki bütün laptoplarda küçük asma kilitler parlıyor"
-    prompt: "The villain slumps in a café corner beside his unplugged parabolic dish, his headphones hanging around his neck, crestfallen. On every laptop around the café a small glowing padlock shines."
 ---
 
 # M05 Quiz: İnternet ve ağlar
@@ -61,8 +55,6 @@ gorseller:
 
 > 🔒 **DOSYA KAPANDI: Dinleyici Nuri** · *quiz'i %70 ile geçince*
 >
-> ![Fişi çekilmiş çanak antenin yanında yıkılmış Dinleyici Nuri; kafedeki bütün laptoplarda küçük asma kilitler parlıyor](../../gorseller/m05-10-a.webp)
->
-> Nuri'nin cihazı söküldü; trafik artık şifreli. Ama dinlediği son paket fırının kendi sunucusuna gidiyordu. Fırının sahibi kuzeni: Çerezci Celal.
+> ::cizgi[nuri-kapanis]
 >
 > ➡️ *Sıradaki dosya: **Çerezci Celal** (M06)*

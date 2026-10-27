@@ -9,6 +9,8 @@ import { getSettings } from "@/server/settings";
 import { burnPasswordCheck, hashPassword, passwordProblem, verifyPassword } from "@/server/auth/password";
 import { hashToken, revokeUserSessions } from "@/server/auth/session";
 import { enqueueMail, mailEnabled } from "@/server/mail/outbox";
+import { tFor } from "@/i18n/catalog";
+import { localeForUser } from "@/i18n/request";
 import type { Actor } from "@/server/auth/policy";
 
 const RESET_TTL_MS = 30 * 60_000;
@@ -34,11 +36,12 @@ export async function requestPasswordReset(identifier: string, ip: string) {
     await tx.passwordResetToken.updateMany({ where: { userId: user.id, usedAt: null }, data: { usedAt: new Date() } });
     await tx.passwordResetToken.create({ data: { tokenHash: hashToken(token), userId: user.id, expiresAt: new Date(Date.now() + RESET_TTL_MS), ip: ip.slice(0, 64) } });
     const link = `${env().APP_URL.replace(/\/$/, "")}/reset-password#token=${token}`;
+    const t = tFor(await localeForUser(user.id));
     await enqueueMail(tx, [
       {
         to: user.email,
-        subject: `${s.clubName}: parola sıfırlama`,
-        text: `Merhaba ${user.displayName},\n\nParolanı sıfırlamak için 30 dakika içinde şu bağlantıyı aç:\n${link}\n\nBu isteği sen yapmadıysan bu e-postayı yok say; parolan değişmez.\nİstek IP adresi: ${ip}`,
+        subject: t("{club}: parola sıfırlama", { club: s.clubName }),
+        text: t("Merhaba {name},\n\nParolanı sıfırlamak için 30 dakika içinde şu bağlantıyı aç:\n{link}\n\nBu isteği sen yapmadıysan bu e-postayı yok say; parolan değişmez.\nİstek IP adresi: {ip}", { name: user.displayName, link, ip }),
       },
     ]);
     await audit({ actorId: user.id, action: "auth.password.reset.request", targetType: "User", targetId: user.id, ip }, tx);

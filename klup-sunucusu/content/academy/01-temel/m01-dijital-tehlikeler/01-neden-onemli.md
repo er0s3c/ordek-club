@@ -7,11 +7,10 @@ hedefler:
   - Siber güvenliğin günlük hayattaki karşılığını görmek
   - Bir tehdidin nasıl ortaya çıktığını açıklamak
 gorseller:
-  - id: m01-01-a
+  - id: m01-01-b
     tur: ai
-    karakter: tevfik
-    alt: "Gece kampüs bankında telefonuna bakan öğrenciye, Tatlı Dil Tevfik lamba direğinin arkasından parlayan oltalar uzatıyor"
-    prompt: "A university student sits on a campus bench at night using a phone, a laptop and student card beside them. From behind a lamppost, the villain dangles several glowing fishing lines with message-bubble hooks toward the phone, grinning with his gold tooth."
+    alt: "Olayın üç parçası: değerli eşyalarla dolu bir sandık, kırık menteşesi ve gölgeden uzanan fırsatçı bir el"
+    prompt: "Three-part still life on a dark desk under one lamp: an open treasure chest glowing with a phone, a laptop, an envelope and a small coin purse inside, one of its hinges visibly cracked and hanging loose, and a shadowy gloved hand reaching in from the edge of the frame toward the crack. Clear separation between the three elements."
 ---
 
 # Siber güvenlik neden seni ilgilendirir?
@@ -19,15 +18,15 @@ gorseller:
 > Bir hacker'ın hedefi çoğu zaman "önemli biri" değil — **açık kapısı olan herhangi biri**.
 > Ve hepimizin cebinde birkaç kapı var.
 
-![Gece kampüs bankında telefonuna bakan öğrenciye, Tatlı Dil Tevfik lamba direğinin arkasından parlayan oltalar uzatıyor](../../gorseller/m01-01-a.webp)
+::cizgi[m01-01-sahne]
 
 > 🕴️ **DOSYA: Tatlı Dil Tevfik** · *Dolandırıcı*
 >
 > ![Tatlı Dil Tevfik — Dolandırıcı](../../gorseller/karakter-tevfik.webp)
 >
-> 📼 **Bölüm 1 — Bursun Onaylandı.** Kayıt haftası. Kampüste yüzlerce telefona aynı mesaj düşüyor: "Bursun onaylandı! 24 saat içinde onayla." Selim Hoca mesajın imzasını tanıyor: Tatlı Dil Tevfik, Gölge Ağ'ın en çok konuşan ağzı. İlk görevin, yemini tanımak.
->
 > **Tehdit:** Sahte burs mesajları, sosyal mühendislik, phishing. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[tevfik-acilis]
 
 ## Siber güvenlik ne demek?
 
@@ -41,6 +40,8 @@ Bir sabah düşün:
 Bunlardan **biri** ele geçirilirse, zincir diğerlerine uzanabilir.
 
 ## Tehditler nereden çıkar?
+
+![Olayın üç parçası: değerli eşyalarla dolu bir sandık, kırık menteşesi ve gölgeden uzanan fırsatçı bir el](../../gorseller/m01-01-b.webp)
 
 Hemen her olay üç parçanın buluşmasıdır:
 

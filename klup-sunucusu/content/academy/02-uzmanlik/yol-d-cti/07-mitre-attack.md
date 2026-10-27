@@ -7,11 +7,10 @@ hedefler:
   - Gözlenen davranışları ATT&CK taktik ve tekniklerine eşlemek
   - Teknik örtüşmesinin neden tek başına atıf kanıtı olmadığını açıklamak
 gorseller:
-  - id: d-07-a
+  - id: d-07-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri herkese açık bir defterdeki simgeleri kopyalayıp çekmece duvarına yapıştırıyor; karşı duvardaki başka bir kaptanın düzenini taklit ediyor"
-    prompt: "A ship's chart room with a huge wall-sized grid of small wooden drawers, each drawer front carved with a different abstract symbol and some glowing green. The villain holds an open public notebook in one hand and copies its symbols onto little stickers, pasting them on his own drawers so his wall looks exactly like another captain's drawer wall displayed on the opposite side of the room."
+    alt: "Duvardaki çekmeceli dolabın bazı çekmeceleri yeşil ışıklı, bazıları karanlık; analist karanlık olanları işaretliyor"
+    prompt: "A large wall of small drawers arranged in columns, most drawers lit with a calm green glow and a few left dark and empty, an analyst on a ladder placing amber tape on each dark drawer."
 ---
 
 # MITRE ATT&CK: davranışı ortak dile çevir
@@ -19,7 +18,7 @@ gorseller:
 > "Makrolu belge PowerShell açtı" demek yerine `T1059.001` dersin; dünyanın her yerindeki analist aynı şeyi anlar.
 > 🚩 **Bayrak 7:** Blog, "MERCAN-7'nin teknikleriyle birebir aynı" diyor. Herkese açık raporları Bedri de okuyor.
 
-![Bayrakçı Bedri herkese açık bir defterdeki simgeleri kopyalayıp çekmece duvarına yapıştırıyor; karşı duvardaki başka bir kaptanın düzenini taklit ediyor](../../gorseller/d-07-a.webp)
+::cizgi[d-07-sahne]
 
 ## Yapı
 
@@ -41,6 +40,8 @@ gorseller:
 | 15 dakikada bir HTTPS | Command and Control | `T1071.001` Web Protocols |
 
 ## Tespit boşluğu
+
+![Duvardaki çekmeceli dolabın bazı çekmeceleri yeşil ışıklı, bazıları karanlık; analist karanlık olanları işaretliyor](../../gorseller/d-07-b.webp)
 
 ATT&CK Navigator'da bir katman (layer) aç: kampanyanın tekniklerini bir renge, **elindeki tespit kurallarını** başka renge boya.
 Kesişmeyen hücreler, Tilki'nin yapılacaklar listesidir.

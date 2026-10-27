@@ -7,20 +7,25 @@ hedefler:
   - Kullanıcı, grup ve diğerleri izinlerini okumak
   - chmod ve sudo'yu güvenli kullanmak
 gorseller:
-  - id: m04-04-a
+  - id: m04-04-b
     tur: ai
-    karakter: sadri
-    alt: "Süper Kullanıcı Sadri okuma, yazma, çalıştırma kilitli üç kapıyı ardına kadar açıp kahkaha atıyor"
-    prompt: "A room with three side-by-side doors (gold, silver, bronze), each fitted with three small lock icons shaped like an eye, a pencil and a play button. The villain flings all three doors wide open at once, every lock glowing open, laughing with his arms spread."
+    alt: "Üç kapılı bir dolap: sahip, grup ve diğerleri için ayrı kapılar; her kapıda göz, kalem ve çalıştırma kolu simgeleri açık ya da kilitli"
+    prompt: "A tall wooden cabinet with three separate doors side by side, one for the owner, one for a small group of friends, and one for strangers; each door has three small symbols, an eye, a pencil and a pull lever, glowing green when allowed and covered by a tiny padlock when not: the owner's door has all three open, the group's door has the eye and lever open, the strangers' door is fully locked."
+  - id: m04-04-c
+    tur: ai
+    alt: "Öğrenciye kısa süreliğine verilen parlayan bir kral tacı; yanında hızla akan kum saati"
+    prompt: "A student is handed a glowing crown by a gloved hand for just a moment to open a heavy royal door, an hourglass beside them running fast, the crown already fading back toward its velvet cushion."
 ---
 
 # rwxr-x---: Linux izinlerini okumak
 
 > `ls -l` çıktısının başındaki o garip harfler, dosyayı **kimin, ne yapabileceğini** söyler.
 
-![Süper Kullanıcı Sadri okuma, yazma, çalıştırma kilitli üç kapıyı ardına kadar açıp kahkaha atıyor](../../gorseller/m04-04-a.webp)
+::cizgi[m04-04-sahne]
 
 ## Okumayı öğren
+
+![Üç kapılı bir dolap: sahip, grup ve diğerleri için ayrı kapılar; her kapıda göz, kalem ve çalıştırma kolu simgeleri açık ya da kilitli](../../gorseller/m04-04-b.webp)
 
 ```text
 -rwxr-x---  1 ayse  ogrenciler  2048  Mar 3  rapor.sh
@@ -48,6 +53,8 @@ chmod 600 anahtar.pem   # sadece sahip okur/yazar (r=4, w=2, x=1 → 6=rw)
 🚩 **`chmod 777`** = herkes her şeyi yapabilir. "Çalışmadı, 777 yaptım" bir güvenlik açığıdır.
 
 ## sudo: geçici yönetici
+
+![Öğrenciye kısa süreliğine verilen parlayan bir kral tacı; yanında hızla akan kum saati](../../gorseller/m04-04-c.webp)
 
 ```bash
 sudo apt update     # bu tek komutu root yetkisiyle çalıştır

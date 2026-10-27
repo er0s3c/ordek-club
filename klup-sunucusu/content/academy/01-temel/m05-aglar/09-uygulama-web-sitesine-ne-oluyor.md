@@ -11,11 +11,10 @@ gorseller:
     tur: ekran
     alt: Wireshark'ta bir TCP üçlü el sıkışmasının üç paketi (SYN, SYN-ACK, ACK) seçili ve işaretli
     nasil: "Aynı yakalamada filtre kutusuna 'tcp.port == 443 && tcp.flags.syn == 1' yazın; ilk SYN paketine sağ tık → 'Conversation Filter' → 'TCP' seçin; filtreyi silmeden o bağlantının ilk paketleri listelenir. SYN, SYN-ACK ve ACK satırlarını kehribar (#C9953B) çerçeveyle işaretleyin. 'Info' sütununda Seq/Ack numaraları görünsün. Kendi IP adresinizi bulanıklaştırın."
-  - id: m05-09-b
+  - id: m05-09-c
     tur: ai
-    karakter: nuri
-    alt: "Fırın-kafede gazetesindeki delikten bakan Dinleyici Nuri; öğrencinin laptopunun üstünde bir sitenin açılma adımları parlıyor"
-    prompt: "A cozy bakery café at night: the villain hides behind a newspaper with a hole cut out for his eyes, peeking at a student's laptop at the next table. Above the laptop floats a translucent chain of glowing steps: an address book, a handshake, a padlock and a delivered envelope."
+    alt: "Bir saatin kadranında sıralanmış dört olay: rehber sorusu, el sıkışma, kilitli kapsül ve teslim edilen sayfa"
+    prompt: "A large vintage clock face lying flat on a desk with four small scenes placed around the dial in order: a person asking a librarian for an address, two hands shaking, a locked glowing capsule being sealed, and a page being delivered on a silver tray. A pencil and timeline notebook rest beside it."
 ---
 
 # Uygulama: Bir web sitesine ne oluyor?
@@ -23,7 +22,7 @@ gorseller:
 > Tarayıcıya bir adres yazdığın andan sayfanın açıldığı ana kadar geçen **yarım saniyeyi**
 > paket paket yeniden kur.
 
-![Fırın-kafede gazetesindeki delikten bakan Dinleyici Nuri; öğrencinin laptopunun üstünde bir sitenin açılma adımları parlıyor](../../gorseller/m05-09-b.webp)
+::cizgi[m05-09-sahne]
 
 ## Görev
 
@@ -39,6 +38,8 @@ Kendi bilgisayarında, Wireshark ile:
 5. Her adımın **zamanını** (Time sütunu) not et.
 
 ## Teslim: zaman çizelgesi
+
+![Bir saatin kadranında sıralanmış dört olay: rehber sorusu, el sıkışma, kilitli kapsül ve teslim edilen sayfa](../../gorseller/m05-09-c.webp)
 
 ```text
 0.000 s  DNS sorgusu: example.com A ?

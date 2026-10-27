@@ -3,12 +3,6 @@ id: p-09
 tur: bilgi
 baslik: "Gölge Ağ: Akademinin hikâyesi"
 sure: 4
-gorseller:
-  - id: p-09-a
-    tur: ai
-    karakter: eren-genc
-    alt: "Yirmi yıl önce bodrum laboratuvarında üç kapüşonlu genç: Eren laptopuna sırıtıyor, Jasmine heyecanla izliyor, Selim onu durdurmaya uzanıyor"
-    prompt: "Flashback twenty years ago in a cramped university basement lab at night lit only by old monitors. The villain grins at his laptop glowing green. Beside him a young woman with a high ponytail and a jasmine flower in her hair leans in excitedly, while a third young man with round glasses and a worried face reaches out a hand as if to stop him. Tangled cables, old computers and a single dangling bulb, slightly faded sepia flashback tint."
 ---
 
 # Gölge Ağ: Akademinin hikâyesi
@@ -16,26 +10,13 @@ gorseller:
 > Her modül bir bölüm, her kötü adam bir dosya. Sen bir **Kalkan** analistisin. Kod adın: **TİLKİ**.
 > Tilki iz bırakmaz ama her izi okur.
 
-![Yirmi yıl önce bodrum laboratuvarında üç kapüşonlu genç: Eren laptopuna sırıtıyor, Jasmine heyecanla izliyor, Selim onu durdurmaya uzanıyor](../gorseller/p-09-a.webp)
-
 ## Yirmi yıl önce
 
-Bir üniversitenin bodrum laboratuvarında üç genç: **Eren**, **Selim** ve **Jasmine**. Kendilerine *Kapüşonlular* diyorlar.
-Bir gece liman bankasının sisteminde bir açık buluyorlar.
-
-- **Selim:** "Bildirelim."
-- **Eren:** "Bu bir anahtar. Anahtarı veren, kapıyı da verir."
-
-Jasmine, Eren'in yanında duruyor. Sabah ikisi de yok. Masada tek satırlık bir not:
-*"Kapı açıktı. Ben sadece içeri girdim. — E."*
+::cizgi[onsoz]
 
 ## Bugün
 
-Liman şehrinin eski kaçakçılık ailesi artık **Gölge Ağ**: dolandırıcılar, dinleyiciler, kasa kıranlar, fidyeciler.
-Ailenin görünen başı **Don Gölge**. Ama Don bile birine borçlu: yüzünü kimsenin görmediği **Baron**.
-
-Selim artık bir hoca. Kampüste **Kalkan**'ı kurdu: saldırmayan, savunan; delil toplayıp yetkililere teslim eden bir ekip.
-Ve bu dönem seni seçti.
+::cizgi[bugun]
 
 ![Gölge Ağ Ailesi](../gorseller/karakter-aile.webp)
 

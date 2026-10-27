@@ -8,11 +8,10 @@ hedefler:
   - Her birine yönelik bir saldırı fikrini tanımak
 animasyonlar: [dns-resolution]
 gorseller:
-  - id: m05-05-a
+  - id: m05-05-b
     tur: ai
-    karakter: nuri
-    alt: "Dinleyici Nuri, rehber kitaplı yardımcı robotun kulağına yanlış adres fısıldıyor"
-    prompt: "Four tiny helper robots stand in a row in a server hallway, each with a prop: a big address book, glowing key tags, a cupped hand calling out, an ear trumpet. The villain leans in and whispers into the ear of the address-book robot, pointing it the wrong way."
+    alt: "Ağın dört görünmez yardımcısı: oda anahtarı veren resepsiyonist (DHCP), rehber tutan kütüphaneci (DNS), koridorda seslenen kapıcı (ARP) ve yankı dinleyen bekçi (ICMP)"
+    prompt: "Four friendly helper figures in a noir hotel lobby, each in a separate pool of light: a receptionist handing a room key to a newly arrived laptop, a librarian looking up a name in a thick address directory, a doorman in the hallway cupping his hands and calling out to find who lives in which room, and a night watchman shouting into a dark corridor and listening for the echo."
 ---
 
 # Ağın görünmez yardımcıları — DNS, DHCP, ARP, ICMP
@@ -20,9 +19,11 @@ gorseller:
 > Wi-Fi'ye bağlandığın an, arka planda dört yardımcı çalışmaya başlar.
 > Sen sadece "bağlandı" yazısını görürsün.
 
-![Dinleyici Nuri, rehber kitaplı yardımcı robotun kulağına yanlış adres fısıldıyor](../../gorseller/m05-05-a.webp)
+::cizgi[m05-05-sahne]
 
 ## Dört yardımcı
+
+![Ağın dört görünmez yardımcısı: oda anahtarı veren resepsiyonist (DHCP), rehber tutan kütüphaneci (DNS), koridorda seslenen kapıcı (ARP) ve yankı dinleyen bekçi (ICMP)](../../gorseller/m05-05-b.webp)
 
 | Protokol | Görevi | Benzetme | Kötüye kullanım |
 |---|---|---|---|

@@ -7,11 +7,10 @@ hedefler:
   - STIX 2.1 nesnelerini ve ilişkilerini okuyup bir paketi eleştirmek
   - MISP/OpenCTI'de paylaşımı TLP ve kaynak güveniyle yönetmek
 gorseller:
-  - id: d-08-a
+  - id: d-08-b
     tur: ai
-    karakter: bedri
-    alt: "Bayrakçı Bedri liman sinyal istasyonundaki paylaşım tüplerinden birine resmî görünümlü sahte bir kapsül atıyor; yanında kehribar, yeşil ve kırmızı lambalı bir pano yanıp sönüyor"
-    prompt: "A busy harbor signal station where many glowing brass pneumatic tubes carry small capsules between distant ships. The villain slips a capsule wrapped in an official-looking ribbon with a shiny abstract seal into one of the tubes with a theatrical wink, while a keeper's signal board with amber, green and red lamps blinks on the wall beside him."
+    alt: "Dört renkli zarf: kırmızı yalnız odadakilere, kehribar kuruma, yeşil topluluğa, beyaz herkese gidiyor"
+    prompt: "Four envelopes on a sorting table, each sealed with a different colored wax: a red one handed only to the few people in the room, an amber one going to one building, a green one going to a neighborhood of buildings, and a clear one tossed out of an open window to the whole city."
 ---
 
 # CTI platformları: MISP, OpenCTI ve STIX/TAXII
@@ -19,7 +18,7 @@ gorseller:
 > İstihbarat paylaşıldıkça güçlenir. Yanlış istihbarat da.
 > 🚩 **Bayrak 8:** Blogun IOC'leri bir paylaşım topluluğuna STIX paketi olarak düştü. Üç kurum onları otomatik engelledi.
 
-![Bayrakçı Bedri liman sinyal istasyonundaki paylaşım tüplerinden birine resmî görünümlü sahte bir kapsül atıyor; yanında kehribar, yeşil ve kırmızı lambalı bir pano yanıp sönüyor](../../gorseller/d-08-a.webp)
+::cizgi[d-08-sahne]
 
 ## Platformlar
 
@@ -46,6 +45,8 @@ Sık nesneler: `indicator`, `malware`, `threat-actor`, `intrusion-set`, `campaig
 Asıl soru her zaman: **`created_by_ref` kim ve bu güven puanını neye dayanarak verdi?**
 
 ## TLP: kiminle paylaşılır?
+
+![Dört renkli zarf: kırmızı yalnız odadakilere, kehribar kuruma, yeşil topluluğa, beyaz herkese gidiyor](../../gorseller/d-08-b.webp)
 
 Trafik Işığı Protokolü (Traffic Light Protocol 2.0): **CLEAR** herkese açık · **GREEN** topluluk ·
 **AMBER** kurum içi ve müşteriler · **AMBER+STRICT** yalnızca kurum · **RED** yalnızca odadakiler.

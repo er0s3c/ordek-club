@@ -8,11 +8,10 @@ hedefler:
   - Web sunucusu loglarında saldırı izlerini bulmak
 animasyonlar: [soc-alert]
 gorseller:
-  - id: a-11-a
+  - id: a-11-b
     tur: ai
-    karakter: jasmine
-    alt: "Güvenlik izleme odasında Tek Tırnak Jasmine'in yeşil damlaları log ekranlarından süzülüyor; kehribar bir el feneri izi yakalıyor"
-    prompt: "A dark security monitoring room with a wall of screens showing abstract scrolling log lines. A trail of glowing green droplets from the villain's pen trickles across the screens like footprints. The villain, half hidden in the doorway, freezes as a bright amber flashlight beam from a defender's hand lands exactly on her trail."
+    alt: "Kapıdaki bekçi şüpheli paketleri ayıklıyor ama içerideki kasanın kilidi de ayrıca sağlam"
+    prompt: "A doorman at a building entrance sorts incoming parcels, catching a few suspicious ones that glow green, while behind him in the hallway the vault door still has its own strong lock, showing two layers of defense."
 ---
 
 # Savunma tarafı: WAF, loglarda saldırı izi, güvenli kod
@@ -20,9 +19,11 @@ gorseller:
 > Saldırgan ne kadar dikkatli olursa olsun **iz bırakır**. Soru, birinin o izlere bakıp bakmadığıdır.
 > 🗂️ **Çekmece 11:** Portalın gece logları masanda. Jasmine'in ayak izleri orada.
 
-![Güvenlik izleme odasında Tek Tırnak Jasmine'in yeşil damlaları log ekranlarından süzülüyor; kehribar bir el feneri izi yakalıyor](../../gorseller/a-11-a.webp)
+::cizgi[a-11-sahne]
 
 ## WAF: kapıdaki bekçi
+
+![Kapıdaki bekçi şüpheli paketleri ayıklıyor ama içerideki kasanın kilidi de ayrıca sağlam](../../gorseller/a-11-b.webp)
 
 **Web Application Firewall**, bilinen saldırı kalıplarını isteğe ulaşmadan engeller.
 

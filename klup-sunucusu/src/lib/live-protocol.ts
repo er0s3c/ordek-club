@@ -49,6 +49,7 @@ export const clientMessageSchema = z.discriminatedUnion("t", [
   // Canlı quiz / anket (açma, kapatma, sonucu açıklama yalnız eğitmende; cevap öğrencide)
   z.object({
     t: z.literal("poll.open"),
+    purpose: z.enum(["LIVE", "EXIT"]).optional(),
     kind: z.enum(["QUIZ", "POLL"]),
     question: clean(300),
     options: z.array(clean(120)).min(2).max(6),
@@ -59,6 +60,14 @@ export const clientMessageSchema = z.discriminatedUnion("t", [
   z.object({ t: z.literal("poll.close") }),
   z.object({ t: z.literal("poll.reveal") }),
   z.object({ t: z.literal("poll.answer"), pollId: z.string().min(1).max(40), choice: z.number().int().min(0).max(5) }),
+  // Yardım kuyruğu: öğrenci sıraya girer (isteğe bağlı not + takıldığı görev); eğitmen çözüldü olarak işaretler.
+  z.object({ t: z.literal("help"), note: z.string().max(200).transform((s) => s.trim()).default(""), taskRef: z.string().max(80).transform((s) => s.trim()).default("") }),
+  z.object({ t: z.literal("help.cancel") }),
+  z.object({ t: z.literal("help.resolve"), id: z.string().min(1).max(40) }),
+  // Anlama göstergesi: anonim; slayt değişince sıfırlanır.
+  z.object({ t: z.literal("pulse"), value: z.enum(["ok", "slow", "repeat"]).nullable() }),
+  // Söz sırası: el kaldıranlar sırayla; eğitmen sıradakine söz verir.
+  z.object({ t: z.literal("speaker.next") }),
 ]);
 export type ClientMessage = z.infer<typeof clientMessageSchema>;
 
@@ -69,10 +78,14 @@ export type ParticipantView = {
   role: string;
   online: boolean;
   handRaised: boolean;
+  handAt: number | null; // söz sırası: el kaldırma zamanı
   connectedMs: number;
 };
+export type HelpView = { id: string; userId: string; displayName: string; note: string; taskRef: string; at: number };
+export type PulseStats = { ok: number; slow: number; repeat: number; online: number };
 // Öğrenciye giden quiz görünümü: doğru cevap ve dağılım yalnız sonuç açıklanınca eklenir.
 export type PollView = {
+  purpose?: "LIVE" | "EXIT";
   id: string;
   kind: "QUIZ" | "POLL";
   question: string;
@@ -99,6 +112,12 @@ export type ServerMessage =
   | { t: "ack"; what: "question" | "hand" | "poll" }
   | { t: "poll"; poll: PollView | null }
   | { t: "poll.stats"; stats: PollStats } // yalnızca eğitmene
+  | { t: "operation.changed"; revision: number }
+  | { t: "help.queue"; items: HelpView[] } // yalnızca eğitmene
+  | { t: "help.you"; pending: boolean; position: number | null }
+  | { t: "pulse.stats"; stats: PulseStats } // yalnızca eğitmene
+  | { t: "pulse.you"; value: "ok" | "slow" | "repeat" | null }
+  | { t: "turn"; at: number } // söz sende
   | { t: "ended" }
   | { t: "error"; code: string; message: string }
   | { t: "pong"; serverTime: number };

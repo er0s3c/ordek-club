@@ -4,31 +4,32 @@ tur: bilgi
 baslik: "Yol F — Mobil, IoT ve Gömülü Sistem Güvenliği"
 sure: 3
 gorseller:
-  - id: f-00-a
+  - id: f-00-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman bir atölye tezgâhında açık bir telefona, akıllı kilide ve küçük bir kameraya ucu yeşil parlayan havyasıyla kablo lehimliyor; kablolar arkadaki parlayan bir aynaya uzanıyor"
-    prompt: "A cluttered workbench seen at a slight angle under a hanging lamp: an opened smartphone, a small microcontroller board with a sensor, a smart door lock with its back panel off, a tiny camera and a small smart bulb. The villain leans over the bench with her magnifier goggles down, carefully soldering a thin glowing wire onto the lock's board, her tiny drone holding the wire. From every device, thin glowing green wires run to a large oval mirror in the shadows behind the bench, its surface shimmering like an eye."
+    alt: "Atölye masasında açılmış bir akıllı telefon, akıllı ampul, devre kartı ve küçük bir dron; büyüteçli lambanın altında"
+    prompt: "A cozy hardware workshop table under a magnifier lamp: an opened smartphone, a smart light bulb, a small circuit board with pins and a tiny drone, each with a student carefully inspecting it."
 ---
 
 # Yol F — Mobil, IoT ve Gömülü Sistem Güvenliği
 
 > Cebindeki uygulamalar ve kampüsteki akıllı cihazlar: içleri nasıl çalışır, nereden zayıflar?
 
-![Lehimci Leman bir atölye tezgâhında açık bir telefona, akıllı kilide ve küçük bir kameraya ucu yeşil parlayan havyasıyla kablo lehimliyor; kablolar arkadaki parlayan bir aynaya uzanıyor](../../gorseller/f-00-a.webp)
+::cizgi[f-00-sahne]
 
 > 🕴️ **DOSYA: Lehimci Leman** · *Devre Ustası*
 >
 > ![Lehimci Leman — Devre Ustası](../../gorseller/karakter-leman.webp)
 >
-> 📼 **Bölüm — Sezon 2: Gözler.** Kampüsteki akıllı kilitler gece kendi kendine açılıyor, kameralar boş koridorları değil seni izliyor. Ayna'nın gözleri ve kulakları her cihazda; onları kuran el tek: Lehimci Leman. Görevin laboratuvar tezgâhında; her cihazı aç, her kapıyı bul, her varsayılan parolayı değiştir.
->
 > **Kim o?** Süper Kullanıcı Sadri'nin kız kardeşi. Ayna'nın gözlerini ve kulaklarını (kamera, kilit, sensör) o kurar.
 > [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[leman-acilis]
 
 **Ön koşul:** İşletim sistemleri (M03), ağ (M05), temel programlama (M07)
 
 ## 12 ders
+
+![Atölye masasında açılmış bir akıllı telefon, akıllı ampul, devre kartı ve küçük bir dron; büyüteçli lambanın altında](../../gorseller/f-00-b.webp)
 
 | # | Ders | Tek cümleyle |
 |---|---|---|

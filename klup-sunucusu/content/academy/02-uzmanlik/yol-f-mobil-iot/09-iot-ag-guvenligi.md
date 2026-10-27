@@ -9,11 +9,10 @@ hedefler:
 animasyonlar:
   - network-topology
 gorseller:
-  - id: f-09-a
+  - id: f-09-b
     tur: ai
-    karakter: leman
-    alt: "Lehimci Leman bir binanın kesit görünümünde akıllı ampulden dizüstü bilgisayara uzanan parlayan bir kablo köprüsünün üstünde sekerek yürüyor"
-    prompt: "A cutaway view of a building floor. On the left, smart bulbs, a small camera, a thermostat and student laptops all sit together in one big open room, and the villain happily hops across a glowing cable bridge from a smart bulb straight to a laptop, her tiny drone following. On the right, the same devices sit in separate glass rooms with closed doors and only one narrow amber-lit corridor leading outside, and there is no bridge to walk on."
+    alt: "Akıllı cihazlar ayrı bir bahçe çitinin içinde; dizüstü bilgisayarlar ve sunucular evin içinde kalıyor"
+    prompt: "A house seen from above at night: smart bulbs, cameras and a speaker sit inside a fenced garden separated from the house, with a single guarded gate, while laptops and a home server stay safely inside the house."
 ---
 
 # IoT ağ güvenliği: izolasyon ve şifreli haberleşme
@@ -21,9 +20,11 @@ gorseller:
 > Akıllı ampulün açığı ampulde kalsın. Yeter ki ampul ile dizüstün **aynı odada** olmasın.
 > 🔧 **Devre 9:** Laboratuvarda kameralar, kilitler ve öğrenci bilgisayarları aynı ağda. Leman'ın köprüsü hazır.
 
-![Lehimci Leman bir binanın kesit görünümünde akıllı ampulden dizüstü bilgisayara uzanan parlayan bir kablo köprüsünün üstünde sekerek yürüyor](../../gorseller/f-09-a.webp)
+::cizgi[f-09-sahne]
 
 ## Neden izolasyon?
+
+![Akıllı cihazlar ayrı bir bahçe çitinin içinde; dizüstü bilgisayarlar ve sunucular evin içinde kalıyor](../../gorseller/f-09-b.webp)
 
 IoT cihazları çoğu zaman güncellenmez ve sertleştirilemez. Onları düzeltemiyorsan **etrafını çevir**:
 bir cihaz ele geçirilse bile yangın tek odada kalsın.

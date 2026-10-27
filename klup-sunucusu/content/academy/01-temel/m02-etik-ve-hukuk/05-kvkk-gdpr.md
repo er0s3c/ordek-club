@@ -6,11 +6,10 @@ sure: 5
 hedefler:
   - KVKK ve GDPR'ın temel ilkelerini KKTC yaklaşımıyla karşılaştırmak
 gorseller:
-  - id: m02-05-a
+  - id: m02-05-b
     tur: ai
-    karakter: kemal
-    alt: "Avukat Kemal üç parlayan kalkanın arasına levye sokmaya çalışıyor"
-    prompt: "Three overlapping translucent shields in shades of green and blue protect a soft glowing cloud of tiny data particles. The villain wedges a crowbar between two shields with great effort, his briefcase dropped at his feet, sweating."
+    alt: "Kişisel veri kasasını koruyan beş nesne: anahtar ve mühürlü belge, tek yöne bakan tabela, küçük ölçü kabı, kum saati ve kalkan"
+    prompt: "A small personal data vault at the center of a round table, protected by five objects placed around it like guardians: a signed document with a key resting on it, a signpost pointing in only one direction, a tiny measuring cup holding just a few glowing data drops, an hourglass beside a paper shredder, and a sturdy shield with a lock. Warm spotlight on the vault."
 ---
 
 # KKTC, Türkiye ve AB: veri koruma karşılaştırması
@@ -18,7 +17,7 @@ gorseller:
 > Bir uygulama KKTC'de geliştirilip Türkiye ve Avrupa'daki kullanıcılara sunuluyorsa
 > **birden fazla** veri koruma kuralına uyması gerekebilir.
 
-![Avukat Kemal üç parlayan kalkanın arasına levye sokmaya çalışıyor](../../gorseller/m02-05-a.webp)
+::cizgi[m02-05-sahne]
 
 | | KKTC | Türkiye | Avrupa Birliği |
 |---|---|---|---|
@@ -30,6 +29,8 @@ gorseller:
 > ⚖️ **Eğitmen notu:** Ayrıntılar ve güncel değişiklikler için resmî metinleri kontrol edin.
 
 ## Ortak dil: 5 ilke
+
+![Kişisel veri kasasını koruyan beş nesne: anahtar ve mühürlü belge, tek yöne bakan tabela, küçük ölçü kabı, kum saati ve kalkan](../../gorseller/m02-05-b.webp)
 
 1. **Hukuka uygunluk** — Bir dayanak (rıza, sözleşme, yasal yükümlülük…) olmadan işleme yok.
 2. **Amaçla sınırlılık** — Burs için toplanan veri reklama kullanılmaz.

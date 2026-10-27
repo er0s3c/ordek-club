@@ -1,0 +1,11 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+const dir = path.dirname(require.resolve("@rive-app/canvas/package.json"));
+const output = path.resolve(import.meta.dirname, "../public/animations/runtime");
+await fs.mkdir(output, { recursive: true });
+await fs.copyFile(path.join(dir, "rive.wasm"), path.join(output, "rive.wasm"));
+await fs.copyFile(path.join(dir, "rive_fallback.wasm"), path.join(output, "rive_fallback.wasm"));
+await fs.copyFile(path.resolve(import.meta.dirname, "../licenses/rive.txt"), path.join(output, "LICENSE.txt"));
+console.log("Rive WASM assets copied locally; no runtime CDN required.");

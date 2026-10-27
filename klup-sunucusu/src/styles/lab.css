@@ -20,8 +20,7 @@
   --lab-action: var(--ciu-green); /* yalnız eylem dolgusu; üzerinde koyu metin */
   --lab-focus: 0 0 0 4px rgba(92, 31, 226, 0.35);
   color: var(--lab-text);
-  max-width: 880px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 /* Koyu oda (§5A belirteçleri) */
@@ -101,7 +100,9 @@ body:has(.lab-room[data-theme="dark"]) { background: #15112b; }
    (TASARIM-SISTEMI.md "ders gövdesi istisnası") */
 .lab-prose { padding: 32px; border-radius: 16px; background: var(--lab-surface); border: 1px solid var(--lab-border); }
 .lab-prose:has(> .md > .mission:only-child) { padding: 0; border: 0; background: none; }
-.lab-prose .md { font: 400 16px/26px var(--font-sans); color: var(--lab-text-muted); max-width: 75ch; letter-spacing: 0.01em; }
+.lab-prose .md { font: 400 17px/28px var(--font-sans); color: var(--lab-text-muted); max-width: none; letter-spacing: 0.01em; }
+/* Geniş sütunda düz metin satırları okunur uzunlukta kalır; tablo, görsel ve kod tüm genişliği kullanır. */
+.lab-prose .md > p, .lab-prose .md > ul, .lab-prose .md > ol { max-width: 92ch; }
 .lab-prose .md strong { color: var(--lab-text); }
 .lab-prose .md h2 { font: 500 24px/1.3 var(--font-sans); text-transform: none; letter-spacing: 0; color: var(--lab-text); border-bottom-color: var(--lab-border); margin-top: 36px; }
 .lab-prose .md h3 { font: 500 20px/1.3 var(--font-sans); text-transform: none; letter-spacing: 0; color: var(--lab-text); }

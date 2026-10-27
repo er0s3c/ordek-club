@@ -6,21 +6,25 @@ import { SettingsForm } from "./SettingsForm";
 import { LogoUploader } from "@/components/admin/LogoUploader";
 import { OwnershipCard } from "./OwnershipCard";
 import { mailMode } from "@/server/mail/outbox";
+import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Kulüp ayarları" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getT())("Kulüp ayarları") };
+}
 
 export default async function SettingsPage() {
+  const t = await getT();
   const { user } = await requirePageSession(ADMIN_ROLES);
   const s = await getSettings();
   return (
     <div className="stack fade-up">
       <div className="page-head">
-        <div className="eyebrow">Yönetim paneli</div>
-        <h1 className="page-title">Kulüp ayarları</h1>
-        <p className="page-sub">Değişiklikler denetim kaydına (önceki ve yeni değerleriyle) yazılır.</p>
+        <div className="eyebrow">{t("Yönetim paneli")}</div>
+        <h1 className="page-title">{t("Kulüp ayarları")}</h1>
+        <p className="page-sub">{t("Değişiklikler denetim kaydına (önceki ve yeni değerleriyle) yazılır.")}</p>
       </div>
       <section className="card" aria-labelledby="logo-h">
-        <div className="card-h"><h2 id="logo-h">Logo</h2><span className="tiny faint">PNG / JPEG / WebP · en fazla 1 MB</span></div>
+        <div className="card-h"><h2 id="logo-h">{t("Logo")}</h2><span className="tiny faint">{t("PNG / JPEG / WebP · en fazla 1 MB")}</span></div>
         <div className="card-b"><LogoUploader initialHasLogo={Boolean(s.logoFile)} initialVersion={s.logoUpdatedAt?.getTime() ?? 0} /></div>
       </section>
       <SettingsForm
@@ -40,8 +44,8 @@ export default async function SettingsPage() {
         }}
       />
       <section className="card" aria-labelledby="mailcfg-h">
-        <div className="card-h"><h2 id="mailcfg-h">E-posta</h2><span className={mailMode() === "smtp" ? "badge badge-lime" : "badge"}>{mailMode() === "smtp" ? "SMTP açık" : mailMode() === "file" ? "geliştirme: dosyaya yazılıyor" : "kapalı"}</span></div>
-        <div className="card-b small muted">SMTP ayarları güvenlik nedeniyle sunucudaki <code>.env</code> dosyasında tutulur (SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, SMTP_FROM). Açıkken parola sıfırlama ve bildirim e-postaları gönderilir.</div>
+        <div className="card-h"><h2 id="mailcfg-h">{t("E-posta")}</h2><span className={mailMode() === "smtp" ? "badge badge-lime" : "badge"}>{mailMode() === "smtp" ? t("SMTP açık") : mailMode() === "file" ? t("geliştirme: dosyaya yazılıyor") : t("kapalı")}</span></div>
+        <div className="card-b small muted">{t("SMTP ayarları güvenlik nedeniyle sunucudaki")}{" "}<code>.env</code>{" "}{t("dosyasında tutulur (SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, SMTP_FROM). Açıkken parola sıfırlama ve bildirim e-postaları gönderilir.")}</div>
       </section>
       {user.role === "OWNER" && <OwnershipCard />}
     </div>

@@ -8,11 +8,14 @@ hedefler:
   - Parolaların neden tuzlu ve yavaş hash ile saklandığını anlamak
 animasyonlar: [secure-vs-insecure]
 gorseller:
-  - id: m08-02-a
+  - id: m08-02-b
     tur: ai
-    karakter: kadir
-    alt: "Kasa Kıran Kadir kıyma makinesinden çıkan desenli karoyu geri sokmaya çalışıyor; yanında tuzluk"
-    prompt: "A shiny copper grinder on a workbench: a whole fruit goes into the funnel and out comes a uniquely patterned glowing tile. The villain tries in vain to push the tile back into the grinder, frustrated, while a small salt shaker glows softly nearby."
+    alt: "Solda anahtarla açılıp kapanan bir kutu (şifreleme), sağda bir meyveyi meyve suyuna çeviren ve geri döndüremeyen sıkacak (hash)"
+    prompt: "Split scene on a kitchen counter: on the left a small box being locked and later unlocked with a key, the same gift coming back out intact; on the right a fruit squeezed in a heavy press into a glass of juice, and a puzzled cook trying in vain to push the juice back into a whole fruit."
+  - id: m08-02-c
+    tur: ai
+    alt: "Aynı iki tabak yemeğe farklı tuz serpilince tamamen farklı desenler ortaya çıkıyor"
+    prompt: "Two identical plain dumplings on two plates; a chef sprinkles a different pinch of glowing salt crystals on each, and as the salt touches them each dumpling transforms into a completely different intricate glowing pattern."
 ---
 
 # Hash şifreleme değildir
@@ -20,9 +23,11 @@ gorseller:
 > Şifrelenen veri anahtarla **geri açılır**. Hash'lenen veri **geri dönmez**.
 > Parolaları saklamanın doğru yolu ikincisidir.
 
-![Kasa Kıran Kadir kıyma makinesinden çıkan desenli karoyu geri sokmaya çalışıyor; yanında tuzluk](../../gorseller/m08-02-a.webp)
+::cizgi[m08-02-sahne]
 
 ## Farkı netleştir
+
+![Solda anahtarla açılıp kapanan bir kutu (şifreleme), sağda bir meyveyi meyve suyuna çeviren ve geri döndüremeyen sıkacak (hash)](../../gorseller/m08-02-b.webp)
 
 | | Şifreleme | Hash |
 |---|---|---|
@@ -36,6 +41,8 @@ gorseller:
 Site parolanı **saklamaz**. Hash'ini saklar. Giriş yaptığında girdiğin parolayı aynı yöntemle hash'ler ve karşılaştırır.
 
 ## İki sorun, iki çözüm
+
+![Aynı iki tabak yemeğe farklı tuz serpilince tamamen farklı desenler ortaya çıkıyor](../../gorseller/m08-02-c.webp)
 
 1. **Aynı parola → aynı hash.** Saldırgan hazır tablolarla ("rainbow table") milyonlarca yaygın parolayı anında eşler.
    → **Salt (tuz):** her kullanıcıya özel rastgele bir değer eklenir. Aynı parola bile farklı hash üretir.

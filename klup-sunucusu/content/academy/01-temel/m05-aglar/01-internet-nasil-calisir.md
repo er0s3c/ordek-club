@@ -7,11 +7,10 @@ hedefler:
   - Yerel ağ (LAN) ile geniş alan ağını (WAN) ayırt etmek
   - Modem, router, switch ve access point'in görevini açıklamak
 gorseller:
-  - id: m05-01-a
+  - id: m05-01-b
     tur: ai
-    karakter: nuri
-    alt: "Ev ağının kavşağı olarak çizilmiş router'ın altına sinmiş Dinleyici Nuri kabloya kulak veriyor"
-    prompt: "An isometric miniature neighborhood where tiny houses represent devices (phone, laptop, game console), connected by little streets to a central roundabout representing the router, with a glowing highway leading off to a distant city skyline. Underneath the roundabout, the villain crouches in a drain tunnel, tapping a cable with his headphones on."
+    alt: "Ağ cihazları şehir gibi: şehir kapısındaki modem, kavşakta trafik polisi router, apartman posta kutuları switch ve çatıdaki telsiz verici access point"
+    prompt: "A small noir city block at night explaining a home network: a big city gate at the edge where a cable from the outside world enters, a traffic officer standing at a central crossroads directing glowing envelope-shaped packets to the right streets, an apartment lobby with a wall of mailboxes where a postman sorts envelopes into the right boxes, and a rooftop radio mast broadcasting soft green waves to phones and laptops in the windows."
 ---
 
 # İnternet aslında nedir?
@@ -19,15 +18,15 @@ gorseller:
 > İnternet tek bir şey değil; **birbirine bağlanmış milyonlarca ağın** ortak adı.
 > Senin yurt odan da bunlardan biri.
 
-![Ev ağının kavşağı olarak çizilmiş router'ın altına sinmiş Dinleyici Nuri kabloya kulak veriyor](../../gorseller/m05-01-a.webp)
+::cizgi[m05-01-sahne]
 
 > 🕴️ **DOSYA: Dinleyici Nuri** · *Dinleyici*
 >
 > ![Dinleyici Nuri — Dinleyici](../../gorseller/karakter-nuri.webp)
 >
-> 📼 **Bölüm 5 — Fırındaki Kulak.** Kampüsün yanındaki fırın-kafede herkes bedava Wi-Fi'a bağlanıyor. Köşedeki kulaklıklı küçük adamı kimse fark etmiyor. Dinleyici Nuri trafiği dinliyor, adresleri taklit ediyor, araya giriyor.
->
 > **Tehdit:** Ortak Wi-Fi'de trafik dinleme, ARP/DNS sahteciliği, ortadaki adam. · [Gölge Ağ hikâyesi →](../../00-program/09-golge-ag.md)
+
+::cizgi[nuri-acilis]
 
 ## Küçük ağ, büyük ağ
 
@@ -35,6 +34,8 @@ gorseller:
 - **WAN** (geniş alan ağı) — Şehirler ve ülkeler arası bağlantılar. İnternet en büyük WAN'dır.
 
 ## Cihazlar ve görevleri
+
+![Ağ cihazları şehir gibi: şehir kapısındaki modem, kavşakta trafik polisi router, apartman posta kutuları switch ve çatıdaki telsiz verici access point](../../gorseller/m05-01-b.webp)
 
 | Cihaz | Benzetme | Görevi |
 |---|---|---|
