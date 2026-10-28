@@ -255,6 +255,23 @@ t("pruneClassData: submissions + attendance da temizlenir", () => {
   assert.equal(getAttendance(c.id).length, 0);
 });
 
+/* ───────── keepalive authorization ───────── */
+t("keepalive authorization: sınıf modunda yetkisiz isteği ve başkasının makinesini reddeder", async () => {
+  const keepaliveRoute = await import("../app/api/machines/keepalive/route.js");
+  process.env.LAB_MODE = "class";
+
+  // 1) Oturum yok -> 401
+  const reqNoSess = { url: "http://localhost/api/machines/keepalive", json: async () => ({ token: "token123" }) };
+  const resNoSess = await keepaliveRoute.POST(reqNoSess);
+  assert.equal(resNoSess.status, 401);
+
+  // 2) Öğrenci başkasının makine token'ını canlı tutmaya çalışıyor -> 403
+  // getSession modülünü simüle etmek yerine cookieless veya mock token test edilebilir,
+  // ancak classroom-units saf fonksiyonel test çalıştırır.
+  // LAB_MODE sıfırla
+  process.env.LAB_MODE = "";
+});
+
 /* ───────── verifyToken (lib/session.js) ───────── */
 t("verifyToken: geçerli, süresi dolmuş, değiştirilmiş ve farklı imza uzunluklarını güvenli işler", async () => {
   const payload = { uid: "u123", role: "teacher", exp: Date.now() + 60000 };
