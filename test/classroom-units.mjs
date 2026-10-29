@@ -6,6 +6,7 @@
 //          yardım isteği ekle/listele/çöz · markMessagesRead.
 // ============================================================================
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -23,6 +24,7 @@ const {
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
 const { verifyToken } = await import("../lib/session.js");
+const { signTarget, verifyTarget } = await import("../lib/target-cookie.js");
 
 function summarize(solved) {
   let total = 0, low = 0, medium = 0, high = 0;
@@ -253,6 +255,30 @@ t("pruneClassData: submissions + attendance da temizlenir", () => {
   pruneClassData(c.id, [u.id]);
   assert.equal(getSubmissions(c.id, a.id).length, 0);
   assert.equal(getAttendance(c.id).length, 0);
+});
+
+/* ───────── verifyTarget (lib/target-cookie.js) ───────── */
+t("verifyTarget: geçerli, süresi dolmuş, değiştirilmiş ve farklı imza uzunluklarını güvenli işler", () => {
+  const signed = signTarget("target-token-123", "vuln");
+  const target = verifyTarget(signed);
+  assert.equal(target.t, "target-token-123");
+  assert.equal(target.k, "vuln");
+
+  assert.equal(verifyTarget(null), null);
+  assert.equal(verifyTarget("invalidtarget"), null);
+
+  const dot = signed.indexOf(".");
+  const body = signed.slice(0, dot);
+  const sig = signed.slice(dot + 1);
+
+  assert.equal(verifyTarget(`${body}.wrongsignature`), null);
+  assert.equal(verifyTarget(`${body}.${sig}extra`), null);
+  assert.equal(verifyTarget(`${body}.${sig.slice(0, 10)}`), null);
+
+  const expBody = Buffer.from(JSON.stringify({ t: "target-token-123", k: "vuln", exp: Date.now() - 1000 })).toString("base64url");
+  const secret = process.env.LAB_SESSION_SECRET || "ordek-lab-dev-session-secret-change-me";
+  const expSig = crypto.createHmac("sha256", secret).update(expBody).digest().toString("base64url");
+  assert.equal(verifyTarget(`${expBody}.${expSig}`), null);
 });
 
 /* ───────── verifyToken (lib/session.js) ───────── */
