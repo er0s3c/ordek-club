@@ -16,26 +16,34 @@ const CORS = {
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", ...CORS } });
 
-function studentOf(req) {
-  if (process.env.LAB_MODE !== "class") return null;
-  const s = getSession(req);
-  return s && s.role === "student" ? s.userId : null;
-}
-
 export async function OPTIONS() {
   return new Response(null, { status: 204, headers: CORS });
 }
 
 export async function GET(req) {
-  const sid = studentOf(req);
-  return json(sid ? getUserProgress(sid) : getProgress());
+  if (process.env.LAB_MODE === "class") {
+    const sess = getSession(req);
+    if (!sess) return json({ error: "yetkisiz" }, 401);
+    if (sess.role === "student") return json(getUserProgress(sess.userId));
+  }
+  return json(getProgress());
 }
 
 export async function POST(req) {
   let body = {};
   try { body = await req.json(); } catch {}
-  const sid = studentOf(req);
-  if (body.reset) return json(sid ? resetUser(sid) : resetProgress());
-  if (body.slug) return json(sid ? markSolvedFor(sid, body.slug, body.level) : markSolved(body.slug, body.level));
+
+  if (process.env.LAB_MODE === "class") {
+    const sess = getSession(req);
+    if (!sess) return json({ error: "yetkisiz" }, 401);
+    if (sess.role !== "student") return json({ error: "yetkisiz" }, 403);
+    const sid = sess.userId;
+    if (body.reset) return json(resetUser(sid));
+    if (body.slug) return json(markSolvedFor(sid, body.slug, body.level));
+    return json({ error: "slug gerekli" }, 400);
+  }
+
+  if (body.reset) return json(resetProgress());
+  if (body.slug) return json(markSolved(body.slug, body.level));
   return json({ error: "slug gerekli" }, 400);
 }
