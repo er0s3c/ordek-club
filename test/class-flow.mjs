@@ -85,13 +85,17 @@ async function call(j, path, { method = "GET", body } = {}) {
   r2 = await call(jar(), "/api/teacher/overview");
   ok("anonim teacher API'den 403", r2.status === 403, "status=" + r2.status);
 
-  // Makine API yetki testleri (sınıf modu)
+  // Makine ve İlerleme API yetki testleri (sınıf modu)
   r2 = await call(jar(), "/api/machines");
   ok("anonim /api/machines reddedildi (401)", r2.status === 401, "status=" + r2.status);
   r2 = await call(jar(), "/api/machines/dummyid", { method: "POST", body: { action: "stop" } });
   ok("anonim /api/machines/[id] reddedildi (401)", r2.status === 401, "status=" + r2.status);
   r2 = await call(jar(), "/api/conncheck", { method: "POST", body: { action: "start" } });
   ok("anonim /api/conncheck reddedildi (401)", r2.status === 401, "status=" + r2.status);
+  r2 = await call(jar(), "/api/progress");
+  ok("anonim GET /api/progress reddedildi (401)", r2.status === 401, "status=" + r2.status);
+  r2 = await call(jar(), "/api/progress", { method: "POST", body: { reset: 1 } });
+  ok("anonim POST /api/progress reddedildi (401)", r2.status === 401, "status=" + r2.status);
 
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
