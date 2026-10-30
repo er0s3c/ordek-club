@@ -2,6 +2,8 @@
 * text=auto eol=lf
 *.sh text eol=lf
 *.mjs text eol=lf
+*.js text eol=lf diff=js
+lib/netinfo.js diff=js
 
 # İkili dosyalar
 *.png binary
@@ -9,3 +11,4 @@
 *.jpeg binary
 *.ico binary
 *.db binary
+*.js diff=js
