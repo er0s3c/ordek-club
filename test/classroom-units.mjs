@@ -23,6 +23,7 @@ const {
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
 const { verifyToken } = await import("../lib/session.js");
+const { logEvent, lastActivityMap, failCounts, queryEvents } = await import("../lib/events.js");
 
 function summarize(solved) {
   let total = 0, low = 0, medium = 0, high = 0;
@@ -278,6 +279,30 @@ t("verifyToken: geçerli, süresi dolmuş, değiştirilmiş ve farklı imza uzun
   const expBody = Buffer.from(JSON.stringify(expPayload)).toString("base64url");
   const expSig = cryptoModule.createHmac("sha256", secret).update(expBody).digest().toString("base64url");
   assert.equal(verifyToken(`${expBody}.${expSig}`), null);
+});
+
+/* ───────── lib/events.js (aktivite günlüğü & caching & early-exit) ───────── */
+t("events: logEvent + queryEvents + lastActivityMap + failCounts", () => {
+  logEvent({ userId: "u_alpha", type: "login" });
+  logEvent({ userId: "u_alpha", type: "flag_fail", slug: "sqli", level: "low" });
+  logEvent({ userId: "u_beta", type: "flag_ok", slug: "sqli", level: "low" });
+
+  const evts = queryEvents({ userIds: ["u_alpha"] });
+  assert.equal(evts.length, 2);
+  assert.equal(evts[0].type, "flag_fail"); // en yeni başta
+
+  const actMap = lastActivityMap(["u_alpha", "u_beta"]);
+  assert.ok(actMap.u_alpha > 0);
+  assert.ok(actMap.u_beta > 0);
+
+  const fails = failCounts(["u_alpha", "u_beta"]);
+  assert.equal(fails.u_alpha.fail, 1);
+  assert.equal(fails.u_beta.ok, 1);
+
+  // Cache invalidation: yeni log eklendiğinde cache güncellenmeli
+  logEvent({ userId: "u_gamma", type: "machine_start" });
+  const actMap2 = lastActivityMap(["u_gamma"]);
+  assert.ok(actMap2.u_gamma > 0);
 });
 
 // temizlik
