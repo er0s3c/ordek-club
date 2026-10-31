@@ -1,0 +1,3 @@
+## 2026-10-31 - Cache parsed JSONL events and exit early on teacher overview polling
+**Learning:** The teacher console polls `/api/teacher/overview` every 5 seconds, which called `lastActivityMap(ids)` and `failCounts(ids)` back-to-back. Each call invoked `readAll()`, causing `events.jsonl` to be read from disk and re-parsed (up to 2,000 JSON lines) twice per request. Furthermore, `lastActivityMap` scanned all remaining entries even after finding the latest timestamps for all students.
+**Action:** Use an in-memory parsed event cache keyed by file stat (`mtimeMs` and `size`) in `lib/events.js`, plus an early-break once `Object.keys(map).length === idSet.size` in `lastActivityMap`. This reduced 100 overview query iterations from ~370ms to ~15ms (~24x speedup).
