@@ -1,0 +1,3 @@
+## 2026-11-01 - Eliminate N+1 synchronous file reads in class-mode endpoints
+**Learning:** File-backed stores (`lib/progress.js`, `lib/accounts.js`) read synchronously from disk (`fs.readFileSync`) with JSON parsing on each helper call. Iterating through a class roster and invoking `getUserProgress(id)` induces an $O(N)$ synchronous disk I/O bottleneck on frequently polled routes (like `/api/leaderboard` which is polled every 5s).
+**Action:** When aggregating records across users in classroom mode, batch-read the underlying JSON data using collection-level accessors (`getAllUserProgress()`) outside loops to perform in-memory lookups in $O(1)$ disk reads.

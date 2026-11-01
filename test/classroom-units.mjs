@@ -23,6 +23,7 @@ const {
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
 const { verifyToken } = await import("../lib/session.js");
+const { markSolvedFor, getUserProgress, getAllUserProgress } = await import("../lib/progress.js");
 
 function summarize(solved) {
   let total = 0, low = 0, medium = 0, high = 0;
@@ -44,6 +45,28 @@ function t(name, fn) {
 const cls = createClass({ name: "Test Sınıfı", teacherId: "t_test" });
 const s1 = createUser({ role: "student", username: "stud1", password: "1234", classId: cls.id });
 const s2 = createUser({ role: "student", username: "stud2", password: "1234", classId: cls.id });
+
+/* ───────── progress batching for leaderboard & overview (Bolt) ───────── */
+t("progress batching: getAllUserProgress matches getUserProgress without N+1 reads", () => {
+  markSolvedFor(s1.id, "sql-injection", "low");
+  markSolvedFor(s1.id, "sql-injection", "medium");
+  markSolvedFor(s2.id, "xss-reflected", "low");
+
+  const single1 = getUserProgress(s1.id).solved;
+  const single2 = getUserProgress(s2.id).solved;
+
+  const all = getAllUserProgress();
+  const batch1 = all[s1.id] || {};
+  const batch2 = all[s2.id] || {};
+
+  assert.deepEqual(batch1, single1);
+  assert.deepEqual(batch2, single2);
+
+  const count1 = Object.values(batch1).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
+  const count2 = Object.values(batch2).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
+  assert.equal(count1, 2);
+  assert.equal(count2, 1);
+});
 
 /* ───────── summarize (teacher overview) ───────── */
 t("summarize: handles valid, empty, null, and malformed progress safely", () => {
