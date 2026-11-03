@@ -1,0 +1,3 @@
+## 2026-03-30 - Batch Loading File-Backed Progress in Aggregation Loops
+**Learning:** `lib/progress.js` is a file-backed JSON store where `getUserProgress(id)` triggers a full synchronous file read (`fs.readFileSync`) and JSON deserialization every invocation. When aggregating student metrics (e.g. in `/api/leaderboard`), calling `getUserProgress` inside `.map()` creates an $O(N)$ synchronous disk I/O bottleneck. `getAllUserProgress()` loads and parses the progress file once in $O(1)$.
+**Action:** When computing class-wide or teacher-wide student metrics, always call `getAllUserProgress()` outside the iteration and perform in-memory dictionary lookups `allProgress[id]`.
