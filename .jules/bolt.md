@@ -1,0 +1,3 @@
+## 2025-05-18 - Avoid synchronous file-backed reads inside loops
+**Learning:** File-backed storage modules like `lib/progress.js` execute synchronous `fs.readFileSync` and `JSON.parse` operations on every call to `getUserProgress(id)`. When generating leaderboard or summary data across many students, calling `getUserProgress` within a `.map()` or `.forEach()` loop causes an N+1 synchronous disk read bottleneck that scales linearly with student count.
+**Action:** In API endpoints processing multiple users, always batch-read the file store once outside the loop using `getAllUserProgress()` and perform O(1) in-memory lookups.
