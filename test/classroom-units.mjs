@@ -23,6 +23,7 @@ const {
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
 const { verifyToken } = await import("../lib/session.js");
+const { getUserProgress, getAllUserProgress, markSolvedFor } = await import("../lib/progress.js");
 
 function summarize(solved) {
   let total = 0, low = 0, medium = 0, high = 0;
@@ -44,6 +45,29 @@ function t(name, fn) {
 const cls = createClass({ name: "Test Sınıfı", teacherId: "t_test" });
 const s1 = createUser({ role: "student", username: "stud1", password: "1234", classId: cls.id });
 const s2 = createUser({ role: "student", username: "stud2", password: "1234", classId: cls.id });
+
+/* ───────── leaderboard batch progress (skor tablosu optimizasyonu) ───────── */
+t("leaderboard: batch getAllUserProgress matches per-user getUserProgress counts", () => {
+  markSolvedFor(s1.id, "sqli", "low");
+  markSolvedFor(s1.id, "sqli", "medium");
+  markSolvedFor(s2.id, "xss", "low");
+
+  const all = getAllUserProgress();
+  const students = [s1, s2];
+
+  const batchCounts = students.map((s) => {
+    const solved = (all && all[s.id]) || {};
+    return Object.values(solved).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
+  });
+
+  const individualCounts = students.map((s) => {
+    const solved = getUserProgress(s.id).solved;
+    return Object.values(solved).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
+  });
+
+  assert.deepEqual(batchCounts, [2, 1]);
+  assert.deepEqual(batchCounts, individualCounts);
+});
 
 /* ───────── summarize (teacher overview) ───────── */
 t("summarize: handles valid, empty, null, and malformed progress safely", () => {
