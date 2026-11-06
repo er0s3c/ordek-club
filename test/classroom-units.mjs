@@ -280,6 +280,22 @@ t("verifyToken: geçerli, süresi dolmuş, değiştirilmiş ve farklı imza uzun
   assert.equal(verifyToken(`${expBody}.${expSig}`), null);
 });
 
+/* ───────── /api/machines/ready yetkilendirme & IDOR kontrolleri ───────── */
+t("/api/machines/ready: sınıf modunda anonim istekleri 401 ile reddeder", async () => {
+  const readyRoute = await import("../app/api/machines/ready/route.js");
+  const prevMode = process.env.LAB_MODE;
+  process.env.LAB_MODE = "class";
+  try {
+    const req = new Request("http://localhost:3000/api/machines/ready?token=abcdef123456");
+    const res = await readyRoute.GET(req);
+    assert.equal(res.status, 401);
+    const body = await res.json();
+    assert.equal(body.error, "yetkisiz");
+  } finally {
+    process.env.LAB_MODE = prevMode;
+  }
+});
+
 // temizlik
 try { fs.rmSync(tmp, { recursive: true, force: true }); } catch {}
 
