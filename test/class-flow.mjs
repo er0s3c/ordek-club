@@ -92,6 +92,8 @@ async function call(j, path, { method = "GET", body } = {}) {
   ok("anonim /api/machines/[id] reddedildi (401)", r2.status === 401, "status=" + r2.status);
   r2 = await call(jar(), "/api/conncheck", { method: "POST", body: { action: "start" } });
   ok("anonim /api/conncheck reddedildi (401)", r2.status === 401, "status=" + r2.status);
+  r2 = await call(jar(), "/api/machines/ready?token=abcdef123456");
+  ok("anonim /api/machines/ready reddedildi (401)", r2.status === 401, "status=" + r2.status);
 
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
