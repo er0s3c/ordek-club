@@ -2,7 +2,7 @@
 // Flag sayısına göre sıralı (rankStudents). ⚠ FLAG/secret YOK — yalnız sayılar + adlar.
 import { getSession } from "@/lib/session";
 import { getUserById, studentsOfClass, studentsOfTeacher } from "@/lib/accounts";
-import { getUserProgress } from "@/lib/progress";
+import { getAllUserProgress } from "@/lib/progress";
 import { rankStudents } from "@/app/labLogic";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +15,13 @@ export async function GET(req) {
   if (!me) return Response.json({ error: "yetkisiz" }, { status: 403 });
 
   const students = me.role === "teacher" ? studentsOfTeacher(me.id) : (me.classId ? studentsOfClass(me.classId) : []);
+
+  // Performance optimization: Batch load progress data once instead of calling getUserProgress(s.id)
+  // in a loop, avoiding N synchronous fs.readFileSync calls on data/progress.json (O(N) -> O(1) disk I/O).
+  const allProgress = getAllUserProgress() || {};
+
   const rows = students.map((s) => {
-    const solved = getUserProgress(s.id).solved;
+    const solved = (allProgress[s.id] && typeof allProgress[s.id] === "object") ? allProgress[s.id] : {};
     const count = Object.values(solved).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
     return { id: s.id, name: s.displayName || s.username, count, classId: s.classId };
   });
