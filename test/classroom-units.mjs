@@ -23,6 +23,7 @@ const {
 } = await import("../lib/classroom.js");
 const { createUser, createClass } = await import("../lib/accounts.js");
 const { verifyToken } = await import("../lib/session.js");
+const { markSolvedFor, getAllUserProgress } = await import("../lib/progress.js");
 
 function summarize(solved) {
   let total = 0, low = 0, medium = 0, high = 0;
@@ -44,6 +45,22 @@ function t(name, fn) {
 const cls = createClass({ name: "Test Sınıfı", teacherId: "t_test" });
 const s1 = createUser({ role: "student", username: "stud1", password: "1234", classId: cls.id });
 const s2 = createUser({ role: "student", username: "stud2", password: "1234", classId: cls.id });
+
+/* ───────── leaderboard batch progress loading ───────── */
+t("leaderboard: batch progress lookup matches student solved counts", () => {
+  markSolvedFor(s1.id, "xss-reflected", "low");
+  markSolvedFor(s1.id, "xss-reflected", "medium");
+  markSolvedFor(s2.id, "sqli-login", "low");
+
+  const allProgress = getAllUserProgress();
+  const s1Solved = (allProgress && allProgress[s1.id]) || {};
+  const s2Solved = (allProgress && allProgress[s2.id]) || {};
+  const s1Count = Object.values(s1Solved).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
+  const s2Count = Object.values(s2Solved).reduce((a, ls) => a + (Array.isArray(ls) ? ls.length : 0), 0);
+
+  assert.equal(s1Count, 2);
+  assert.equal(s2Count, 1);
+});
 
 /* ───────── summarize (teacher overview) ───────── */
 t("summarize: handles valid, empty, null, and malformed progress safely", () => {

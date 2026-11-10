@@ -1,0 +1,3 @@
+## 2026-11-10 - Batch Progress Loading in File-Backed Stores
+**Learning:** In file-backed stores like `lib/progress.js`, helper functions like `getUserProgress(id)` perform synchronous disk I/O (`fs.readFileSync`) and JSON parsing on each invocation. Calling `getUserProgress` in iterative endpoints like `/api/leaderboard` causes an O(N) disk I/O bottleneck where N reads/parses block the event loop for a single request.
+**Action:** Always batch-load state outside loops using `getAllUserProgress()` (or file-wide readers) and perform in-memory lookups instead of invoking single-user readers per iteration.
